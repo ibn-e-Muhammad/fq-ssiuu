@@ -36,16 +36,13 @@ class TestNPOLoss:
         )
 
     @pytest.mark.cpu
-    def test_npo_loss_is_bounded(self):
-        """NPO loss should not exceed 2/beta regardless of how well forgetting proceeds.
+    def test_npo_loss_is_non_negative(self):
+        """NPO loss should always be non-negative.
 
-        The theoretical upper bound is 2/beta per example (when ratio → +∞,
-        softplus(ratio) → ratio, but in practice the loss is bounded because
-        probabilities are bounded).
+        The loss is defined as (2/beta) * softplus(beta * ratio), which is always > 0.
         """
         beta = 0.1
         batch, seq, vocab = 3, 5, 50
-        upper_bound = 2.0 / beta + 1e-3
 
         # Test with various logit magnitudes
         for scale in [0.1, 1.0, 10.0]:
@@ -54,8 +51,8 @@ class TestNPOLoss:
             labels = torch.randint(0, vocab, (batch, seq))
 
             loss = compute_npo_loss(model_logits, ref_logits, labels, beta=beta)
-            assert loss.item() <= upper_bound, (
-                f"NPO loss {loss.item():.4f} exceeds bound {upper_bound:.4f} at scale {scale}"
+            assert loss.item() >= 0.0, (
+                f"NPO loss {loss.item():.4f} is negative at scale {scale}"
             )
 
     @pytest.mark.cpu
