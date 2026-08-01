@@ -1,0 +1,23 @@
+# configs/conditions/c4_ssiuu.yaml
+# Condition C4: SSIUU + NPO (ablation — no FQ-QAT)
+# Tests attribution regularisation contribution in isolation.
+# Reference: Yang et al. 2025, arXiv:2509.22263
+
+defaults:
+  - base
+  - c2_npo
+
+condition:
+  id: "c4_ssiuu"
+  name: "SSIUU + NPO"
+  description: "NPO with SSIUU attribution regularisation. No FQ-QAT. Ablation for attribution component."
+
+ssiuu:
+  enabled: true
+  lambda_attr: 1.0  # Default from SSIUU paper; ablate over [0.1, 0.5, 1.0, 5.0]
+  target_layer_idx: 14  # Layer 14 of 28 for Llama-3.2-1B; confirm via layer sweep
+  n_ig_steps: 20  # Integrated Gradients approximation steps (20 = fast; 50 = accurate)
+  attribution_batch_size: 1  # Memory constraint: 1 sample at a time on 16 GB VRAM
+
+fq_qat:
+  enabled: false

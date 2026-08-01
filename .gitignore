@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+pip-wheel-metadata/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Model weights and large files — NEVER commit these
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.gguf
+*.ggml
+
+# Dataset files — stored in Google Drive
+data/processed/
+*.jsonl
+*.parquet
+*.arrow
+
+# Experiment outputs — stored in Google Drive
+results/**/*.json
+results/**/*.csv
+results/**/*.log
+certificates/
+
+# Checkpoints — stored in Google Drive
+checkpoints/**
+!checkpoints/README.md
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Environment files
+.env
+.env.local
+*.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Coverage and testing artifacts
+.coverage
+htmlcov/
+.pytest_cache/
+.ruff_cache/
+
+# Temporary files
+*.tmp
+*.bak
+temp/
+tmp/

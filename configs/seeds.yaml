@@ -1,0 +1,8 @@
+# configs/seeds.yaml
+# Seed registry. All seeds are fixed and must be used consistently.
+# Changing seeds after experiments begin requires a new Decision Log entry.
+
+seeds:
+  pilot: 42           # Single seed for all pilot experiments
+  full: [42, 123, 456]  # Three seeds for all full experiments
+  primary_condition: 5  # C6 (FQ-SSIUU) uses 5 seeds per EVB statistician review

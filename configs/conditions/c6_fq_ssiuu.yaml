@@ -1,0 +1,28 @@
+# configs/conditions/c6_fq_ssiuu.yaml
+# Condition C6: FQ-SSIUU Full Method (PRIMARY CONTRIBUTION)
+# NPO + SSIUU attribution regularisation + FQ-QAT with STE.
+
+defaults:
+  - base
+  - c4_ssiuu
+  - c5_fqat
+
+condition:
+  id: "c6_fq_ssiuu"
+  name: "FQ-SSIUU (Full Method)"
+  description: "The primary contribution: NPO + SSIUU regularisation + FQ-QAT. All three components active."
+
+npo:
+  beta: 0.1
+
+ssiuu:
+  enabled: true
+  lambda_attr: 1.0
+
+fq_qat:
+  enabled: true
+  nf4_scale: 8.4e-4
+
+lambda_sweep:
+  enabled: false  # Set true for Pareto frontier experiments
+  values: [0.2, 0.4, 0.6, 0.8, 1.0]
