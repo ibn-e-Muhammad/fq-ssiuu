@@ -71,3 +71,6 @@ htmlcov/
 *.bak
 temp/
 tmp/
+
+# uv lock file (local Python environment)
+uv.lock
