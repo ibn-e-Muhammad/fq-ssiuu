@@ -158,6 +158,7 @@ def load_base_model(config: Optional[ModelConfig] = None):
         torch_dtype=model_dtype,
         device_map=config.device_map,
         token=token,
+        attn_implementation="sdpa",
     )
 
     # Log memory usage for VRAM budget tracking
@@ -207,6 +208,7 @@ def load_model_bf16(model_id: str, token: Optional[str] = None):
         torch_dtype=torch.bfloat16,
         device_map="auto",
         token=token,
+        attn_implementation="sdpa",
     )
 
     n_params = sum(p.numel() for p in model.parameters())
@@ -345,6 +347,7 @@ def merge_adapter(peft_model_path: str, base_model_id: str, token: Optional[str]
         torch_dtype=torch.bfloat16,
         device_map="auto",
         token=token,
+        attn_implementation="sdpa",
     )
 
     logger.info("Loading PEFT adapter from '%s'...", peft_model_path)
