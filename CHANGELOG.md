@@ -39,3 +39,11 @@
 - GATE-1: OpenUnlearning baseline reproduction
 - Pilot P1–P4: pilot experiments
 - All experimental conditions C2–C8
+
+## [Unreleased — GATE-1]
+
+### In Progress
+- OpenUnlearning fork integrated into fq-ssiuu-integration branch
+- NPO baseline training on Llama-3.2-1B-Instruct TOFU forget05
+- Training on single Colab T4 with adapted batch size (per_device=1, grad_accum=32)
+- Target: FQ=0.14 ±0.05, MU=0.45 ±0.05
