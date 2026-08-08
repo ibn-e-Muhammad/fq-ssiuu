@@ -209,7 +209,7 @@ def run_evaluation(model, tokenizer, cfg, output_dir):
 
     results = {}
     for name, evaluator in evaluators.items():
-        logger.info("Running evaluator: %s", name)
+        print(f"Running evaluator: {name}", flush=True)
         # Call evaluate with explicit output_dir to control where files are saved
         summary = evaluator.evaluate(
             model=model,
@@ -219,7 +219,7 @@ def run_evaluation(model, tokenizer, cfg, output_dir):
             template_args=cfg.model.template_args,
         )
         results[name] = summary
-        logger.info("Evaluator %s complete. Summary: %s", name, summary)
+        print(f"Evaluator {name} complete. Summary: {summary}", flush=True)
 
     return results
 
@@ -235,7 +235,7 @@ def main():
     ou_src = os.path.join(args.open_unlearning_path, "src")
     if ou_src not in sys.path:
         sys.path.insert(0, ou_src)
-    logger.info("Added to PYTHONPATH: %s", ou_src)
+    print(f"Added to PYTHONPATH: {ou_src}", flush=True)
 
     # Validate retain_logs_path
     retain_logs_abs = os.path.join(args.open_unlearning_path, args.retain_logs_path)
@@ -245,7 +245,7 @@ def main():
             f"Run 'python setup_data.py --eval_logs' in the open-unlearning root first.\n"
             f"This file is REQUIRED for forget_quality computation."
         )
-    logger.info("Retain logs validated: %s", retain_logs_abs)
+    print(f"Retain logs validated: {retain_logs_abs}", flush=True)
 
     # Validate checkpoint
     ckpt_safetensors = os.path.join(args.checkpoint_path, "model.safetensors")
@@ -254,13 +254,13 @@ def main():
             f"Checkpoint model.safetensors not found at: {ckpt_safetensors}"
         )
 
-    logger.info("=" * 60)
-    logger.info("EVALUATION AT %s PRECISION", args.precision.upper())
-    logger.info("  Checkpoint: %s", args.checkpoint_path)
-    logger.info("  Forget split: %s", args.forget_split)
-    logger.info("  Retain logs: %s", args.retain_logs_path)
-    logger.info("  Output dir: %s", args.output_dir)
-    logger.info("=" * 60)
+    print("=" * 60, flush=True)
+    print(f"EVALUATION AT {args.precision.upper()} PRECISION", flush=True)
+    print(f"  Checkpoint: {args.checkpoint_path}", flush=True)
+    print(f"  Forget split: {args.forget_split}", flush=True)
+    print(f"  Retain logs: {args.retain_logs_path}", flush=True)
+    print(f"  Output dir: {args.output_dir}", flush=True)
+    print("=" * 60, flush=True)
 
     t0 = time.time()
 
@@ -271,7 +271,7 @@ def main():
     # We need to chdir to open-unlearning for relative paths in the config to resolve
     original_cwd = os.getcwd()
     os.chdir(args.open_unlearning_path)
-    logger.info("Changed CWD to: %s", os.getcwd())
+    print(f"Changed CWD to: {os.getcwd()}", flush=True)
 
     cfg = build_eval_config(
         args.open_unlearning_path,
@@ -307,12 +307,13 @@ def main():
     if os.path.exists(summary_path):
         with open(summary_path) as f:
             summary = json.load(f)
-        logger.info("=" * 60)
-        logger.info("RESULTS AT %s:", args.precision.upper())
+        print("=" * 60, flush=True)
+        print(f"RESULTS AT {args.precision.upper()}:", flush=True)
         for k, v in sorted(summary.items()):
-            logger.info("  %s: %s", k, f"{v:.6f}" if isinstance(v, float) else v)
-        logger.info("Evaluation time: %.1f seconds", elapsed)
-        logger.info("=" * 60)
+            val_str = f"{v:.6f}" if isinstance(v, float) else v
+            print(f"  {k}: {val_str}", flush=True)
+        print(f"Evaluation time: {elapsed:.1f} seconds", flush=True)
+        print("=" * 60, flush=True)
 
         # Write a machine-readable result marker
         marker = {
@@ -324,10 +325,10 @@ def main():
         marker_path = os.path.join(args.output_dir, f"_result_{args.precision}.json")
         with open(marker_path, "w") as f:
             json.dump(marker, f, indent=2)
-        logger.info("Result marker saved to: %s", marker_path)
+        print(f"Result marker saved to: {marker_path}", flush=True)
     else:
-        logger.error("TOFU_SUMMARY.json not found at %s!", summary_path)
-        logger.error("Evaluation may have failed. Check output above.")
+        print(f"ERROR: TOFU_SUMMARY.json not found at {summary_path}!", flush=True)
+        print("ERROR: Evaluation may have failed. Check output above.", flush=True)
         sys.exit(1)
 
     # Clean up GPU
@@ -337,7 +338,7 @@ def main():
         torch.cuda.empty_cache()
         torch.cuda.synchronize()
 
-    logger.info("Evaluation at %s complete.", args.precision.upper())
+    print(f"Evaluation at {args.precision.upper()} complete.", flush=True)
 
 
 if __name__ == "__main__":

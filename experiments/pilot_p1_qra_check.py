@@ -169,7 +169,7 @@ def download_retain_logs(open_unlearning_path: str) -> str:
 
     if not os.path.exists(retain_logs):
         # Last resort: direct HF download
-        logger.info("Downloading retain logs directly from HuggingFace...")
+        print("Downloading retain logs directly from HuggingFace...", flush=True)
         from huggingface_hub import snapshot_download
         snapshot_download(
             repo_id="open-unlearning/eval",
@@ -182,7 +182,7 @@ def download_retain_logs(open_unlearning_path: str) -> str:
         f"FATAL: Retain logs not found at {retain_logs} after all attempts.\n"
         f"Without retain logs, forget_quality will be None."
     )
-    logger.info("Retain logs ready: %s", retain_logs)
+    print(f"Retain logs ready: {retain_logs}", flush=True)
     return retain_logs
 
 
@@ -309,9 +309,9 @@ def main():
 
     if args.skip_bf16:
         # Use known GATE-1 value for BF16 — save ~5 minutes
-        logger.info("Skipping BF16 eval (using GATE-1 known value: FQ=%.4f)", GATE1_FQ_BASELINE)
+        print(f"Skipping BF16 eval (using GATE-1 known value: FQ={GATE1_FQ_BASELINE:.4f})", flush=True)
         # We'll still run through the pipeline but inform the user
-        logger.info("NOTE: BF16 value is from GATE-1 evaluation, not re-measured.")
+        print("NOTE: BF16 value is from GATE-1 evaluation, not re-measured.", flush=True)
 
     t0 = time.time()
     qra_result = run_qra_evaluation(config, condition_id="P1_QRA_1B")
@@ -327,7 +327,7 @@ def main():
     os.makedirs(args.drive_output, exist_ok=True)
     drive_result = os.path.join(args.drive_output, "pilot_p1_results.json")
     shutil.copy(result_path, drive_result)
-    logger.info("Results saved to: %s", drive_result)
+    print(f"Results saved to: {drive_result}", flush=True)
 
     # ── Step 5: Print verdict ────────────────────────────────────
     # Re-load from JSON for clean formatting
