@@ -144,19 +144,7 @@ def run_ig_test(model, tokenizer, examples):
     torch.cuda.reset_peak_memory_stats()
     vram_before_current, _ = measure_vram()
 
-    # Define forward function for captum
-    # LayerIntegratedGradients needs a function that takes inputs and returns a scalar
-    def forward_func(input_ids):
-        outputs = model(input_ids=input_ids, attention_mask=attention_mask)
-        # Sum log-probs of the target tokens (shifted by 1)
-        logits = outputs.logits[:, :-1, :]
-        target_ids = input_ids[:, 1:]
-        log_probs = torch.nn.functional.log_softmax(logits, dim=-1)
-        target_log_probs = log_probs.gather(2, target_ids.unsqueeze(-1)).squeeze(-1)
-        return target_log_probs.sum()
 
-    # Create LayerIntegratedGradients
-    lig = captum.attr.LayerIntegratedGradients(forward_func, target_layer)
 
     logger.info("VRAM before IG: %.2f GB", vram_before_current)
     logger.info("Starting IG computation (n_steps=%d, batch_size=%d)...", IG_N_STEPS, IG_BATCH_SIZE)
@@ -181,7 +169,8 @@ def run_ig_test(model, tokenizer, examples):
             target_ids = input_ids[:, 1:]
             log_probs = torch.nn.functional.log_softmax(logits, dim=-1)
             target_log_probs = log_probs.gather(2, target_ids.unsqueeze(-1)).squeeze(-1)
-            return target_log_probs.sum()
+            # Sum over the sequence dimension (dim=1) to keep the batch dimension
+            return target_log_probs.sum(dim=1)
 
         lig_embed = captum.attr.LayerIntegratedGradients(embed_forward_func, target_layer)
 
