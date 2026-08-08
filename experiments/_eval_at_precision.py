@@ -98,6 +98,18 @@ def load_model_at_precision(checkpoint_path, precision):
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
+    # Clear huggingface datasets locks to prevent deadlock
+    cache_dir = os.path.expanduser("~/.cache/huggingface/datasets")
+    if os.path.exists(cache_dir):
+        print("Clearing huggingface datasets dangling locks...", flush=True)
+        import glob
+        import shutil
+        for lock_file in glob.glob(os.path.join(cache_dir, "**/*.lock"), recursive=True):
+            try:
+                os.remove(lock_file)
+            except OSError:
+                pass
+
     load_kwargs = {
         "pretrained_model_name_or_path": checkpoint_path,
         "attn_implementation": "sdpa",
@@ -106,16 +118,16 @@ def load_model_at_precision(checkpoint_path, precision):
     }
 
     if precision == "fp16":
-        logger.info("Loading at FP16 (baseline precision)...")
+        print("Loading at FP16 (baseline precision)...", flush=True)
     elif precision == "int8":
         from transformers import BitsAndBytesConfig
 
-        logger.info("Loading at INT8 (bitsandbytes 8-bit)...")
+        print("Loading at INT8 (bitsandbytes 8-bit)...", flush=True)
         load_kwargs["quantization_config"] = BitsAndBytesConfig(load_in_8bit=True)
     elif precision == "nf4":
         from transformers import BitsAndBytesConfig
 
-        logger.info("Loading at NF4 (bitsandbytes 4-bit NormalFloat)...")
+        print("Loading at NF4 (bitsandbytes 4-bit NormalFloat)...", flush=True)
         load_kwargs["quantization_config"] = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_quant_type="nf4",
@@ -124,19 +136,20 @@ def load_model_at_precision(checkpoint_path, precision):
     else:
         raise ValueError(f"Unknown precision: {precision}")
 
+    print(f"Loading model with kwargs: {load_kwargs}", flush=True)
     model = AutoModelForCausalLM.from_pretrained(**load_kwargs)
     tokenizer = AutoTokenizer.from_pretrained(checkpoint_path)
 
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
-        logger.info("Set pad_token to eos_token: %s", tokenizer.pad_token)
+        print(f"Set pad_token to eos_token: {tokenizer.pad_token}", flush=True)
 
     param_count = sum(p.numel() for p in model.parameters())
-    logger.info("Model loaded: %.1fM parameters", param_count / 1e6)
+    print(f"Model loaded: {param_count / 1e6:.1f}M parameters", flush=True)
 
     if torch.cuda.is_available():
         vram_gb = torch.cuda.max_memory_allocated() / (1024**3)
-        logger.info("VRAM after model load: %.2f GB", vram_gb)
+        print(f"VRAM after model load: {vram_gb:.2f} GB", flush=True)
 
     return model, tokenizer
 

@@ -193,7 +193,7 @@ def evaluate_at_precision(config: QRAConfig, precision: str) -> PrecisionResult:
     os.makedirs(output_dir, exist_ok=True)
 
     eval_script = _find_eval_script()
-    logger.info("Using eval helper: %s", eval_script)
+    print(f"Using eval helper: {eval_script}", flush=True)
 
     # Build subprocess command
     cmd = [
@@ -209,8 +209,8 @@ def evaluate_at_precision(config: QRAConfig, precision: str) -> PrecisionResult:
         "--seed", str(config.seed),
     ]
 
-    logger.info("Running evaluation at %s precision...", precision.upper())
-    logger.info("Command: %s", " ".join(cmd))
+    print(f"\n--- Running evaluation at {precision.upper()} precision ---", flush=True)
+    print(f"Command: {' '.join(cmd)}", flush=True)
 
     # Run subprocess and let it print directly to stdout/stderr
     env = os.environ.copy()
