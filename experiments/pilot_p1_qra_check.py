@@ -114,8 +114,17 @@ def download_checkpoint(hf_token: str, local_dir: str) -> str:
         logger.info("Checkpoint already present at %s (%.2f GB)", local_dir, size_gb)
         return local_dir
 
-    logger.info("Downloading checkpoint from %s...", HF_CHECKPOINT)
+    print(f"Downloading checkpoint from {HF_CHECKPOINT}...", flush=True)
     os.makedirs(local_dir, exist_ok=True)
+
+    # Clear HF Hub locks to prevent deadlocks from previously interrupted runs
+    cache_dir = os.path.expanduser("~/.cache/huggingface/hub")
+    repo_cache = os.path.join(cache_dir, f"models--{HF_CHECKPOINT.replace('/', '--')}")
+    locks_dir = os.path.join(repo_cache, ".locks")
+    if os.path.exists(locks_dir):
+        print(f"Clearing dangling locks in {locks_dir}...", flush=True)
+        import shutil
+        shutil.rmtree(locks_dir, ignore_errors=True)
 
     from huggingface_hub import snapshot_download
     snapshot_download(
