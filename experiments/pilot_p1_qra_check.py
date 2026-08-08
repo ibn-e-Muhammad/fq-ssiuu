@@ -111,7 +111,7 @@ def download_checkpoint(hf_token: str, local_dir: str) -> str:
     safetensors_path = os.path.join(local_dir, "model.safetensors")
     if os.path.exists(safetensors_path):
         size_gb = os.path.getsize(safetensors_path) / (1024**3)
-        logger.info("Checkpoint already present at %s (%.2f GB)", local_dir, size_gb)
+        print(f"Checkpoint already present at {local_dir} ({size_gb:.2f} GB)", flush=True)
         return local_dir
 
     print(f"Downloading checkpoint from {HF_CHECKPOINT}...", flush=True)
@@ -137,7 +137,7 @@ def download_checkpoint(hf_token: str, local_dir: str) -> str:
         f"Download failed: model.safetensors not found at {safetensors_path}"
     )
     size_gb = os.path.getsize(safetensors_path) / (1024**3)
-    logger.info("Checkpoint downloaded: %.2f GB", size_gb)
+    print(f"Checkpoint downloaded: {size_gb:.2f} GB", flush=True)
     return local_dir
 
 
@@ -149,23 +149,21 @@ def download_retain_logs(open_unlearning_path: str) -> str:
     )
 
     if os.path.exists(retain_logs):
-        logger.info("Retain logs found: %s", retain_logs)
+        print(f"Retain logs found: {retain_logs}", flush=True)
         return retain_logs
 
-    logger.info("Retain logs not found. Running setup_data.py --eval_logs...")
+    print("Retain logs not found. Running setup_data.py --eval_logs...", flush=True)
     import subprocess
     result = subprocess.run(
         [sys.executable, "setup_data.py", "--eval_logs"],
         cwd=open_unlearning_path,
-        capture_output=True,
-        text=True,
     )
+
     if result.returncode != 0:
         # Fallback: try --eval
         result = subprocess.run(
             [sys.executable, "setup_data.py", "--eval"],
             cwd=open_unlearning_path,
-            capture_output=True,
             text=True,
         )
 
@@ -279,7 +277,7 @@ def main():
     print("\n=== Step 1: Preparing Checkpoint ===", flush=True)
     if args.checkpoint_path and os.path.exists(args.checkpoint_path):
         ckpt_path = args.checkpoint_path
-        logger.info("Using provided checkpoint: %s", ckpt_path)
+        print(f"Using provided checkpoint: {ckpt_path}", flush=True)
     else:
         ckpt_path = "/tmp/qra_checkpoint"
         download_checkpoint(hf_token, ckpt_path)
