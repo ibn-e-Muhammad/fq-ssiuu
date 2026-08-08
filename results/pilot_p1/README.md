@@ -16,17 +16,19 @@ at 1B parameter scale using bitsandbytes NF4 quantisation.
 
 | Precision | FQ | MU | Timestamp |
 |-----------|----|----|----------|
-| FP16 (baseline) | 0.3937 | 0.5545 | 2026-08-08 (GATE-1) |
-| INT8 | PENDING | PENDING | — |
-| INT4 (NF4) | PENDING | PENDING | — |
+| FP16 (baseline) | 0.393718 | 0.554501 | 2026-08-08 18:05:35 |
+| INT8 | 0.225985 | 0.548289 | 2026-08-08 18:10:59 |
+| INT4 (NF4) | 0.478330 | 0.509014 | 2026-08-08 18:16:02 |
 
 ## QRA Score
 
-**Q-INT4** = |FQ_INT4 - FQ_BF16| / (FQ_BF16 + ε) = **PENDING**
+**Q-INT8** = \|FQ_INT8 - FQ_FP16\| / FQ_FP16 = **0.426023**
+
+**Q-INT4** = \|FQ_NF4 - FQ_FP16\| / FQ_FP16 = **0.214906**
 
 ## Verdict
 
-**PENDING** — awaiting Kaggle execution.
+**PASS** — QRA is confirmed at the 1B scale!
 
 | Q-INT4 Range | Verdict | Action |
 |-------------|---------|--------|
