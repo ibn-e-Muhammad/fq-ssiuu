@@ -170,12 +170,25 @@ def build_eval_config(open_unlearning_path, forget_split, holdout_split,
     return cfg
 
 
+def disable_use_cache(d):
+    from omegaconf import DictConfig
+    for k, v in d.items():
+        if isinstance(v, DictConfig):
+            if k == "generation_args" and "use_cache" in v:
+                v.use_cache = False
+            else:
+                disable_use_cache(v)
+
 def run_evaluation(model, tokenizer, cfg, output_dir):
     """Run the TOFU evaluator on a pre-loaded model."""
     from evals import get_evaluators
     from omegaconf import open_dict
 
     os.makedirs(output_dir, exist_ok=True)
+
+    # Disable use_cache globally to prevent bitsandbytes generation hangs
+    with open_dict(cfg):
+        disable_use_cache(cfg)
 
     # Get evaluators from config
     eval_cfgs = cfg.eval
