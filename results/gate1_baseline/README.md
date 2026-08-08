@@ -1864,3 +1864,5 @@ Could not estimate the number of tokens of the input, floating-point operations 
 100%|███████████████████████████████████████████| 60/60 [11:50<00:00, 11.84s/it]
 [2026-08-05 06:41:58,128][trainer.base][WARNING] - Custom evaluator can be run with this Trainer only when a single accelerator process is running.
 [rank0]:[W805 06:41:59.200938451 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+
+## Kaggle Run 2:

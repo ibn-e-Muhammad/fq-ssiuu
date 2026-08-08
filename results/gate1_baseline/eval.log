@@ -1,0 +1,45 @@
+[2026-08-08 06:28:24,417][model][INFO] - Setting pad_token as eos token: <|eot_id|>
+[2026-08-08 06:28:24,421][evaluator][INFO] - Evaluations stored in the experiment directory: ./saves/eval/GATE1_STANDALONE_EVAL
+[2026-08-08 06:28:24,424][evaluator][INFO] - ***** Running TOFU evaluation suite *****
+[2026-08-08 06:28:24,424][evaluator][INFO] - Fine-grained evaluations will be saved to: ./saves/eval/GATE1_STANDALONE_EVAL/TOFU_EVAL.json
+[2026-08-08 06:28:24,424][evaluator][INFO] - Aggregated evaluations will be summarised in: ./saves/eval/GATE1_STANDALONE_EVAL/TOFU_SUMMARY.json
+[2026-08-08 06:28:26,081][metrics][INFO] - Evaluating forget_Q_A_PARA_Prob
+[2026-08-08 06:28:32,707][metrics][INFO] - Evaluating forget_Q_A_PERT_Prob
+[2026-08-08 06:28:57,332][metrics][INFO] - Evaluating forget_truth_ratio
+[2026-08-08 06:28:57,333][evaluator][INFO] - Result for metric forget_truth_ratio:	0.6642954867564325
+[2026-08-08 06:28:57,351][metrics][INFO] - Skipping forget_quality's precompute forget_truth_ratio, already evaluated.
+[2026-08-08 06:28:57,353][metrics][INFO] - Loading evaluations from saves/eval/tofu_Llama-3.2-1B-Instruct_retain90/TOFU_EVAL.json
+[2026-08-08 06:28:57,382][metrics][INFO] - Evaluating forget_quality
+[2026-08-08 06:28:57,384][evaluator][INFO] - Result for metric forget_quality:	0.393718201317559
+[2026-08-08 06:28:57,846][metrics][INFO] - Evaluating forget_Q_A_Prob
+[2026-08-08 06:29:02,767][evaluator][INFO] - Result for metric forget_Q_A_Prob:	0.07215459823608399
+[2026-08-08 06:29:03,174][metrics][INFO] - Evaluating forget_Q_A_ROUGE
+[2026-08-08 06:29:18,642][evaluator][INFO] - Result for metric forget_Q_A_ROUGE:	0.29687159450126804
+[2026-08-08 06:29:19,557][metrics][INFO] - Evaluating retain_Q_A_Prob
+[2026-08-08 06:29:29,411][metrics][INFO] - Evaluating retain_Q_A_ROUGE
+[2026-08-08 06:29:51,804][metrics][INFO] - Evaluating retain_Q_A_PARA_Prob
+[2026-08-08 06:30:02,798][metrics][INFO] - Evaluating retain_Q_A_PERT_Prob
+[2026-08-08 06:30:57,350][metrics][INFO] - Evaluating retain_Truth_Ratio
+[2026-08-08 06:30:58,117][metrics][INFO] - Evaluating ra_Q_A_Prob
+[2026-08-08 06:31:00,377][metrics][INFO] - Evaluating ra_Q_A_PERT_Prob
+[2026-08-08 06:31:05,833][metrics][INFO] - Evaluating ra_Q_A_Prob_normalised
+[2026-08-08 06:31:06,243][metrics][INFO] - Evaluating ra_Q_A_ROUGE
+[2026-08-08 06:31:10,394][metrics][INFO] - Skipping ra_Truth_Ratio's precompute ra_Q_A_Prob, already evaluated.
+[2026-08-08 06:31:10,395][metrics][INFO] - Skipping ra_Truth_Ratio's precompute ra_Q_A_PERT_Prob, already evaluated.
+[2026-08-08 06:31:10,395][metrics][INFO] - Evaluating ra_Truth_Ratio
+[2026-08-08 06:31:11,144][metrics][INFO] - Evaluating wf_Q_A_Prob
+[2026-08-08 06:31:13,695][metrics][INFO] - Evaluating wf_Q_A_PERT_Prob
+[2026-08-08 06:31:19,795][metrics][INFO] - Evaluating wf_Q_A_Prob_normalised
+[2026-08-08 06:31:20,415][metrics][INFO] - Evaluating wf_Q_A_ROUGE
+[2026-08-08 06:31:27,086][metrics][INFO] - Skipping wf_Truth_Ratio's precompute wf_Q_A_Prob, already evaluated.
+[2026-08-08 06:31:27,087][metrics][INFO] - Skipping wf_Truth_Ratio's precompute wf_Q_A_PERT_Prob, already evaluated.
+[2026-08-08 06:31:27,087][metrics][INFO] - Evaluating wf_Truth_Ratio
+[2026-08-08 06:31:27,087][metrics][INFO] - Evaluating model_utility
+[2026-08-08 06:31:27,089][evaluator][INFO] - Result for metric model_utility:	0.5545008345656248
+[2026-08-08 06:31:28,558][metrics][INFO] - Loading evaluations from saves/eval/tofu_Llama-3.2-1B-Instruct_retain90/TOFU_EVAL.json
+[2026-08-08 06:31:28,582][metrics][INFO] - Evaluating mia_min_k
+[2026-08-08 06:31:43,272][metrics][INFO] - Loading evaluations from saves/eval/tofu_Llama-3.2-1B-Instruct_retain90/TOFU_EVAL.json
+[2026-08-08 06:31:43,294][metrics][INFO] - Evaluating privleak
+[2026-08-08 06:31:43,294][evaluator][INFO] - Result for metric privleak:	19.629082218277976
+[2026-08-08 06:31:43,825][metrics][INFO] - Evaluating extraction_strength
+[2026-08-08 06:31:48,831][evaluator][INFO] - Result for metric extraction_strength:	0.05584558049053795
