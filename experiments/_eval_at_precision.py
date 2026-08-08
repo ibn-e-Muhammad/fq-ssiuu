@@ -95,20 +95,30 @@ def load_model_at_precision(checkpoint_path, precision):
     Each call creates a FRESH model from disk. Never reuse or re-quantise
     an already-loaded model.
     """
+    print("Starting load_model_at_precision...", flush=True)
+    print("Importing torch...", flush=True)
     import torch
+    print("Importing transformers...", flush=True)
     from transformers import AutoModelForCausalLM, AutoTokenizer
+    print("Imports complete.", flush=True)
 
     # Clear huggingface datasets locks to prevent deadlock
     cache_dir = os.path.expanduser("~/.cache/huggingface/datasets")
+    print(f"Checking for dataset locks in {cache_dir}...", flush=True)
     if os.path.exists(cache_dir):
         print("Clearing huggingface datasets dangling locks...", flush=True)
         import glob
         import shutil
-        for lock_file in glob.glob(os.path.join(cache_dir, "**/*.lock"), recursive=True):
+        print("Running glob...", flush=True)
+        locks = glob.glob(os.path.join(cache_dir, "**/*.lock"), recursive=True)
+        print(f"Found {len(locks)} locks.", flush=True)
+        for lock_file in locks:
             try:
                 os.remove(lock_file)
+                print(f"Removed lock: {lock_file}", flush=True)
             except OSError:
                 pass
+    print("Lock clearing complete.", flush=True)
 
     load_kwargs = {
         "pretrained_model_name_or_path": checkpoint_path,
