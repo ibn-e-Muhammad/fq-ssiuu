@@ -122,6 +122,8 @@ except ImportError:
     print("WARNING: captum not installed. P2 will fail. Run: pip install captum")
 
 # Verify fq-ssiuu import
+import sys
+sys.path.insert(0, "/kaggle/working/fq-ssiuu/src")
 from fq_ssiuu.evaluation.qra_pipeline import test_q_int4_formula
 test_q_int4_formula()
 print("✅ qra_pipeline self-test passed")
