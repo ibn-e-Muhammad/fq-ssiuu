@@ -193,14 +193,14 @@ def build_eval_config(open_unlearning_path, forget_split, holdout_split,
     return cfg
 
 
-def disable_use_cache(d):
-    from omegaconf import DictConfig
-    for k, v in d.items():
-        if isinstance(v, DictConfig):
-            if k == "generation_args" and "use_cache" in v:
-                v.use_cache = False
-            else:
-                disable_use_cache(v)
+def disable_use_cache(cfg):
+    """Disable use_cache without recursively walking the tree (avoids HydraConfig errors)."""
+    if hasattr(cfg, "eval"):
+        for evaluator_name in cfg.eval.keys():
+            eval_cfg = getattr(cfg.eval, evaluator_name, None)
+            if eval_cfg is not None and hasattr(eval_cfg, "generation_args"):
+                if "use_cache" in eval_cfg.generation_args:
+                    eval_cfg.generation_args.use_cache = False
 
 def run_evaluation(model, tokenizer, cfg, output_dir):
     """Run the TOFU evaluator on a pre-loaded model."""
