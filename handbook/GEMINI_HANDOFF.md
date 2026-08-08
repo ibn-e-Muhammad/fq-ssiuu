@@ -334,3 +334,68 @@ Always pass `attn_implementation="sdpa"` to `from_pretrained()`. This must be ad
 9. **The C3 (GA baseline) and C7 (DurableUn-SAF) config files have not been created.** These need to be written before full experiments begin.
 
 10. **Flash attention installation is commented out** in `requirements.txt` due to build complexity. It provides ~30% speedup but is not required for correctness. Enable if build succeeds on Colab.
+10. **Flash attention installation is commented out** in `requirements.txt` due to build complexity. It provides ~30% speedup but is not required for correctness. Enable if build succeeds on Colab.
+
+---
+
+## Session Update: Pilot P1 + P2 Implementation Complete
+
+**Updated by:** Claude Opus 4.6 (Thinking), Session 3
+**Date:** 2026-08-08
+**Branch:** `pilot/p1-p2` (pushed)
+
+### GATE-1 Status: PASSED
+
+GATE-1 evaluation completed successfully:
+- forget_quality: 0.3937 (target: 0.14±0.05 — EXCEEDS in favourable direction)
+- model_utility: 0.5545 (target: 0.45±0.05 — EXCEEDS)
+- Checkpoint uploaded to: `Xafire/GATE1-NPO-Baseline` (private HF repo)
+- Full verdict: `results/gate1_baseline/GATE1_VERDICT.md`
+
+### Current Branch: pilot/p1-p2 (pushed)
+
+### What Gemini Must Do Next:
+1. Run the Kaggle notebook: `experiments/notebooks/kaggle/PILOT_P1_P2.ipynb`
+   Use **SINGLE T4 GPU** — not dual GPU (evaluation requires single-process)
+2. Replace `YOUR_HF_TOKEN` with `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` in each cell
+3. Run all cells in order (Cell 1 through Cell 6)
+4. Copy the complete output of Cell 4 (P1 verdict) and Cell 5 (P2 verdict)
+5. Report results back — DO NOT interpret results without reporting them first
+
+### P1 Critical Rules:
+- NF4 via bitsandbytes ONLY — never GPTQ or AWQ
+- The checkpoint is a MERGED model (model.safetensors), NOT a LoRA adapter
+- Loading: `AutoModelForCausalLM.from_pretrained()` with BitsAndBytesConfig for quantised precision
+- retain_logs_path must be set — without it forget_quality = None (the GATE-1 bug)
+- Single GPU only — DDP disables the OpenUnlearning evaluator
+
+### P1 Acceptance Criterion (from EVB Table 5.1):
+```
+Q-INT4 = |FQ_NF4 - FQ_FP16| / FQ_FP16 > 0.05 → PASS (QRA confirmed)
+Q-INT4 < 0.02 → FAIL (restructure project — consult EVB Section 10, F2)
+Q-INT4 0.02-0.05 → BORDERLINE (run 2 more seeds)
+```
+
+### P2 Acceptance Criterion (from EVB Table 5.2):
+```
+Peak VRAM < 14 GB → PASS (use captum IG n_steps=20)
+Peak VRAM 14-16 GB → MARGINAL (reduce to n_steps=10)
+OOM → FAIL (switch to GradientNormAttribution in ssiuu_reg.py)
+```
+
+### After P1 and P2 Results Are Reported:
+- If P1 PASSES and P2 PASSES → Begin Pilot P3 (FQ-QAT stability, forget01, 5 epochs)
+- If P1 PASSES and P2 FAILS  → Begin Pilot P3; use GradientNormAttribution for P4+
+- If P1 FAILS                → STOP. Report to supervisor. See EVB Section 10, F2.
+
+### New Files Created:
+| File | Description |
+|------|-------------|
+| `src/fq_ssiuu/evaluation/qra_pipeline.py` | Real OpenUnlearning integration (placeholders replaced) |
+| `experiments/_eval_at_precision.py` | Evaluation helper: loads model at FP16/INT8/NF4, runs TOFU evaluator |
+| `experiments/pilot_p1_qra_check.py` | Complete P1 experiment script with CLI args |
+| `experiments/pilot_p2_attribution.py` | Complete P2 experiment script with VRAM measurement |
+| `experiments/notebooks/kaggle/PILOT_P1_P2.ipynb` | 7-cell Kaggle notebook for P1+P2 execution |
+| `results/pilot_p1/README.md` | Results template (PENDING) |
+| `results/pilot_p2/README.md` | Results template (PENDING) |
+| `handbook/research_diary/2026-08-08_pilot_planning.md` | Planning decisions for this session |
