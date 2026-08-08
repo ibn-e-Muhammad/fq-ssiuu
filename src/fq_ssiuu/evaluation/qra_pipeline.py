@@ -271,9 +271,9 @@ def evaluate_at_precision(config: QRAConfig, precision: str) -> PrecisionResult:
         evaluation_timestamp=timestamp,
     )
 
-    logger.info(
-        "%s evaluation complete: FQ=%.6f, MU=%.6f (%.1f sec)",
-        precision.upper(), result.forget_quality, result.model_utility, elapsed,
+    print(
+        f"{precision.upper()} evaluation complete: FQ={result.forget_quality:.6f}, "
+        f"MU={result.model_utility:.6f} ({elapsed:.1f} sec)", flush=True
     )
 
     return result
@@ -304,23 +304,23 @@ def run_qra_evaluation(config: QRAConfig, condition_id: str = "P1_QRA") -> QRARe
     Returns:
         QRAResult with all metrics and verdict.
     """
-    logger.info("=" * 60)
-    logger.info("STARTING QRA EVALUATION PIPELINE")
-    logger.info("  Condition: %s", condition_id)
-    logger.info("  Checkpoint: %s", config.checkpoint_path)
-    logger.info("  Forget split: %s", config.forget_split)
-    logger.info("  Precisions: %s", PRECISIONS)
-    logger.info("=" * 60)
+    print("=" * 60, flush=True)
+    print("STARTING QRA EVALUATION PIPELINE", flush=True)
+    print(f"  Condition: {condition_id}", flush=True)
+    print(f"  Checkpoint: {config.checkpoint_path}", flush=True)
+    print(f"  Forget split: {config.forget_split}", flush=True)
+    print(f"  Precisions: {PRECISIONS}", flush=True)
+    print("=" * 60, flush=True)
 
     results = {}
 
     for precision in PRECISIONS:
-        logger.info("\n--- Evaluating at %s ---", precision.upper())
+        print(f"\n--- Evaluating at {precision.upper()} ---", flush=True)
         try:
             result = evaluate_at_precision(config, precision)
             results[precision] = result
         except Exception as e:
-            logger.error("Evaluation at %s FAILED: %s", precision, e)
+            print(f"Evaluation at {precision} FAILED: {e}", flush=True)
             raise
 
         # Clear GPU memory between evaluations
@@ -362,12 +362,12 @@ def run_qra_evaluation(config: QRAConfig, condition_id: str = "P1_QRA") -> QRARe
         notes=notes,
     )
 
-    logger.info("=" * 60)
-    logger.info("QRA EVALUATION COMPLETE")
-    logger.info("  Q-INT4 = %.6f  (threshold: >%.2f for PASS)", q_int4, config.qra_pass_threshold)
-    logger.info("  Q-INT8 = %.6f", q_int8)
-    logger.info("  VERDICT: %s", verdict)
-    logger.info("=" * 60)
+    print("=" * 60, flush=True)
+    print("QRA EVALUATION COMPLETE", flush=True)
+    print(f"  Q-INT4 = {q_int4:.6f}  (threshold: >{config.qra_pass_threshold:.2f} for PASS)", flush=True)
+    print(f"  Q-INT8 = {q_int8:.6f}", flush=True)
+    print(f"  VERDICT: {verdict}", flush=True)
+    print("=" * 60, flush=True)
 
     return qra_result
 
@@ -397,7 +397,7 @@ def save_qra_result(result: QRAResult, output_path: str) -> None:
     with open(output_path, "w") as f:
         json.dump(result_dict, f, indent=2)
 
-    logger.info("QRA result saved to '%s'", output_path)
+    print(f"QRA result saved to '{output_path}'", flush=True)
 
 
 # ─── Self-Test ───────────────────────────────────────────────────
