@@ -212,31 +212,32 @@ def evaluate_at_precision(config: QRAConfig, precision: str) -> PrecisionResult:
     logger.info("Running evaluation at %s precision...", precision.upper())
     logger.info("Command: %s", " ".join(cmd))
 
-    # Run subprocess
+    # Run subprocess and stream output in real-time
     env = os.environ.copy()
     env["CUDA_VISIBLE_DEVICES"] = env.get("CUDA_VISIBLE_DEVICES", "0")
     env["TRANSFORMERS_NO_FLASH_ATTN"] = "1"
     env["TOKENIZERS_PARALLELISM"] = "false"
+    env["PYTHONUNBUFFERED"] = "1"  # Ensure real-time output
 
-    result = subprocess.run(
+    process = subprocess.Popen(
         cmd,
-        capture_output=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
         text=True,
         env=env,
         cwd=config.open_unlearning_path,
+        bufsize=1,
     )
 
-    # Log output
-    if result.stdout:
-        for line in result.stdout.strip().split("\n"):
-            logger.info("[%s stdout] %s", precision, line)
-    if result.stderr:
-        for line in result.stderr.strip().split("\n"):
-            logger.info("[%s stderr] %s", precision, line)
+    for line in iter(process.stdout.readline, ""):
+        # Use print instead of logger to bypass any logger buffering
+        print(f"[{precision.upper()}] {line.rstrip()}", flush=True)
 
-    if result.returncode != 0:
+    process.wait()
+
+    if process.returncode != 0:
         raise RuntimeError(
-            f"Evaluation at {precision} failed with exit code {result.returncode}.\n"
+            f"Evaluation at {precision} failed with exit code {process.returncode}.\n"
             f"Check logs above for details."
         )
 
