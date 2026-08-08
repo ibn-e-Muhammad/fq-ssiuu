@@ -212,28 +212,18 @@ def evaluate_at_precision(config: QRAConfig, precision: str) -> PrecisionResult:
     logger.info("Running evaluation at %s precision...", precision.upper())
     logger.info("Command: %s", " ".join(cmd))
 
-    # Run subprocess and stream output in real-time
+    # Run subprocess and let it print directly to stdout/stderr
     env = os.environ.copy()
     env["CUDA_VISIBLE_DEVICES"] = env.get("CUDA_VISIBLE_DEVICES", "0")
     env["TRANSFORMERS_NO_FLASH_ATTN"] = "1"
     env["TOKENIZERS_PARALLELISM"] = "false"
-    env["PYTHONUNBUFFERED"] = "1"  # Ensure real-time output
+    env["PYTHONUNBUFFERED"] = "1"
 
-    process = subprocess.Popen(
+    process = subprocess.run(
         cmd,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True,
         env=env,
         cwd=config.open_unlearning_path,
-        bufsize=1,
     )
-
-    for line in iter(process.stdout.readline, ""):
-        # Use print instead of logger to bypass any logger buffering
-        print(f"[{precision.upper()}] {line.rstrip()}", flush=True)
-
-    process.wait()
 
     if process.returncode != 0:
         raise RuntimeError(

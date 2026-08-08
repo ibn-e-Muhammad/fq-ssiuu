@@ -261,13 +261,13 @@ def main():
     if os.path.isdir(src_dir) and src_dir not in sys.path:
         sys.path.insert(0, src_dir)
 
-    print("=" * 64)
-    print("    PILOT P1: QRA EXISTENCE TEST")
-    print("    FQ-SSIUU Project — Experimental Validation Blueprint §5.1")
-    print("=" * 64)
+    print("=" * 64, flush=True)
+    print("    PILOT P1: QRA EXISTENCE TEST", flush=True)
+    print("    FQ-SSIUU Project — Experimental Validation Blueprint §5.1", flush=True)
+    print("=" * 64, flush=True)
 
     # ── Step 1: Download checkpoint ──────────────────────────────
-    print("\n=== Step 1: Preparing Checkpoint ===")
+    print("\n=== Step 1: Preparing Checkpoint ===", flush=True)
     if args.checkpoint_path and os.path.exists(args.checkpoint_path):
         ckpt_path = args.checkpoint_path
         logger.info("Using provided checkpoint: %s", ckpt_path)
@@ -276,11 +276,11 @@ def main():
         download_checkpoint(hf_token, ckpt_path)
 
     # ── Step 2: Ensure retain logs ───────────────────────────────
-    print("\n=== Step 2: Ensuring Retain Logs ===")
+    print("\n=== Step 2: Ensuring Retain Logs ===", flush=True)
     download_retain_logs(args.open_unlearning_path)
 
     # ── Step 3: Run QRA evaluation ───────────────────────────────
-    print("\n=== Step 3: Running Three-Precision Evaluation ===")
+    print("\n=== Step 3: Running Three-Precision Evaluation ===", flush=True)
 
     from fq_ssiuu.evaluation.qra_pipeline import (
         QRAConfig,
