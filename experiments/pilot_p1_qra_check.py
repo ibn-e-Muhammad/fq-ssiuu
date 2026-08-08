@@ -274,6 +274,21 @@ def main():
     print("=" * 64, flush=True)
 
     # ── Step 1: Download checkpoint ──────────────────────────────
+    # Clear all huggingface locks globally before doing anything
+    cache_dir = os.path.expanduser("~/.cache/huggingface")
+    print(f"\n=== Step 0: Cleaning environment ===", flush=True)
+    if os.path.exists(cache_dir):
+        print(f"Clearing any dangling locks in {cache_dir}...", flush=True)
+        import glob
+        locks = glob.glob(os.path.join(cache_dir, "**/*.lock"), recursive=True)
+        for lock_file in locks:
+            try:
+                os.remove(lock_file)
+                print(f"Removed lock: {lock_file}", flush=True)
+            except OSError:
+                pass
+        print(f"Cleared {len(locks)} locks.", flush=True)
+
     print("\n=== Step 1: Preparing Checkpoint ===", flush=True)
     if args.checkpoint_path and os.path.exists(args.checkpoint_path):
         ckpt_path = args.checkpoint_path
