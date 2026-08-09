@@ -117,14 +117,6 @@ def parse_args():
         help="Path to open-unlearning repository root (required for sys.path).",
     )
     parser.add_argument(
-        "--checkpoint_path",
-        default="",
-        help=(
-            "Local path to LoRA adapter checkpoint. If empty, downloads "
-            f"from HuggingFace Hub ({HF_CHECKPOINT})."
-        ),
-    )
-    parser.add_argument(
         "--drive_output",
         default="/tmp/pilot_p3_results",
         help="Directory to save results JSON and CSV log.",
@@ -316,43 +308,44 @@ def load_forget_dataset(tokenizer):
 # MODEL LOADING
 # ═══════════════════════════════════════════════════════════════
 
-def load_training_model(checkpoint_path: str):
-    """Load the training model: NF4 base + LoRA adapter + FQ-QAT wrapping.
+def load_training_model():
+    """Load the training model: NF4 base + fresh LoRA + FQ-QAT wrapping.
 
     Pipeline:
-        1. load_base_model() → NF4 quantised Llama-3.2-1B-Instruct
-        2. PeftModel.from_pretrained() → attach LoRA from GATE1-NPO-Baseline
+        1. load_base_model() → NF4 quantised finetuned base model
+        2. get_peft_model() → attach fresh LoRA adapter
         3. wrap_model_with_fq_lora() → apply fake-quantisation to LoRA layers
-
-    Args:
-        checkpoint_path: Local path to LoRA adapter checkpoint directory.
 
     Returns:
         Tuple of (model, tokenizer, device).
     """
     import torch
-    from peft import PeftModel
+    from peft import PeftModel, LoraConfig, get_peft_model, TaskType
     from transformers import AutoTokenizer
 
     from fq_ssiuu.models.loader import ModelConfig, load_base_model
     from fq_ssiuu.quantisation.fq_hooks import wrap_model_with_fq_lora
 
-    # Step 1: Load NF4-quantised base model
+    # Step 1: Load NF4-quantised base model (finetuned)
     print("[MODEL] Loading NF4 base model...", flush=True)
-    config = ModelConfig(base_model_id=BASE_MODEL)
+    config = ModelConfig(base_model_id=FINE_TUNED_MODEL)
     base_model = load_base_model(config)
 
     vram_cur, vram_peak = measure_vram()
     print(f"[MODEL] Base model loaded. VRAM: {vram_cur:.2f} GB "
           f"(peak: {vram_peak:.2f} GB)", flush=True)
 
-    # Step 2: Attach LoRA adapter from checkpoint
-    print(f"[MODEL] Loading LoRA adapter from: {checkpoint_path}", flush=True)
-    model = PeftModel.from_pretrained(
-        base_model,
-        checkpoint_path,
-        is_trainable=True,  # We need gradients for training
+    # Step 2: Attach fresh LoRA adapter
+    print(f"[MODEL] Initializing fresh LoRA adapter...", flush=True)
+    lora_config = LoraConfig(
+        r=8,
+        lora_alpha=32,
+        target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+        lora_dropout=0.05,
+        bias="none",
+        task_type=TaskType.CAUSAL_LM
     )
+    model = get_peft_model(base_model, lora_config)
 
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     total = sum(p.numel() for p in model.parameters())
@@ -910,19 +903,9 @@ def main():
 
     set_seed(SEED)
 
-    # ── Step 1: Resolve checkpoint path ──────────────────────
-    print("\n=== Step 1: Resolving Checkpoint ===", flush=True)
-    if args.checkpoint_path and os.path.exists(args.checkpoint_path):
-        checkpoint_path = args.checkpoint_path
-        print(f"[CKPT] Using local checkpoint: {checkpoint_path}", flush=True)
-    else:
-        # Download from HuggingFace Hub
-        download_dir = "/tmp/pilot_p3_checkpoint"
-        checkpoint_path = download_checkpoint(HF_CHECKPOINT, download_dir)
-
     # ── Step 2: Load training model ──────────────────────────
     print("\n=== Step 2: Loading Training Model (NF4 + LoRA + FQ-QAT) ===", flush=True)
-    model, tokenizer, device = load_training_model(checkpoint_path)
+    model, tokenizer, device = load_training_model()
 
     # ── Step 3: Load reference model ─────────────────────────
     print("\n=== Step 3: Loading Reference Model (Frozen) ===", flush=True)
