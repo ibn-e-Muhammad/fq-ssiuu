@@ -130,7 +130,10 @@ def compute_quail_loss(
     ).squeeze(-1)
 
     # Step 3: Compute absolute deviation at target positions
-    deviation = torch.abs(model_target_logits - ref_target_logits)  # [B, T]
+    diff = model_target_logits - ref_target_logits  # [B, T]
+    # Break symmetry at exact 0 to ensure gradient flow (PyTorch abs(0) backward is 0)
+    diff = diff + 1e-6 * torch.randn_like(diff)
+    deviation = torch.abs(diff)
 
     # Step 4: Apply hinge: max(0, margin - |deviation|)
     hinge = torch.clamp(config.margin - deviation, min=0)  # [B, T]
@@ -171,7 +174,7 @@ def test_quail_loss_at_margin():
     ref_logits_zero = torch.zeros(B, T, V)
 
     loss_zero_dev = compute_quail_loss(model_logits_zero, ref_logits_zero, labels, config)
-    assert abs(loss_zero_dev.item() - config.margin) < 1e-7, (
+    assert abs(loss_zero_dev.item() - config.margin) < 1e-5, (
         f"Test 2 FAILED: loss at zero deviation should be {config.margin}, "
         f"got {loss_zero_dev.item()}"
     )
