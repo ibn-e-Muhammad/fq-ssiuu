@@ -210,13 +210,15 @@ def check_coherence(model, tokenizer, device):
     ).to(device)
 
     with torch.no_grad():
-        outputs = model.generate(
-            **inputs,
-            max_new_tokens=COHERENCE_MAX_TOKENS,
-            do_sample=False,           # Greedy for deterministic check
-            temperature=1.0,
-            pad_token_id=tokenizer.pad_token_id,
-        )
+        with torch.amp.autocast("cuda", dtype=torch.bfloat16):
+            outputs = model.generate(
+                **inputs,
+                max_new_tokens=COHERENCE_MAX_TOKENS,
+                do_sample=False,           # Greedy for deterministic check
+                temperature=None,          # temperature must be None if do_sample=False
+                top_p=None,                # top_p must be None if do_sample=False
+                pad_token_id=tokenizer.pad_token_id,
+            )
 
     # Decode only the generated portion (exclude the prompt)
     prompt_len = inputs["input_ids"].shape[1]
@@ -521,7 +523,7 @@ def train(
             labels = example["labels"].unsqueeze(0).to(device)
 
             # ── Forward pass with mixed precision ────────────
-            with torch.cuda.amp.autocast(dtype=torch.bfloat16):
+            with torch.amp.autocast("cuda", dtype=torch.bfloat16):
                 # Training model forward
                 model_outputs = model(
                     input_ids=input_ids,
