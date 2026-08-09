@@ -546,10 +546,10 @@ def main():
     )
 
     # 1a. Load base model at NF4 and wrap with FRESH LoRA adapters
-    #     We use BASE_MODEL_ID (the pre-trained Llama) so that the LoRA
-    #     adapters start from scratch — a fair comparison with NPO.
-    print(f"  Loading base model ({BASE_MODEL_ID}) at NF4...", flush=True)
-    base_config = ModelConfig(base_model_id=BASE_MODEL_ID)
+    #     We use HF_BASE_MODEL (the finetuned Llama) so that the LoRA
+    #     adapters start from scratch but on the same base as NPO — a fair comparison.
+    print(f"  Loading base model ({HF_BASE_MODEL}) at NF4...", flush=True)
+    base_config = ModelConfig(base_model_id=HF_BASE_MODEL)
     base_model = load_base_model(config=base_config)
 
     print("  Wrapping with fresh LoRA adapters...", flush=True)
