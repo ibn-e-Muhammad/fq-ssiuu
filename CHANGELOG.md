@@ -35,15 +35,13 @@
 - SSIUU: zero-loss at initialisation confirmed
 
 ### Pending (Gemini's Responsibility)
-- GATE-0: environment verification on Colab L4
-- GATE-1: OpenUnlearning baseline reproduction
-- Pilot P1–P4: pilot experiments
-- All experimental conditions C2–C8
+- All experimental conditions (E0b, E4, E5, E6, E7, GATE-2)
 
-## [Unreleased — GATE-1]
+## [Unreleased — Pilots]
 
-### In Progress
-- OpenUnlearning fork integrated into fq-ssiuu-integration branch
-- NPO baseline training on Llama-3.2-1B-Instruct TOFU forget05
-- Training on single Colab T4 with adapted batch size (per_device=1, grad_accum=32)
-- Target: FQ=0.14 ±0.05, MU=0.45 ±0.05
+### Completed
+- **GATE-0 / GATE-1**: OpenUnlearning baseline reproduced.
+- **Pilot P1**: QRA Vulnerability Baseline established (Q-INT4 = 0.2149).
+- **Pilot P2**: Integrated Gradients (IG) attribution feasible on Llama-3.2-1B.
+- **Pilot P3**: FQ-QAT + NPO training confirmed numerically stable.
+- **Pilot P4**: QUAIL Baseline established (Q-INT4 = 0.2276). QUAIL shown to be less quantisation-robust than NPO.
