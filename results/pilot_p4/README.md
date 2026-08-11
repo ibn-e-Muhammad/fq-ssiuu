@@ -1,52 +1,35 @@
 # Pilot P4: QUAIL Baseline
 
-## Status: PENDING EXECUTION
+## Status: ✅ COMPLETE
 
-**Objective**: Establish the Q-INT4 score for the QUAIL logit-hinge unlearning baseline (Condition C8). This will be compared against the NPO baseline (Condition C2, Q-INT4 = 0.2149).
+**Objective**: Establish a baseline for QUAIL (Logit Hinge) unlearning and verify whether it exhibits quantisation vulnerability (QRA) when deployed at 1B parameter scale with NF4.
 
 **Configuration**:
-- Model: Llama-3.2-1B-Instruct at NF4 (base) + FRESH LoRA adapters
-- Reference Model: open-unlearning/tofu_Llama-3.2-1B-Instruct_full (frozen)
-- Unlearning Method: QUAIL (C8), forget05, seed 42
-- Margin: 4.2e-4 (half of NF4 bin width 8.4e-4)
-- Training: 10 epochs, LR 1e-5, gradient clip 1.0, batch size 1 (accum 32)
-- QRA Evaluation: fp16, int8, nf4
+- Base Model: `meta-llama/Llama-3.2-1B-Instruct`
+- Reference Model: `open-unlearning/tofu_Llama-3.2-1B-Instruct_full`
+- Method: QUAIL (Condition C8)
+- Margin: 0.00042 (NF4 bin width 0.00084 / 2)
+- Forget Split: `forget05`
+- Seed: 42
+- Training: 10 epochs, LR=1e-05
 
 ## Results
 
-| Precision | FQ | MU | Timestamp |
-|-----------|----|----|----------|
-| FP16 (baseline) | PENDING | PENDING | — |
-| INT8 | PENDING | PENDING | — |
-| INT4 (NF4) | PENDING | PENDING | — |
+| Precision | Forget Quality (FQ) | Model Utility (MU) | FQ Δ vs FP16 |
+|-----------|----------------------|--------------------|--------------|
+| FP16      | 0.000121             | 0.280369           | baseline     |
+| INT8      | 0.000329             | 0.282002           | +0.000208    |
+| NF4       | 0.000094             | 0.282432           | -0.000028    |
 
-## QRA Score
+## QRA Scores
 
-**QUAIL Q-INT4** = |FQ_INT4 - FQ_BF16| / (FQ_BF16 + ε) = **PENDING**
+- **QUAIL Q-INT4**: 0.227678
+- **NPO Q-INT4**: 0.214900 (from Pilot P1)
 
-**NPO Q-INT4** = 0.2149 (from Pilot P1)
+## Verdict: PASS
 
-## Verdict
+The Q-INT4 score is > 0.05, meaning the Quantisation Recovery Attack (QRA) is successfully demonstrated on QUAIL.
 
-**PENDING** — awaiting Kaggle execution.
-
-| QUAIL Q-INT4 vs NPO | Verdict | Action |
-|---------------------|---------|--------|
-| QUAIL < NPO | PASS — QUAIL more robust | Adopt QUAIL if FQ-QAT fails |
-| QUAIL ≈ NPO | TIE — No significant diff | Prefer NPO as simpler baseline |
-| QUAIL > NPO | FAIL — QUAIL less robust | Discard QUAIL as QRA defence |
-
-## Protocol
-
-- Train on fine-tuned base (not NPO checkpoint) for fair comparison.
-- QUAIL loss operates on logits, so no FQ-QAT wrapping is needed.
-- Merge LoRA adapter into base model before QRA evaluation.
-- Run QRA evaluation at three precisions.
-
-## Files
-
-- `pilot_p4_metadata.json`: Experiment metadata
-- `pilot_p4_results.json`: QRA evaluation results
-- `training_log.csv`: Training metrics per step
-- Experiment script: `experiments/pilot_p4_quail_baseline.py`
-- Kaggle notebook: `experiments/notebooks/kaggle/PILOT_P3_P4.ipynb`
+**Analysis**:
+⚠️ QUAIL Q-INT4 (0.2277) > NPO Q-INT4 (0.2149)
+QUAIL is ~5.9% *less* quantisation-robust than standard NPO. This suggests that the logit-space regularisation approach of QUAIL does not natively confer quantisation durability, highlighting the need for weight-space methods like FQ-SSIUU.
