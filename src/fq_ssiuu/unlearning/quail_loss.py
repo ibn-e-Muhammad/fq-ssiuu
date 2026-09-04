@@ -7,22 +7,28 @@ Reference: Mishra & Mehreen 2026, "QUAIL: Quantization-Aware Unlearning
 with Invariant Logits", arXiv:2601.15538.
 
 NOTE: This is a re-implementation from the paper description. No official
-code repository is available as of this writing.
+code repository is available as of 2026-09-03.
 
-Equation:
-    L_QUAIL = E_{(x,y) in D_f} [max(0, delta/2 - |logit_theta(y|x) - logit_ref(y|x)|)]
+FIDELITY WARNING (CR-005):
+    This module implements ONLY the hinge loss component of QUAIL.
+    The published QUAIL objective (Section VI-B of arXiv:2601.15538) has
+    THREE components:
+        L_total = α·L_forget + β·L_retain + γ·L_hinge
+    Where:
+        - L_forget: gradient ascent on forget set (cross-entropy negation)
+        - L_retain: gradient descent on retain set (standard CE loss)
+        - L_hinge: quantisation-aware hinge loss (this module)
+        - α, β, γ: dataset-specific weights (e.g. α=5, γ=8 for NEWS)
 
-Where:
-    - delta is the NF4 quantisation bin width (~8.4e-4)
-    - delta/2 is the hinge margin
-    - logit_theta is the logit from the current (unlearning) model at the target token
-    - logit_ref is the logit from the frozen reference model at the target token
+    ADDITIONALLY, the published margin is Δq = 1.0 (a surrogate for
+    numerical stability), giving margin = Δq/2 = 0.5. This implementation
+    uses margin = nf4_bin_width/2 = 4.2e-4, which is 1190× smaller.
 
-Intuition:
-    A logit deviation larger than half a quantisation bin cannot be erased by
-    INT4 rounding. The sign of the deviation is preserved across the bin boundary.
-    By enforcing |logit_theta - logit_ref| > delta/2, QUAIL ensures that the
-    unlearning signal survives quantisation.
+    Pilot P4 results are from this incomplete surrogate and cannot be
+    attributed to the full QUAIL method.
+
+Equation (hinge component only):
+    L_hinge = E_{(x,y) in D_f} [max(0, Δq/2 - |logit_θ(y|x) - logit_ref(y|x)|)]
 
 IMPORTANT DISTINCTION:
     This operates in OUTPUT space (logits). It is fundamentally different from
@@ -45,16 +51,24 @@ logger = logging.getLogger(__name__)
 class QUAILConfig:
     """Configuration for QUAIL hinge loss.
 
+    FIDELITY NOTE (CR-005):
+        Published QUAIL uses Δq=1.0 (surrogate), giving margin=0.5.
+        This config defaults to nf4_bin_width=8.4e-4, margin=4.2e-4.
+        This is a 1190× smaller margin. The values here are a project-specific
+        choice for initial experimentation and do NOT match the published method.
+
     Attributes:
         nf4_bin_width: NF4 quantisation bin width. Value 8.4e-4 is the
             empirical mean bin width from MANSU (arXiv:2605.15138), measured
             across the 16 NF4 codebook bins for typical LLM weight distributions.
+            Published QUAIL uses Δq=1.0 instead.
         margin: Hinge margin, set to nf4_bin_width / 2. A logit deviation
             exceeding this margin survives INT4 rounding.
+            Published QUAIL margin is 0.5 (Δq/2 where Δq=1.0).
     """
 
     nf4_bin_width: float = 8.4e-4
-    margin: float = 4.2e-4  # nf4_bin_width / 2
+    margin: float = 4.2e-4  # nf4_bin_width / 2 (published: 0.5)
 
 
 def compute_quail_loss(

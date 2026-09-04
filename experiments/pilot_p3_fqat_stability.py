@@ -210,7 +210,7 @@ def check_coherence(model, tokenizer, device):
     ).to(device)
 
     with torch.no_grad():
-        with torch.amp.autocast("cuda", dtype=torch.bfloat16):
+        with torch.amp.autocast("cuda", dtype=torch.float16):
             outputs = model.generate(
                 **inputs,
                 max_new_tokens=COHERENCE_MAX_TOKENS,
@@ -523,7 +523,7 @@ def train(
             labels = example["labels"].unsqueeze(0).to(device)
 
             # ── Forward pass with mixed precision ────────────
-            with torch.amp.autocast("cuda", dtype=torch.bfloat16):
+            with torch.amp.autocast("cuda", dtype=torch.float16):
                 # Training model forward
                 model_outputs = model(
                     input_ids=input_ids,

@@ -1,0 +1,25 @@
+# Thesis Update Ledger
+
+**Purpose:** Track which thesis sections are affected by each correction or finding.
+**Convention:** Each row maps a correction ID or finding to the thesis sections that must be updated.
+
+---
+
+| Correction | Thesis Sections Affected | Update Required |
+|------------|------------------------|-----------------|
+| CR-001 (TOFU FQ interpretation) | §Results, §Discussion, all tables reporting FQ | Revise language: FQ is a KS p-value, not a forgetting magnitude |
+| CR-002 (Llama layer count) | §Methodology (model description) | Change "28 layers" → "16 layers"; layer 14 is penultimate, not middle |
+| CR-003 (NPO loss bound) | §Background (NPO description) | Remove claim of upper bound 2/β; state infimum is 0, unbounded above |
+| CR-004 (Pilot overstatements) | §Pilot Results, §Discussion | Downgrade "confirmed" → "pilot-executed"; qualify all claims |
+| CR-005 (QUAIL fidelity) | §Related Work, §Experimental Setup (C8), §Results | Document as "incomplete surrogate"; list missing components |
+| CR-006 (SSIUU gradient flow) | §Methodology (SSIUU section), §Results | Cannot claim SSIUU contribution until gradient flow is fixed |
+| CR-007 (Quantisation location) | §Methodology (FQ-QAT section), §Results | State as "adapter-output INT4 ablation", not "deployment-equivalent NF4 QAT" |
+| CR-008 (Certificate terminology) | §Evaluation (certificate section) | Replace "certificate" with "empirical durability report" throughout |
+
+---
+
+## Notes
+
+- The thesis itself (LaTeX/Word documents) is NOT tracked in this repository.
+- This ledger tracks WHAT needs updating. The actual thesis edits are the author's responsibility.
+- Each correction entry in the correction register (`handbook/corrections/REGISTER.md`) is cross-referenced here.

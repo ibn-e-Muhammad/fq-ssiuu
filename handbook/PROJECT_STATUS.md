@@ -1,8 +1,14 @@
 # FQ-SSIUU Project Status
 
-**Last updated:** 2026-08-15  
-**Verified by:** Claude Opus 4 (Thinking), full audit session  
-**Branch:** audit/pilot-verification
+**Last updated:** 2026-09-03  
+**Verified by:** Research integrity audit session  
+**Branch:** fix/research-integrity-foundation
+
+> [!WARNING]
+> **CR-004 (Pilot Overstatements):** Previous versions of this file contained
+> overconfident claims from single-seed, single-model pilot experiments.
+> All verdicts below have been corrected to reflect actual evidence strength.
+> See `handbook/corrections/REGISTER.md` for the full correction register.
 
 ---
 
@@ -12,16 +18,21 @@
 |-----------|------|------------|---------|----------|
 | GATE-0 | 2026-08-04 | Environment checks pass (SDPA, bnb 0.45.5) | PASS | experiments/gate0_env_check.py |
 | GATE-1 | 2026-08-08 | FQ=0.393718, MU=0.554501 | PASS (exceeds target) | results/gate1_baseline/ |
-| Pilot P1 | 2026-08-09 | Q-INT4=0.214906 (4.3× threshold) | PASS — QRA confirmed | results/pilot_p1/ |
-| Pilot P2 | 2026-08-09 | Peak VRAM=2.511 GB (12.5 GB margin) | PASS — IG feasible | results/pilot_p2/ |
-| Pilot P3 | 2026-08-10 | Loss 13.72→8.65 (-37%), coherence 5/5 | PASS (corrected from FAIL) | results/pilot_p3/ |
-| Pilot P4 | 2026-08-10 | QUAIL Q-INT4=0.227678, MU=0.280369 | PASS — C8 established | results/pilot_p4/ |
+| Pilot P1 | 2026-08-09 | Q-INT4=0.214906 (4.3× threshold) | Pilot-executed: precision sensitivity demonstrated | results/pilot_p1/ |
+| Pilot P2 | 2026-08-09 | Peak VRAM=2.511 GB (12.5 GB margin) | Pilot-executed: offline IG computation completed | results/pilot_p2/ |
+| Pilot P3 | 2026-08-10 | Loss 13.72→8.65 (-37%), coherence 5/5 | Pilot-executed: adapter-output INT4 QDQ training numerically stable | results/pilot_p3/ |
+| Pilot P4 | 2026-08-10 | QUAIL Q-INT4=0.227678, MU=0.280369 | Pilot-executed: partial QUAIL surrogate run completed | results/pilot_p4/ |
 
-## Confirmed Scientific Findings
+## Pilot Observations (Not Confirmed Findings)
 
-- **H1 CONFIRMED**: QRA manifests at Llama-3.2-1B scale. Q-INT4=0.214906 (4.3× pass threshold of 0.05). Reproducible across 2 independent runs.
-- **H2 SUPPORTED**: captum IG feasible at 2.511 GB (P2 PASS). FQ-QAT+NPO training stable over 5 epochs (P3 PASS corrected).
-- **C8 ESTABLISHED**: QUAIL produces strong forgetting (FQ≈0.000121) with severe utility cost (MU=0.280). Q-INT4=0.2277 ≈ NPO Q-INT4.
+> [!IMPORTANT]
+> All observations below are from single-seed, single-model pilot experiments.
+> They motivate full experiments but do not constitute confirmation.
+
+- **Precision sensitivity demonstrated (P1):** Q-INT4=0.214906 (4.3× pass threshold of 0.05). Reproducible across 2 independent runs. Single checkpoint, single seed, Llama-3.2-1B only.
+- **Offline IG computation completed (P2):** captum IG feasible at 2.511 GB. Tested on 2 examples only. Training-time integration NOT tested.
+- **Adapter-output INT4 QDQ numerically stable (P3):** FQ-QAT+NPO training stable over 5 epochs. Note: this is adapter-output symmetric INT4 QDQ, NOT merged-weight NF4 (CR-007).
+- **Partial QUAIL surrogate completed (P4):** QUAIL surrogate produces strong forgetting (FQ≈0.000121) with severe utility cost (MU=0.280). Implementation is hinge loss only, missing forget and retain components (CR-005).
 - **INT8 ANOMALY DOCUMENTED**: Q-INT8=0.426023 > Q-INT4=0.214906. INT8 (LLM.int8()) mixed-precision outlier handling disrupts distribution differently than NF4.
 
 ## Corrections Made During Audit
@@ -49,15 +60,32 @@
 | 13 | Oracle model quality (E0b) | ❌ PENDING | E0b not started | Yes (for FADE) | Run E0b oracle fine-tune |
 | 14 | Supervisor sign-off on experimental plan | ⏳ PARTIAL | Plan exists but no documented approval | No | Obtain and document sign-off |
 
-**Summary: 10/14 DONE, 4/14 PENDING. No items block the start of full experiments except E0b (blocks FADE computation only).**
+**Summary: 10/14 DONE, 4/14 PENDING. See Research Gates section for scientific blockers.**
+
+## Research Gates (Scientific Blockers)
+
+> [!CAUTION]
+> The following gates must be resolved before the corresponding conditions
+> can produce valid results. See `handbook/research_gates.yaml` for details.
+
+| Gate | Status | Conditions Blocked | Resolution Complexity |
+|------|--------|-------------------|----------------------|
+| RG-001: SSIUU Gradient Flow | BLOCKED | C4, C6, C7 | HIGH |
+| RG-002: Quantisation Location Mismatch | BLOCKED | C5, C6, C7 | HIGH |
+| RG-003: QUAIL Fidelity | BLOCKED | C8 | MEDIUM |
+| RG-004: TOFU FQ Interpretation | DOCS ONLY | None | LOW |
+
+**Unblocked conditions:** C1 (retain baseline), C2 (NPO), C3 (GA).
 
 ## What Must Happen Before Full Experiments
 
-1. **Merge pilot/p3-p4 → dev** (P3+P4 results need to reach dev branch)
-2. **Create C3 (GA baseline) and C7 (DurableUn-SAF) config files**
-3. **Write GUARD-IT/QUAIL differentiation document** (DL-012)
-4. **Draft OSF pre-registration** (can be concurrent with experiments)
-5. **Obtain supervisor sign-off** on the experimental plan
+1. **Resolve RG-001 (SSIUU gradient flow)** — BLOCKS C4, C6, C7
+2. **Resolve RG-002 (quantisation location)** — BLOCKS C5, C6, C7
+3. **Resolve RG-003 (QUAIL fidelity)** — BLOCKS C8
+4. **Create C3 (GA baseline) and C7 (DurableUn-SAF) config files**
+5. **Write GUARD-IT/QUAIL differentiation document** (DL-012)
+6. **Draft OSF pre-registration** (can be concurrent with experiments)
+7. **Obtain supervisor sign-off** on the experimental plan
 
 ## The Full Experiment Dependency Order
 

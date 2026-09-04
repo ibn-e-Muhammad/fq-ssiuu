@@ -45,10 +45,13 @@ checkpoints/**
 .ipynb_checkpoints/
 */.ipynb_checkpoints/
 
-# Environment files
+# Environment and credential files — NEVER commit these
 .env
 .env.local
 *.env
+kaggle.json
+*.credentials.json
+service-account*.json
 
 # OS
 .DS_Store

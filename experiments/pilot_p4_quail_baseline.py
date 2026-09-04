@@ -331,7 +331,7 @@ def train_quail(
             labels = batch["labels"].to(model.device)
 
             # Forward pass through trainable model
-            with torch.amp.autocast("cuda", dtype=torch.bfloat16):
+            with torch.amp.autocast("cuda", dtype=torch.float16):
                 model_outputs = model(
                     input_ids=input_ids,
                     attention_mask=attention_mask,

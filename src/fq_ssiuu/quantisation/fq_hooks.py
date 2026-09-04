@@ -50,6 +50,23 @@ from fq_ssiuu.quantisation.fake_quant import _FakeQuantiseAutograd, compute_scal
 logger = logging.getLogger(__name__)
 
 
+# Structured metadata for the quantisation-location research gate (CR-007).
+FQ_HOOKS_META = {
+    "quantised_tensor": "adapter_output_activation",
+    "quantisation_point": "after lora_B(lora_A(x)) * scaling, before addition to base",
+    "deployment_quantisation": "merged_weights_nf4_via_bitsandbytes",
+    "deployment_equivalent": False,
+    "mismatch_summary": (
+        "This module applies symmetric INT4 QDQ to the adapter OUTPUT activation "
+        "before it is added to the base layer output. Deployment NF4 quantisation "
+        "via bitsandbytes applies the NF4 codebook to the MERGED model weights "
+        "after merge_and_unload(). These quantise different tensors (activations "
+        "vs merged weights) using different codebooks (symmetric INT4 vs NF4) "
+        "at different granularity (per-tensor vs per-block)."
+    ),
+}
+
+
 class FQLoRALinear(nn.Module):
     """LoRA linear layer with fake quantisation on the adapter output.
 

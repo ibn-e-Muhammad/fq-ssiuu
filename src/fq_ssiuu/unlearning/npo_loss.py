@@ -22,11 +22,15 @@ Why NPO prevents catastrophic collapse:
 
     NPO clips the effective loss contribution: as π_θ → 0, the ratio
     log(π_θ/π_ref) → -∞, so softplus(β·ratio) → 0. The loss approaches:
-        L_NPO → (2/β) · log(2) ≈ (2/β) · 0.693
-    This is a finite constant, not infinity. The optimizer stops receiving
-    signal to push further once forgetting is sufficient.
+        L_NPO → 0 (the global infimum)
+    At ratio = 0 (identical models):
+        L_NPO = (2/β) · log(2) ≈ (2/β) · 0.693
+    As ratio → +∞ (model assigns higher probability than reference):
+        L_NPO → 2 · ratio, which is unbounded above.
 
-    Bounded range: 0 ≤ L_NPO ≤ 2/β for each example.
+    In the intended unlearning direction (π_θ → 0), the loss is effectively
+    bounded, which prevents catastrophic collapse. In the reverse direction
+    (model probability increases), the loss grows without bound.
 """
 
 import logging

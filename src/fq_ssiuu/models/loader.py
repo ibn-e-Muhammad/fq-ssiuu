@@ -9,7 +9,7 @@ function from this module.
 
 Supported loading modes:
   - NF4 quantised (4-bit) via BitsAndBytesConfig — used for training (16 GB VRAM)
-  - BF16 full-precision — used for QRA evaluation after merge
+  - FP16 full-precision — used for QRA evaluation after merge
   - LoRA adapter wrapping via peft — used for parameter-efficient unlearning
   - Adapter merging via merge_and_unload() — used for deployment-precision evaluation
 
@@ -179,18 +179,18 @@ def load_base_model(config: Optional[ModelConfig] = None):
     return model
 
 
-def load_model_bf16(model_id: str, token: Optional[str] = None):
-    """Load a model in full BF16 precision (no quantisation).
+def load_model_fp16(model_id: str, token: Optional[str] = None):
+    """Load a model in full FP16 precision (no quantisation).
 
     Used for QRA evaluation after adapter merging. The merged model
-    is evaluated at BF16, INT8, and INT4 precisions to compute Q-INT4.
+    is evaluated at FP16, INT8, and INT4 precisions to compute Q-INT4.
 
     Args:
         model_id: HuggingFace model ID or local path to merged model.
         token: HuggingFace token. If None, reads from HF_TOKEN env var.
 
     Returns:
-        AutoModelForCausalLM: The BF16 model.
+        AutoModelForCausalLM: The FP16 model.
 
     Raises:
         RuntimeError: If token is not available and model requires auth.
@@ -201,18 +201,18 @@ def load_model_bf16(model_id: str, token: Optional[str] = None):
     if token is None:
         token = _get_hf_token()
 
-    logger.info("Loading model '%s' in BF16 precision...", model_id)
+    logger.info("Loading model '%s' in FP16 precision...", model_id)
 
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
-        torch_dtype=torch.bfloat16,
+        torch_dtype=torch.float16,
         device_map="auto",
         token=token,
         attn_implementation="sdpa",
     )
 
     n_params = sum(p.numel() for p in model.parameters())
-    logger.info("BF16 model loaded. Parameters: %s", f"{n_params:,}")
+    logger.info("FP16 model loaded. Parameters: %s", f"{n_params:,}")
 
     return model
 
@@ -322,7 +322,7 @@ def merge_adapter(peft_model_path: str, base_model_id: str, token: Optional[str]
         token: HuggingFace token. Reads from env if None.
 
     Returns:
-        AutoModelForCausalLM: The merged BF16 model (no adapters).
+        AutoModelForCausalLM: The merged FP16 model (no adapters).
 
     Raises:
         FileNotFoundError: If peft_model_path does not exist.
@@ -344,7 +344,7 @@ def merge_adapter(peft_model_path: str, base_model_id: str, token: Optional[str]
     logger.info("Loading base model '%s' for merge...", base_model_id)
     base_model = AutoModelForCausalLM.from_pretrained(
         base_model_id,
-        torch_dtype=torch.bfloat16,
+        torch_dtype=torch.float16,
         device_map="auto",
         token=token,
         attn_implementation="sdpa",

@@ -66,6 +66,26 @@ class FQConfig:
     clip_threshold: float = 1.0
 
 
+# Structured metadata for the quantisation-location research gate (CR-007).
+# This documents what this quantiser does vs. deployment NF4 quantisation.
+QUANTISER_META = {
+    "target_type": "activation",  # QDQ applied to adapter output activations
+    "codebook": "symmetric_int4",  # Uniform symmetric grid [-8, 7]
+    "granularity": "per_tensor",  # Single scale for entire tensor
+    "bit_width": 4,
+    "deployment_equivalent": False,  # NOT equivalent to bitsandbytes NF4
+    "ste_enabled": True,  # STE backward pass (identity)
+    "scale_computation": "max_abs_div_7",  # scale = max(|x|) / 7
+    "mismatch_with_deployment": (
+        "Deployment uses bitsandbytes NF4: non-uniform codebook, per-block "
+        "quantisation (block size configurable, typically 64), applied to "
+        "merged model WEIGHTS (not activations). This module applies "
+        "symmetric INT4 QDQ per-tensor to adapter OUTPUT activations. "
+        "These are fundamentally different quantisation operations."
+    ),
+}
+
+
 class _FakeQuantiseAutograd(torch.autograd.Function):
     """Custom autograd function implementing QDQ forward with STE backward.
 

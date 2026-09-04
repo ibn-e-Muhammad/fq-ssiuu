@@ -1,0 +1,60 @@
+gates:
+  - id: "RG-001"
+    title: "SSIUU Gradient Flow"
+    category: "Method Validity"
+    status: "BLOCKED"
+    blocks_training: true
+    blocks_evaluation: false
+    blocked_conditions: ["C4", "C6", "C7"]
+    dependencies: []
+    source_citations: ["arXiv:2509.22263v2"]
+    verification_command: "pytest tests/test_ssiuu_gradient_flow.py"
+    required_evidence: "loss.backward() produces non-zero param.grad for at least one model parameter"
+    validating_commit: null
+    validation_date: null
+    rationale: ".detach() at ssiuu_reg.py:173 severs gradient flow. SSIUU regularisation loss cannot affect model parameters."
+
+  - id: "RG-002"
+    title: "Quantisation Location Mismatch"
+    category: "Method Validity"
+    status: "BLOCKED"
+    blocks_training: true
+    blocks_evaluation: true
+    blocked_conditions: ["C5", "C6", "C7"]
+    dependencies: []
+    source_citations: ["FQ-SSIUU Design Intent"]
+    verification_command: "pytest tests/test_quantisation_location.py"
+    required_evidence: "Quantiser metadata deployment_equivalent field must be True, or scope documented as ablation"
+    validating_commit: null
+    validation_date: null
+    rationale: "Training-time FQ applies symmetric INT4 QDQ to adapter output activations. Deployment NF4 applies the NF4 codebook to merged model weights. These are different operations."
+
+  - id: "RG-003"
+    title: "QUAIL Fidelity"
+    category: "Method Validity"
+    status: "BLOCKED"
+    blocks_training: true
+    blocks_evaluation: false
+    blocked_conditions: ["C8"]
+    dependencies: []
+    source_citations: ["arXiv:2601.15538v1"]
+    verification_command: "pytest tests/test_quail_loss.py"
+    required_evidence: "QUAIL loss function must match published equation structure with all three components."
+    validating_commit: null
+    validation_date: null
+    rationale: "Current implementation has hinge loss only (no forget loss, no retain loss), uses margin 4.2e-4 (published: 1.0/2), and has no loss weighting coefficients."
+
+  - id: "RG-004"
+    title: "TOFU Forget Quality Interpretation"
+    category: "Evaluation Validity"
+    status: "OPEN"
+    blocks_training: false
+    blocks_evaluation: true
+    blocked_conditions: []
+    dependencies: []
+    source_citations: ["arXiv:2401.06121v1"]
+    verification_command: "grep -r 'forget quality' handbook/"
+    required_evidence: "All documentation must interpret FQ as a KS p-value, not a direct distance metric or magnitude."
+    validating_commit: null
+    validation_date: null
+    rationale: "FQ is a KS p-value comparing unlearned model vs retain-only oracle. Larger p-value = less evidence against null. It is not a direct distance."

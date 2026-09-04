@@ -22,8 +22,14 @@ THE THREE-PRECISION PROTOCOL:
     1. Evaluate merged model at FP16 -> measure FQ_FP16 (baseline)
     2. Evaluate merged model at INT8 -> measure FQ_INT8 (intermediate)
     3. Evaluate merged model at NF4  -> measure FQ_NF4  (attack surface)
-    4. Compute: Q-INT4 = |FQ_NF4 - FQ_FP16| / (FQ_FP16 + eps)
-    5. Verdict: Q-INT4 > 0.05 = PASS (QRA confirmed)
+    4. Compute: relative_precision_sensitivity = |FQ_NF4 - FQ_FP16| / (FQ_FP16 + eps)
+    5. Verdict: sensitivity > 0.05 = PASS (QRA confirmed)
+
+    NOTE on Forget Quality (FQ): FQ is a Kolmogorov-Smirnov test p-value
+    comparing the unlearned model's output distribution against a retain-only
+    oracle. A larger p-value indicates less evidence of distributional
+    difference (= better forgetting under TOFU protocol). Near-zero FQ
+    means the distributions are statistically distinguishable. See CR-001.
 
     Each evaluation loads the model FRESH from disk at the target precision.
     Models are never re-quantised from an already-loaded checkpoint.
@@ -85,7 +91,9 @@ class PrecisionResult:
 
     Attributes:
         precision: The precision level ('fp16', 'int8', 'nf4').
-        forget_quality: Forget Quality metric (KS p-value, higher = better unlearning).
+        forget_quality: Forget Quality metric (KS p-value comparing unlearned
+            model vs retain-only oracle; higher = less evidence of distributional
+            difference = better forgetting under TOFU protocol). See CR-001.
         model_utility: Model Utility metric (higher = better utility preservation).
         all_metrics: Complete metric dict from TOFU_SUMMARY.json.
         elapsed_seconds: Time taken for this evaluation.
@@ -109,9 +117,11 @@ class QRAResult:
         seed: Random seed used.
         results_by_precision: Dict mapping precision name to PrecisionResult.
         q_int4_score: |FQ_NF4 - FQ_FP16| / (FQ_FP16 + eps).
+            Renamed to 'relative_precision_sensitivity' in certificate.py v2.
         q_int8_score: |FQ_INT8 - FQ_FP16| / (FQ_FP16 + eps) (intermediate check).
+        certification_threshold: The pass threshold used for verdict.
         verdict: 'PASS', 'FAIL', or 'BORDERLINE'.
-        certified: True if Q-INT4 > pass_threshold (QRA confirmed).
+        certified: True if q_int4_score > certification_threshold.
         notes: Free-text notes.
     """
 
@@ -120,6 +130,7 @@ class QRAResult:
     results_by_precision: Dict[str, PrecisionResult] = field(default_factory=dict)
     q_int4_score: float = 0.0
     q_int8_score: float = 0.0
+    certification_threshold: float = 0.05
     verdict: str = "PENDING"
     certified: bool = False
     notes: str = ""
@@ -357,6 +368,7 @@ def run_qra_evaluation(config: QRAConfig, condition_id: str = "P1_QRA") -> QRARe
         results_by_precision=results,
         q_int4_score=q_int4,
         q_int8_score=q_int8,
+        certification_threshold=config.qra_pass_threshold,
         verdict=verdict,
         certified=certified,
         notes=notes,
@@ -386,6 +398,7 @@ def save_qra_result(result: QRAResult, output_path: str) -> None:
         "seed": result.seed,
         "q_int4_score": result.q_int4_score,
         "q_int8_score": result.q_int8_score,
+        "certification_threshold": result.certification_threshold,
         "verdict": result.verdict,
         "certified": result.certified,
         "notes": result.notes,

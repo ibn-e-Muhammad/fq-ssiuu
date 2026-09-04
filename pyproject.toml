@@ -9,6 +9,7 @@ description = "FQ-SSIUU: Verifiable LLM Unlearning Against Quantisation Recovery
 readme = "README.md"
 license = {file = "LICENSE"}
 requires-python = ">=3.11"
+dynamic = ["dependencies"]
 keywords = ["machine-unlearning", "llm", "quantisation", "privacy", "gdpr"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -20,9 +21,14 @@ classifiers = [
 
 [project.scripts]
 unlearn-toolkit = "fq_ssiuu.udt.cli:app"
+fq-ssiuu-preflight = "fq_ssiuu.environment:preflight_main"
+fq-ssiuu-gates = "scripts.research_gate:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
 
 [tool.ruff]
 target-version = "py311"
