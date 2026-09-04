@@ -3,36 +3,22 @@ src/fq_ssiuu/attribution/ssiuu_reg.py
 
 SSIUU-style attribution regularisation for machine unlearning.
 
-Reference: Yang et al. 2025, "SSIUU: Spurious-free Selective Integrated-gradient
-Unlearning for Unlearning", arXiv:2509.22263.
+Reference: Yang et al., “Erase or Hide? Suppressing Spurious Unlearning Neurons for
+Robust Unlearning,” arXiv:2509.22263v2.
 
-"""
-src/fq_ssiuu/attribution/ssiuu_reg.py
+This repository currently implements a LayerIntegratedGradients surrogate.
+It is not the published Ssiuu method.
 
-SSIUU-style attribution regularisation for machine unlearning.
+Published Ssiuu Mechanism:
+    - Published Ssiuu uses parameter-level attribution in Appendix B.
+    - It compares current-step attribution with the previous step.
+    - The previous-step attribution is detached.
+    - The current-step attribution remains differentiable.
+    - Its gradient includes a Hessian-vector product.
+    - The first optimization step has zero Ssiuu penalty.
 
-Reference: Yang et al. 2025, "SSIUU: Spurious-free Selective Integrated-gradient
-Unlearning for Unlearning", arXiv:2509.22263.
-
-This is the `LayerIG attribution surrogate`, not the `Published SSIUU` method.
-
-Published SSIUU Mechanism (arXiv:2509.22263):
-    The paper's practical implementation treats each scalar trainable parameter as a feature.
-    - Attribution is: A_i = \\phi_i \\times \\partial P(y|x)/\\partial \\phi_i
-    - Attribution is computed for the current forget batch.
-    - It is compared with the immediately previous optimization step, not a static baseline.
-    - The negative index set is selected from negative current-step aggregated attributions.
-    - Previous-step attribution is detached and treated as constant.
-    - Current-step attribution must remain differentiable.
-    - Backpropagating the attribution penalty requires second-order derivatives, implemented through a Hessian-vector product without materializing the full Hessian.
-    - The first optimization step uses zero SSIUU penalty because no previous-step attribution exists.
-
-Current Implementation (`LayerIG attribution surrogate`):
-    - Uses Captum LayerIntegratedGradients.
-    - Computed at a target hidden layer, not on parameters.
-    - Uses a static initial-model baseline computed over the whole forget set.
-    - The current-step attribution is detached (gradient flow is broken).
-    - Backpropagation currently does not flow through the attribution penalty.
+Current Implementation (LayerIG surrogate):
+    - The current surrogate uses a static initial baseline and returns detached current attribution.
 """
 
 import logging
