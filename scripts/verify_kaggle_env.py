@@ -25,6 +25,7 @@ import uuid
 import tempfile
 import subprocess
 import argparse
+import re
 import importlib.metadata
 from datetime import datetime, timezone
 
@@ -40,6 +41,27 @@ except ImportError:
 def exit_code_for_status(overall_status: str) -> int:
     """Returns exit code 0 if overall_status is 'PASS', else 1."""
     return 0 if overall_status == "PASS" else 1
+
+def get_git_sha() -> str:
+    """Resolve the executed checkout; an unavailable identity cannot pass."""
+    try:
+        result = subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO_ROOT,
+                                capture_output=True, text=True, check=False)
+        sha = result.stdout.strip()
+        if result.returncode == 0 and re.fullmatch(r"[0-9a-f]{40}", sha):
+            return sha
+    except OSError:
+        pass
+    return "UNKNOWN"
+
+def run_pip_check() -> tuple[int, str]:
+    """Check the interpreter used for verification, preserving failure output."""
+    try:
+        result = subprocess.run([sys.executable, "-m", "pip", "check"],
+                                capture_output=True, text=True, check=False)
+        return result.returncode, result.stdout + result.stderr
+    except OSError as exc:
+        return 1, f"pip check could not start: {type(exc).__name__}"
 
 def run_sdpa_smoke(torch_mod) -> dict:
     """Invokes scaled_dot_product_attention using the given torch module."""
@@ -121,6 +143,10 @@ def check_env(baseline_path: str, run_id: str | None = None, git_sha: str | None
         "utc_timestamp": datetime.now(timezone.utc).isoformat(),
         "statuses": {},
         "checks": {}
+    }
+    results["checks"]["git_provenance"] = {
+        "status": "PASS" if re.fullmatch(r"[0-9a-f]{40}", git_sha) else "FAIL",
+        "observed": git_sha,
     }
 
     # 1. Baseline file verification
@@ -233,8 +259,8 @@ def check_env(baseline_path: str, run_id: str | None = None, git_sha: str | None
             results["checks"]["fp16_operation"] = {"status": "FAIL", "reason": "CUDA not available in process"}
             results["checks"]["sdpa_operation"] = {"status": "FAIL", "reason": "CUDA not available in process"}
 
-    except ImportError:
-        results["checks"]["pytorch"] = {"status": "FAIL", "reason": "PyTorch not installed"}
+    except Exception as exc:
+        results["checks"]["pytorch"] = {"status": "FAIL", "reason": f"PyTorch check failed: {exc}"}
 
     # 5. Baseline protected stack integrity (Hard-protected + Native-stability)
     if bdata and isinstance(bdata, dict) and results["checks"].get("baseline_file", {}).get("status") == "PASS":
@@ -330,7 +356,15 @@ def main():
     baseline_path = args.baseline if args.baseline else os.path.join(REPO_ROOT, "requirements/kaggle-native-baseline.json")
     run_id = args.run_id if args.run_id else str(uuid.uuid4())
 
-    res = check_env(baseline_path, run_id=run_id)
+    try:
+        res = check_env(baseline_path, run_id=run_id)
+    except Exception as exc:
+        res = {
+            "schema_version": "1.0", "run_id": run_id, "git_sha": get_git_sha(),
+            "statuses": {"overall": "FAIL"},
+            "checks": {"verifier_execution": {"status": "FAIL",
+                "reason": f"{type(exc).__name__}: {exc}"}},
+        }
     overall = res["statuses"]["overall"]
 
     print("=== KAGGLE ENVIRONMENT VERIFICATION SUMMARY ===")

@@ -19,7 +19,7 @@ import shutil
 import tempfile
 import unittest
 import subprocess
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if REPO_ROOT not in sys.path:
@@ -27,9 +27,64 @@ if REPO_ROOT not in sys.path:
 
 import scripts.kaggle_setup as ks
 import scripts.verify_kaggle_env as ve
+import scripts.verify_pip_report as vp
 from scripts.verify_pip_report import normalize_name
 
 class TestKaggleDependencyPolicyBehavioral(unittest.TestCase):
+
+    def test_verifier_entrypoint_writes_report_with_real_control_flow(self):
+        """Stub external boundaries, not check_env or its production helpers."""
+        fake_torch = MagicMock()
+        fake_torch.__version__ = self.mock_baseline_data['hard_protected_compute_stack']['torch']
+        fake_torch.cuda.device_count.return_value = 1
+        fake_torch.cuda.is_available.return_value = True
+        fake_torch.cuda.get_device_name.return_value = 'Tesla T4'
+        fake_torch.cuda.get_device_capability.return_value = (7, 5)
+        fake_torch.cuda.get_device_properties.return_value.total_memory = 15 * 1024**3
+        fake_torch.all.return_value.item.return_value = True
+        fake_bnb = MagicMock()
+        fake_bnb.functional.quantize_nf4.return_value = (MagicMock(), type('State', (), {'quant_type': 'nf4'})())
+        versions = {**self.mock_baseline_data['hard_protected_compute_stack'],
+                    **self.mock_baseline_data['native_stability_stack']}
+        modules = {'torch': fake_torch, 'bitsandbytes': fake_bnb,
+                   'bitsandbytes.functional': fake_bnb.functional,
+                   **{name: MagicMock() for name in ('captum', 'hydra', 'lm_eval', 'jsonlines')}}
+        def external(cmd, **kwargs):
+            if cmd[:3] == ['git', 'rev-parse', 'HEAD']:
+                return subprocess.CompletedProcess(cmd, 0, 'a' * 40 + '\n', '')
+            if cmd == [sys.executable, '-m', 'pip', 'check']:
+                return subprocess.CompletedProcess(cmd, 0, 'No broken requirements found.\n', '')
+            raise AssertionError(f'Unexpected external operation: {cmd}')
+        out = os.path.join(self.temp_dir, 'verifier')
+        with patch.dict(sys.modules, modules), patch.dict(os.environ, {'CUDA_VISIBLE_DEVICES': '0'}), \
+             patch.object(ve.subprocess, 'run', side_effect=external), \
+             patch.object(ve.importlib.metadata, 'version', side_effect=versions.__getitem__), \
+             patch.object(sys, 'argv', ['verify', '--baseline', self.mock_baseline_path,
+                                       '--output-dir', out, '--run-id', 'entrypoint-test']):
+            with self.assertRaises(SystemExit) as result:
+                ve.main()
+        self.assertEqual(result.exception.code, 0)
+        with open(os.path.join(out, 'kaggle_env_verification.json')) as handle:
+            report = json.load(handle)
+        self.assertEqual(report['git_sha'], 'a' * 40)
+        self.assertEqual(report['run_id'], 'entrypoint-test')
+        self.assertEqual(report['statuses']['overall'], 'PASS')
+        self.assertEqual(report['checks']['pip_check']['status'], 'PASS')
+
+    def test_report_cli_reads_valid_and_malformed_reports(self):
+        for content, expected in [(' {"install": []}', 0), ('invalid-json', 1)]:
+            with self.subTest(content=content):
+                report = os.path.join(self.temp_dir, 'pip-report.json')
+                output = os.path.join(self.temp_dir, 'report-result.json')
+                with open(report, 'w') as handle:
+                    handle.write(content)
+                with patch.object(sys, 'argv', ['verify', '--baseline', self.mock_baseline_path,
+                                               '--report', report, '--output-json', output]):
+                    with self.assertRaises(SystemExit) as result:
+                        vp.main()
+                self.assertEqual(result.exception.code, expected)
+                with open(output) as handle:
+                    self.assertEqual(json.load(handle)['status'], 'PASS' if expected == 0 else 'FAIL')
 
     def setUp(self):
         self.temp_dir = tempfile.mkdtemp(prefix="test_kaggle_policy_")
