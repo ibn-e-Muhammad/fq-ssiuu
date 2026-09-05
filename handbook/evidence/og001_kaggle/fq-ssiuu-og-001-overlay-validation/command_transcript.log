@@ -1,0 +1,44 @@
+=== STAGE 1I SANITIZED COMMAND TRANSCRIPT ===
+
+1. Starting State Check:
+   Command: git branch --show-current && git rev-parse HEAD && git status --porcelain && git diff --exit-code && git diff --cached --exit-code && git merge-base dev HEAD
+   Branch: fix/kaggle-overlay-evidence-integrity
+   HEAD: 3149d38d42c5e3e6cda44825d9f689558242d4bc
+   Merge Base: e395f7af264eaaac9473d8b9e9f1c7a46c825d5c
+
+2. Offline Validation Checks:
+   Command: ./.venv/bin/python -m unittest -v tests.test_kaggle_dependency_policy
+   Result: Ran 20 tests in 14.657s (OK)
+
+   Command: ./.venv/bin/python -m compileall scripts/kaggle_setup.py scripts/verify_pip_report.py scripts/verify_kaggle_env.py tests/test_kaggle_dependency_policy.py
+   Result: Exit Code 0
+
+   Command: bash -n scripts/setup_env.sh
+   Result: Exit Code 0
+
+   Command: git diff --check
+   Result: Exit Code 0
+
+3. Commit 1 (Preflight Repairs):
+   Command: git add scripts/kaggle_setup.py scripts/verify_kaggle_env.py tests/test_kaggle_dependency_policy.py handbook/corrections/CR-011_kaggle_overlay_validation_coverage.md handbook/research_diary/2026-09-05_kaggle_overlay_evidence_integrity.md && git commit -m "fix(env): close final Kaggle overlay preflight gaps" && git push origin fix/kaggle-overlay-evidence-integrity
+   Result: Commit 502871a57b275bffaa65ba6a24f9e834c3721fb6 (EXECUTED_CODE_SHA)
+
+4. Commit 2 (Validation Runner Notebook):
+   Command: git add experiments/notebooks/kaggle/og001_overlay_validation/OG001_KAGGLE_OVERLAY_VALIDATION.ipynb && git commit -m "chore(kaggle): add OG-001 overlay validation runner" && git push origin fix/kaggle-overlay-evidence-integrity
+   Result: Commit 8d3bc149306085aae3eb52ae1b702ec406a4b18c
+
+5. Kaggle Kernel Submission:
+   Command: ./.venv/bin/python -m kaggle kernels push -p /tmp/stage_og001_kaggle
+   Result: Kernel version 1 successfully pushed (muhammadii/fq-ssiuu-og-001-overlay-validation)
+
+6. Kaggle Status Monitoring:
+   Command: ./.venv/bin/python -m kaggle kernels status muhammadii/fq-ssiuu-og-001-overlay-validation
+   Result: Status transitioned RUNNING -> KernelWorkerStatus.ERROR
+
+7. Evidence Retrieval:
+   Command: ./.venv/bin/python -m kaggle kernels output muhammadii/fq-ssiuu-og-001-overlay-validation -p /tmp/dl_og001_output
+   Downloaded File: fq-ssiuu-og-001-overlay-validation.log (5093 bytes, SHA-256: 175d32fbb7ba1afca16d7d530123e148348215cdced92aad05449137b08828cb)
+
+8. Commit 3 (Evidence Recording):
+   Command: git add handbook/evidence/og001_kaggle/ handbook/research_diary/2026-09-05_og001_kaggle_overlay_validation.md handbook/operational_gates.yaml handbook/PROJECT_STATUS.md handbook/BRANCH_LEDGER.md handbook/THESIS_UPDATE_LEDGER.md && git commit -m "docs(evidence): record OG-001 Kaggle overlay validation" && git push origin fix/kaggle-overlay-evidence-integrity
+   Result: Commit e63d26f7435f0376d499b9cfacfd3e5fdbe001cb
