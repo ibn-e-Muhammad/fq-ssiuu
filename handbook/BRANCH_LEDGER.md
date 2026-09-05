@@ -52,10 +52,16 @@
   - Documentation closeout commit: `5045cd59964adcab6e089d570bb00e077c2e1fb4`
   - Record correction commit: `ee80b0df160558c52c5bfbdabff5ab01a8885654`
   - Provenance timestamp qualification: `7fb798643aac2381863a5884d339df43cee7ab1f` (corrected typo in documentation record from `7fb79867...`)
-- **Live Commit Count Command**: `git rev-list --count dev..HEAD` (9 commits ahead of `dev` at start of Stage 1H-C)
-- **Status**: Active lineage tip for Kaggle overlay architecture
-- **Purpose**: Documentation closeout, provenance qualification, and static Kaggle overlay implementation
+  - Fail-closed overlay repair commit: `2f13acf44f1d43abf1eeb35d6ba2a3f887e69249`
+- **Status**: Unmerged ancestor of active tip `fix/kaggle-overlay-evidence-integrity`
+- **Purpose**: Documentation closeout, provenance qualification, static Kaggle overlay implementation, and fail-closed overlay repair
+
+### `fix/kaggle-overlay-evidence-integrity`
+- **Created from**: `2f13acf44f1d43abf1eeb35d6ba2a3f887e69249` (on `chore/kaggle-environment-overlay`)
+- **Status**: Active lineage tip for Kaggle overlay evidence linkage and behavioral test repair (Stage 1H-D)
+- **Purpose**: Evidence linkage, environment manifests, fail-closed subprocess error handling, production overlay lock generation, and behavioral unit test repair
 - **Merge status**: Not merged into `dev`
+
 
 ## Historical Branches (Contained in `dev`)
 

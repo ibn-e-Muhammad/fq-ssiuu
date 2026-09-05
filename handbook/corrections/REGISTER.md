@@ -193,3 +193,22 @@ See `handbook/corrections/CR-009_kaggle_environment_reconciliation.md` for full 
 
 **Directive:**
 This mismatch is registered as an explicit blocker for new experiments. `src/fq_ssiuu/models/loader.py` must not be modified in Stage 1H-C. It must be repaired and verified with dedicated unit tests before model training or evaluation is initiated.
+
+---
+
+## CR-011: Kaggle Overlay Validation Coverage and Evidence Linkage
+
+| Field | Value |
+|-------|-------|
+| Status | DOCUMENTED — BEHAVIORALLY REPAIRED |
+| Date discovered | 2026-09-05 |
+| Affected files | `tests/test_kaggle_dependency_policy.py`, `scripts/kaggle_setup.py`, `scripts/verify_kaggle_env.py` |
+| Severity | MEDIUM — infrastructure validation integrity |
+
+**Finding:**
+The previous 22-test result was real but had insufficient behavioral coverage and incomplete provenance linkage across setup failure paths and verifier outputs.
+
+**Corrective action:**
+Replaced weak tests with 20 pure behavioral tests covering baseline validation, git provenance failure, pip freeze failure, missing install reports, verifier PARTIAL status, run ID and git SHA linkage, log persistence, and overlay lock generation (including transitive package deltas while excluding protected packages).
+
+See `handbook/corrections/CR-011_kaggle_overlay_validation_coverage.md` for full details.

@@ -30,4 +30,4 @@ OG-001:
     - "Before/after environment manifests."
     - "Overlay-only lock (no blind full-environment lockfile)."
   allowed_next_stage: "Stage 1I (Kaggle Environment Validation)"
-  rationale: "The current baseline Kaggle image lacks essential scientific dependencies (bitsandbytes, captum, hydra-core, lm-eval, jsonlines). Stage 1H-B static overlay architecture is implemented. Stage 1I execution on Kaggle is required to validate overlay installation and close OG-001."
+  rationale: "The current baseline Kaggle image lacks essential scientific dependencies (bitsandbytes, captum, hydra-core, lm-eval, jsonlines). Stage 1H-D evidence linkage, manifest generation, fail-closed subprocess handling, and behavioral test suite are complete offline. Stage 1I execution on Kaggle is required to validate overlay installation and close OG-001."

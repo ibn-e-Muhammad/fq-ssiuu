@@ -20,6 +20,7 @@
 | DL-020 (Decoupled Overlay Architecture) | §Methodology (Software Environment), §Reproducibility | Document decoupled Kaggle baseline and overlay architecture with dry-run report verification |
 | DL-021 (Pip Report Verification Guard) | §Reproducibility, §Infrastructure | Detail non-mutating pip report verification guard preventing native stack modification |
 | DL-022 (TRL Removal Decision) | §Methodology (Dependencies) | Document removal of TRL due to zero executable imports across codebase |
+| CR-011 (Overlay Validation Coverage) | §Reproducibility, §Infrastructure | Document behavioral test coverage and single run ID evidence linkage across Kaggle overlay setup failure paths |
 
 ---
 
