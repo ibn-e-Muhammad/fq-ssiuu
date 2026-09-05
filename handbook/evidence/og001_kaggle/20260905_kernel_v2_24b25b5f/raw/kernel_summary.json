@@ -1,0 +1,22 @@
+{
+  "schema_version": "2.0",
+  "orchestration_run_id": "2b042f64-3510-4f81-9e9c-6c455f97058e",
+  "start_utc": "2026-09-05T09:45:24.839320+00:00",
+  "source_origin_sha": "91b6aa39e520f9312b098997134c1deabeabfb8f",
+  "source_tree_sha": "1a6bd790404e39fae90f96b60cf9700a59bc2de5",
+  "source_manifest_sha256": "d64749565df66adc5be617aea959f2ff676eefbf19526dacdcc1d445f214046c",
+  "orchestration_git_commit": "24b25b5f3883646d1841e83cdd6a88a54b3fd93d",
+  "dataset_id": "muhammadii/fq-ssiuu-source-91b6aa39",
+  "source_validation_status": "PASS",
+  "setup_returncode": 1,
+  "execution_status": "FAIL",
+  "cuda_visible_devices": "0",
+  "scientific_experiment_executed": false,
+  "snapshot_commit_sha": "b1d15c5002c927a8c85791f8bf1e2422feda6166",
+  "bundle_sha256": "f799d1f5bd2bdaf18e8229ffce5ac25f223b0355540aa48806896eb714ef641c",
+  "history_commit_count": 1,
+  "failure_phase": "setup",
+  "first_failure": "RuntimeError: Environment setup failed with exit 1; see setup logs",
+  "end_utc": "2026-09-05T09:46:07.455787+00:00",
+  "setup_status_file_exists": true
+}

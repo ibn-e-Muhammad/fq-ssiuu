@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "stage_status": "FAILED_WITH_EVIDENCE",
+  "og001_status": "PARTIAL",
+  "kernel_version": 2,
+  "kernel_status": "ERROR",
+  "one_repaired_submission": true,
+  "setup_run_id": "b9e29923-ffc3-4162-8883-fa35a1dbc04c",
+  "setup_returncode": 1,
+  "install_returncode": 0,
+  "editable_returncode": 0,
+  "pip_check_returncode": 1,
+  "first_causal_failure": "Global pip check returned 1 after successful installation. Its first diagnostic is: bigframes 2.39.0 requires google-cloud-bigquery-storage, which is not installed.",
+  "criteria": {
+    "private_source_transport": "PASS",
+    "source_origin_tree_snapshot_linkage": "PASS",
+    "setup_reached": "PASS",
+    "single_T4_cuda0": "PASS",
+    "protected_stack_unchanged": "PASS",
+    "overlay_installation": "PASS",
+    "editable_project_installation": "PASS",
+    "required_overlay_imports": "NOT_REACHED",
+    "nf4_quantise_dequantise": "NOT_REACHED",
+    "fp16_smoke": "NOT_REACHED",
+    "sdpa_smoke": "NOT_REACHED",
+    "pip_check": "FAIL",
+    "before_manifest": "PASS",
+    "after_manifest": "NOT_PRODUCED",
+    "post_attempt_manifest": "PASS",
+    "verifier_execution_record": "NOT_PRODUCED",
+    "overlay_only_lock": "NOT_PRODUCED",
+    "no_scientific_experiment": "PASS"
+  },
+  "artifact_integrity": "PASS",
+  "setup_artifacts_verified": 15,
+  "protected_before_post_equal": true,
+  "installed_packages": [
+    {
+      "name": "bitsandbytes",
+      "version": "0.45.5"
+    },
+    {
+      "name": "captum",
+      "version": "0.7.0"
+    },
+    {
+      "name": "hydra-core",
+      "version": "1.3.6"
+    },
+    {
+      "name": "lm_eval",
+      "version": "0.4.13"
+    },
+    {
+      "name": "jsonlines",
+      "version": "4.0.0"
+    },
+    {
+      "name": "evaluate",
+      "version": "0.4.6"
+    },
+    {
+      "name": "sacrebleu",
+      "version": "2.6.0"
+    },
+    {
+      "name": "pytablewriter",
+      "version": "1.2.1"
+    },
+    {
+      "name": "sqlitedict",
+      "version": "2.1.0"
+    },
+    {
+      "name": "word2number",
+      "version": "1.1"
+    },
+    {
+      "name": "DataProperty",
+      "version": "1.1.1"
+    },
+    {
+      "name": "mbstrdecoder",
+      "version": "1.1.5"
+    },
+    {
+      "name": "pathvalidate",
+      "version": "3.3.1"
+    },
+    {
+      "name": "tabledata",
+      "version": "1.3.5"
+    },
+    {
+      "name": "tcolorpy",
+      "version": "0.1.7"
+    },
+    {
+      "name": "typepy",
+      "version": "1.3.5"
+    },
+    {
+      "name": "portalocker",
+      "version": "4.3.0"
+    }
+  ],
+  "interpretation_limits": [
+    "No pre-install pip check was captured by this source implementation. Before-freeze evidence establishes affected installed versions, but is not a before-check transcript.",
+    "NF4, FP16, SDPA and overlay imports were not evaluated because the setup script stopped at pip check.",
+    "post_attempt_manifest.json is failure-state evidence and must not be relabeled after_manifest.json.",
+    "Snapshot/manifest hashes prove linkage to the selected sanitized repaired source, not to the superseded 502871a source tree."
+  ],
+  "orchestration_run_id": "2b042f64-3510-4f81-9e9c-6c455f97058e"
+}

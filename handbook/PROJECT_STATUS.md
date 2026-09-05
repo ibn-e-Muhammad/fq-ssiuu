@@ -1,7 +1,7 @@
 # FQ-SSIUU Project Status
 
 **Last updated:** 2026-09-05  
-**Verified by:** Research integrity audit session  
+**Verified by:** Codex source review and Kaggle OG-001 kernel version 2 evidence
 **Branch:** fix/kaggle-overlay-evidence-integrity
 
 > [!WARNING]
@@ -22,6 +22,7 @@
 |-----------|------|------------|---------|----------|
 | Legacy Colab environment check | 2026-08-04 | Colab check (Historical, not canonical env) | PASS | experiments/gate0_env_check.py |
 | GATE-0 (Kaggle) | 2026-09-04 | hardware: PASS, deps: PARTIAL, nf4: UNAVAILABLE | PARTIAL | handbook/evidence/gate0_kaggle/ |
+| OG-001 repaired attempt | 2026-09-05 | Source transport and installation passed; global pip check exited 1; NF4 not reached | PARTIAL | handbook/evidence/og001_kaggle/20260905_kernel_v2_24b25b5f/VERDICT.json |
 | GATE-1 | 2026-08-08 | FQ=0.393718, MU=0.554501 | PASS (exceeds target) | results/gate1_baseline/ |
 | Pilot P1 | 2026-08-09 | Q-INT4=0.214906 (4.3× threshold) | Pilot-executed: precision sensitivity demonstrated | results/pilot_p1/ |
 | Pilot P2 | 2026-08-09 | Peak VRAM=2.511 GB (12.5 GB margin) | Pilot-executed: offline IG computation completed | results/pilot_p2/ |
@@ -51,7 +52,7 @@
 | # | Item | Status | Evidence | Blocking? | Action Required |
 |---|------|--------|----------|-----------|----------------|
 | 1 | HF access to Llama-3.2-1B-Instruct | ✅ DONE | GATE-1 ran successfully | No | — |
-| 2 | GATE-0 reproducible environment verification | ⏳ PARTIAL | Gate-0 hardware passed, deps pending | Yes | Implement Kaggle overlay (OG-001) |
+| 2 | GATE-0 reproducible environment verification | ⏳ PARTIAL | OG-001 v2 installed overlay, then failed global pip check | Yes | Resolve demonstrated native-image consistency gate conflict (OG-001) |
 | 3 | GATE-1 NPO baseline reproduction | ✅ DONE | FQ=0.3937, MU=0.5545 | No | — |
 | 4 | Pilot P1 QRA existence | ✅ DONE | Q-INT4=0.2149 | No | — |
 | 5 | Pilot P2 IG attribution feasibility | ✅ DONE | Peak VRAM=2.511 GB | No | — |
@@ -76,6 +77,20 @@
 | Gate | Status | Blocks New Experiments? | Resolution Complexity |
 |------|--------|-------------------------|-----------------------|
 | OG-001: Reproducible Kaggle Environment Overlay | PARTIAL | Yes | HIGH |
+
+The repaired private run (kernel version 2) executed source
+`91b6aa39e520f9312b098997134c1deabeabfb8f` through a separately identified,
+parentless snapshot. Transport, one-device Tesla T4 selection, protected-package
+integrity and both installations passed. Global `pip check` failed with six
+diagnostics involving native-image packages. Its first diagnostic reports a
+missing `google-cloud-bigquery-storage` dependency of `bigframes 2.39.0`.
+FP16, SDPA, NF4 and required overlay import checks were not reached. The failure
+state was preserved; no after-manifest or verified lock is claimed.
+
+The 35 passing offline infrastructure tests are evidence about control flow and
+source transport, not scientific method validity or Kaggle NF4 capability.
+The first attempt's raw log is preserved, and its mistyped derived SHAs are
+explicitly corrected. See the [v2 evidence](evidence/og001_kaggle/20260905_kernel_v2_24b25b5f/VERDICT.json).
 
 ## Research Gates (Scientific Blockers)
 
@@ -104,13 +119,16 @@
 
 ## The Full Experiment Dependency Order
 
+All phases below remain subject to OG-001 and the applicable research gates.
+Historical pilot execution does not clear those blockers.
+
 | Phase | Experiments | Status | Dependencies |
 |-------|-------------|--------|--------------|
-| Phase 0 | E0b (Oracle fine-tune) | NOT STARTED | None — can start NOW |
-| Phase 0 | GATE-2 (SSIUU validation) | NOT STARTED | P2 ✓ |
+| Phase 0 | E0b (Oracle fine-tune) | NOT STARTED | OG-001 closure |
+| Phase 0 | GATE-2 (SSIUU validation) | NOT STARTED | OG-001; RG-001 correction and validation |
 | Phase 1 | E1+E2 (NPO 3 seeds) | NOT STARTED | GATE-1 ✓ |
-| Phase 1 | E3 (QUAIL 3 seeds) | NOT STARTED | P4 ✓ |
-| Phase 1 | E5 (FQ-QAT+NPO 3 seeds) | NOT STARTED | P3 ✓ |
+| Phase 1 | E3 (QUAIL 3 seeds) | NOT STARTED | OG-001; RG-003 correction and validation |
+| Phase 1 | E5 (FQ-QAT+NPO 3 seeds) | NOT STARTED | OG-001; RG-002 correction and validation |
 | Phase 1 | E7 (DurableUn-SAF 3 seeds) | NOT STARTED | Config needed |
 | Phase 2 | E4 (SSIUU+NPO 3 seeds) | NOT STARTED | GATE-2 |
 | Phase 3 | E6 (FQ-SSIUU full, 3 seeds) | NOT STARTED | E4 AND E5 |

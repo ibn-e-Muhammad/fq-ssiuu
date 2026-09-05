@@ -20,7 +20,8 @@
 | DL-020 (Decoupled Overlay Architecture) | §Methodology (Software Environment), §Reproducibility | Document decoupled Kaggle baseline and overlay architecture with dry-run report verification |
 | DL-021 (Pip Report Verification Guard) | §Reproducibility, §Infrastructure | Detail non-mutating pip report verification guard preventing native stack modification |
 | CR-011 (Overlay Validation Coverage) | §Reproducibility, §Infrastructure | Document behavioral test coverage and single run ID evidence linkage across Kaggle overlay setup failure paths |
-| DL-023 (Stage 1I Kaggle Validation Run) | §Reproducibility, §Infrastructure | Document private Kaggle validation run execution result and authentication requirement for private GitHub repository |
+| DL-023 (Stage 1I Kaggle Validation Run) | §Reproducibility, §Infrastructure | Document original anonymous-clone failure and subsequent private bundle transport, which requires no GitHub authentication inside Kaggle |
+| OG-001 repaired kernel v2 | §Reproducibility, §Infrastructure | Record verified private parentless source transport; distinguish origin, tree, snapshot and notebook commits. Installation succeeded, but native-image pip-check conflicts prevented runtime smoke validation. OG-001 remains PARTIAL; no scientific claim follows. |
 
 ---
 

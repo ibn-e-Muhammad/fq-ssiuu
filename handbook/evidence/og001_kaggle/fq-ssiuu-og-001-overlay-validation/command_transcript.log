@@ -25,7 +25,7 @@
 
 4. Commit 2 (Validation Runner Notebook):
    Command: git add experiments/notebooks/kaggle/og001_overlay_validation/OG001_KAGGLE_OVERLAY_VALIDATION.ipynb && git commit -m "chore(kaggle): add OG-001 overlay validation runner" && git push origin fix/kaggle-overlay-evidence-integrity
-   Result: Commit 8d3bc149306085aae3eb52ae1b702ec406a4b18c
+   Result: Commit 8d3bc14d0b4230d216b88473cd13c7085ecf3ee2
 
 5. Kaggle Kernel Submission:
    Command: ./.venv/bin/python -m kaggle kernels push -p /tmp/stage_og001_kaggle
@@ -41,4 +41,6 @@
 
 8. Commit 3 (Evidence Recording):
    Command: git add handbook/evidence/og001_kaggle/ handbook/research_diary/2026-09-05_og001_kaggle_overlay_validation.md handbook/operational_gates.yaml handbook/PROJECT_STATUS.md handbook/BRANCH_LEDGER.md handbook/THESIS_UPDATE_LEDGER.md && git commit -m "docs(evidence): record OG-001 Kaggle overlay validation" && git push origin fix/kaggle-overlay-evidence-integrity
-   Result: Commit e63d26f7435f0376d499b9cfacfd3e5fdbe001cb
+   Result: Commit e63d26f2e2d810e2c070ff08fdc119dd9b11697f
+
+Provenance correction (2026-09-05): notebook/evidence commit IDs above were corrected from mistyped values using Git objects. The pinned 502871a57b275bffaa65ba6a24f9e834c3721fb6 was not executed: clone failed. Raw Kaggle log remains unchanged.

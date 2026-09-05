@@ -1,0 +1,7 @@
+{
+  "overall_status": "FAIL",
+  "mode": "APPLY",
+  "install_exit_code": 0,
+  "editable_exit_code": 0,
+  "pip_check_exit_code": 1
+}

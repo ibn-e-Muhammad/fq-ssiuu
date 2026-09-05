@@ -1,0 +1,7 @@
+{
+  "source_cell_equality": "PASS",
+  "privacy_readback": true,
+  "kernel_version_assignment_evidence": "submission_result.json confirms version 2",
+  "readback_scope": "latest saved kernel after the single version 2 submission",
+  "version_specific_read": "Kaggle returned HTTP 403 for /2; latest saved source was retrieved and compared instead"
+}

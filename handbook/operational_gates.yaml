@@ -8,11 +8,18 @@ OG-001:
   status: PARTIAL
   blocks_new_experiments: true
   does_not_invalidate_historical_pilots: true
-  evidence_run_id: "57588774-bdd5-41c8-b56e-7df0c2f5049b"
-  validating_commit: "502871a57b275bffaa65ba6a24f9e834c3721fb6"
+  evidence_run_id: "b9e29923-ffc3-4162-8883-fa35a1dbc04c"
+  validating_commit: null
+  attempted_source_origin_sha: "91b6aa39e520f9312b098997134c1deabeabfb8f"
+  attempted_snapshot_sha: "b1d15c5002c927a8c85791f8bf1e2422feda6166"
+  orchestration_commit: "24b25b5f3883646d1841e83cdd6a88a54b3fd93d"
+  evidence_path: "handbook/evidence/og001_kaggle/20260905_kernel_v2_24b25b5f/VERDICT.json"
+  kernel_version: 2
+  kernel_status: ERROR
+  setup_returncode: 1
   current_hardware_status: PASS
   current_dependency_status: PARTIAL
-  unresolved_installation_candidates:
+  installed_but_runtime_imports_unverified:
     - bitsandbytes
     - captum
     - hydra-core
@@ -29,5 +36,5 @@ OG-001:
     - "Clean pip check with exit code 0."
     - "Before/after environment manifests."
     - "Overlay-only lock (no blind full-environment lockfile)."
-  allowed_next_stage: "Stage 1I Closeout & Authentication Setup"
-  rationale: "Stage 1I private Kaggle run muhammadii/fq-ssiuu-og-001-overlay-validation failed at cell 3 during git clone (fatal: could not read Username for private repository https://github.com/ibn-e-Muhammad/fq-ssiuu.git, exit 128). OG-001 remains PARTIAL pending authenticated repository access or dataset-staged code execution on Kaggle."
+  allowed_next_stage: "Review demonstrated native-image pip-check conflicts before authorizing another environment run."
+  rationale: "Kernel version 2 verified private history-free source transport, selected one Tesla T4, installed the overlay and editable project with exit 0, and preserved every protected package. Global pip check returned 1, first reporting missing google-cloud-bigquery-storage required by bigframes 2.39.0, followed by other native-image conflicts. Runtime imports, FP16, SDPA, NF4, after-manifest and lock generation were not reached. No second repaired submission occurred."
