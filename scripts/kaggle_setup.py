@@ -9,12 +9,13 @@ Fail-closed implementation:
 - --report-file may only be used with --preview for offline testing.
 - Refuses to operate unless CUDA_VISIBLE_DEVICES=0.
 - Refuses to overwrite existing output directory.
-- Captures structured before-environment manifest and validates baseline before generating pip report.
+- Strictly validates baseline structure using validate_baseline before all actions.
+- Captures genuine before/after/post-attempt environment manifests using common run_id.
 - Validates dry-run pip report and actual installation report against requirements/kaggle-native-baseline.json.
 - Installs repository editable with --no-deps only after successful validation.
-- Runs post-install verifier (scripts/verify_kaggle_env.py) and aborts on any failure.
-- Generates overlay lock only after all checks pass.
-- Creates atomic failure artifacts even when setup fails.
+- Runs post-install verifier (scripts/verify_kaggle_env.py) with common run_id and checks run_id, git_sha, and overall status.
+- Generates overlay lock using production helper generate_overlay_lock only after all checks pass.
+- Creates atomic failure artifacts and setup_status.json even when setup fails.
 - Never edits .bashrc, runs pip uninstall, or downloads models/datasets.
 """
 
@@ -35,9 +36,9 @@ if REPO_ROOT not in sys.path:
     sys.path.insert(0, REPO_ROOT)
 
 try:
-    from scripts.verify_pip_report import verify_report, normalize_name, atomic_write_json
+    from scripts.verify_pip_report import verify_report, validate_baseline, normalize_name, atomic_write_json
 except ImportError:
-    from verify_pip_report import verify_report, normalize_name, atomic_write_json
+    from verify_pip_report import verify_report, validate_baseline, normalize_name, atomic_write_json
 
 def atomic_write_text(filepath: str, content: str) -> None:
     """Atomically write text content to file."""
@@ -63,24 +64,219 @@ def file_sha256(filepath: str) -> str:
             h.update(chunk)
     return h.hexdigest()
 
-def get_git_info() -> tuple[str, bool]:
-    """Returns (git_commit_sha, is_dirty)."""
+def get_git_info() -> tuple[str, bool, bool]:
+    """Returns (git_commit_sha, is_dirty, success)."""
     try:
         sha_res = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=REPO_ROOT)
-        sha = sha_res.stdout.strip() if sha_res.returncode == 0 else "UNKNOWN"
-        status_res = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, cwd=REPO_ROOT)
-        is_dirty = bool(status_res.stdout.strip()) if status_res.returncode == 0 else False
-        return sha, is_dirty
-    except Exception:
-        return "UNKNOWN", False
+        if sha_res.returncode != 0:
+            return "UNKNOWN", True, False
+        sha = sha_res.stdout.strip()
 
-def get_pip_freeze() -> str:
+        status_res = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, cwd=REPO_ROOT)
+        if status_res.returncode != 0:
+            return sha, True, False
+        is_dirty = bool(status_res.stdout.strip())
+        return sha, is_dirty, True
+    except Exception:
+        return "UNKNOWN", True, False
+
+def get_pip_freeze() -> tuple[str, int]:
+    """Runs pip freeze and returns (stdout_text, returncode)."""
     res = subprocess.run([sys.executable, "-m", "pip", "freeze"], capture_output=True, text=True)
-    return res.stdout
+    return res.stdout, res.returncode
+
+def parse_freeze_mapping(freeze_text: str) -> dict[str, str]:
+    """Parses pip freeze output into normalized_name -> version mapping."""
+    installed = {}
+    if freeze_text:
+        for line in freeze_text.splitlines():
+            line = line.strip()
+            if "==" in line:
+                parts = line.split("==")
+                installed[normalize_name(parts[0])] = parts[1]
+    return installed
 
 def run_pip_check() -> tuple[int, str]:
     res = subprocess.run([sys.executable, "-m", "pip", "check"], capture_output=True, text=True)
     return res.returncode, res.stdout + res.stderr
+
+def create_environment_snapshot(
+    stage: str,
+    run_id: str,
+    git_sha: str,
+    git_dirty: bool,
+    baseline_data: dict
+) -> dict:
+    """Creates a comprehensive, structured environment snapshot for before/after manifests."""
+    timestamp = datetime.now(timezone.utc).isoformat()
+    cuda_vis = os.environ.get("CUDA_VISIBLE_DEVICES")
+
+    freeze_text, freeze_code = get_pip_freeze()
+    installed = parse_freeze_mapping(freeze_text)
+
+    hard_stack = baseline_data.get("hard_protected_compute_stack", {}) if isinstance(baseline_data, dict) else {}
+    native_stack = baseline_data.get("native_stability_stack", {}) if isinstance(baseline_data, dict) else {}
+    all_protected = {**hard_stack, **native_stack}
+
+    protected_obs = {}
+    protected_valid = True
+    for pkg_raw, exp_ver in all_protected.items():
+        norm_p = normalize_name(pkg_raw)
+        actual_ver = installed.get(norm_p)
+        if not actual_ver:
+            try:
+                actual_ver = importlib.metadata.version(pkg_raw)
+            except Exception:
+                actual_ver = None
+
+        is_match = (actual_ver == exp_ver)
+        if not is_match:
+            protected_valid = False
+        protected_obs[norm_p] = {
+            "name": pkg_raw,
+            "expected_version": exp_ver,
+            "actual_version": actual_ver,
+            "match": is_match
+        }
+
+    overlay_obs = {}
+    overlay_candidates = ["bitsandbytes", "captum", "hydra-core", "lm-eval", "jsonlines"]
+    for ov in overlay_candidates:
+        norm_ov = normalize_name(ov)
+        ver = installed.get(norm_ov)
+        if not ver:
+            try:
+                ver = importlib.metadata.version(ov)
+            except Exception:
+                ver = None
+        overlay_obs[norm_ov] = ver
+
+    torch_version = "UNAVAILABLE"
+    torch_cuda_version = "UNAVAILABLE"
+    cudnn_version = "UNAVAILABLE"
+    cuda_device_count = 0
+    selected_gpu_name = "UNAVAILABLE"
+    compute_capability = None
+    total_memory_bytes = None
+
+    try:
+        import torch
+        torch_version = torch.__version__
+        torch_cuda_version = getattr(torch.version, "cuda", "UNAVAILABLE")
+        if hasattr(torch.backends, "cudnn") and hasattr(torch.backends.cudnn, "version"):
+            try:
+                cudnn_version = str(torch.backends.cudnn.version())
+            except Exception:
+                cudnn_version = "UNAVAILABLE"
+
+        cuda_device_count = torch.cuda.device_count()
+        if torch.cuda.is_available() and cuda_device_count > 0:
+            selected_gpu_name = torch.cuda.get_device_name(0)
+            compute_capability = list(torch.cuda.get_device_capability(0))
+            total_memory_bytes = torch.cuda.get_device_properties(0).total_memory
+    except Exception:
+        pass
+
+    snapshot_status = "PASS" if (protected_valid and freeze_code == 0) else "FAIL"
+
+    return {
+        "schema_version": "1.0",
+        "stage": stage,
+        "run_id": run_id,
+        "utc_timestamp": timestamp,
+        "git_commit": git_sha,
+        "git_dirty": git_dirty,
+        "python_version": sys.version,
+        "cuda_visible_devices": cuda_vis,
+        "protected_packages": protected_obs,
+        "overlay_packages": overlay_obs,
+        "pytorch_version": torch_version,
+        "pytorch_cuda_version": torch_cuda_version,
+        "cudnn_version": cudnn_version,
+        "cuda_device_count": cuda_device_count,
+        "selected_gpu_name": selected_gpu_name,
+        "compute_capability": compute_capability,
+        "total_memory_bytes": total_memory_bytes,
+        "snapshot_status": snapshot_status
+    }
+
+def generate_overlay_lock(
+    before_installed: dict[str, str],
+    after_installed: dict[str, str],
+    baseline_data: dict,
+    run_id: str,
+    git_sha: str,
+    report_hashes: dict | None = None
+) -> tuple[dict, str]:
+    """
+    Production helper to compute overlay lock entries.
+    Excludes protected compute stack, unchanged native stability stack, and editable project.
+    Includes newly added, upgraded, and downgraded non-protected packages.
+    Returns (lock_dict, lock_text_content).
+    """
+    hard_protected = {normalize_name(k) for k in baseline_data.get("hard_protected_compute_stack", {}).keys()}
+    native_stability = {normalize_name(k) for k in baseline_data.get("native_stability_stack", {}).keys()}
+    all_protected = hard_protected | native_stability
+
+    # Exclude editable project name
+    editable_project = normalize_name("fq-ssiuu")
+
+    all_pkgs = sorted(list(set(before_installed.keys()) | set(after_installed.keys())))
+    lock_entries = []
+
+    for pkg_norm in all_pkgs:
+        if pkg_norm == editable_project:
+            continue
+        if pkg_norm in hard_protected:
+            continue
+
+        b_ver = before_installed.get(pkg_norm)
+        a_ver = after_installed.get(pkg_norm)
+
+        # Exclude unchanged packages (including unchanged native stability)
+        if b_ver == a_ver:
+            continue
+
+        if b_ver is None and a_ver is not None:
+            op = "added"
+        elif b_ver is not None and a_ver is not None and b_ver != a_ver:
+            # Simple version comparison
+            if a_ver > b_ver:
+                op = "upgraded"
+            else:
+                op = "downgraded"
+        else:
+            op = "removed"
+
+        lock_entries.append({
+            "normalized_name": pkg_norm,
+            "before_version": b_ver,
+            "after_version": a_ver,
+            "operation": op
+        })
+
+    lock_dict = {
+        "schema_version": "1.0",
+        "run_id": run_id,
+        "git_sha": git_sha,
+        "created_utc": datetime.now(timezone.utc).isoformat(),
+        "report_hashes": report_hashes or {},
+        "lock_entries": lock_entries
+    }
+
+    lock_lines = [
+        f"# FQ-SSIUU Overlay Lock (Generated: {lock_dict['created_utc']})",
+        f"# Run ID: {run_id}",
+        f"# Git SHA: {git_sha}",
+        "# Non-protected overlay dependencies (added/upgraded/downgraded):"
+    ]
+    for entry in lock_entries:
+        lock_lines.append(
+            f"{entry['normalized_name']}=={entry['after_version']}  "
+            f"# operation: {entry['operation']}, before: {entry['before_version']}"
+        )
+
+    return lock_dict, "\n".join(lock_lines) + "\n"
 
 def generate_manifest(out_dir: str, run_id: str, git_sha: str, status: str, start_time: str) -> dict:
     """Generates atomic MANIFEST.json for all artifacts in out_dir."""
@@ -145,7 +341,12 @@ def main():
         )
         sys.exit(1)
 
-    git_sha, git_dirty = get_git_info()
+    # Git provenance check
+    git_sha, git_dirty, git_success = get_git_info()
+    if not git_success:
+        sys.stderr.write("ERROR: Git provenance check failed! Cannot verify Git SHA or dirty state.\n")
+        sys.exit(1)
+
     run_id = str(uuid.uuid4())
 
     # Path resolution relative to REPO_ROOT
@@ -161,78 +362,56 @@ def main():
 
     os.makedirs(out_dir, exist_ok=False)
 
-    # 2. Before-environment verification & manifest
+    # Structural baseline validation FIRST
     if not os.path.exists(baseline_path):
         sys.stderr.write(f"ERROR: Baseline file not found: {baseline_path}\n")
         generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "reason": "Baseline file missing"})
         sys.exit(1)
 
     try:
         with open(baseline_path, "r", encoding="utf-8") as f:
             baseline_data = json.load(f)
+        b_valid, b_errors = validate_baseline(baseline_data)
+        if not b_valid:
+            sys.stderr.write(f"ERROR: Baseline structural validation failed:\n")
+            for err in b_errors:
+                sys.stderr.write(f"  - {err}\n")
+            generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+            atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "reason": "Baseline structural validation failed", "errors": b_errors})
+            sys.exit(1)
     except Exception as e:
-        sys.stderr.write(f"ERROR: Failed to load baseline JSON: {e}\n")
+        sys.stderr.write(f"ERROR: Failed to load or parse baseline JSON: {e}\n")
         generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "reason": f"Baseline JSON unparseable: {e}"})
         sys.exit(1)
 
-    before_freeze = get_pip_freeze()
-    atomic_write_text(os.path.join(out_dir, "before_freeze.log"), before_freeze)
+    # Check pip freeze returncode
+    before_freeze_text, freeze_code = get_pip_freeze()
+    if freeze_code != 0:
+        sys.stderr.write(f"ERROR: pip freeze failed with returncode {freeze_code}.\n")
+        generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "reason": "pip freeze failed"})
+        sys.exit(1)
 
-    # Compare before-environment against baseline protected stacks
-    before_checks = {}
-    before_valid = True
-    hard_stack = baseline_data.get("hard_protected_compute_stack", {})
-    native_stack = baseline_data.get("native_stability_stack", {})
+    atomic_write_text(os.path.join(out_dir, "before_freeze.log"), before_freeze_text)
 
-    installed_before = {}
-    for line in before_freeze.splitlines():
-        line = line.strip()
-        if "==" in line:
-            parts = line.split("==")
-            installed_before[normalize_name(parts[0])] = parts[1]
-
-    all_protected = {**hard_stack, **native_stack}
-    for pkg_raw, exp_ver in all_protected.items():
-        norm_p = normalize_name(pkg_raw)
-        actual_ver = installed_before.get(norm_p)
-        if not actual_ver:
-            try:
-                actual_ver = importlib.metadata.version(pkg_raw)
-            except Exception:
-                actual_ver = None
-
-        is_match = (actual_ver == exp_ver)
-        before_checks[norm_p] = {
-            "name": pkg_raw,
-            "expected_version": exp_ver,
-            "actual_version": actual_ver,
-            "match": is_match
-        }
-        if not is_match:
-            before_valid = False
-            sys.stderr.write(f"BEFORE-INSTALL BASELINE MISMATCH: '{pkg_raw}' expected '{exp_ver}', observed '{actual_ver}'\n")
-
-    before_manifest = {
-        "run_id": run_id,
-        "utc_timestamp": datetime.now(timezone.utc).isoformat(),
-        "git_commit": git_sha,
-        "git_dirty": git_dirty,
-        "python_version": sys.version,
-        "cuda_visible_devices": cuda_vis,
-        "baseline_check_passed": before_valid,
-        "protected_packages": before_checks
-    }
+    # Genuine Before-Environment Manifest
+    before_manifest = create_environment_snapshot("before", run_id, git_sha, git_dirty, baseline_data)
     atomic_write_json(os.path.join(out_dir, "before_manifest.json"), before_manifest)
 
-    if not before_valid:
+    if before_manifest["snapshot_status"] != "PASS":
         sys.stderr.write("ERROR: Environment before-manifest failed baseline validation! Setup stopped.\n")
         generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "reason": "Before-manifest failed baseline validation"})
         sys.exit(1)
 
-    # 3. Dry-run pip report generation/validation
+    # Dry-run pip report generation & validation
+    dry_run_exit_code = None
     if args.report_file:
         report_file = args.report_file
         print(f"Using pre-generated pip report: {report_file}")
+        dry_run_exit_code = 0
     else:
         report_file = os.path.join(out_dir, "pip_dry_run_report.json")
         dry_run_cmd = [
@@ -243,12 +422,14 @@ def main():
         ]
         print(f"Generating dry-run pip report against {overlay_path}...")
         res_dry = subprocess.run(dry_run_cmd, capture_output=True, text=True)
+        dry_run_exit_code = res_dry.returncode
         atomic_write_text(os.path.join(out_dir, "dry_run_stdout.log"), res_dry.stdout)
         atomic_write_text(os.path.join(out_dir, "dry_run_stderr.log"), res_dry.stderr)
 
-        if res_dry.returncode != 0 or not os.path.exists(report_file):
+        if dry_run_exit_code != 0 or not os.path.exists(report_file):
             sys.stderr.write(f"ERROR: Failed to generate dry-run pip report:\n{res_dry.stderr}\n")
             generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+            atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "dry_run_exit_code": dry_run_exit_code})
             sys.exit(1)
 
     try:
@@ -257,9 +438,11 @@ def main():
     except Exception as e:
         sys.stderr.write(f"ERROR: Failed to load pip report JSON: {e}\n")
         generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "dry_run_exit_code": dry_run_exit_code})
         sys.exit(1)
 
     is_valid, violations, summary = verify_report(report_data, baseline_data, allow_no_ops=False)
+    summary["run_id"] = run_id
     atomic_write_json(os.path.join(out_dir, "verification_report.json"), summary)
 
     if not is_valid:
@@ -267,12 +450,14 @@ def main():
         for v in violations:
             sys.stderr.write(f"  - {v}\n")
         generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "dry_run_exit_code": dry_run_exit_code})
         sys.exit(1)
 
     print("Dry-run pip report validation PASSED cleanly.")
 
     if not args.apply:
         print("\n[PREVIEW MODE COMPLETE] No packages were installed or modified.")
+        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "PASS", "mode": "PREVIEW", "dry_run_exit_code": dry_run_exit_code})
         manifest = generate_manifest(out_dir, run_id, git_sha, "PASS", start_time)
         print(f"Artifacts saved to: {out_dir}")
         sys.exit(0)
@@ -286,75 +471,128 @@ def main():
         "-r", overlay_path
     ]
     res_inst = subprocess.run(install_cmd, capture_output=True, text=True)
+    install_exit_code = res_inst.returncode
     atomic_write_text(os.path.join(out_dir, "install_stdout.log"), res_inst.stdout)
     atomic_write_text(os.path.join(out_dir, "install_stderr.log"), res_inst.stderr)
 
-    if res_inst.returncode != 0:
-        sys.stderr.write(f"ERROR: Overlay installation failed:\n{res_inst.stderr}\n")
+    if install_exit_code != 0 or not os.path.exists(install_report_file):
+        sys.stderr.write(f"ERROR: Overlay installation failed or missing pip_install_report.json:\n{res_inst.stderr}\n")
+        post_manifest = create_environment_snapshot("post_attempt", run_id, git_sha, git_dirty, baseline_data)
+        atomic_write_json(os.path.join(out_dir, "post_attempt_manifest.json"), post_manifest)
         generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "mode": "APPLY", "install_exit_code": install_exit_code})
         sys.exit(1)
 
     # Validate actual installation report
-    if os.path.exists(install_report_file):
-        try:
-            with open(install_report_file, "r", encoding="utf-8") as f:
-                inst_report_data = json.load(f)
-            inst_valid, inst_violations, inst_summary = verify_report(inst_report_data, baseline_data, allow_no_ops=False)
-            atomic_write_json(os.path.join(out_dir, "install_verification_report.json"), inst_summary)
-            if not inst_valid:
-                sys.stderr.write("ERROR: Actual installation report violated protected package baseline! Setup failed.\n")
-                generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-                sys.exit(1)
-        except Exception as e:
-            sys.stderr.write(f"ERROR: Failed to validate actual install report: {e}\n")
+    try:
+        with open(install_report_file, "r", encoding="utf-8") as f:
+            inst_report_data = json.load(f)
+        inst_valid, inst_violations, inst_summary = verify_report(inst_report_data, baseline_data, allow_no_ops=False)
+        inst_summary["run_id"] = run_id
+        atomic_write_json(os.path.join(out_dir, "install_verification_report.json"), inst_summary)
+        if not inst_valid:
+            sys.stderr.write("ERROR: Actual installation report violated protected package baseline! Setup failed.\n")
+            post_manifest = create_environment_snapshot("post_attempt", run_id, git_sha, git_dirty, baseline_data)
+            atomic_write_json(os.path.join(out_dir, "post_attempt_manifest.json"), post_manifest)
             generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+            atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "mode": "APPLY", "install_exit_code": install_exit_code})
             sys.exit(1)
+    except Exception as e:
+        sys.stderr.write(f"ERROR: Failed to validate actual install report: {e}\n")
+        post_manifest = create_environment_snapshot("post_attempt", run_id, git_sha, git_dirty, baseline_data)
+        atomic_write_json(os.path.join(out_dir, "post_attempt_manifest.json"), post_manifest)
+        generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "mode": "APPLY", "install_exit_code": install_exit_code})
+        sys.exit(1)
 
     print("Installing repository editable with --no-deps...")
     editable_cmd = [sys.executable, "-m", "pip", "install", "--no-deps", "-e", REPO_ROOT]
     res_edit = subprocess.run(editable_cmd, capture_output=True, text=True)
+    editable_exit_code = res_edit.returncode
     atomic_write_text(os.path.join(out_dir, "editable_stdout.log"), res_edit.stdout)
     atomic_write_text(os.path.join(out_dir, "editable_stderr.log"), res_edit.stderr)
 
-    if res_edit.returncode != 0:
+    if editable_exit_code != 0:
         sys.stderr.write(f"ERROR: Editable installation failed:\n{res_edit.stderr}\n")
+        post_manifest = create_environment_snapshot("post_attempt", run_id, git_sha, git_dirty, baseline_data)
+        atomic_write_json(os.path.join(out_dir, "post_attempt_manifest.json"), post_manifest)
         generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {
+            "overall_status": "FAIL", "mode": "APPLY",
+            "install_exit_code": install_exit_code, "editable_exit_code": editable_exit_code
+        })
         sys.exit(1)
 
     # 5. After-environment manifest & pip check
-    after_freeze = get_pip_freeze()
-    atomic_write_text(os.path.join(out_dir, "after_freeze.log"), after_freeze)
-
     check_code, check_output = run_pip_check()
     atomic_write_text(os.path.join(out_dir, "pip_check.log"), check_output)
 
     if check_code != 0:
         sys.stderr.write(f"ERROR: pip check failed after installation:\n{check_output}\n")
+        post_manifest = create_environment_snapshot("post_attempt", run_id, git_sha, git_dirty, baseline_data)
+        atomic_write_json(os.path.join(out_dir, "post_attempt_manifest.json"), post_manifest)
         generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {
+            "overall_status": "FAIL", "mode": "APPLY",
+            "install_exit_code": install_exit_code, "editable_exit_code": editable_exit_code,
+            "pip_check_exit_code": check_code
+        })
         sys.exit(1)
 
-    # 6. Post-install verifier
+    # 6. Post-install verifier (pass common run_id)
     print("Running post-install environment verifier (scripts/verify_kaggle_env.py)...")
     verifier_path = os.path.join(REPO_ROOT, "scripts/verify_kaggle_env.py")
-    verify_env_cmd = [sys.executable, verifier_path, "--output-dir", out_dir]
+    verify_env_cmd = [sys.executable, verifier_path, "--baseline", baseline_path, "--output-dir", out_dir, "--run-id", run_id]
     res_env = subprocess.run(verify_env_cmd, capture_output=True, text=True)
+    verifier_exit_code = res_env.returncode
 
-    if res_env.returncode != 0:
-        sys.stderr.write(f"ERROR: Post-install verifier exited non-zero ({res_env.returncode}). Setup failed.\n")
+    atomic_write_text(os.path.join(out_dir, "verifier_stdout.log"), res_env.stdout)
+    atomic_write_text(os.path.join(out_dir, "verifier_stderr.log"), res_env.stderr)
+
+    if verifier_exit_code != 0:
+        sys.stderr.write(f"ERROR: Post-install verifier exited non-zero ({verifier_exit_code}). Setup failed.\n")
+        post_manifest = create_environment_snapshot("post_attempt", run_id, git_sha, git_dirty, baseline_data)
+        atomic_write_json(os.path.join(out_dir, "post_attempt_manifest.json"), post_manifest)
         generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {
+            "overall_status": "FAIL", "mode": "APPLY",
+            "install_exit_code": install_exit_code, "editable_exit_code": editable_exit_code,
+            "pip_check_exit_code": check_code, "verifier_exit_code": verifier_exit_code
+        })
         sys.exit(1)
 
-    # Verify report overall status is PASS
+    # Verify verifier report overall status is PASS, run_id matches, and git_sha matches
     env_report_file = os.path.join(out_dir, "kaggle_env_verification.json")
     if not os.path.exists(env_report_file):
         sys.stderr.write("ERROR: Post-install verification report missing. Setup failed.\n")
+        post_manifest = create_environment_snapshot("post_attempt", run_id, git_sha, git_dirty, baseline_data)
+        atomic_write_json(os.path.join(out_dir, "post_attempt_manifest.json"), post_manifest)
         generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {
+            "overall_status": "FAIL", "mode": "APPLY",
+            "install_exit_code": install_exit_code, "editable_exit_code": editable_exit_code,
+            "pip_check_exit_code": check_code, "verifier_exit_code": verifier_exit_code
+        })
         sys.exit(1)
 
     try:
         with open(env_report_file, "r", encoding="utf-8") as f:
             env_rep = json.load(f)
+
+        v_run_id = env_rep.get("run_id")
+        v_git_sha = env_rep.get("git_sha")
         overall_status = env_rep.get("statuses", {}).get("overall")
+
+        if v_run_id != run_id:
+            sys.stderr.write(f"ERROR: Verifier run ID mismatch! Setup run_id='{run_id}', verifier run_id='{v_run_id}'.\n")
+            generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+            sys.exit(1)
+
+        if v_git_sha != git_sha:
+            sys.stderr.write(f"ERROR: Verifier Git SHA mismatch! Setup git_sha='{git_sha}', verifier git_sha='{v_git_sha}'.\n")
+            generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+            sys.exit(1)
+
         if overall_status != "PASS":
             sys.stderr.write(f"ERROR: Post-install verifier reported '{overall_status}' (expected 'PASS'). Setup failed.\n")
             generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
@@ -364,38 +602,40 @@ def main():
         generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
         sys.exit(1)
 
+    # Write genuine after_manifest.json
+    after_manifest = create_environment_snapshot("after", run_id, git_sha, git_dirty, baseline_data)
+    atomic_write_json(os.path.join(out_dir, "after_manifest.json"), after_manifest)
+    atomic_write_text(os.path.join(out_dir, "after_freeze.log"), get_pip_freeze()[0])
+
     # 7. Generate overlay lock (ONLY after all checks pass)
-    installed_after = {}
-    for line in after_freeze.splitlines():
-        line = line.strip()
-        if "==" in line:
-            parts = line.split("==")
-            installed_after[normalize_name(parts[0])] = parts[1]
+    before_installed = parse_freeze_mapping(before_freeze_text)
+    after_installed = parse_freeze_mapping(get_pip_freeze()[0])
 
-    newly_installed = {}
-    for pkg_norm, ver in installed_after.items():
-        if pkg_norm not in installed_before:
-            newly_installed[pkg_norm] = ver
-
-    overlay_lock_content = [
-        f"# FQ-SSIUU Overlay Lock (Generated: {datetime.now(timezone.utc).isoformat()})",
-        f"# Run ID: {run_id}",
-        f"# Git SHA: {git_sha}",
-        "# Direct and transitive overlay packages:"
-    ]
-    for pkg_norm in sorted(newly_installed.keys()):
-        overlay_lock_content.append(f"{pkg_norm}=={newly_installed[pkg_norm]}")
-
-    atomic_write_text(os.path.join(out_dir, "kaggle-overlay.lock"), "\n".join(overlay_lock_content) + "\n")
-
-    lock_dict = {
-        "schema_version": "1.0",
-        "run_id": run_id,
-        "git_sha": git_sha,
-        "created_utc": datetime.now(timezone.utc).isoformat(),
-        "newly_installed_overlay_packages": newly_installed
+    report_hashes = {
+        "pip_dry_run_report": file_sha256(report_file) if os.path.exists(report_file) else None,
+        "pip_install_report": file_sha256(install_report_file) if os.path.exists(install_report_file) else None
     }
+
+    lock_dict, lock_text = generate_overlay_lock(
+        before_installed=before_installed,
+        after_installed=after_installed,
+        baseline_data=baseline_data,
+        run_id=run_id,
+        git_sha=git_sha,
+        report_hashes=report_hashes
+    )
+
     atomic_write_json(os.path.join(out_dir, "overlay_lock.json"), lock_dict)
+    atomic_write_text(os.path.join(out_dir, "kaggle-overlay.lock"), lock_text)
+
+    atomic_write_json(os.path.join(out_dir, "setup_status.json"), {
+        "overall_status": "PASS", "mode": "APPLY",
+        "dry_run_exit_code": dry_run_exit_code,
+        "install_exit_code": install_exit_code,
+        "editable_exit_code": editable_exit_code,
+        "pip_check_exit_code": check_code,
+        "verifier_exit_code": verifier_exit_code
+    })
 
     generate_manifest(out_dir, run_id, git_sha, "PASS", start_time)
     print(f"\n=== OVERLAY SETUP COMPLETE (RUN ID: {run_id}) ===")

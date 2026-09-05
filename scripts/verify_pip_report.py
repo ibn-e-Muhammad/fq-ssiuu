@@ -196,17 +196,6 @@ def main():
             atomic_write_json(args.output_json, summary)
         sys.exit(1)
 
-    try:
-        with open(args.report, "r", encoding="utf-8") as f:
-            report_data = json.load(f)
-    except Exception as e:
-        err_msg = f"Failed to parse pip report JSON: {e}"
-        sys.stderr.write(f"ERROR: {err_msg}\n")
-        summary = {"status": "FAIL", "violations_count": 1, "violations": [err_msg], "packages": []}
-        if args.output_json:
-            atomic_write_json(args.output_json, summary)
-        sys.exit(1)
-
     is_valid, violations, summary = verify_report(report_data, baseline_data, allow_no_ops=False)
 
     if args.output_json:

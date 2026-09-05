@@ -29,25 +29,13 @@ import importlib.metadata
 from datetime import datetime, timezone
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if REPO_ROOT not in sys.path:
+    sys.path.insert(0, REPO_ROOT)
 
-def normalize_name(name: str) -> str:
-    import re
-    return re.sub(r"[-_.]+", "-", name).lower()
-
-def atomic_write_json(filepath: str, data: dict, indent: int = 2) -> None:
-    dir_name = os.path.dirname(os.path.abspath(filepath))
-    os.makedirs(dir_name, exist_ok=True)
-    temp_file = tempfile.NamedTemporaryFile(mode="w", dir=dir_name, delete=False, encoding="utf-8")
-    try:
-        json.dump(data, temp_file, indent=indent)
-        temp_file.flush()
-        os.fsync(temp_file.fileno())
-        temp_file.close()
-        os.replace(temp_file.name, filepath)
-    except Exception:
-        if os.path.exists(temp_file.name):
-            os.remove(temp_file.name)
-        raise
+try:
+    from scripts.verify_pip_report import validate_baseline, normalize_name, atomic_write_json
+except ImportError:
+    from verify_pip_report import validate_baseline, normalize_name, atomic_write_json
 
 def run_pip_check() -> tuple[int, str]:
     res = subprocess.run([sys.executable, "-m", "pip", "check"], capture_output=True, text=True)
@@ -60,15 +48,17 @@ def get_git_sha() -> str:
     except Exception:
         return "UNKNOWN"
 
-def check_env(baseline_path: str, run_id: str | None = None) -> dict:
+def check_env(baseline_path: str, run_id: str | None = None, git_sha: str | None = None) -> dict:
     if run_id is None:
         run_id = str(uuid.uuid4())
+    if git_sha is None:
+        git_sha = get_git_sha()
 
     results = {
         "schema_version": "1.0",
         "verifier_version": "1.0",
         "run_id": run_id,
-        "git_sha": get_git_sha(),
+        "git_sha": git_sha,
         "utc_timestamp": datetime.now(timezone.utc).isoformat(),
         "statuses": {},
         "checks": {}
@@ -85,7 +75,14 @@ def check_env(baseline_path: str, run_id: str | None = None) -> dict:
         try:
             with open(baseline_path, "r", encoding="utf-8") as f:
                 bdata = json.load(f)
-            results["checks"]["baseline_file"] = {"status": "PASS", "path": baseline_path}
+            b_valid, b_errors = validate_baseline(bdata)
+            if not b_valid:
+                results["checks"]["baseline_file"] = {
+                    "status": "FAIL",
+                    "reason": f"Baseline structural validation failed: {b_errors}"
+                }
+            else:
+                results["checks"]["baseline_file"] = {"status": "PASS", "path": baseline_path}
         except Exception as e:
             results["checks"]["baseline_file"] = {
                 "status": "FAIL",
@@ -93,10 +90,10 @@ def check_env(baseline_path: str, run_id: str | None = None) -> dict:
             }
 
     # 2. Python version check
-    expected_py = bdata.get("python_version") if bdata else None
+    expected_py = bdata.get("python_version") if (bdata and isinstance(bdata, dict)) else None
     actual_py = sys.version.split()[0]
     py_pass = False
-    if expected_py:
+    if expected_py and isinstance(expected_py, str):
         # Match major.minor or exact version
         exp_mm = ".".join(expected_py.split(".")[:2])
         act_mm = ".".join(actual_py.split(".")[:2])
@@ -120,7 +117,7 @@ def check_env(baseline_path: str, run_id: str | None = None) -> dict:
         import torch
 
         # Check PyTorch version matching baseline hard_protected
-        exp_torch_ver = bdata.get("hard_protected_compute_stack", {}).get("torch") if bdata else None
+        exp_torch_ver = bdata.get("hard_protected_compute_stack", {}).get("torch") if (bdata and isinstance(bdata, dict)) else None
         torch_ver_pass = (torch.__version__ == exp_torch_ver) if exp_torch_ver else False
         results["checks"]["pytorch_version"] = {
             "status": "PASS" if torch_ver_pass else "FAIL",
@@ -201,7 +198,7 @@ def check_env(baseline_path: str, run_id: str | None = None) -> dict:
         results["checks"]["pytorch"] = {"status": "FAIL", "reason": "PyTorch not installed"}
 
     # 5. Baseline protected stack integrity (Hard-protected + Native-stability)
-    if bdata:
+    if bdata and isinstance(bdata, dict) and results["checks"].get("baseline_file", {}).get("status") == "PASS":
         protected_pass = True
         protected_obs = {}
         all_protected = {
@@ -320,10 +317,12 @@ def main():
     parser = argparse.ArgumentParser(description="Verify Kaggle environment after overlay setup (Fail-Closed).")
     parser.add_argument("--baseline", help="Path to baseline JSON file.")
     parser.add_argument("--output-dir", help="Directory to save kaggle_env_verification.json")
+    parser.add_argument("--run-id", help="Common run ID string across setup session")
+
     args = parser.parse_args()
 
     baseline_path = args.baseline if args.baseline else os.path.join(REPO_ROOT, "requirements/kaggle-native-baseline.json")
-    run_id = str(uuid.uuid4())
+    run_id = args.run_id if args.run_id else str(uuid.uuid4())
 
     res = check_env(baseline_path, run_id=run_id)
     overall = res["statuses"]["overall"]
