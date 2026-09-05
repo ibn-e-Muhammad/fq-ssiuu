@@ -66,3 +66,30 @@
 | Decision | Small sanitized audit/evidence artifacts may be committed. Large checkpoints, datasets and experiment outputs remain external. |
 | Rationale | External artifacts require immutable hashes and storage references. Chat messages are not the canonical research record. Every experiment must map to commit SHA, run ID, configuration and artifact manifest. |
 | Impact | Large artifacts must use references, evidence JSONs/Manifests are tracked. |
+
+## DL-020: Decoupled Kaggle Overlay Dependency Architecture
+
+| Field | Value |
+|-------|-------|
+| Date | 2026-09-05 |
+| Decision | Decouple Kaggle-native baseline packages from candidate overlays, development tools, and optional integrations. |
+| Rationale | Preserves native PyTorch/Triton/CUDA compute stack while enabling essential scientific dependencies (bitsandbytes, captum, hydra-core, lm-eval, jsonlines). |
+| Impact | Defined in requirements/ tree. Dry-run pip reports are verified against baseline before any installation. |
+
+## DL-021: Non-Mutating Pip Report Verification Guard
+
+| Field | Value |
+|-------|-------|
+| Date | 2026-09-05 |
+| Decision | Mandate scripts/verify_pip_report.py validation of dry-run pip reports before any overlay installation. |
+| Rationale | Automatically rejects any proposed version change, replacement, or modification to hard-protected or native-stability packages. |
+| Impact | Prevents silent environment mutation or package downgrades. Setup scripts exit non-zero on violation. |
+
+## DL-022: Removal of TRL Dependency
+
+| Field | Value |
+|-------|-------|
+| Date | 2026-09-05 |
+| Decision | Remove trl from active project dependencies. |
+| Rationale | Static AST import audit across src/, scripts/, experiments/, and tests/ confirmed zero executable imports or function calls for trl. |
+| Impact | trl is excluded from requirements/kaggle-overlay.in and pyproject.toml. |

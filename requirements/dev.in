@@ -1,0 +1,5 @@
+# FQ-SSIUU Development & Testing Dependencies
+pytest>=8.0.0
+pytest-cov>=4.1.0
+ruff>=0.15.0
+mypy>=1.8.0

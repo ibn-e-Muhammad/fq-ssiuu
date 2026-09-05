@@ -20,7 +20,7 @@ OG-001:
     - jsonlines
   separate_observations:
     omegaconf: "OmegaConf is already present and importable (version 2.3.0)."
-    trl: "TRL is absent but no current import was found; classification: ABSENT — NO CURRENT IMPORT FOUND — REMOVAL DECISION PENDING. The need for TRL remains a design/dependency decision rather than an installation blocker."
+    trl: "TRL is absent and zero executable imports were found in codebase. Removed from active overlay requirements (DL-022)."
   required_evidence_for_closure:
     - "No changes to protected packages (torch 2.10.0+cu128, torchvision 0.25.0+cu128, torchaudio 2.10.0+cu128, triton 3.6.0, CUDA build 12.8)."
     - "Single-device cuda:0 enforcement."
@@ -29,5 +29,5 @@ OG-001:
     - "Clean pip check with exit code 0."
     - "Before/after environment manifests."
     - "Overlay-only lock (no blind full-environment lockfile)."
-  allowed_next_stage: "Stage 1H and Stage 1I (Environment Implementation and Validation)"
-  rationale: "The current baseline Kaggle image lacks essential scientific dependencies (bitsandbytes, captum, hydra-core, lm-eval, jsonlines). An overlay must be installed without altering the protected native PyTorch/Triton/CUDA stack."
+  allowed_next_stage: "Stage 1I (Kaggle Environment Validation)"
+  rationale: "The current baseline Kaggle image lacks essential scientific dependencies (bitsandbytes, captum, hydra-core, lm-eval, jsonlines). Stage 1H-B static overlay architecture is implemented. Stage 1I execution on Kaggle is required to validate overlay installation and close OG-001."

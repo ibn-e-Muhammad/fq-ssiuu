@@ -17,6 +17,9 @@
 | CR-008 (Certificate terminology) | §Evaluation (certificate section) | Replace "certificate" with "empirical durability report" throughout |
 | CR-009 (Kaggle Environment) | §Environment, §Hardware constraints, §Software dependencies | Update canonical Kaggle environment, precise hardware evidence, dependency readiness limits |
 | CR-009 (Gate-0 submissions) | §Reproducibility, §Research procedure/audit trail | Document failed 1st submission as orchestration error, successful 2nd, prohibit treating Gate-0 as scientific result |
+| DL-020 (Decoupled Overlay Architecture) | §Methodology (Software Environment), §Reproducibility | Document decoupled Kaggle baseline and overlay architecture with dry-run report verification |
+| DL-021 (Pip Report Verification Guard) | §Reproducibility, §Infrastructure | Detail non-mutating pip report verification guard preventing native stack modification |
+| DL-022 (TRL Removal Decision) | §Methodology (Dependencies) | Document removal of TRL due to zero executable imports across codebase |
 
 ---
 

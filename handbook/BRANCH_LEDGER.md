@@ -47,12 +47,14 @@
 - **Status**: Superseded by `chore/kaggle-environment-overlay`; retained until final integration; not merged into `dev`
 
 ### `chore/kaggle-environment-overlay`
-- **Created from**: `547db67e6bc75f9efe0b17cbbbc44d8128aff23f`
-- **Documentation commit**: `5045cd59964adcab6e089d570bb00e077c2e1fb4`
-- **last_verified_commit_before_this_update**: `5045cd59964adcab6e089d570bb00e077c2e1fb4` (parent SHA)
-- **Relationship**: 6 commits ahead of `dev` (branch tip advances with this correction commit)
-- **Status**: Active lineage tip
-- **Purpose**: Documentation closeout followed by Kaggle overlay implementation
+- **Created from**: `547db67e6bc75f9efe0b17cbbbc44d8128aff23f` (on `dev` at `e395f7af264eaaac9473d8b9e9f1c7a46c825d5c`)
+- **Durable Checkpoints**:
+  - Documentation closeout commit: `5045cd59964adcab6e089d570bb00e077c2e1fb4`
+  - Record correction commit: `ee80b0df160558c52c5bfbdabff5ab01a8885654`
+  - Provenance timestamp qualification: `7fb798679f2fe7b9736c2579b29cbca886c5c24e`
+- **Live Commit Count Command**: `git rev-list --count dev..HEAD` (7 commits ahead of `dev` at start of Stage 1H-B)
+- **Status**: Active lineage tip for Kaggle overlay architecture
+- **Purpose**: Documentation closeout, provenance qualification, and static Kaggle overlay implementation
 - **Merge status**: Not merged into `dev`
 
 ## Historical Branches (Contained in `dev`)
