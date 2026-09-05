@@ -1,8 +1,8 @@
 # FQ-SSIUU Project Status
 
-**Last updated:** 2026-09-03  
+**Last updated:** 2026-09-05  
 **Verified by:** Research integrity audit session  
-**Branch:** fix/research-integrity-foundation
+**Branch:** chore/kaggle-environment-overlay
 
 > [!WARNING]
 > **CR-004 (Pilot Overstatements):** Previous versions of this file contained
@@ -12,11 +12,16 @@
 
 ---
 
+*See [Reconciliation Diary](research_diary/2026-09-03_to_2026-09-05_reconciliation.md) and [Gate-0 Evidence](evidence/gate0_kaggle/57588774-bdd5-41c8-b56e-7df0c2f5049b/MANIFEST.json) for the full audit trail establishing Kaggle T4 as the canonical environment.*
+
+---
+
 ## Confirmed Completed Milestones
 
 | Milestone | Date | Key Result | Verdict | Evidence |
 |-----------|------|------------|---------|----------|
-| GATE-0 | 2026-08-04 | Environment checks pass (SDPA, bnb 0.45.5) | PASS | experiments/gate0_env_check.py |
+| Legacy Colab environment check | 2026-08-04 | Colab check (Historical, not canonical env) | PASS | experiments/gate0_env_check.py |
+| GATE-0 (Kaggle) | 2026-09-04 | hardware: PASS, deps: PARTIAL, nf4: UNAVAILABLE | PARTIAL | handbook/evidence/gate0_kaggle/ |
 | GATE-1 | 2026-08-08 | FQ=0.393718, MU=0.554501 | PASS (exceeds target) | results/gate1_baseline/ |
 | Pilot P1 | 2026-08-09 | Q-INT4=0.214906 (4.3× threshold) | Pilot-executed: precision sensitivity demonstrated | results/pilot_p1/ |
 | Pilot P2 | 2026-08-09 | Peak VRAM=2.511 GB (12.5 GB margin) | Pilot-executed: offline IG computation completed | results/pilot_p2/ |
@@ -46,7 +51,7 @@
 | # | Item | Status | Evidence | Blocking? | Action Required |
 |---|------|--------|----------|-----------|----------------|
 | 1 | HF access to Llama-3.2-1B-Instruct | ✅ DONE | GATE-1 ran successfully | No | — |
-| 2 | GATE-0 environment verification | ✅ DONE | gate0_env_check.py passes | No | — |
+| 2 | GATE-0 reproducible environment verification | ⏳ PARTIAL | Gate-0 hardware passed, deps pending | Yes | Implement Kaggle overlay (OG-001) |
 | 3 | GATE-1 NPO baseline reproduction | ✅ DONE | FQ=0.3937, MU=0.5545 | No | — |
 | 4 | Pilot P1 QRA existence | ✅ DONE | Q-INT4=0.2149 | No | — |
 | 5 | Pilot P2 IG attribution feasibility | ✅ DONE | Peak VRAM=2.511 GB | No | — |
@@ -60,7 +65,17 @@
 | 13 | Oracle model quality (E0b) | ❌ PENDING | E0b not started | Yes (for FADE) | Run E0b oracle fine-tune |
 | 14 | Supervisor sign-off on experimental plan | ⏳ PARTIAL | Plan exists but no documented approval | No | Obtain and document sign-off |
 
-**Summary: 10/14 DONE, 4/14 PENDING. See Research Gates section for scientific blockers.**
+**Summary: 9/14 DONE, 5/14 PENDING/PARTIAL. See Research and Operational Gates sections for blockers.**
+
+## Operational Gates (Environment Blockers)
+
+> [!CAUTION]
+> The Kaggle dependency overlay is an operational blocker before any new full experiment.
+> See `handbook/operational_gates.yaml` for details.
+
+| Gate | Status | Blocks New Experiments? | Resolution Complexity |
+|------|--------|-------------------------|-----------------------|
+| OG-001: Reproducible Kaggle Environment Overlay | PARTIAL | Yes | HIGH |
 
 ## Research Gates (Scientific Blockers)
 

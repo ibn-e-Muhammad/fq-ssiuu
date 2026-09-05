@@ -15,6 +15,8 @@
 | CR-006 (SSIUU gradient flow) | §Methodology (SSIUU section), §Results | Cannot claim SSIUU contribution until gradient flow is fixed |
 | CR-007 (Quantisation location) | §Methodology (FQ-QAT section), §Results | State as "adapter-output INT4 ablation", not "deployment-equivalent NF4 QAT" |
 | CR-008 (Certificate terminology) | §Evaluation (certificate section) | Replace "certificate" with "empirical durability report" throughout |
+| CR-009 (Kaggle Environment) | §Environment, §Hardware constraints, §Software dependencies | Update canonical Kaggle environment, precise hardware evidence, dependency readiness limits |
+| CR-009 (Gate-0 submissions) | §Reproducibility, §Research procedure/audit trail | Document failed 1st submission as orchestration error, successful 2nd, prohibit treating Gate-0 as scientific result |
 
 ---
 

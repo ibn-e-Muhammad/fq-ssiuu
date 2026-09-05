@@ -39,3 +39,30 @@
 | Decision | Document that implemented QUAIL margin (4.2e-4) differs from published (0.5) |
 | Rationale | Published QUAIL (arXiv:2601.15538) uses Δq=1.0, margin=Δq/2=0.5. Implementation uses NF4 bin width / 2 = 4.2e-4. This is a 1190× difference. P4 results are from an incomplete surrogate. |
 | Impact | C8 condition blocked until resolved; correction CR-005 |
+
+## DL-017: Kaggle T4 Is the Canonical Experiment Platform
+
+| Field | Value |
+|-------|-------|
+| Date | 2026-09-05 |
+| Decision | Kaggle T4x2 becomes the canonical environment for new experiments. |
+| Rationale | Local and Colab runs may be used only for development or historical comparison. Platform evidence must include Python, PyTorch, CUDA, cuDNN, driver and GPU identity. Results must include commit SHA and run ID. |
+| Impact | All new experiments require Kaggle evidence. |
+
+## DL-018: Protect the Kaggle-Native Compute Stack
+
+| Field | Value |
+|-------|-------|
+| Date | 2026-09-05 |
+| Decision | Torch, torchvision, torchaudio, Triton and CUDA components supplied by Kaggle must not be replaced without an explicit compatibility study. |
+| Rationale | Kaggle environments are highly optimized. Resolver plans must be inspected before installation, and installation must abort if protected packages would change. |
+| Impact | Scripts must check dry-run pip reports before proceeding. |
+
+## DL-019: Research Artifact Storage Policy
+
+| Field | Value |
+|-------|-------|
+| Date | 2026-09-05 |
+| Decision | Small sanitized audit/evidence artifacts may be committed. Large checkpoints, datasets and experiment outputs remain external. |
+| Rationale | External artifacts require immutable hashes and storage references. Chat messages are not the canonical research record. Every experiment must map to commit SHA, run ID, configuration and artifact manifest. |
+| Impact | Large artifacts must use references, evidence JSONs/Manifests are tracked. |

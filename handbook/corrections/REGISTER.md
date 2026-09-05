@@ -160,3 +160,16 @@ The current FQ-QAT implementation is an ablation demonstrating adapter-output IN
 | Severity | MEDIUM — language implies formal guarantee |
 
 "Certificate", "certifies", "CERTIFIED" imply formal mathematical or legal guarantees. Replace display text with "Empirical Durability Report" and `certified` field with `threshold_met`. Deprecated aliases preserved for reading historical pilot artifacts.
+
+---
+
+## CR-009: Kaggle Environment and Dependency Readiness Reconciliation
+
+| Field | Value |
+|-------|-------|
+| Status | DOCUMENTED — IMPLEMENTATION PENDING |
+| Date discovered | 2026-09-05 |
+| Affected files | `handbook/PROJECT_STATUS.md`, `handbook/THESIS_UPDATE_LEDGER.md`, etc. |
+| Severity | HIGH — blocks reproducible new experiments but does not invalidate historical pilot observations |
+
+See `handbook/corrections/CR-009_kaggle_environment_reconciliation.md` for full details on corrected claims.

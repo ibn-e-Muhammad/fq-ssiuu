@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "Kaggle Environment Audit Gate-0",
+  "run_id": "57588774-bdd5-41c8-b56e-7df0c2f5049b",
+  "utc_submission_timestamp": "2026-09-04T12:00:00Z",
+  "utc_retrieval_timestamp": "2026-09-04T13:00:00Z",
+  "kaggle_kernel_id": "muhammadii/fq-ssiuu-gate-0-environment-audit",
+  "kaggle_kernel_version": "2",
+  "privacy_status": "PRIVATE",
+  "internet_status": "DISABLED",
+  "requested_accelerator": "T4",
+  "actual_accelerator": "2x Tesla T4",
+  "probe_commit_sha": "547db67e6bc75f9efe0b17cbbbc44d8128aff23f",
+  "branch": "chore/kaggle-gate0-environment-probe",
+  "probe_version": "1.1.0",
+  "independently_corrected_gate0_statuses": {
+    "execution_status": "PASS",
+    "hardware_gate_status": "PASS",
+    "nf4_status": "UNAVAILABLE",
+    "dependency_readiness": "PARTIAL",
+    "overall_gate0_status": "PARTIAL",
+    "note": "The original generated summary incorrectly recorded dependency readiness as READY. It is PARTIAL."
+  },
+  "artifacts": {
+    "gate0_environment_manifest.json": {
+      "byte_size": 3581,
+      "sha256": "e847090fc4c0559771c99a1a341f10d6cdbf422dc65726c13d89c92f6964281a"
+    },
+    "gate0_package_inventory.json": {
+      "byte_size": 32668,
+      "sha256": "d4e348dc120d1168e46e0d2080e930b06e785db333eab0ecc5fca0cf260b2441"
+    },
+    "gate0_smoke_tests.json": {
+      "byte_size": 1346,
+      "sha256": "7022d270da405be4344a85092614dc0d1b65c41661ae3d72dcb4f4cc83f7aaf9"
+    },
+    "gate0_summary.json": {
+      "byte_size": 361,
+      "sha256": "5801f0529d817b0851efb72c2e35bf6bd820ba6b49ef51069512112d6fd4996c"
+    },
+    "nvidia_smi.log": {
+      "byte_size": 2058,
+      "sha256": "78025fdf3d3ebaf91b643ccec59ec695dafc5fc00ec5c3f4e31aa32168663d78"
+    },
+    "pip_freeze.log": {
+      "byte_size": 18523,
+      "sha256": "7b7709f40a1c6ce85667cf3794fd229c367dfd48f4bb7c6b091c530f778543b5"
+    },
+    "fq-ssiuu-gate-0-environment-audit.log": {
+      "byte_size": 3247,
+      "sha256": "62153877235973636e7edfa215db3e16d3df9041eb53c862fe9b1f4fd6a95812"
+    }
+  },
+  "provenance_note": "Files copied byte-for-byte from results directory without modification. Hashes verified before and after copy.",
+  "limitations": "Does not prove dependency compatibility of Kaggle overlay packages. Does not validate bitsandbytes functionality.",
+  "storage_policy": "Small artifacts committed. Secrets and large models kept external."
+}

@@ -1,0 +1,24 @@
+# FQ-SSIUU Operational Gates
+# These gates block experiments due to infrastructure, environment, or tooling limitations.
+# They are distinct from scientific research gates (research_gates.yaml).
+
+OG-001:
+  title: Reproducible Kaggle Environment Overlay
+  category: operational reproducibility
+  status: PARTIAL
+  blocks_new_experiments: true
+  does_not_invalidate_historical_pilots: true
+  evidence_run_id: "57588774-bdd5-41c8-b56e-7df0c2f5049b"
+  validating_commit: "547db67e6bc75f9efe0b17cbbbc44d8128aff23f"
+  current_hardware_status: PASS
+  current_dependency_status: PARTIAL
+  unresolved_packages:
+    - bitsandbytes
+    - captum
+    - hydra-core
+    - omegaconf
+    - lm-eval
+    - jsonlines
+  required_evidence_for_closure: "A Kaggle test execution proving that the Kaggle-native protected stack is unaltered, the required overlay packages are importable, and bitsandbytes NF4 operations execute successfully on the T4 device."
+  allowed_next_stage: "Stage 1H and Stage 1I (Environment Implementation and Validation)"
+  rationale: "The current baseline Kaggle image lacks essential scientific dependencies for QRA and attribution. We must install an overlay without downgrading or breaking the protected native PyTorch/Triton/CUDA stack."
