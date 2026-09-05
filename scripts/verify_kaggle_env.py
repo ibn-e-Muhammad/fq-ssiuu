@@ -37,16 +37,75 @@ try:
 except ImportError:
     from verify_pip_report import validate_baseline, normalize_name, atomic_write_json
 
-def run_pip_check() -> tuple[int, str]:
-    res = subprocess.run([sys.executable, "-m", "pip", "check"], capture_output=True, text=True)
-    return res.returncode, res.stdout + res.stderr
+def exit_code_for_status(overall_status: str) -> int:
+    """Returns exit code 0 if overall_status is 'PASS', else 1."""
+    return 0 if overall_status == "PASS" else 1
 
-def get_git_sha() -> str:
+def run_sdpa_smoke(torch_mod) -> dict:
+    """Invokes scaled_dot_product_attention using the given torch module."""
     try:
-        res = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=REPO_ROOT)
-        return res.stdout.strip() if res.returncode == 0 else "UNKNOWN"
-    except Exception:
-        return "UNKNOWN"
+        q = torch_mod.randn(1, 4, 16, 32, dtype=torch_mod.float16, device="cuda:0")
+        k = torch_mod.randn(1, 4, 16, 32, dtype=torch_mod.float16, device="cuda:0")
+        v = torch_mod.randn(1, 4, 16, 32, dtype=torch_mod.float16, device="cuda:0")
+        out_sdpa = torch_mod.nn.functional.scaled_dot_product_attention(q, k, v)
+        torch_mod.cuda.synchronize()
+        is_sdpa_finite = bool(torch_mod.all(torch_mod.isfinite(out_sdpa)).item())
+        return {
+            "status": "PASS" if is_sdpa_finite else "FAIL",
+            "observed": {
+                "shape": list(out_sdpa.shape),
+                "dtype": str(out_sdpa.dtype),
+                "device": str(out_sdpa.device),
+                "is_finite": is_sdpa_finite
+            }
+        }
+    except Exception as e:
+        return {
+            "status": "FAIL",
+            "exception": str(e)
+        }
+
+def run_nf4_smoke(torch_mod, bnb_functional) -> dict:
+    """Invokes quantize_nf4 and dequantize_nf4 using given torch and bitsandbytes modules."""
+    try:
+        has_quant_nf4 = hasattr(bnb_functional, "quantize_nf4")
+        has_dequant_nf4 = hasattr(bnb_functional, "dequantize_nf4")
+
+        if not (has_quant_nf4 and has_dequant_nf4):
+            return {
+                "status": "FAIL",
+                "reason": "Explicit bitsandbytes quantize_nf4 or dequantize_nf4 API not found"
+            }
+
+        x_fp32 = torch_mod.randn(128, 128, dtype=torch_mod.float32, device="cuda:0")
+        out_q, state = bnb_functional.quantize_nf4(x_fp32)
+        x_rec = bnb_functional.dequantize_nf4(out_q, state)
+        torch_mod.cuda.synchronize()
+
+        is_rec_finite = bool(torch_mod.all(torch_mod.isfinite(x_rec)).item())
+        mean_err = float((x_fp32 - x_rec).abs().mean().item())
+        max_err = float((x_fp32 - x_rec).abs().max().item())
+        quant_type = getattr(state, "quant_type", None)
+
+        nf4_valid = is_rec_finite and (quant_type == "nf4")
+        return {
+            "status": "PASS" if nf4_valid else "FAIL",
+            "observed": {
+                "shape": list(out_q.shape),
+                "device": str(out_q.device),
+                "quant_dtype": str(out_q.dtype),
+                "rec_dtype": str(x_rec.dtype),
+                "quant_type": quant_type,
+                "is_rec_finite": is_rec_finite,
+                "mean_reconstruction_error": mean_err,
+                "max_reconstruction_error": max_err
+            }
+        }
+    except Exception as e:
+        return {
+            "status": "FAIL",
+            "reason": f"bitsandbytes NF4 execution failed: {e}"
+        }
 
 def check_env(baseline_path: str, run_id: str | None = None, git_sha: str | None = None) -> dict:
     if run_id is None:
@@ -168,27 +227,7 @@ def check_env(baseline_path: str, run_id: str | None = None, git_sha: str | None
                 }
 
             # Real SDPA CUDA calculation & synchronization
-            try:
-                q = torch.randn(1, 4, 16, 32, dtype=torch.float16, device="cuda:0")
-                k = torch.randn(1, 4, 16, 32, dtype=torch.float16, device="cuda:0")
-                v = torch.randn(1, 4, 16, 32, dtype=torch.float16, device="cuda:0")
-                out_sdpa = torch.nn.functional.scaled_dot_product_attention(q, k, v)
-                torch.cuda.synchronize()
-                is_sdpa_finite = bool(torch.all(torch.isfinite(out_sdpa)).item())
-                results["checks"]["sdpa_operation"] = {
-                    "status": "PASS" if is_sdpa_finite else "FAIL",
-                    "observed": {
-                        "shape": list(out_sdpa.shape),
-                        "dtype": str(out_sdpa.dtype),
-                        "device": str(out_sdpa.device),
-                        "is_finite": is_sdpa_finite
-                    }
-                }
-            except Exception as e:
-                results["checks"]["sdpa_operation"] = {
-                    "status": "FAIL",
-                    "exception": str(e)
-                }
+            results["checks"]["sdpa_operation"] = run_sdpa_smoke(torch)
         else:
             results["checks"]["t4_hardware"] = {"status": "FAIL", "reason": "CUDA not available in process"}
             results["checks"]["fp16_operation"] = {"status": "FAIL", "reason": "CUDA not available in process"}
@@ -250,40 +289,7 @@ def check_env(baseline_path: str, run_id: str | None = None, git_sha: str | None
         import torch
 
         if torch.cuda.is_available():
-            # Verify explicit quantize_nf4 and dequantize_nf4 exist
-            has_quant_nf4 = hasattr(F_bnb, "quantize_nf4")
-            has_dequant_nf4 = hasattr(F_bnb, "dequantize_nf4")
-
-            if not (has_quant_nf4 and has_dequant_nf4):
-                results["checks"]["nf4_quantise_dequantise"] = {
-                    "status": "FAIL",
-                    "reason": "Explicit bitsandbytes quantize_nf4 or dequantize_nf4 API not found"
-                }
-            else:
-                x_fp32 = torch.randn(128, 128, dtype=torch.float32, device="cuda:0")
-                out_q, state = F_bnb.quantize_nf4(x_fp32)
-                x_rec = F_bnb.dequantize_nf4(out_q, state)
-                torch.cuda.synchronize()
-
-                is_rec_finite = bool(torch.all(torch.isfinite(x_rec)).item())
-                mean_err = float((x_fp32 - x_rec).abs().mean().item())
-                max_err = float((x_fp32 - x_rec).abs().max().item())
-                quant_type = getattr(state, "quant_type", None)
-
-                nf4_valid = is_rec_finite and (quant_type == "nf4")
-                results["checks"]["nf4_quantise_dequantise"] = {
-                    "status": "PASS" if nf4_valid else "FAIL",
-                    "observed": {
-                        "shape": list(out_q.shape),
-                        "device": str(out_q.device),
-                        "quant_dtype": str(out_q.dtype),
-                        "rec_dtype": str(x_rec.dtype),
-                        "quant_type": quant_type,
-                        "is_rec_finite": is_rec_finite,
-                        "mean_reconstruction_error": mean_err,
-                        "max_reconstruction_error": max_err
-                    }
-                }
+            results["checks"]["nf4_quantise_dequantise"] = run_nf4_smoke(torch, F_bnb)
         else:
             results["checks"]["nf4_quantise_dequantise"] = {
                 "status": "FAIL",
@@ -337,11 +343,7 @@ def main():
         out_file = os.path.join(args.output_dir, "kaggle_env_verification.json")
         atomic_write_json(out_file, res)
 
-    if overall != "PASS":
-        sys.stderr.write(f"ERROR: Environment verification failed with overall status: '{overall}'\n")
-        sys.exit(1)
-    else:
-        sys.exit(0)
+    sys.exit(exit_code_for_status(overall))
 
 if __name__ == "__main__":
     main()

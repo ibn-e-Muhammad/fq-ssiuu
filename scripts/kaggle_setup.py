@@ -14,6 +14,7 @@ Fail-closed implementation:
 - Validates dry-run pip report and actual installation report against requirements/kaggle-native-baseline.json.
 - Installs repository editable with --no-deps only after successful validation.
 - Runs post-install verifier (scripts/verify_kaggle_env.py) with common run_id and checks run_id, git_sha, and overall status.
+- Generates verifier_execution.json artifact recording verifier execution details.
 - Generates overlay lock using production helper generate_overlay_lock only after all checks pass.
 - Creates atomic failure artifacts and setup_status.json even when setup fails.
 - Never edits .bashrc, runs pip uninstall, or downloads models/datasets.
@@ -100,18 +101,76 @@ def run_pip_check() -> tuple[int, str]:
     res = subprocess.run([sys.executable, "-m", "pip", "check"], capture_output=True, text=True)
     return res.returncode, res.stdout + res.stderr
 
+def compare_versions(b_ver: str, a_ver: str) -> str:
+    """
+    PEP 440-aware version comparison.
+    Returns: 'upgraded', 'downgraded', 'unchanged', or 'changed-unordered'.
+    """
+    if b_ver == a_ver:
+        return "unchanged"
+
+    try:
+        from packaging.version import Version, InvalidVersion
+    except ImportError:
+        raise RuntimeError("PEP 440 comparison support (packaging.version) is unavailable.")
+
+    try:
+        v_b = Version(b_ver)
+        v_a = Version(a_ver)
+        if v_a > v_b:
+            return "upgraded"
+        elif v_a < v_b:
+            return "downgraded"
+        else:
+            return "unchanged"
+    except InvalidVersion:
+        return "changed-unordered"
+
+def validate_protected_packages_unchanged(
+    before_installed: dict[str, str],
+    after_installed: dict[str, str],
+    baseline_data: dict
+) -> None:
+    """
+    Asserts that no protected package (hard-protected compute or native stability)
+    was added, removed, upgraded, downgraded, or reinstalled with a different version.
+    Raises ValueError if any protected package was mutated.
+    """
+    hard_protected = {normalize_name(k): (k, v) for k, v in baseline_data.get("hard_protected_compute_stack", {}).items()}
+    native_stability = {normalize_name(k): (k, v) for k, v in baseline_data.get("native_stability_stack", {}).items()}
+    all_protected = {**hard_protected, **native_stability}
+
+    mutations = []
+    for norm_p, (orig_name, exp_ver) in all_protected.items():
+        b_ver = before_installed.get(norm_p)
+        a_ver = after_installed.get(norm_p)
+        if b_ver != a_ver:
+            mutations.append(f"{orig_name} changed between before ({b_ver}) and after ({a_ver})")
+        elif b_ver is not None and b_ver != exp_ver:
+            mutations.append(f"{orig_name} before version ({b_ver}) != expected ({exp_ver})")
+        elif a_ver is not None and a_ver != exp_ver:
+            mutations.append(f"{orig_name} after version ({a_ver}) != expected ({exp_ver})")
+
+    if mutations:
+        raise ValueError(f"Protected package mutation detected: {', '.join(mutations)}")
+
 def create_environment_snapshot(
     stage: str,
     run_id: str,
     git_sha: str,
     git_dirty: bool,
-    baseline_data: dict
+    baseline_data: dict,
+    freeze_text: str | None = None
 ) -> dict:
     """Creates a comprehensive, structured environment snapshot for before/after manifests."""
     timestamp = datetime.now(timezone.utc).isoformat()
     cuda_vis = os.environ.get("CUDA_VISIBLE_DEVICES")
 
-    freeze_text, freeze_code = get_pip_freeze()
+    if freeze_text is not None:
+        freeze_code = 0
+    else:
+        freeze_text, freeze_code = get_pip_freeze()
+
     installed = parse_freeze_mapping(freeze_text)
 
     hard_stack = baseline_data.get("hard_protected_compute_stack", {}) if isinstance(baseline_data, dict) else {}
@@ -200,6 +259,48 @@ def create_environment_snapshot(
         "snapshot_status": snapshot_status
     }
 
+def create_verifier_execution_record(
+    out_dir: str,
+    run_id: str,
+    setup_git_sha: str,
+    verifier_git_sha: str | None,
+    verifier_returncode: int,
+    verifier_overall_status: str | None,
+    run_id_valid: bool,
+    git_sha_valid: bool,
+    verdict: str
+) -> dict:
+    """Writes verifier_execution.json recording detailed verifier execution metadata."""
+    stdout_path = os.path.join(out_dir, "verifier_stdout.log")
+    stderr_path = os.path.join(out_dir, "verifier_stderr.log")
+    env_rep_path = os.path.join(out_dir, "kaggle_env_verification.json")
+
+    record = {
+        "schema_version": "1.0",
+        "run_id": run_id,
+        "setup_git_sha": setup_git_sha,
+        "verifier_git_sha": verifier_git_sha,
+        "verifier_returncode": verifier_returncode,
+        "verifier_overall_status": verifier_overall_status,
+        "stdout_log": {
+            "path": "verifier_stdout.log" if os.path.exists(stdout_path) else None,
+            "sha256": file_sha256(stdout_path) if os.path.exists(stdout_path) else None
+        },
+        "stderr_log": {
+            "path": "verifier_stderr.log" if os.path.exists(stderr_path) else None,
+            "sha256": file_sha256(stderr_path) if os.path.exists(stderr_path) else None
+        },
+        "verification_report": {
+            "path": "kaggle_env_verification.json" if os.path.exists(env_rep_path) else None,
+            "sha256": file_sha256(env_rep_path) if os.path.exists(env_rep_path) else None
+        },
+        "run_id_valid": run_id_valid,
+        "git_sha_valid": git_sha_valid,
+        "verdict": verdict
+    }
+    atomic_write_json(os.path.join(out_dir, "verifier_execution.json"), record)
+    return record
+
 def generate_overlay_lock(
     before_installed: dict[str, str],
     after_installed: dict[str, str],
@@ -210,43 +311,41 @@ def generate_overlay_lock(
 ) -> tuple[dict, str]:
     """
     Production helper to compute overlay lock entries.
+    Validates that zero protected packages were mutated; raises ValueError if any protected package changed.
     Excludes protected compute stack, unchanged native stability stack, and editable project.
-    Includes newly added, upgraded, and downgraded non-protected packages.
+    Includes newly added, upgraded, downgraded, and changed-unordered non-protected packages.
     Returns (lock_dict, lock_text_content).
     """
+    # 1. Mandatory protected package integrity validation
+    validate_protected_packages_unchanged(before_installed, after_installed, baseline_data)
+
     hard_protected = {normalize_name(k) for k in baseline_data.get("hard_protected_compute_stack", {}).keys()}
     native_stability = {normalize_name(k) for k in baseline_data.get("native_stability_stack", {}).keys()}
     all_protected = hard_protected | native_stability
 
-    # Exclude editable project name
     editable_project = normalize_name("fq-ssiuu")
 
     all_pkgs = sorted(list(set(before_installed.keys()) | set(after_installed.keys())))
     lock_entries = []
 
     for pkg_norm in all_pkgs:
-        if pkg_norm == editable_project:
-            continue
-        if pkg_norm in hard_protected:
+        if pkg_norm == editable_project or pkg_norm in all_protected:
             continue
 
         b_ver = before_installed.get(pkg_norm)
         a_ver = after_installed.get(pkg_norm)
 
-        # Exclude unchanged packages (including unchanged native stability)
         if b_ver == a_ver:
             continue
 
         if b_ver is None and a_ver is not None:
             op = "added"
-        elif b_ver is not None and a_ver is not None and b_ver != a_ver:
-            # Simple version comparison
-            if a_ver > b_ver:
-                op = "upgraded"
-            else:
-                op = "downgraded"
-        else:
+        elif b_ver is not None and a_ver is None:
             op = "removed"
+        else:
+            op = compare_versions(b_ver, a_ver)
+            if op == "unchanged":
+                continue
 
         lock_entries.append({
             "normalized_name": pkg_norm,
@@ -309,6 +408,31 @@ def generate_manifest(out_dir: str, run_id: str, git_sha: str, status: str, star
     atomic_write_json(os.path.join(out_dir, "MANIFEST.json"), manifest)
     return manifest
 
+def finalize_setup_failure(
+    out_dir: str,
+    run_id: str,
+    git_sha: str,
+    git_dirty: bool,
+    baseline_data: dict | None,
+    start_time: str,
+    status_payload: dict
+) -> None:
+    """
+    Common failure-finalization function that writes all available failure artifacts:
+    - setup_status.json
+    - post_attempt_manifest.json (when baseline is available)
+    - MANIFEST.json (final manifest with execution_status FAIL)
+    """
+    atomic_write_json(os.path.join(out_dir, "setup_status.json"), status_payload)
+    if baseline_data and isinstance(baseline_data, dict):
+        try:
+            post_manifest = create_environment_snapshot("post_attempt", run_id, git_sha, git_dirty, baseline_data)
+            atomic_write_json(os.path.join(out_dir, "post_attempt_manifest.json"), post_manifest)
+        except Exception:
+            pass
+
+    generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+
 def main():
     start_time = datetime.now(timezone.utc).isoformat()
     parser = argparse.ArgumentParser(description="Kaggle Environment Overlay Setup (Fail-Closed)")
@@ -363,10 +487,10 @@ def main():
     os.makedirs(out_dir, exist_ok=False)
 
     # Structural baseline validation FIRST
+    baseline_data = None
     if not os.path.exists(baseline_path):
         sys.stderr.write(f"ERROR: Baseline file not found: {baseline_path}\n")
-        generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "reason": "Baseline file missing"})
+        finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, None, start_time, {"overall_status": "FAIL", "reason": "Baseline file missing"})
         sys.exit(1)
 
     try:
@@ -377,33 +501,29 @@ def main():
             sys.stderr.write(f"ERROR: Baseline structural validation failed:\n")
             for err in b_errors:
                 sys.stderr.write(f"  - {err}\n")
-            generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-            atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "reason": "Baseline structural validation failed", "errors": b_errors})
+            finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, baseline_data, start_time, {"overall_status": "FAIL", "reason": "Baseline structural validation failed", "errors": b_errors})
             sys.exit(1)
     except Exception as e:
         sys.stderr.write(f"ERROR: Failed to load or parse baseline JSON: {e}\n")
-        generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "reason": f"Baseline JSON unparseable: {e}"})
+        finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, None, start_time, {"overall_status": "FAIL", "reason": f"Baseline JSON unparseable: {e}"})
         sys.exit(1)
 
     # Check pip freeze returncode
     before_freeze_text, freeze_code = get_pip_freeze()
     if freeze_code != 0:
         sys.stderr.write(f"ERROR: pip freeze failed with returncode {freeze_code}.\n")
-        generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "reason": "pip freeze failed"})
+        finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, baseline_data, start_time, {"overall_status": "FAIL", "reason": "pip freeze failed"})
         sys.exit(1)
 
     atomic_write_text(os.path.join(out_dir, "before_freeze.log"), before_freeze_text)
 
     # Genuine Before-Environment Manifest
-    before_manifest = create_environment_snapshot("before", run_id, git_sha, git_dirty, baseline_data)
+    before_manifest = create_environment_snapshot("before", run_id, git_sha, git_dirty, baseline_data, freeze_text=before_freeze_text)
     atomic_write_json(os.path.join(out_dir, "before_manifest.json"), before_manifest)
 
     if before_manifest["snapshot_status"] != "PASS":
         sys.stderr.write("ERROR: Environment before-manifest failed baseline validation! Setup stopped.\n")
-        generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "reason": "Before-manifest failed baseline validation"})
+        finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, baseline_data, start_time, {"overall_status": "FAIL", "reason": "Before-manifest failed baseline validation"})
         sys.exit(1)
 
     # Dry-run pip report generation & validation
@@ -428,8 +548,7 @@ def main():
 
         if dry_run_exit_code != 0 or not os.path.exists(report_file):
             sys.stderr.write(f"ERROR: Failed to generate dry-run pip report:\n{res_dry.stderr}\n")
-            generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-            atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "dry_run_exit_code": dry_run_exit_code})
+            finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, baseline_data, start_time, {"overall_status": "FAIL", "dry_run_exit_code": dry_run_exit_code})
             sys.exit(1)
 
     try:
@@ -437,8 +556,7 @@ def main():
             report_data = json.load(f)
     except Exception as e:
         sys.stderr.write(f"ERROR: Failed to load pip report JSON: {e}\n")
-        generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "dry_run_exit_code": dry_run_exit_code})
+        finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, baseline_data, start_time, {"overall_status": "FAIL", "dry_run_exit_code": dry_run_exit_code})
         sys.exit(1)
 
     is_valid, violations, summary = verify_report(report_data, baseline_data, allow_no_ops=False)
@@ -449,8 +567,7 @@ def main():
         sys.stderr.write("ERROR: Dry-run pip report validation failed! Stopped setup.\n")
         for v in violations:
             sys.stderr.write(f"  - {v}\n")
-        generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "dry_run_exit_code": dry_run_exit_code})
+        finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, baseline_data, start_time, {"overall_status": "FAIL", "dry_run_exit_code": dry_run_exit_code})
         sys.exit(1)
 
     print("Dry-run pip report validation PASSED cleanly.")
@@ -458,7 +575,7 @@ def main():
     if not args.apply:
         print("\n[PREVIEW MODE COMPLETE] No packages were installed or modified.")
         atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "PASS", "mode": "PREVIEW", "dry_run_exit_code": dry_run_exit_code})
-        manifest = generate_manifest(out_dir, run_id, git_sha, "PASS", start_time)
+        generate_manifest(out_dir, run_id, git_sha, "PASS", start_time)
         print(f"Artifacts saved to: {out_dir}")
         sys.exit(0)
 
@@ -477,10 +594,7 @@ def main():
 
     if install_exit_code != 0 or not os.path.exists(install_report_file):
         sys.stderr.write(f"ERROR: Overlay installation failed or missing pip_install_report.json:\n{res_inst.stderr}\n")
-        post_manifest = create_environment_snapshot("post_attempt", run_id, git_sha, git_dirty, baseline_data)
-        atomic_write_json(os.path.join(out_dir, "post_attempt_manifest.json"), post_manifest)
-        generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "mode": "APPLY", "install_exit_code": install_exit_code})
+        finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, baseline_data, start_time, {"overall_status": "FAIL", "mode": "APPLY", "install_exit_code": install_exit_code})
         sys.exit(1)
 
     # Validate actual installation report
@@ -492,17 +606,11 @@ def main():
         atomic_write_json(os.path.join(out_dir, "install_verification_report.json"), inst_summary)
         if not inst_valid:
             sys.stderr.write("ERROR: Actual installation report violated protected package baseline! Setup failed.\n")
-            post_manifest = create_environment_snapshot("post_attempt", run_id, git_sha, git_dirty, baseline_data)
-            atomic_write_json(os.path.join(out_dir, "post_attempt_manifest.json"), post_manifest)
-            generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-            atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "mode": "APPLY", "install_exit_code": install_exit_code})
+            finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, baseline_data, start_time, {"overall_status": "FAIL", "mode": "APPLY", "install_exit_code": install_exit_code})
             sys.exit(1)
     except Exception as e:
         sys.stderr.write(f"ERROR: Failed to validate actual install report: {e}\n")
-        post_manifest = create_environment_snapshot("post_attempt", run_id, git_sha, git_dirty, baseline_data)
-        atomic_write_json(os.path.join(out_dir, "post_attempt_manifest.json"), post_manifest)
-        generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {"overall_status": "FAIL", "mode": "APPLY", "install_exit_code": install_exit_code})
+        finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, baseline_data, start_time, {"overall_status": "FAIL", "mode": "APPLY", "install_exit_code": install_exit_code})
         sys.exit(1)
 
     print("Installing repository editable with --no-deps...")
@@ -514,10 +622,7 @@ def main():
 
     if editable_exit_code != 0:
         sys.stderr.write(f"ERROR: Editable installation failed:\n{res_edit.stderr}\n")
-        post_manifest = create_environment_snapshot("post_attempt", run_id, git_sha, git_dirty, baseline_data)
-        atomic_write_json(os.path.join(out_dir, "post_attempt_manifest.json"), post_manifest)
-        generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {
+        finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, baseline_data, start_time, {
             "overall_status": "FAIL", "mode": "APPLY",
             "install_exit_code": install_exit_code, "editable_exit_code": editable_exit_code
         })
@@ -529,10 +634,7 @@ def main():
 
     if check_code != 0:
         sys.stderr.write(f"ERROR: pip check failed after installation:\n{check_output}\n")
-        post_manifest = create_environment_snapshot("post_attempt", run_id, git_sha, git_dirty, baseline_data)
-        atomic_write_json(os.path.join(out_dir, "post_attempt_manifest.json"), post_manifest)
-        generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {
+        finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, baseline_data, start_time, {
             "overall_status": "FAIL", "mode": "APPLY",
             "install_exit_code": install_exit_code, "editable_exit_code": editable_exit_code,
             "pip_check_exit_code": check_code
@@ -549,84 +651,102 @@ def main():
     atomic_write_text(os.path.join(out_dir, "verifier_stdout.log"), res_env.stdout)
     atomic_write_text(os.path.join(out_dir, "verifier_stderr.log"), res_env.stderr)
 
-    if verifier_exit_code != 0:
-        sys.stderr.write(f"ERROR: Post-install verifier exited non-zero ({verifier_exit_code}). Setup failed.\n")
-        post_manifest = create_environment_snapshot("post_attempt", run_id, git_sha, git_dirty, baseline_data)
-        atomic_write_json(os.path.join(out_dir, "post_attempt_manifest.json"), post_manifest)
-        generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {
-            "overall_status": "FAIL", "mode": "APPLY",
-            "install_exit_code": install_exit_code, "editable_exit_code": editable_exit_code,
-            "pip_check_exit_code": check_code, "verifier_exit_code": verifier_exit_code
-        })
-        sys.exit(1)
-
-    # Verify verifier report overall status is PASS, run_id matches, and git_sha matches
     env_report_file = os.path.join(out_dir, "kaggle_env_verification.json")
-    if not os.path.exists(env_report_file):
-        sys.stderr.write("ERROR: Post-install verification report missing. Setup failed.\n")
-        post_manifest = create_environment_snapshot("post_attempt", run_id, git_sha, git_dirty, baseline_data)
-        atomic_write_json(os.path.join(out_dir, "post_attempt_manifest.json"), post_manifest)
-        generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-        atomic_write_json(os.path.join(out_dir, "setup_status.json"), {
+    v_git_sha = None
+    overall_status = None
+    v_run_id = None
+
+    if os.path.exists(env_report_file):
+        try:
+            with open(env_report_file, "r", encoding="utf-8") as f:
+                env_rep = json.load(f)
+            v_run_id = env_rep.get("run_id")
+            v_git_sha = env_rep.get("git_sha")
+            overall_status = env_rep.get("statuses", {}).get("overall")
+        except Exception:
+            pass
+
+    run_id_valid = (v_run_id == run_id)
+    git_sha_valid = (v_git_sha == git_sha)
+    verifier_passed = (verifier_exit_code == 0) and (overall_status == "PASS") and run_id_valid and git_sha_valid
+
+    v_verdict = "PASS" if verifier_passed else "FAIL"
+
+    create_verifier_execution_record(
+        out_dir=out_dir,
+        run_id=run_id,
+        setup_git_sha=git_sha,
+        verifier_git_sha=v_git_sha,
+        verifier_returncode=verifier_exit_code,
+        verifier_overall_status=overall_status,
+        run_id_valid=run_id_valid,
+        git_sha_valid=git_sha_valid,
+        verdict=v_verdict
+    )
+
+    if not verifier_passed:
+        sys.stderr.write(f"ERROR: Post-install verifier failed (exit_code={verifier_exit_code}, status={overall_status}, run_id_valid={run_id_valid}, git_sha_valid={git_sha_valid}).\n")
+        finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, baseline_data, start_time, {
             "overall_status": "FAIL", "mode": "APPLY",
             "install_exit_code": install_exit_code, "editable_exit_code": editable_exit_code,
-            "pip_check_exit_code": check_code, "verifier_exit_code": verifier_exit_code
+            "pip_check_exit_code": check_code, "verifier_exit_code": verifier_exit_code,
+            "verifier_overall_status": overall_status
         })
         sys.exit(1)
 
-    try:
-        with open(env_report_file, "r", encoding="utf-8") as f:
-            env_rep = json.load(f)
-
-        v_run_id = env_rep.get("run_id")
-        v_git_sha = env_rep.get("git_sha")
-        overall_status = env_rep.get("statuses", {}).get("overall")
-
-        if v_run_id != run_id:
-            sys.stderr.write(f"ERROR: Verifier run ID mismatch! Setup run_id='{run_id}', verifier run_id='{v_run_id}'.\n")
-            generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-            sys.exit(1)
-
-        if v_git_sha != git_sha:
-            sys.stderr.write(f"ERROR: Verifier Git SHA mismatch! Setup git_sha='{git_sha}', verifier git_sha='{v_git_sha}'.\n")
-            generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-            sys.exit(1)
-
-        if overall_status != "PASS":
-            sys.stderr.write(f"ERROR: Post-install verifier reported '{overall_status}' (expected 'PASS'). Setup failed.\n")
-            generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
-            sys.exit(1)
-    except Exception as e:
-        sys.stderr.write(f"ERROR: Failed to parse post-install verification report: {e}\n")
-        generate_manifest(out_dir, run_id, git_sha, "FAIL", start_time)
+    # Single final freeze call and snapshot
+    final_freeze_text, final_freeze_code = get_pip_freeze()
+    if final_freeze_code != 0:
+        sys.stderr.write(f"ERROR: Final pip freeze failed with code {final_freeze_code}.\n")
+        finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, baseline_data, start_time, {
+            "overall_status": "FAIL", "mode": "APPLY",
+            "install_exit_code": install_exit_code, "editable_exit_code": editable_exit_code,
+            "pip_check_exit_code": check_code, "verifier_exit_code": verifier_exit_code,
+            "final_freeze_exit_code": final_freeze_code
+        })
         sys.exit(1)
 
-    # Write genuine after_manifest.json
-    after_manifest = create_environment_snapshot("after", run_id, git_sha, git_dirty, baseline_data)
+    atomic_write_text(os.path.join(out_dir, "after_freeze.log"), final_freeze_text)
+
+    # Write genuine after_manifest.json using captured final_freeze_text
+    after_manifest = create_environment_snapshot("after", run_id, git_sha, git_dirty, baseline_data, freeze_text=final_freeze_text)
     atomic_write_json(os.path.join(out_dir, "after_manifest.json"), after_manifest)
-    atomic_write_text(os.path.join(out_dir, "after_freeze.log"), get_pip_freeze()[0])
+
+    if after_manifest.get("snapshot_status") != "PASS":
+        sys.stderr.write("ERROR: After-manifest snapshot_status is not PASS! Setup failed.\n")
+        finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, baseline_data, start_time, {
+            "overall_status": "FAIL", "mode": "APPLY",
+            "reason": "After-manifest snapshot status failed"
+        })
+        sys.exit(1)
 
     # 7. Generate overlay lock (ONLY after all checks pass)
     before_installed = parse_freeze_mapping(before_freeze_text)
-    after_installed = parse_freeze_mapping(get_pip_freeze()[0])
+    after_installed = parse_freeze_mapping(final_freeze_text)
 
     report_hashes = {
         "pip_dry_run_report": file_sha256(report_file) if os.path.exists(report_file) else None,
         "pip_install_report": file_sha256(install_report_file) if os.path.exists(install_report_file) else None
     }
 
-    lock_dict, lock_text = generate_overlay_lock(
-        before_installed=before_installed,
-        after_installed=after_installed,
-        baseline_data=baseline_data,
-        run_id=run_id,
-        git_sha=git_sha,
-        report_hashes=report_hashes
-    )
-
-    atomic_write_json(os.path.join(out_dir, "overlay_lock.json"), lock_dict)
-    atomic_write_text(os.path.join(out_dir, "kaggle-overlay.lock"), lock_text)
+    try:
+        lock_dict, lock_text = generate_overlay_lock(
+            before_installed=before_installed,
+            after_installed=after_installed,
+            baseline_data=baseline_data,
+            run_id=run_id,
+            git_sha=git_sha,
+            report_hashes=report_hashes
+        )
+        atomic_write_json(os.path.join(out_dir, "overlay_lock.json"), lock_dict)
+        atomic_write_text(os.path.join(out_dir, "kaggle-overlay.lock"), lock_text)
+    except Exception as e:
+        sys.stderr.write(f"ERROR: Failed to generate overlay lock: {e}\n")
+        finalize_setup_failure(out_dir, run_id, git_sha, git_dirty, baseline_data, start_time, {
+            "overall_status": "FAIL", "mode": "APPLY",
+            "reason": f"Overlay lock generation failed: {e}"
+        })
+        sys.exit(1)
 
     atomic_write_json(os.path.join(out_dir, "setup_status.json"), {
         "overall_status": "PASS", "mode": "APPLY",
