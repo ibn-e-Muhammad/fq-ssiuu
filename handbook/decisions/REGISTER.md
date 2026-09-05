@@ -40,14 +40,14 @@
 | Rationale | Published QUAIL (arXiv:2601.15538) uses Δq=1.0, margin=Δq/2=0.5. Implementation uses NF4 bin width / 2 = 4.2e-4. This is a 1190× difference. P4 results are from an incomplete surrogate. |
 | Impact | C8 condition blocked until resolved; correction CR-005 |
 
-## DL-017: Kaggle T4 Is the Canonical Experiment Platform
+## DL-017: Kaggle Tesla T4 Runtime, with Single-Device FP16 Resource Enforcement
 
 | Field | Value |
 |-------|-------|
 | Date | 2026-09-05 |
-| Decision | Kaggle T4x2 becomes the canonical environment for new experiments. |
-| Rationale | Local and Colab runs may be used only for development or historical comparison. Platform evidence must include Python, PyTorch, CUDA, cuDNN, driver and GPU identity. Results must include commit SHA and run ID. |
-| Impact | All new experiments require Kaggle evidence. |
+| Decision | Kaggle Tesla T4 runtime, with single-device FP16 resource enforcement becomes the canonical environment for new experiments. |
+| Rationale | Two Tesla T4 GPUs were visible in Gate-0 (each exposing 15,636,037,632 bytes, ~14.56 GiB). The research budget (<16 GB VRAM) is evaluated per selected device. New experiments must default to single-device `cuda:0` only. The second T4 GPU must not be used for model sharding, distributed training, or aggregate VRAM pooling unless a separate pre-registered multi-GPU condition explicitly permits it. Although PyTorch `is_bf16_supported()` returns `true`, Tesla T4 (Turing compute capability 7.5) lacks native hardware BF16 Tensor Core execution, so PyTorch's `is_bf16_supported()` result must not be interpreted as proof of native T4 BF16 execution. FP16 remains the canonical training and evaluation dtype. |
+| Impact | All new experiments require Kaggle evidence, single-device `cuda:0` enforcement, and FP16 dtype. |
 
 ## DL-018: Protect the Kaggle-Native Compute Stack
 

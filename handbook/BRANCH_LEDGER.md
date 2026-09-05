@@ -44,7 +44,16 @@
 ### `chore/kaggle-gate0-environment-probe`
 - **Tip**: `547db67e6bc75f9efe0b17cbbbc44d8128aff23f`
 - **Relationship**: 5 commits ahead of `dev`
-- **Status**: Current lineage tip before this stage; not yet merged into `dev`
+- **Status**: Superseded by `chore/kaggle-environment-overlay`; retained until final integration; not merged into `dev`
+
+### `chore/kaggle-environment-overlay`
+- **Created from**: `547db67e6bc75f9efe0b17cbbbc44d8128aff23f`
+- **Documentation commit**: `5045cd59964adcab6e089d570bb00e077c2e1fb4`
+- **last_verified_commit_before_this_update**: `5045cd59964adcab6e089d570bb00e077c2e1fb4` (parent SHA)
+- **Relationship**: 6 commits ahead of `dev` (branch tip advances with this correction commit)
+- **Status**: Active lineage tip
+- **Purpose**: Documentation closeout followed by Kaggle overlay implementation
+- **Merge status**: Not merged into `dev`
 
 ## Historical Branches (Contained in `dev`)
 

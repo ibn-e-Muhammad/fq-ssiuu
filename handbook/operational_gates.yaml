@@ -12,13 +12,22 @@ OG-001:
   validating_commit: "547db67e6bc75f9efe0b17cbbbc44d8128aff23f"
   current_hardware_status: PASS
   current_dependency_status: PARTIAL
-  unresolved_packages:
+  unresolved_installation_candidates:
     - bitsandbytes
     - captum
     - hydra-core
-    - omegaconf
     - lm-eval
     - jsonlines
-  required_evidence_for_closure: "A Kaggle test execution proving that the Kaggle-native protected stack is unaltered, the required overlay packages are importable, and bitsandbytes NF4 operations execute successfully on the T4 device."
+  separate_observations:
+    omegaconf: "OmegaConf is already present and importable (version 2.3.0)."
+    trl: "TRL is absent but no current import was found; classification: ABSENT — NO CURRENT IMPORT FOUND — REMOVAL DECISION PENDING. The need for TRL remains a design/dependency decision rather than an installation blocker."
+  required_evidence_for_closure:
+    - "No changes to protected packages (torch 2.10.0+cu128, torchvision 0.25.0+cu128, torchaudio 2.10.0+cu128, triton 3.6.0, CUDA build 12.8)."
+    - "Single-device cuda:0 enforcement."
+    - "Genuine NF4 quantise/dequantise operation verified."
+    - "Successful imports for all required overlay packages."
+    - "Clean pip check with exit code 0."
+    - "Before/after environment manifests."
+    - "Overlay-only lock (no blind full-environment lockfile)."
   allowed_next_stage: "Stage 1H and Stage 1I (Environment Implementation and Validation)"
-  rationale: "The current baseline Kaggle image lacks essential scientific dependencies for QRA and attribution. We must install an overlay without downgrading or breaking the protected native PyTorch/Triton/CUDA stack."
+  rationale: "The current baseline Kaggle image lacks essential scientific dependencies (bitsandbytes, captum, hydra-core, lm-eval, jsonlines). An overlay must be installed without altering the protected native PyTorch/Triton/CUDA stack."
