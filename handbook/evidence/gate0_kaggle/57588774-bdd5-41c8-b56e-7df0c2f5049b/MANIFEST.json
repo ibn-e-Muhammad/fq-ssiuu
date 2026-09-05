@@ -2,8 +2,10 @@
   "schema_version": "1.0",
   "evidence_type": "Kaggle Environment Audit Gate-0",
   "run_id": "57588774-bdd5-41c8-b56e-7df0c2f5049b",
-  "kernel_submission_timestamp": "2026-09-04T18:52:35Z",
-  "kernel_submission_timestamp_source": "Preserved local orchestration script process_results.py (line 50)",
+  "kernel_submission_timestamp": null,
+  "reported_submission_timestamp": "2026-09-04T18:52:35Z",
+  "kernel_submission_timestamp_evidence_quality": "UNVERIFIED — REPORTED IN LOCAL ORCHESTRATION TRANSCRIPT",
+  "kernel_submission_timestamp_source": "Untracked local orchestration script process_results.py line 50 (not a committed primary artifact)",
   "probe_runtime_timestamp": "2026-09-04T18:52:48.388417+00:00",
   "probe_runtime_timestamp_source": "Raw Gate-0 JSON artifacts (utc_timestamp in gate0_environment_manifest.json)",
   "artifact_retrieval_timestamp": null,
@@ -25,7 +27,7 @@
     "overall_gate0_status": "PARTIAL",
     "note": "The original generated summary incorrectly recorded dependency readiness as READY. It is PARTIAL."
   },
-  "provenance_corrections": "The previous manifest in commit 5045cd59964adcab6e089d570bb00e077c2e1fb4 used invented placeholder timestamps (12:00:00Z and 13:00:00Z on 2026-09-04) and claimed an incorrect credential rotation incident (Kaggle token and WandB key). These placeholder timestamps and false credential claims were corrected immediately in the following documentation commit.",
+  "provenance_corrections": "The previous manifest in commit 5045cd59964adcab6e089d570bb00e077c2e1fb4 used invented placeholder timestamps (12:00:00Z and 13:00:00Z on 2026-09-04) and claimed an incorrect credential rotation incident (Kaggle token and WandB key). These placeholder timestamps and false credential claims were corrected immediately. In addition, kernel_submission_timestamp was qualified to null because 2026-09-04T18:52:35Z was hardcoded in an untracked helper script rather than a committed primary artifact.",
   "artifacts": {
     "gate0_environment_manifest.json": {
       "byte_size": 3581,

@@ -44,7 +44,7 @@
   * PyTorch build: `2.10.0+cu128`
   * cuDNN integer reported by PyTorch: `91002`
 * Provenance and Credential Corrections:
-  * Placeholder timestamps (12:00:00Z and 13:00:00Z on 2026-09-04) in commit `5045cd59964adcab6e089d570bb00e077c2e1fb4` are replaced with exact evidence-backed timestamps (`kernel_submission_timestamp`: `2026-09-04T18:52:35Z` from `process_results.py`, `probe_runtime_timestamp`: `2026-09-04T18:52:48.388417+00:00` from raw Gate-0 JSON, `artifact_retrieval_timestamp`: `null`).
+  * Placeholder timestamps (12:00:00Z and 13:00:00Z on 2026-09-04) in commit `5045cd59964adcab6e089d570bb00e077c2e1fb4` are replaced with qualified provenance records. Specifically, `kernel_submission_timestamp` is set to `null` because `2026-09-04T18:52:35Z` originated from an untracked helper script (`process_results.py` line 50) rather than a committed primary artifact; it is recorded as `reported_submission_timestamp`: `2026-09-04T18:52:35Z` with evidence quality `UNVERIFIED — REPORTED IN LOCAL ORCHESTRATION TRANSCRIPT`. `probe_runtime_timestamp`: `2026-09-04T18:52:48.388417+00:00` (evidence: raw Gate-0 JSON artifacts), `artifact_retrieval_timestamp`: `null` (evidence: not recoverable from preserved orchestration evidence).
   * Statement claiming rotation of a Kaggle token and WandB key is corrected: the actual documented incident involved a GitHub PAT in the Git remote URL and a hardcoded Hugging Face token in a handoff file, both subsequently rotated with remote sanitized and hardcoded tokens removed.
 * Compatibility of proposed overlay versions remains unresolved until Stage 1I validation in Kaggle.
 
