@@ -6,6 +6,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from scripts.package_kaggle_source import (
     BUNDLE_NAME, MANIFEST_NAME, digest, git, package_source, verify_bundle,
@@ -130,6 +131,77 @@ class TestSourceTransport(unittest.TestCase):
                                  '--output-dir', str(self.output)], capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(result.stdout)['source_origin_sha'], self.origin)
+
+
+class TestNotebookBootstrap(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory(prefix='test-og001-notebook-')
+        self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name)
+        self.repo = self.root / 'source'
+        (self.repo / 'scripts').mkdir(parents=True)
+        (self.repo / 'scripts/package_kaggle_source.py').write_bytes(Path('scripts/package_kaggle_source.py').read_bytes())
+        self.setup_path = self.repo / 'scripts/kaggle_setup.py'
+        git(self.repo, 'init')
+        path = Path('experiments/notebooks/kaggle/og001_overlay_validation/OG001_KAGGLE_OVERLAY_VALIDATION.ipynb')
+        notebook = json.loads(path.read_text())
+        self.namespace = {'__name__': 'notebook_test'}
+        with patch.dict('os.environ'):
+            for cell in notebook['cells']:
+                if cell['cell_type'] == 'code':
+                    exec(compile(''.join(cell['source']), str(path), 'exec'), self.namespace)
+        self.namespace['ORCHESTRATION_COMMIT'] = 'c' * 40
+        self.working = self.root / 'working'
+        self.input = self.root / 'input'
+
+    def make_input(self, setup_code):
+        self.setup_path.write_text(setup_code)
+        git(self.repo, 'add', '--all')
+        git(self.repo, '-c', 'user.name=Test', '-c', 'user.email=test@invalid', 'commit', '-m', 'fixture')
+        origin = git(self.repo, 'rev-parse', 'HEAD').decode().strip()
+        manifest = package_source(self.repo, origin, self.input / 'attached-source')
+        self.namespace.update(SOURCE_ORIGIN_SHA=origin, SOURCE_TREE_SHA=manifest['source_tree_sha'],
+                              SOURCE_MANIFEST_SHA256=digest(self.input / 'attached-source' / MANIFEST_NAME))
+
+    def run_notebook(self):
+        with patch.dict('os.environ', {'CUDA_VISIBLE_DEVICES': '0'}):
+            return self.namespace['run_validation'](self.input, self.working)
+
+    def summary(self):
+        return json.loads((self.working / 'kernel_summary.json').read_text())
+
+    def test_missing_source_writes_failure_summary_before_raising(self):
+        with self.assertRaisesRegex(RuntimeError, 'attached source manifest'):
+            self.run_notebook()
+        self.assertEqual(self.summary()['failure_phase'], 'source_validation')
+        self.assertIsNone(self.summary()['setup_returncode'])
+        self.assertTrue((self.working / 'orchestration_failure.log').is_file())
+
+    def test_corrupt_bundle_never_reaches_setup(self):
+        self.make_input('raise SystemExit(37)\n')
+        with open(self.input / 'attached-source' / BUNDLE_NAME, 'ab') as handle:
+            handle.write(b'corruption')
+        with self.assertRaisesRegex(RuntimeError, 'bundle SHA-256'):
+            self.run_notebook()
+        self.assertIsNone(self.summary()['setup_returncode'])
+        self.assertFalse((self.working / 'fq-ssiuu').exists())
+
+    def test_real_setup_failure_preserves_logs_and_return_code(self):
+        self.make_input("import sys\nprint('fixture setup stdout')\nprint('fixture causal failure', file=sys.stderr)\nraise SystemExit(37)\n")
+        with self.assertRaisesRegex(RuntimeError, 'exit 37'):
+            self.run_notebook()
+        summary = self.summary()
+        self.assertEqual(summary['source_validation_status'], 'PASS')
+        self.assertEqual(summary['setup_returncode'], 37)
+        self.assertIn('fixture causal failure', (self.working / 'kaggle_runner_stderr.log').read_text())
+        self.assertFalse((self.working / 'fq-ssiuu').exists())
+
+    def test_zero_exit_without_evidence_is_failure(self):
+        self.make_input('pass\n')
+        with self.assertRaisesRegex(RuntimeError, 'Missing setup evidence'):
+            self.run_notebook()
+        self.assertEqual(self.summary()['failure_phase'], 'evidence_validation')
+        self.assertEqual(self.summary()['execution_status'], 'FAIL')
 
 
 if __name__ == '__main__':
