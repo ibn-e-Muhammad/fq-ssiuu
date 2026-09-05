@@ -27,6 +27,7 @@ if REPO_ROOT not in sys.path:
 
 import scripts.kaggle_setup as ks
 import scripts.verify_kaggle_env as ve
+import scripts.verify_kaggle_env as ve
 import scripts.verify_pip_report as vp
 from scripts.verify_pip_report import normalize_name
 
@@ -36,6 +37,9 @@ class TestKaggleDependencyPolicyBehavioral(unittest.TestCase):
         """Stub external boundaries, not check_env or its production helpers."""
         fake_torch = MagicMock()
         fake_torch.__version__ = self.mock_baseline_data['hard_protected_compute_stack']['torch']
+        fake_torch.version.cuda = '12.8'
+        fake_torch.cuda.max_memory_allocated.return_value = 1024
+        fake_torch.cuda.max_memory_reserved.return_value = 2048
         fake_torch.cuda.device_count.return_value = 1
         fake_torch.cuda.is_available.return_value = True
         fake_torch.cuda.get_device_name.return_value = 'Tesla T4'
@@ -53,7 +57,7 @@ class TestKaggleDependencyPolicyBehavioral(unittest.TestCase):
             if cmd[:3] == ['git', 'rev-parse', 'HEAD']:
                 return subprocess.CompletedProcess(cmd, 0, 'a' * 40 + '\n', '')
             if cmd == [sys.executable, '-m', 'pip', 'check']:
-                return subprocess.CompletedProcess(cmd, 0, 'No broken requirements found.\n', '')
+                return subprocess.CompletedProcess(cmd, 0, 'No broken requirements found.' + chr(10), '')
             raise AssertionError(f'Unexpected external operation: {cmd}')
         out = os.path.join(self.temp_dir, 'verifier')
         with patch.dict(sys.modules, modules), patch.dict(os.environ, {'CUDA_VISIBLE_DEVICES': '0'}), \
@@ -91,7 +95,8 @@ class TestKaggleDependencyPolicyBehavioral(unittest.TestCase):
         self.mock_baseline_data = {
             "schema_version": "1.0",
             "environment_name": "kaggle-gpu-t4-test",
-            "python_version": "3.11.11",
+            "python_version": sys.version.split()[0],
+            "cuda_build_version": "12.8",
             "hard_protected_compute_stack": {
                 "torch": "2.10.0+cu128",
                 "torchvision": "0.25.0+cu128",
@@ -208,11 +213,12 @@ class TestKaggleDependencyPolicyBehavioral(unittest.TestCase):
         env["PYTHONPATH"] = "."
 
         mock_freeze = "\n".join([f"{k}=={v}" for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()] +
-                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()])
+                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()]) + "\nbitsandbytes==0.45.0"
 
         code = f"""
 import sys, subprocess, json, os
 import scripts.kaggle_setup as ks
+import scripts.verify_kaggle_env as ve
 
 freeze_count = 0
 def mock_freeze():
@@ -222,16 +228,19 @@ def mock_freeze():
         return ("", 1) # Final freeze fails
     return ({repr(mock_freeze)}, 0)
 
-ks.get_git_info = lambda: ("fake_sha", False, True)
+ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = mock_freeze
 
 def mock_run(cmd, capture_output=True, text=True):
+    if cmd == [sys.executable, '-m', 'pip', 'check']:
+        return subprocess.CompletedProcess(cmd, 0, 'No broken requirements found.' + chr(10), '')
     if len(cmd) > 1 and 'verify_kaggle_env.py' in cmd[1]:
         v_rep = {repr(out_dir)} + '/kaggle_env_verification.json'
         run_id = cmd[cmd.index('--run-id')+1] if '--run-id' in cmd else 'fake_run_id'
-        git_sha = cmd[cmd.index('--git-sha')+1] if '--git-sha' in cmd else 'fake_sha'
+        git_sha = cmd[cmd.index('--git-sha')+1] if '--git-sha' in cmd else 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         with open(v_rep, 'w') as f:
-            json.dump({{'run_id': run_id, 'git_sha': git_sha, 'statuses': {{'overall': 'PASS'}}}}, f)
+            json.dump({{'run_id': run_id, 'git_sha': git_sha, 'statuses': {{'overall': 'PASS'}}, 'checks': {{name: {{'status': 'PASS'}} for name in ve.REQUIRED_RUNTIME_CHECKS}}}}, f)
         class Res:
             returncode = 0
             stdout = 'verifier pass'
@@ -271,12 +280,13 @@ ks.main()
         env["PYTHONPATH"] = "."
 
         mock_freeze_before = "\n".join([f"{k}=={v}" for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()] +
-                                       [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()])
+                                       [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()]) + "\nbitsandbytes==0.45.0"
         mock_freeze_after = mock_freeze_before.replace("4.46.3", "4.47.0") # Mutates transformers
 
         code = f"""
 import sys, subprocess, json, os
 import scripts.kaggle_setup as ks
+import scripts.verify_kaggle_env as ve
 
 freeze_count = 0
 def mock_freeze():
@@ -286,16 +296,19 @@ def mock_freeze():
         return ({repr(mock_freeze_after)}, 0)
     return ({repr(mock_freeze_before)}, 0)
 
-ks.get_git_info = lambda: ("fake_sha", False, True)
+ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = mock_freeze
 
 def mock_run(cmd, capture_output=True, text=True):
+    if cmd == [sys.executable, '-m', 'pip', 'check']:
+        return subprocess.CompletedProcess(cmd, 0, 'No broken requirements found.' + chr(10), '')
     if len(cmd) > 1 and 'verify_kaggle_env.py' in cmd[1]:
         v_rep = {repr(out_dir)} + '/kaggle_env_verification.json'
         run_id = cmd[cmd.index('--run-id')+1] if '--run-id' in cmd else 'fake_run_id'
-        git_sha = cmd[cmd.index('--git-sha')+1] if '--git-sha' in cmd else 'fake_sha'
+        git_sha = cmd[cmd.index('--git-sha')+1] if '--git-sha' in cmd else 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         with open(v_rep, 'w') as f:
-            json.dump({{'run_id': run_id, 'git_sha': git_sha, 'statuses': {{'overall': 'PASS'}}}}, f)
+            json.dump({{'run_id': run_id, 'git_sha': git_sha, 'statuses': {{'overall': 'PASS'}}, 'checks': {{name: {{'status': 'PASS'}} for name in ve.REQUIRED_RUNTIME_CHECKS}}}}, f)
         class Res:
             returncode = 0
             stdout = 'verifier pass'
@@ -330,21 +343,25 @@ ks.main()
         env["PYTHONPATH"] = "."
 
         mock_freeze = "\n".join([f"{k}=={v}" for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()] +
-                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()])
+                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()]) + "\nbitsandbytes==0.45.0"
 
         code = f"""
 import sys, subprocess, json, os
 import scripts.kaggle_setup as ks
+import scripts.verify_kaggle_env as ve
 
-ks.get_git_info = lambda: ("fake_sha", False, True)
+ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = lambda: ({repr(mock_freeze)}, 0)
 
 def mock_run(cmd, capture_output=True, text=True):
+    if cmd == [sys.executable, '-m', 'pip', 'check']:
+        return subprocess.CompletedProcess(cmd, 0, 'No broken requirements found.' + chr(10), '')
     if len(cmd) > 1 and 'verify_kaggle_env.py' in cmd[1]:
         v_rep = {repr(out_dir)} + '/kaggle_env_verification.json'
-        git_sha = cmd[cmd.index('--git-sha')+1] if '--git-sha' in cmd else 'fake_sha'
+        git_sha = cmd[cmd.index('--git-sha')+1] if '--git-sha' in cmd else 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         with open(v_rep, 'w') as f:
-            json.dump({{'run_id': 'mismatched_run_id', 'git_sha': git_sha, 'statuses': {{'overall': 'PASS'}}}}, f)
+            json.dump({{'run_id': 'mismatched_run_id', 'git_sha': git_sha, 'statuses': {{'overall': 'PASS'}}, 'checks': {{name: {{'status': 'PASS'}} for name in ve.REQUIRED_RUNTIME_CHECKS}}}}, f)
         class Res:
             returncode = 0
             stdout = 'verifier pass'
@@ -383,21 +400,25 @@ ks.main()
         env["PYTHONPATH"] = "."
 
         mock_freeze = "\n".join([f"{k}=={v}" for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()] +
-                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()])
+                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()]) + "\nbitsandbytes==0.45.0"
 
         code = f"""
 import sys, subprocess, json, os
 import scripts.kaggle_setup as ks
+import scripts.verify_kaggle_env as ve
 
-ks.get_git_info = lambda: ("fake_sha", False, True)
+ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = lambda: ({repr(mock_freeze)}, 0)
 
 def mock_run(cmd, capture_output=True, text=True):
+    if cmd == [sys.executable, '-m', 'pip', 'check']:
+        return subprocess.CompletedProcess(cmd, 0, 'No broken requirements found.' + chr(10), '')
     if len(cmd) > 1 and 'verify_kaggle_env.py' in cmd[1]:
         v_rep = {repr(out_dir)} + '/kaggle_env_verification.json'
         run_id = cmd[cmd.index('--run-id')+1] if '--run-id' in cmd else 'fake_run_id'
         with open(v_rep, 'w') as f:
-            json.dump({{'run_id': run_id, 'git_sha': 'mismatched_sha', 'statuses': {{'overall': 'PASS'}}}}, f)
+            json.dump({{'run_id': run_id, 'git_sha': 'mismatched_sha', 'statuses': {{'overall': 'PASS'}}, 'checks': {{name: {{'status': 'PASS'}} for name in ve.REQUIRED_RUNTIME_CHECKS}}}}, f)
         class Res:
             returncode = 0
             stdout = 'verifier pass'
@@ -436,20 +457,24 @@ ks.main()
         env["PYTHONPATH"] = "."
 
         mock_freeze = "\n".join([f"{k}=={v}" for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()] +
-                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()])
+                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()]) + "\nbitsandbytes==0.45.0"
 
         code = f"""
 import sys, subprocess, json, os
 import scripts.kaggle_setup as ks
+import scripts.verify_kaggle_env as ve
 
-ks.get_git_info = lambda: ("fake_sha", False, True)
+ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = lambda: ({repr(mock_freeze)}, 0)
 
 def mock_run(cmd, capture_output=True, text=True):
+    if cmd == [sys.executable, '-m', 'pip', 'check']:
+        return subprocess.CompletedProcess(cmd, 0, 'No broken requirements found.' + chr(10), '')
     if len(cmd) > 1 and 'verify_kaggle_env.py' in cmd[1]:
         v_rep = {repr(out_dir)} + '/kaggle_env_verification.json'
         run_id = cmd[cmd.index('--run-id')+1] if '--run-id' in cmd else 'fake_run_id'
-        git_sha = cmd[cmd.index('--git-sha')+1] if '--git-sha' in cmd else 'fake_sha'
+        git_sha = cmd[cmd.index('--git-sha')+1] if '--git-sha' in cmd else 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         with open(v_rep, 'w') as f:
             json.dump({{'run_id': run_id, 'git_sha': git_sha, 'statuses': {{'overall': 'PARTIAL'}}}}, f)
         class Res:
@@ -490,22 +515,26 @@ ks.main()
         env["PYTHONPATH"] = "."
 
         mock_freeze = "\n".join([f"{k}=={v}" for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()] +
-                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()])
+                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()]) + "\nbitsandbytes==0.45.0"
 
         code = f"""
 import sys, subprocess, json, os
 import scripts.kaggle_setup as ks
+import scripts.verify_kaggle_env as ve
 
-ks.get_git_info = lambda: ("fake_sha", False, True)
+ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = lambda: ({repr(mock_freeze)}, 0)
 
 def mock_run(cmd, capture_output=True, text=True):
+    if cmd == [sys.executable, '-m', 'pip', 'check']:
+        return subprocess.CompletedProcess(cmd, 0, 'No broken requirements found.' + chr(10), '')
     if len(cmd) > 1 and 'verify_kaggle_env.py' in cmd[1]:
         v_rep = {repr(out_dir)} + '/kaggle_env_verification.json'
         run_id = cmd[cmd.index('--run-id')+1] if '--run-id' in cmd else 'fake_run_id'
-        git_sha = cmd[cmd.index('--git-sha')+1] if '--git-sha' in cmd else 'fake_sha'
+        git_sha = cmd[cmd.index('--git-sha')+1] if '--git-sha' in cmd else 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         with open(v_rep, 'w') as f:
-            json.dump({{'run_id': run_id, 'git_sha': git_sha, 'statuses': {{'overall': 'PASS'}}}}, f)
+            json.dump({{'run_id': run_id, 'git_sha': git_sha, 'statuses': {{'overall': 'PASS'}}, 'checks': {{name: {{'status': 'PASS'}} for name in ve.REQUIRED_RUNTIME_CHECKS}}}}, f)
         class Res:
             returncode = 0
             stdout = 'verifier pass stdout'
@@ -573,7 +602,9 @@ ks.main()
         code = f"""
 import sys
 import scripts.kaggle_setup as ks
+import scripts.verify_kaggle_env as ve
 
+ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
 ks.get_git_info = lambda: ("UNKNOWN", True, False)
 sys.argv = ['kaggle_setup.py', '--preview', '--baseline', {repr(self.mock_baseline_path)}, '--output-dir', {repr(out_dir)}]
 ks.main()
@@ -592,8 +623,10 @@ ks.main()
         code = f"""
 import sys
 import scripts.kaggle_setup as ks
+import scripts.verify_kaggle_env as ve
 
-ks.get_git_info = lambda: ("fake_sha", False, True)
+ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = lambda: ("", 1)
 sys.argv = ['kaggle_setup.py', '--preview', '--baseline', {repr(self.mock_baseline_path)}, '--output-dir', {repr(out_dir)}]
 ks.main()
@@ -610,16 +643,20 @@ ks.main()
         env["PYTHONPATH"] = "."
 
         mock_freeze = "\n".join([f"{k}=={v}" for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()] +
-                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()])
+                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()]) + "\nbitsandbytes==0.45.0"
 
         code = f"""
 import sys, subprocess, json, os
 import scripts.kaggle_setup as ks
+import scripts.verify_kaggle_env as ve
 
-ks.get_git_info = lambda: ("fake_sha", False, True)
+ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = lambda: ({repr(mock_freeze)}, 0)
 
 def mock_run(cmd, capture_output=True, text=True):
+    if cmd == [sys.executable, '-m', 'pip', 'check']:
+        return subprocess.CompletedProcess(cmd, 0, 'No broken requirements found.' + chr(10), '')
     class Res:
         returncode = 0
         stdout = 'mock stdout'

@@ -1,0 +1,25 @@
+{
+  "recorded_utc": "2026-09-05T16:34:42.911600+00:00",
+  "starting_head": "0bbeaeb560acd5b9357ddfc25f18246d103b379b",
+  "remote_ref_verification": "Connected GitHub Git refs GET; expected branch/dev refs matched. Credential-free HTTPS fetch could not authenticate.",
+  "merge_base": "e395f7af264eaaac9473d8b9e9f1c7a46c825d5c",
+  "starting_tracked_clean": true,
+  "offline_infrastructure_tests": 64,
+  "local_integration_regressions": 13,
+  "python_compileall": "PASS",
+  "shell_syntax": "PASS",
+  "authored_diff_whitespace": "PASS",
+  "notebook_json_nbformat": "PASS for all seven tracked notebooks",
+  "notebook_python_compile": "Six pass locally; legacy GATE1 shell cells require IPython, unavailable locally and scheduled for Kaggle compilation without execution.",
+  "kaggle_submissions_at_recording": 0,
+  "kaggle_submission_limit": 2,
+  "supported_claims": [
+    "Offline differential policy, failure paths, evidence replay, source bootstrap and integration regression behaviour"
+  ],
+  "unsupported_claims": [
+    "Runtime imports/GPU operations/OG-001 closure",
+    "Scientific method validity or research results"
+  ],
+  "credentials_accessed_by_tests": false,
+  "local_packages_installed": false
+}

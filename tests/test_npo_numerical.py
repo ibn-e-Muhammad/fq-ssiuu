@@ -50,19 +50,15 @@ class TestNPONumerical:
 
     def test_equal_logprobs_produces_log2(self):
         """At ratio=0, NPO loss should be (2/beta) * log(2)."""
-        try:
-            from fq_ssiuu.unlearning.npo_loss import compute_npo_loss, NPOConfig
-        except ImportError:
-            pytest.skip("npo_loss not importable")
+        from fq_ssiuu.unlearning.npo_loss import compute_npo_loss
 
-        config = NPOConfig(beta=0.1)
+        beta = 0.1
         model_lp, ref_lp, labels = self._make_inputs(0.0)
-        loss = compute_npo_loss(model_lp, ref_lp, labels, config=config)
+        loss = compute_npo_loss(model_lp, ref_lp, labels, beta=beta)
 
-        expected = (2.0 / config.beta) * math.log(2)
+        expected = (2.0 / beta) * math.log(2)
         assert torch.isfinite(loss), "Loss should be finite at ratio=0"
-        # Allow some tolerance due to softmax numerics
-        assert abs(loss.item() - expected) < expected * 0.5, (
+        assert math.isclose(loss.item(), expected, rel_tol=1e-6), (
             f"At ratio=0, expected ~{expected:.2f}, got {loss.item():.2f}"
         )
 

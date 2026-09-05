@@ -2,6 +2,11 @@
 
 **Last updated:** 2026-09-05  
 **Verified by:** Codex source review and Kaggle OG-001 kernel version 2 evidence
+
+Active execution: [MASTER_EXECUTION_PLAN.md](MASTER_EXECUTION_PLAN.md).
+The authorised differential OG-001 closure work unit is in progress, with at most
+two new private Kaggle submissions. Its runtime acceptance is still pending;
+the historical version-2 evidence and scientific gate statuses below remain valid.
 **Branch:** fix/kaggle-overlay-evidence-integrity
 
 > [!WARNING]

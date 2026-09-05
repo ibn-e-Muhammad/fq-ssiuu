@@ -6,6 +6,7 @@ Unit tests for environment preflight checks and manifest capture.
 
 import json
 import sys
+from types import SimpleNamespace
 from unittest.mock import patch
 
 import pytest
@@ -18,6 +19,7 @@ from fq_ssiuu.environment import (
     PreflightResult,
     _check_python_version,
     _check_disk_space,
+    _check_cuda,
 )
 
 
@@ -29,6 +31,14 @@ class TestPreflight:
         result = _check_python_version()
         # We're running on Python 3.10+, so this should pass
         assert result.passed is True
+
+    def test_cuda_uses_documented_total_memory_property(self):
+        cuda = SimpleNamespace(is_available=lambda: True, get_device_name=lambda i: "Tesla T4",
+                               get_device_properties=lambda i: SimpleNamespace(total_memory=15_636_037_632))
+        with patch.dict(sys.modules, {"torch": SimpleNamespace(cuda=cuda)}):
+            result = _check_cuda()
+        assert result.passed is True
+        assert "Tesla T4" in result.message
 
     def test_disk_space_check(self):
         """Disk space check should return a valid result."""

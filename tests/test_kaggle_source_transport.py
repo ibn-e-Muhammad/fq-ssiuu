@@ -151,6 +151,7 @@ class TestNotebookBootstrap(unittest.TestCase):
                 if cell['cell_type'] == 'code':
                     exec(compile(''.join(cell['source']), str(path), 'exec'), self.namespace)
         self.namespace['ORCHESTRATION_COMMIT'] = 'c' * 40
+        self.namespace['RUN_INTEGRATION_TESTS'] = False
         self.working = self.root / 'working'
         self.input = self.root / 'input'
 
@@ -202,6 +203,32 @@ class TestNotebookBootstrap(unittest.TestCase):
             self.run_notebook()
         self.assertEqual(self.summary()['failure_phase'], 'evidence_validation')
         self.assertEqual(self.summary()['execution_status'], 'FAIL')
+
+    def test_verified_dirty_baseline_success_through_real_bundle_bootstrap(self):
+        # The fixture creates synthetic evidence; no GPU or installation occurs.
+        for name in ('kaggle_setup.py', 'verify_kaggle_env.py', 'verify_pip_report.py',
+                     'pip_consistency.py', 'validate_og001_artifacts.py'):
+            target = self.repo / 'scripts' / name
+            if name != 'kaggle_setup.py':
+                target.write_bytes(Path('scripts', name).read_bytes())
+        (self.repo / 'tests').mkdir()
+        (self.repo / 'tests/__init__.py').write_text('')
+        (self.repo / 'tests/og001_fixtures.py').write_bytes(Path('tests/og001_fixtures.py').read_bytes())
+        (self.repo / 'requirements').mkdir()
+        (self.repo / 'requirements/kaggle-native-baseline.json').write_bytes(Path('requirements/kaggle-native-baseline.json').read_bytes())
+        # Fixture imports the actual setup helpers under another module name.
+        (self.repo / 'scripts/setup_helpers.py').write_bytes(Path('scripts/kaggle_setup.py').read_bytes())
+        fixture = self.repo / 'tests/og001_fixtures.py'
+        fixture.write_text(fixture.read_text().replace('from scripts import kaggle_setup as ks',
+                                                      'from scripts import setup_helpers as ks'))
+        validation = self.repo / 'scripts/validate_og001_artifacts.py'
+        validation.write_text(validation.read_text().replace('from scripts.kaggle_setup import',
+                                                            'from scripts.setup_helpers import'))
+        self.make_input("import sys, subprocess\nfrom pathlib import Path\nsys.path.insert(0, str(Path(__file__).resolve().parents[1]))\nfrom tests.og001_fixtures import write_success_artifacts\nsha=subprocess.check_output(['git','rev-parse','HEAD']).decode().strip()\nwrite_success_artifacts(sys.argv[sys.argv.index('--output-dir')+1], sha)\n")
+        result = self.run_notebook()
+        self.assertEqual(result['execution_status'], 'PASS')
+        self.assertEqual(result['pip_consistency_state'], 'BASELINE_DIRTY_NO_REGRESSION')
+        self.assertTrue((self.working / 'og001_acceptance.json').is_file())
 
 
 if __name__ == '__main__':

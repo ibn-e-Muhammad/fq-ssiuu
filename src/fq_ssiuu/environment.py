@@ -136,7 +136,7 @@ def _check_cuda() -> PreflightResult:
         import torch
         if torch.cuda.is_available():
             device_name = torch.cuda.get_device_name(0)
-            mem_gb = torch.cuda.get_device_properties(0).total_mem / (1024**3)
+            mem_gb = torch.cuda.get_device_properties(0).total_memory / (1024**3)
             return PreflightResult(
                 "CUDA",
                 True,
@@ -275,7 +275,7 @@ def capture_manifest(repo_path: str = ".") -> EnvironmentManifest:
                 props = torch.cuda.get_device_properties(i)
                 manifest.gpu_info.append(props.name)
                 manifest.gpu_memory_gb.append(
-                    round(props.total_mem / (1024**3), 2)
+                    round(props.total_memory / (1024**3), 2)
                 )
             # Driver version
             try:

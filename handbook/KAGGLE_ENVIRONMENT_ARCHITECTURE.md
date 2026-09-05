@@ -2,7 +2,27 @@
 
 **Version:** 1.0
 **Date:** 2026-09-05
-**Status:** IMPLEMENTED (Stage 1H-B) — Stage 1I Execution Pending
+**Status:** Differential consistency implemented; OG-001 runtime closure pending.
+
+Global `pip check` is captured before installation, after installation, and again
+by the runtime verifier. Exact stdout/stderr and return codes remain immutable
+run artifacts. The shared policy parses pip's documented diagnostics and rejects
+unknown output, malformed records, introduced diagnostics, and diagnostics
+involving overlay roots or actual installed transitives. Remaining inherited
+diagnostics are represented as `BASELINE_DIRTY_NO_REGRESSION`, never globally
+clean. The complete distribution inventory covers direct-reference installs
+that lack `==` pins in freeze output. Protected and unreported package changes
+and native platform changes fail the gate.
+
+After successful installation, consistency failure does not suppress runtime
+smokes or after-state evidence. Locks are generated only after consistency,
+required imports, one-T4 FP16/SDPA/genuine NF4 operations, peak memory and
+protected/platform validation pass. The notebook independently verifies every
+artifact hash and recomputes consistency, package transitions and lock deltas.
+
+Policy grammar: [pip check documentation](https://pip.pypa.io/en/stable/cli/pip_check/)
+and [pip CheckCommand](https://github.com/pypa/pip/blob/main/src/pip/_internal/commands/check.py),
+consulted 2026-09-05. No native diagnostic text is hardcoded as an exemption.
 **Canonical Hardware Target:** Kaggle Tesla T4 runtime, with single-device FP16 resource enforcement (`cuda:0`)
 
 ---

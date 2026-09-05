@@ -10,7 +10,7 @@ Verifies:
 - Real SDPA CUDA execution via torch.nn.functional.scaled_dot_product_attention
 - Baseline protected stack integrity (hard-protected and native-stability)
 - Overlay module imports (bitsandbytes, captum, hydra, lm_eval, jsonlines)
-- Clean pip check
+- Differential pip consistency; dirty native baseline is not global cleanliness
 - Genuine CUDA NF4 quantise/dequantise test strictly via bitsandbytes.functional.quantize_nf4 / dequantize_nf4
 - NO FP4 fallback or fp4 code type usage allowed
 
@@ -34,9 +34,16 @@ if REPO_ROOT not in sys.path:
     sys.path.insert(0, REPO_ROOT)
 
 try:
-    from scripts.verify_pip_report import validate_baseline, normalize_name, atomic_write_json
+    from scripts.verify_pip_report import validate_baseline, normalize_name, atomic_write_json, verify_report
 except ImportError:
-    from verify_pip_report import validate_baseline, normalize_name, atomic_write_json
+    from verify_pip_report import validate_baseline, normalize_name, atomic_write_json, verify_report
+
+from scripts.pip_consistency import capture_pip_check, compare_checks, load_record, validate_record
+
+REQUIRED_RUNTIME_CHECKS = ("git_provenance", "baseline_file", "python_version", "pytorch_version",
+                          "cuda_build", "cuda_visible_devices_var", "cuda_device_count", "t4_hardware",
+                          "fp16_operation", "sdpa_operation", "protected_stack_integrity", "overlay_imports",
+                          "nf4_quantise_dequantise", "peak_memory", "pip_check")
 
 def exit_code_for_status(overall_status: str) -> int:
     """Returns exit code 0 if overall_status is 'PASS', else 1."""
@@ -53,15 +60,6 @@ def get_git_sha() -> str:
     except OSError:
         pass
     return "UNKNOWN"
-
-def run_pip_check() -> tuple[int, str]:
-    """Check the interpreter used for verification, preserving failure output."""
-    try:
-        result = subprocess.run([sys.executable, "-m", "pip", "check"],
-                                capture_output=True, text=True, check=False)
-        return result.returncode, result.stdout + result.stderr
-    except OSError as exc:
-        return 1, f"pip check could not start: {type(exc).__name__}"
 
 def run_sdpa_smoke(torch_mod) -> dict:
     """Invokes scaled_dot_product_attention using the given torch module."""
@@ -129,7 +127,8 @@ def run_nf4_smoke(torch_mod, bnb_functional) -> dict:
             "reason": f"bitsandbytes NF4 execution failed: {e}"
         }
 
-def check_env(baseline_path: str, run_id: str | None = None, git_sha: str | None = None) -> dict:
+def check_env(baseline_path: str, run_id: str | None = None, git_sha: str | None = None,
+              pip_baseline_path=None, install_report_path=None, output_dir=None) -> dict:
     if run_id is None:
         run_id = str(uuid.uuid4())
     if git_sha is None:
@@ -208,6 +207,11 @@ def check_env(baseline_path: str, run_id: str | None = None, git_sha: str | None
             "status": "PASS" if torch_ver_pass else "FAIL",
             "observed": {"actual": torch.__version__, "expected": exp_torch_ver}
         }
+        expected_cuda = bdata.get("cuda_build_version") if isinstance(bdata, dict) else None
+        actual_cuda = torch.version.cuda
+        results["checks"]["cuda_build"] = {
+            "status": "PASS" if expected_cuda and actual_cuda == expected_cuda else "FAIL",
+            "observed": {"actual": actual_cuda, "expected": expected_cuda}}
 
         dev_count = torch.cuda.device_count()
         dev_count_pass = (dev_count == 1)
@@ -217,6 +221,8 @@ def check_env(baseline_path: str, run_id: str | None = None, git_sha: str | None
         }
 
         if torch.cuda.is_available() and dev_count > 0:
+            torch.cuda.synchronize(0)
+            torch.cuda.reset_peak_memory_stats(0)
             dev_name = torch.cuda.get_device_name(0)
             dev_cap = torch.cuda.get_device_capability(0)
             vram_gib = torch.cuda.get_device_properties(0).total_memory / (1024**3)
@@ -327,12 +333,46 @@ def check_env(baseline_path: str, run_id: str | None = None, git_sha: str | None
             "reason": f"bitsandbytes NF4 execution failed: {e}"
         }
 
-    # 8. Pip check
-    pip_code, pip_out = run_pip_check()
-    results["checks"]["pip_check"] = {
-        "status": "PASS" if pip_code == 0 else "FAIL",
-        "observed": pip_out.strip()
-    }
+    # Peak covers this process's FP16, SDPA, imports and NF4 smoke operations.
+    # It is an environment smoke observation, not a model-training memory claim.
+    try:
+        import torch
+        torch.cuda.synchronize(0)
+        allocated = int(torch.cuda.max_memory_allocated(0))
+        reserved = int(torch.cuda.max_memory_reserved(0))
+        total = int(torch.cuda.get_device_properties(0).total_memory)
+        results["checks"]["peak_memory"] = {
+            "status": "PASS" if 0 < allocated <= reserved < 16_000_000_000 and reserved <= total else "FAIL",
+            "observed": {"device": "cuda:0", "peak_allocated_bytes": allocated,
+                         "peak_reserved_bytes": reserved, "device_total_bytes": total,
+                         "budget_bytes": 16_000_000_000, "scope": "verifier smoke process"}}
+    except Exception as exc:
+        results["checks"]["peak_memory"] = {"status": "FAIL", "reason": str(exc)}
+
+    # Independently rerun pip check after smoke operations, revalidate raw
+    # native baseline and actual report, then derive the same strict policy.
+    try:
+        pip_current = capture_pip_check(output_dir, "verifier", run_id, git_sha)
+        validate_record(pip_current, stage="verifier", run_id=run_id, git_sha=git_sha)
+        if pip_baseline_path is None and install_report_path is None:
+            consistency = {"status": "PASS" if pip_current["returncode"] == 0 else "FAIL",
+                           "state": "CLEAN" if pip_current["returncode"] == 0 else "BASELINE_REQUIRED",
+                           "after_returncode": pip_current["returncode"]}
+        else:
+            baseline_record = load_record(pip_baseline_path, stage="before", run_id=run_id, git_sha=git_sha)
+            with open(install_report_path, encoding="utf-8") as handle:
+                report = json.load(handle)
+            valid, errors, summary = verify_report(report, bdata)
+            if not valid:
+                raise ValueError(f"Verifier resolver policy failed: {errors}")
+            consistency = compare_checks(baseline_record, pip_current,
+                                         [p["normalized_name"] for p in summary["packages"]])
+        results["checks"]["pip_check"] = {"status": consistency["status"], "observed": consistency}
+    except (OSError, KeyError, TypeError, ValueError) as exc:
+        results["checks"]["pip_check"] = {"status": "FAIL", "reason": str(exc)}
+
+    for name in REQUIRED_RUNTIME_CHECKS:
+        results["checks"].setdefault(name, {"status": "FAIL", "reason": "Required check was not completed"})
 
     # Calculate overall status: Must be PASS only if EVERY check is PASS
     all_statuses = [v.get("status") for v in results["checks"].values()]
@@ -350,6 +390,8 @@ def main():
     parser.add_argument("--baseline", help="Path to baseline JSON file.")
     parser.add_argument("--output-dir", help="Directory to save kaggle_env_verification.json")
     parser.add_argument("--run-id", help="Common run ID string across setup session")
+    parser.add_argument("--pip-baseline", help="Raw-linked pre-install pip check JSON record")
+    parser.add_argument("--install-report", help="Actual pip install report for overlay ownership")
 
     args = parser.parse_args()
 
@@ -357,7 +399,10 @@ def main():
     run_id = args.run_id if args.run_id else str(uuid.uuid4())
 
     try:
-        res = check_env(baseline_path, run_id=run_id)
+        if args.output_dir:
+            os.makedirs(args.output_dir, exist_ok=True)
+        res = check_env(baseline_path, run_id=run_id, pip_baseline_path=args.pip_baseline,
+                        install_report_path=args.install_report, output_dir=args.output_dir)
     except Exception as exc:
         res = {
             "schema_version": "1.0", "run_id": run_id, "git_sha": get_git_sha(),
