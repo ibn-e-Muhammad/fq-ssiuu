@@ -1,39 +1,113 @@
 #!/usr/bin/env python3
 """
-verify_kaggle_env.py — Post-install Kaggle environment verification script.
+verify_kaggle_env.py — Fail-closed Kaggle post-install environment verification script.
 
 Verifies:
-- CUDA_VISIBLE_DEVICES=0 and 1 visible CUDA device inside process
-- Tesla T4 identity and compute capability 7.5
-- FP16 operation and SDPA existence
-- Protected native package versions unchanged
-- Overlay package imports
+- Python version matches baseline expectation
+- CUDA_VISIBLE_DEVICES=0 and exactly 1 visible CUDA device inside process
+- Tesla T4 identity, compute capability 7.5, VRAM < 16 GiB
+- Real FP16 CUDA matrix multiplication and CUDA synchronization
+- Real SDPA CUDA execution via torch.nn.functional.scaled_dot_product_attention
+- Baseline protected stack integrity (hard-protected and native-stability)
+- Overlay module imports (bitsandbytes, captum, hydra, lm_eval, jsonlines)
 - Clean pip check
-- Genuine CUDA NF4 quantise/dequantise test via bitsandbytes
-- No model or dataset downloads
+- Genuine CUDA NF4 quantise/dequantise test strictly via bitsandbytes.functional.quantize_nf4 / dequantize_nf4
+- NO FP4 fallback or fp4 code type usage allowed
 
-Outputs structured JSON report with explicit PASS, FAIL, UNAVAILABLE statuses.
+Outputs structured JSON report. Exits code 0 ONLY when overall status is PASS.
+Exits non-zero for FAIL, PARTIAL, or UNAVAILABLE.
 """
 
 import os
 import sys
 import json
+import uuid
+import tempfile
 import subprocess
 import argparse
+import importlib.metadata
 from datetime import datetime, timezone
+
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+def normalize_name(name: str) -> str:
+    import re
+    return re.sub(r"[-_.]+", "-", name).lower()
+
+def atomic_write_json(filepath: str, data: dict, indent: int = 2) -> None:
+    dir_name = os.path.dirname(os.path.abspath(filepath))
+    os.makedirs(dir_name, exist_ok=True)
+    temp_file = tempfile.NamedTemporaryFile(mode="w", dir=dir_name, delete=False, encoding="utf-8")
+    try:
+        json.dump(data, temp_file, indent=indent)
+        temp_file.flush()
+        os.fsync(temp_file.fileno())
+        temp_file.close()
+        os.replace(temp_file.name, filepath)
+    except Exception:
+        if os.path.exists(temp_file.name):
+            os.remove(temp_file.name)
+        raise
 
 def run_pip_check() -> tuple[int, str]:
     res = subprocess.run([sys.executable, "-m", "pip", "check"], capture_output=True, text=True)
     return res.returncode, res.stdout + res.stderr
 
-def check_env():
+def get_git_sha() -> str:
+    try:
+        res = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=REPO_ROOT)
+        return res.stdout.strip() if res.returncode == 0 else "UNKNOWN"
+    except Exception:
+        return "UNKNOWN"
+
+def check_env(baseline_path: str, run_id: str | None = None) -> dict:
+    if run_id is None:
+        run_id = str(uuid.uuid4())
+
     results = {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "schema_version": "1.0",
+        "verifier_version": "1.0",
+        "run_id": run_id,
+        "git_sha": get_git_sha(),
+        "utc_timestamp": datetime.now(timezone.utc).isoformat(),
         "statuses": {},
         "checks": {}
     }
 
-    # 1. Environment variables & CUDA visibility
+    # 1. Baseline file verification
+    bdata = None
+    if not os.path.exists(baseline_path):
+        results["checks"]["baseline_file"] = {
+            "status": "FAIL",
+            "reason": f"Baseline file missing: {baseline_path}"
+        }
+    else:
+        try:
+            with open(baseline_path, "r", encoding="utf-8") as f:
+                bdata = json.load(f)
+            results["checks"]["baseline_file"] = {"status": "PASS", "path": baseline_path}
+        except Exception as e:
+            results["checks"]["baseline_file"] = {
+                "status": "FAIL",
+                "reason": f"Baseline file unparseable: {e}"
+            }
+
+    # 2. Python version check
+    expected_py = bdata.get("python_version") if bdata else None
+    actual_py = sys.version.split()[0]
+    py_pass = False
+    if expected_py:
+        # Match major.minor or exact version
+        exp_mm = ".".join(expected_py.split(".")[:2])
+        act_mm = ".".join(actual_py.split(".")[:2])
+        py_pass = (act_mm == exp_mm)
+
+    results["checks"]["python_version"] = {
+        "status": "PASS" if py_pass else "FAIL",
+        "observed": {"actual": actual_py, "expected": expected_py}
+    }
+
+    # 3. Environment variables & CUDA visibility
     cuda_vis = os.environ.get("CUDA_VISIBLE_DEVICES")
     env_vis_pass = (cuda_vis == "0")
     results["checks"]["cuda_visible_devices_var"] = {
@@ -41,11 +115,17 @@ def check_env():
         "observed": cuda_vis
     }
 
-    # 2. PyTorch & CUDA device checks
-    torch_available = False
+    # 4. PyTorch & CUDA device checks
     try:
         import torch
-        torch_available = True
+
+        # Check PyTorch version matching baseline hard_protected
+        exp_torch_ver = bdata.get("hard_protected_compute_stack", {}).get("torch") if bdata else None
+        torch_ver_pass = (torch.__version__ == exp_torch_ver) if exp_torch_ver else False
+        results["checks"]["pytorch_version"] = {
+            "status": "PASS" if torch_ver_pass else "FAIL",
+            "observed": {"actual": torch.__version__, "expected": exp_torch_ver}
+        }
 
         dev_count = torch.cuda.device_count()
         dev_count_pass = (dev_count == 1)
@@ -57,19 +137,32 @@ def check_env():
         if torch.cuda.is_available() and dev_count > 0:
             dev_name = torch.cuda.get_device_name(0)
             dev_cap = torch.cuda.get_device_capability(0)
-            t4_pass = ("Tesla T4" in dev_name or "T4" in dev_name) and dev_cap == (7, 5)
+            vram_gib = torch.cuda.get_device_properties(0).total_memory / (1024**3)
+
+            t4_pass = ("Tesla T4" in dev_name or "T4" in dev_name) and dev_cap == (7, 5) and (vram_gib < 16.0)
             results["checks"]["t4_hardware"] = {
                 "status": "PASS" if t4_pass else "FAIL",
-                "observed": {"name": dev_name, "compute_capability": list(dev_cap)}
+                "observed": {
+                    "name": dev_name,
+                    "compute_capability": list(dev_cap),
+                    "total_memory_gib": round(vram_gib, 2)
+                }
             }
 
-            # FP16 test
+            # Real FP16 CUDA calculation & synchronization
             try:
                 x = torch.randn(10, 10, dtype=torch.float16, device="cuda:0")
                 y = torch.matmul(x, x)
+                torch.cuda.synchronize()
+                is_finite = bool(torch.all(torch.isfinite(y)).item())
                 results["checks"]["fp16_operation"] = {
-                    "status": "PASS",
-                    "observed": {"shape": list(y.shape), "dtype": str(y.dtype), "device": str(y.device)}
+                    "status": "PASS" if is_finite else "FAIL",
+                    "observed": {
+                        "shape": list(y.shape),
+                        "dtype": str(y.dtype),
+                        "device": str(y.device),
+                        "is_finite": is_finite
+                    }
                 }
             except Exception as e:
                 results["checks"]["fp16_operation"] = {
@@ -77,140 +170,179 @@ def check_env():
                     "exception": str(e)
                 }
 
-            # SDPA check
-            sdpa_exists = hasattr(torch.nn.functional, "scaled_dot_product_attention")
-            results["checks"]["sdpa_operation"] = {
-                "status": "PASS" if sdpa_exists else "FAIL",
-                "observed": {"sdpa_exists": sdpa_exists}
-            }
+            # Real SDPA CUDA calculation & synchronization
+            try:
+                q = torch.randn(1, 4, 16, 32, dtype=torch.float16, device="cuda:0")
+                k = torch.randn(1, 4, 16, 32, dtype=torch.float16, device="cuda:0")
+                v = torch.randn(1, 4, 16, 32, dtype=torch.float16, device="cuda:0")
+                out_sdpa = torch.nn.functional.scaled_dot_product_attention(q, k, v)
+                torch.cuda.synchronize()
+                is_sdpa_finite = bool(torch.all(torch.isfinite(out_sdpa)).item())
+                results["checks"]["sdpa_operation"] = {
+                    "status": "PASS" if is_sdpa_finite else "FAIL",
+                    "observed": {
+                        "shape": list(out_sdpa.shape),
+                        "dtype": str(out_sdpa.dtype),
+                        "device": str(out_sdpa.device),
+                        "is_finite": is_sdpa_finite
+                    }
+                }
+            except Exception as e:
+                results["checks"]["sdpa_operation"] = {
+                    "status": "FAIL",
+                    "exception": str(e)
+                }
         else:
-            results["checks"]["t4_hardware"] = {"status": "UNAVAILABLE", "reason": "CUDA not available in process"}
-            results["checks"]["fp16_operation"] = {"status": "UNAVAILABLE", "reason": "CUDA not available in process"}
-            results["checks"]["sdpa_operation"] = {"status": "UNAVAILABLE", "reason": "CUDA not available in process"}
+            results["checks"]["t4_hardware"] = {"status": "FAIL", "reason": "CUDA not available in process"}
+            results["checks"]["fp16_operation"] = {"status": "FAIL", "reason": "CUDA not available in process"}
+            results["checks"]["sdpa_operation"] = {"status": "FAIL", "reason": "CUDA not available in process"}
 
     except ImportError:
-        results["checks"]["pytorch"] = {"status": "UNAVAILABLE", "reason": "PyTorch not installed"}
+        results["checks"]["pytorch"] = {"status": "FAIL", "reason": "PyTorch not installed"}
 
-    # 3. Protected version check
-    baseline_path = "requirements/kaggle-native-baseline.json"
-    if os.path.exists(baseline_path):
-        with open(baseline_path, "r", encoding="utf-8") as f:
-            bdata = json.load(f)
+    # 5. Baseline protected stack integrity (Hard-protected + Native-stability)
+    if bdata:
         protected_pass = True
         protected_obs = {}
-        for pkg, expected_ver in bdata.get("hard_protected_compute_stack", {}).items():
+        all_protected = {
+            **bdata.get("hard_protected_compute_stack", {}),
+            **bdata.get("native_stability_stack", {})
+        }
+        for pkg, expected_ver in all_protected.items():
             try:
-                import importlib.metadata
                 actual_ver = importlib.metadata.version(pkg)
-                protected_obs[pkg] = {"expected": expected_ver, "actual": actual_ver}
-                if actual_ver != expected_ver:
+                is_m = (actual_ver == expected_ver)
+                protected_obs[pkg] = {"expected": expected_ver, "actual": actual_ver, "match": is_m}
+                if not is_m:
                     protected_pass = False
             except Exception as e:
-                protected_obs[pkg] = {"expected": expected_ver, "actual": None, "error": str(e)}
+                protected_obs[pkg] = {"expected": expected_ver, "actual": None, "error": str(e), "match": False}
                 protected_pass = False
+
         results["checks"]["protected_stack_integrity"] = {
             "status": "PASS" if protected_pass else "FAIL",
             "observed": protected_obs
         }
 
-    # 4. Overlay import checks
-    overlay_imports = ["bitsandbytes", "captum", "hydra", "lm_eval", "jsonlines"]
+    # 6. Overlay import checks (Must be present and importable post-install)
+    overlay_imports = {
+        "bitsandbytes": "bitsandbytes",
+        "captum": "captum",
+        "hydra": "hydra-core",
+        "lm_eval": "lm-eval",
+        "jsonlines": "jsonlines"
+    }
     import_obs = {}
     import_pass = True
-    for mod in overlay_imports:
+    for mod_name, pkg_name in overlay_imports.items():
         try:
-            __import__(mod)
-            import_obs[mod] = "PASS"
+            __import__(mod_name)
+            import_obs[mod_name] = "PASS"
         except Exception as e:
-            import_obs[mod] = f"UNAVAILABLE ({e})"
+            import_obs[mod_name] = f"FAIL ({e})"
             import_pass = False
+
     results["checks"]["overlay_imports"] = {
-        "status": "PASS" if import_pass else "UNAVAILABLE",
+        "status": "PASS" if import_pass else "FAIL",
         "observed": import_obs
     }
 
-    # 5. Genuine NF4 quantise/dequantise check via bitsandbytes
+    # 7. Genuine NF4 quantise/dequantise check strictly via bitsandbytes
     try:
-        import bitsandbytes as bnb
+        import bitsandbytes.functional as F_bnb
         import torch
+
         if torch.cuda.is_available():
-            x_fp32 = torch.randn(128, 128, dtype=torch.float32, device="cuda:0")
-            # Genuine NF4 quantise/dequantise via bitsandbytes
-            if hasattr(bnb.functional, "quantize_fp4"):
-                out_q, state = bnb.functional.quantize_fp4(x_fp32)
-                x_rec = bnb.functional.dequantize_fp4(out_q, state)
-                diff = (x_fp32 - x_rec).abs().mean().item()
-                results["checks"]["nf4_quantise_dequantise"] = {
-                    "status": "PASS",
-                    "observed": {
-                        "shape": list(out_q.shape),
-                        "device": str(out_q.device),
-                        "dtype": str(out_q.dtype),
-                        "mean_reconstruction_error": diff
-                    }
-                }
-            elif hasattr(bnb.functional, "quantize_blockwise"):
-                out_q, state = bnb.functional.quantize_blockwise(x_fp32, code_type="fp4")
-                x_rec = bnb.functional.dequantize_blockwise(out_q, state)
-                diff = (x_fp32 - x_rec).abs().mean().item()
-                results["checks"]["nf4_quantise_dequantise"] = {
-                    "status": "PASS",
-                    "observed": {
-                        "shape": list(out_q.shape),
-                        "device": str(out_q.device),
-                        "dtype": str(out_q.dtype),
-                        "mean_reconstruction_error": diff
-                    }
-                }
-            else:
+            # Verify explicit quantize_nf4 and dequantize_nf4 exist
+            has_quant_nf4 = hasattr(F_bnb, "quantize_nf4")
+            has_dequant_nf4 = hasattr(F_bnb, "dequantize_nf4")
+
+            if not (has_quant_nf4 and has_dequant_nf4):
                 results["checks"]["nf4_quantise_dequantise"] = {
                     "status": "FAIL",
-                    "reason": "bitsandbytes functional NF4 quantise function not found"
+                    "reason": "Explicit bitsandbytes quantize_nf4 or dequantize_nf4 API not found"
+                }
+            else:
+                x_fp32 = torch.randn(128, 128, dtype=torch.float32, device="cuda:0")
+                out_q, state = F_bnb.quantize_nf4(x_fp32)
+                x_rec = F_bnb.dequantize_nf4(out_q, state)
+                torch.cuda.synchronize()
+
+                is_rec_finite = bool(torch.all(torch.isfinite(x_rec)).item())
+                mean_err = float((x_fp32 - x_rec).abs().mean().item())
+                max_err = float((x_fp32 - x_rec).abs().max().item())
+                quant_type = getattr(state, "quant_type", None)
+
+                nf4_valid = is_rec_finite and (quant_type == "nf4")
+                results["checks"]["nf4_quantise_dequantise"] = {
+                    "status": "PASS" if nf4_valid else "FAIL",
+                    "observed": {
+                        "shape": list(out_q.shape),
+                        "device": str(out_q.device),
+                        "quant_dtype": str(out_q.dtype),
+                        "rec_dtype": str(x_rec.dtype),
+                        "quant_type": quant_type,
+                        "is_rec_finite": is_rec_finite,
+                        "mean_reconstruction_error": mean_err,
+                        "max_reconstruction_error": max_err
+                    }
                 }
         else:
             results["checks"]["nf4_quantise_dequantise"] = {
-                "status": "UNAVAILABLE",
+                "status": "FAIL",
                 "reason": "CUDA not available for NF4 test"
             }
     except Exception as e:
         results["checks"]["nf4_quantise_dequantise"] = {
-            "status": "UNAVAILABLE",
-            "reason": f"bitsandbytes not importable or failed: {e}"
+            "status": "FAIL",
+            "reason": f"bitsandbytes NF4 execution failed: {e}"
         }
 
-    # 6. Pip check
+    # 8. Pip check
     pip_code, pip_out = run_pip_check()
     results["checks"]["pip_check"] = {
         "status": "PASS" if pip_code == 0 else "FAIL",
         "observed": pip_out.strip()
     }
 
-    # Overall statuses
+    # Calculate overall status: Must be PASS only if EVERY check is PASS
     all_statuses = [v.get("status") for v in results["checks"].values()]
-    if "FAIL" in all_statuses:
-        results["statuses"]["overall"] = "FAIL"
-    elif all(s == "PASS" for s in all_statuses):
+    if all(s == "PASS" for s in all_statuses):
         results["statuses"]["overall"] = "PASS"
+    elif "FAIL" in all_statuses:
+        results["statuses"]["overall"] = "FAIL"
     else:
-        results["statuses"]["overall"] = "PARTIAL"
+        results["statuses"]["overall"] = "UNAVAILABLE"
 
     return results
 
 def main():
-    parser = argparse.ArgumentParser(description="Verify Kaggle environment after overlay setup.")
-    parser.add_argument("--output-dir", help="Directory to save report.json")
+    parser = argparse.ArgumentParser(description="Verify Kaggle environment after overlay setup (Fail-Closed).")
+    parser.add_argument("--baseline", help="Path to baseline JSON file.")
+    parser.add_argument("--output-dir", help="Directory to save kaggle_env_verification.json")
     args = parser.parse_args()
 
-    res = check_env()
+    baseline_path = args.baseline if args.baseline else os.path.join(REPO_ROOT, "requirements/kaggle-native-baseline.json")
+    run_id = str(uuid.uuid4())
+
+    res = check_env(baseline_path, run_id=run_id)
+    overall = res["statuses"]["overall"]
+
     print("=== KAGGLE ENVIRONMENT VERIFICATION SUMMARY ===")
-    print(f"Overall Status: {res['statuses']['overall']}")
+    print(f"Overall Status: {overall}")
     for k, v in res["checks"].items():
         print(f"  {k}: {v['status']}")
 
     if args.output_dir:
         os.makedirs(args.output_dir, exist_ok=True)
-        with open(os.path.join(args.output_dir, "kaggle_env_verification.json"), "w", encoding="utf-8") as f:
-            json.dump(res, f, indent=2)
+        out_file = os.path.join(args.output_dir, "kaggle_env_verification.json")
+        atomic_write_json(out_file, res)
+
+    if overall != "PASS":
+        sys.stderr.write(f"ERROR: Environment verification failed with overall status: '{overall}'\n")
+        sys.exit(1)
+    else:
+        sys.exit(0)
 
 if __name__ == "__main__":
     main()
