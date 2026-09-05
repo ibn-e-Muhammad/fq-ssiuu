@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-09-05  
 **Verified by:** Research integrity audit session  
-**Branch:** chore/kaggle-environment-overlay
+**Branch:** fix/kaggle-overlay-evidence-integrity
 
 > [!WARNING]
 > **CR-004 (Pilot Overstatements):** Previous versions of this file contained

@@ -9,7 +9,7 @@ OG-001:
   blocks_new_experiments: true
   does_not_invalidate_historical_pilots: true
   evidence_run_id: "57588774-bdd5-41c8-b56e-7df0c2f5049b"
-  validating_commit: "547db67e6bc75f9efe0b17cbbbc44d8128aff23f"
+  validating_commit: "502871a57b275bffaa65ba6a24f9e834c3721fb6"
   current_hardware_status: PASS
   current_dependency_status: PARTIAL
   unresolved_installation_candidates:
@@ -29,5 +29,5 @@ OG-001:
     - "Clean pip check with exit code 0."
     - "Before/after environment manifests."
     - "Overlay-only lock (no blind full-environment lockfile)."
-  allowed_next_stage: "Stage 1I (Kaggle Environment Validation)"
-  rationale: "The current baseline Kaggle image lacks essential scientific dependencies (bitsandbytes, captum, hydra-core, lm-eval, jsonlines). Stage 1H-D evidence linkage, manifest generation, fail-closed subprocess handling, and behavioral test suite are complete offline. Stage 1I execution on Kaggle is required to validate overlay installation and close OG-001."
+  allowed_next_stage: "Stage 1I Closeout & Authentication Setup"
+  rationale: "Stage 1I private Kaggle run muhammadii/fq-ssiuu-og-001-overlay-validation failed at cell 3 during git clone (fatal: could not read Username for private repository https://github.com/ibn-e-Muhammad/fq-ssiuu.git, exit 128). OG-001 remains PARTIAL pending authenticated repository access or dataset-staged code execution on Kaggle."

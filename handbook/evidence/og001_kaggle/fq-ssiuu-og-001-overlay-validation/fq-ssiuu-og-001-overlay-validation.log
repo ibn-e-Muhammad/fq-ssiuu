@@ -1,0 +1,44 @@
+[{"stream_name":"stderr","time":7.7004670619999995,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.700575435,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.700592389,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.700595565,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.41633128,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.416414445000001,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.416421945,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.416426562,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":9.648064483,"data":"CUDA_VISIBLE_DEVICES set to: 0\n"}
+,{"stream_name":"stdout","time":9.661124479,"data":"Target EXECUTED_CODE_SHA: 502871a57b275bffaa65ba6a24f9e834c3721fb6\n"}
+,{"stream_name":"stdout","time":9.848453276,"data":"Cloning public repository https://github.com/ibn-e-Muhammad/fq-ssiuu.git into /kaggle/working/fq-ssiuu...\n"}
+,{"stream_name":"stdout","time":10.089017279,"data":"Clone stdout: \n"}
+,{"stream_name":"stdout","time":10.089057566,"data":"Clone stderr: Cloning into '/kaggle/working/fq-ssiuu'...\n"}
+,{"stream_name":"stdout","time":10.089061522,"data":"fatal: could not read Username for 'https://github.com': No such device or address\n"}
+,{"stream_name":"stdout","time":10.089064836,"data":"\n"}
+,{"stream_name":"stderr","time":10.520161873,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":10.520196542,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":10.520203094,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":10.520275182,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":10.520344076,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":10.520579864,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":10.520667859,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":10.520676573,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":10.520681376,"data":"Exception encountered at \"In [3]\":\n"}
+,{"stream_name":"stderr","time":10.520685735,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":10.520690092,"data":"RuntimeError                              Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":10.520694116,"data":"/tmp/ipykernel_22/2947027472.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":10.520698663,"data":"     11     print(f\"Clone stderr: {clone_res.stderr}\")\n"}
+,{"stream_name":"stderr","time":10.520702927,"data":"     12     if clone_res.returncode != 0:\n"}
+,{"stream_name":"stderr","time":10.520706634,"data":"---\u003e 13         raise RuntimeError(f\"Git clone failed with return code {clone_res.returncode}\")\n"}
+,{"stream_name":"stderr","time":10.520710722,"data":"     14 \n"}
+,{"stream_name":"stderr","time":10.52073109,"data":"     15 print(f\"Checking out commit {EXECUTED_CODE_SHA}...\")\n"}
+,{"stream_name":"stderr","time":10.520736792,"data":"\n"}
+,{"stream_name":"stderr","time":10.52074145,"data":"RuntimeError: Git clone failed with return code 128\n"}
+,{"stream_name":"stderr","time":10.520745421,"data":"\n"}
+,{"stream_name":"stderr","time":13.401972584,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":13.402016618,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":13.584451563,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":13.584481695000001,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":14.312298002,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":14.693150619,"data":"[NbConvertApp] Writing 12158 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":17.747015808,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":18.767901125,"data":"[NbConvertApp] Writing 300655 bytes to __results__.html\n"}
+]

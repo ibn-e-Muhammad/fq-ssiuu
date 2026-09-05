@@ -58,8 +58,13 @@
 
 ### `fix/kaggle-overlay-evidence-integrity`
 - **Created from**: `2f13acf44f1d43abf1eeb35d6ba2a3f887e69249` (on `chore/kaggle-environment-overlay`)
-- **Status**: Active lineage tip for Kaggle overlay evidence linkage and behavioral test repair (Stage 1H-D)
-- **Purpose**: Evidence linkage, environment manifests, fail-closed subprocess error handling, production overlay lock generation, and behavioral unit test repair
+- **Durable Checkpoints**:
+  - Evidence linkage commit: `53d1317d41b5a72657bc2e9d61854e434b5c5b1e`
+  - Correction docs commit: `3149d38d42c5e3e6cda44825d9f689558242d4bc`
+  - Preflight repair commit (`EXECUTED_CODE_SHA`): `502871a57b275bffaa65ba6a24f9e834c3721fb6`
+  - Validation notebook commit: `8d3bc149306085aae3eb52ae1b702ec406a4b18c`
+- **Status**: Active lineage tip for Kaggle overlay evidence linkage, preflight repairs, and validation run (Stage 1H-D / 1I)
+- **Purpose**: Evidence linkage, PEP 440 version comparisons, protected package mutation guards, verifier execution recording, clean runner notebook, and Kaggle validation run
 - **Merge status**: Not merged into `dev`
 
 
