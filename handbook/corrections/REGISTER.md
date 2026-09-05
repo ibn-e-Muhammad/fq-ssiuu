@@ -173,3 +173,23 @@ The current FQ-QAT implementation is an ablation demonstrating adapter-output IN
 | Severity | HIGH — blocks reproducible new experiments but does not invalidate historical pilot observations |
 
 See `handbook/corrections/CR-009_kaggle_environment_reconciliation.md` for full details on corrected claims.
+
+---
+
+## CR-010: Model Loader Dtype Mismatch and Configuration Discrepancy
+
+| Field | Value |
+|-------|-------|
+| Status | OPEN — DEFERRED RUNTIME-CODE BLOCKER |
+| Date discovered | 2026-09-05 |
+| Affected files | `src/fq_ssiuu/models/loader.py`, `configs/base.yaml` |
+| Severity | HIGH — configuration mismatch blocks model training until resolved |
+
+**Findings:**
+1. `configs/base.yaml` specifies FP16 (`torch_dtype: float16`), matching the canonical Kaggle T4 environment.
+2. `ModelConfig` in `src/fq_ssiuu/models/loader.py` still defaults to `bfloat16` (`torch_dtype: str = "bfloat16"`).
+3. Docstring in `loader.py` still references deprecated `scripts/setup_env.sh`.
+4. `device_map="auto"` is acceptable only when `CUDA_VISIBLE_DEVICES=0` has hidden the second GPU.
+
+**Directive:**
+This mismatch is registered as an explicit blocker for new experiments. `src/fq_ssiuu/models/loader.py` must not be modified in Stage 1H-C. It must be repaired and verified with dedicated unit tests before model training or evaluation is initiated.

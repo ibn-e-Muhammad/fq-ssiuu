@@ -51,8 +51,8 @@
 - **Durable Checkpoints**:
   - Documentation closeout commit: `5045cd59964adcab6e089d570bb00e077c2e1fb4`
   - Record correction commit: `ee80b0df160558c52c5bfbdabff5ab01a8885654`
-  - Provenance timestamp qualification: `7fb798679f2fe7b9736c2579b29cbca886c5c24e`
-- **Live Commit Count Command**: `git rev-list --count dev..HEAD` (7 commits ahead of `dev` at start of Stage 1H-B)
+  - Provenance timestamp qualification: `7fb798643aac2381863a5884d339df43cee7ab1f` (corrected typo in documentation record from `7fb79867...`)
+- **Live Commit Count Command**: `git rev-list --count dev..HEAD` (9 commits ahead of `dev` at start of Stage 1H-C)
 - **Status**: Active lineage tip for Kaggle overlay architecture
 - **Purpose**: Documentation closeout, provenance qualification, and static Kaggle overlay implementation
 - **Merge status**: Not merged into `dev`

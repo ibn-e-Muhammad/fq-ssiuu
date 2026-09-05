@@ -79,7 +79,7 @@ Static inspection of the entire codebase (`src/`, `scripts/`, `experiments/`, `t
 
 ## 6. Execution Workflow & Operational Gate Status
 
-- **Default Mode:** `python scripts/kaggle_setup.py` defaults to `PREVIEW` mode and does not alter the Python environment.
-- **Explicit Apply:** Installation requires `CUDA_VISIBLE_DEVICES=0 python scripts/kaggle_setup.py --apply`.
+- **Default Mode:** `CUDA_VISIBLE_DEVICES=0 python3 scripts/kaggle_setup.py --preview` defaults to `PREVIEW` mode and does not alter the Python environment.
+- **Explicit Apply:** Installation requires `CUDA_VISIBLE_DEVICES=0 python3 scripts/kaggle_setup.py --apply`.
 - **Operational Gate Status:** OG-001 remains **`PARTIAL`** until Stage 1I execution on Kaggle validates runtime `bitsandbytes` NF4 operations and overlay compatibility.
 - **Scientific Confirmation:** No scientific experiment, model training, QRA evaluation, or attribution calculation ran during Stage 1H-B.

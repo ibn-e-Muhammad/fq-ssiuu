@@ -4,10 +4,10 @@ help:
 	@echo "FQ-SSIUU Project Makefile"
 	@echo ""
 	@echo "Available targets:"
-	@echo "  make setup-dev         Install generic local development environment (pep621)"
-	@echo "  make kaggle-preview    Run Kaggle overlay dry-run report validation (non-mutating)"
-	@echo "  make kaggle-apply      Apply Kaggle overlay installation (requires CUDA_VISIBLE_DEVICES=0)"
-	@echo "  make install-editable  Install package in editable mode with dev dependencies"
+	@echo "  make setup-dev         Install generic local development environment (requires active venv)"
+	@echo "  make kaggle-preview    Run Kaggle overlay dry-run report validation (CUDA_VISIBLE_DEVICES=0)"
+	@echo "  make kaggle-apply      Apply Kaggle overlay installation (CUDA_VISIBLE_DEVICES=0)"
+	@echo "  make install-editable  Install package in editable mode with dev dependencies (requires active venv)"
 	@echo "  make test-infra        Run infrastructure unit tests (unittest)"
 	@echo "  make test              Run unit tests with pytest"
 	@echo "  make lint              Run ruff linter on all source files"
@@ -23,16 +23,30 @@ setup:
 	@exit 1
 
 setup-dev:
-	pip install -e ".[quantisation,attribution,evaluation,dev]"
+	@if [ -z "$$VIRTUAL_ENV" ]; then \
+		echo "ERROR: No active virtual environment detected."; \
+		echo "To prevent accidental global installation, activate a virtual environment first:"; \
+		echo "  python3 -m venv .venv"; \
+		echo "  source .venv/bin/activate"; \
+		exit 1; \
+	fi
+	python3 -m pip install -e ".[quantisation,attribution,evaluation,dev]"
 
 kaggle-preview:
-	python3 scripts/kaggle_setup.py --preview
+	CUDA_VISIBLE_DEVICES=0 python3 scripts/kaggle_setup.py --preview
 
 kaggle-apply:
 	CUDA_VISIBLE_DEVICES=0 python3 scripts/kaggle_setup.py --apply
 
 install-editable:
-	pip install -e ".[dev]"
+	@if [ -z "$$VIRTUAL_ENV" ]; then \
+		echo "ERROR: No active virtual environment detected."; \
+		echo "To prevent accidental global installation, activate a virtual environment first:"; \
+		echo "  python3 -m venv .venv"; \
+		echo "  source .venv/bin/activate"; \
+		exit 1; \
+	fi
+	python3 -m pip install -e ".[dev]"
 	@echo "Package installed in editable mode."
 
 test-infra:
