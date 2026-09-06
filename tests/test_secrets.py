@@ -6,15 +6,15 @@ No real credentials are used — all tests use mocked values.
 """
 
 import os
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 import pytest
 
 from fq_ssiuu.secrets import (
-    get_secret,
-    check_all_secrets,
     SecretNotFoundError,
     _is_kaggle_runtime,
+    check_all_secrets,
+    get_secret,
 )
 
 

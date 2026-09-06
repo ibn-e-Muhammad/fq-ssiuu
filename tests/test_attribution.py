@@ -4,6 +4,7 @@ Unit tests for SSIUU attribution regularisation.
 Validates the zero-at-init property and penalty computation.
 Reference: Yang et al. 2025, arXiv:2509.22263
 """
+
 import pytest
 import torch
 
@@ -47,9 +48,7 @@ class TestAttribution:
 
         # Expected: 2.0 * ((-0.1) - (-0.5)) = 2.0 * 0.4 = 0.8
         expected = 2.0 * 0.4
-        assert abs(loss.item() - expected) < 1e-6, (
-            f"Expected loss {expected}, got {loss.item()}"
-        )
+        assert abs(loss.item() - expected) < 1e-6, f"Expected loss {expected}, got {loss.item()}"
 
     @pytest.mark.cpu
     def test_ssiuu_not_initialised_raises(self):

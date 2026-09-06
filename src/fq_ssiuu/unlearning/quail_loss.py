@@ -109,9 +109,7 @@ def compute_quail_loss(
 
     # --- Input validation ---
     if model_logits.dim() != 3:
-        raise ValueError(
-            f"model_logits must be 3D [B, T, V], got shape {model_logits.shape}"
-        )
+        raise ValueError(f"model_logits must be 3D [B, T, V], got shape {model_logits.shape}")
     if ref_logits.shape != model_logits.shape:
         raise ValueError(
             f"ref_logits shape {ref_logits.shape} must match "
@@ -136,12 +134,8 @@ def compute_quail_loss(
     # Step 2: Gather logits at target token positions
     safe_labels = labels.clamp(min=0)  # Replace -100 with 0 for gather
     # Shape: [B, T, 1] -> [B, T]
-    model_target_logits = model_logits.gather(
-        dim=-1, index=safe_labels.unsqueeze(-1)
-    ).squeeze(-1)
-    ref_target_logits = ref_logits.gather(
-        dim=-1, index=safe_labels.unsqueeze(-1)
-    ).squeeze(-1)
+    model_target_logits = model_logits.gather(dim=-1, index=safe_labels.unsqueeze(-1)).squeeze(-1)
+    ref_target_logits = ref_logits.gather(dim=-1, index=safe_labels.unsqueeze(-1)).squeeze(-1)
 
     # Step 3: Compute absolute deviation at target positions
     diff = model_target_logits - ref_target_logits  # [B, T]
@@ -166,12 +160,12 @@ def test_quail_loss_at_margin():
     Test 2: When |logit_theta - logit_ref| == 0, loss == margin.
     """
     config = QUAILConfig()
-    B, T, V = 2, 3, 10
+    batch, seq, vocab = 2, 3, 10
 
     # Test 1: Deviation exactly at margin -> loss should be 0
-    ref_logits = torch.zeros(B, T, V)
-    model_logits = torch.zeros(B, T, V)
-    labels = torch.zeros(B, T, dtype=torch.long)
+    ref_logits = torch.zeros(batch, seq, vocab)
+    model_logits = torch.zeros(batch, seq, vocab)
+    labels = torch.zeros(batch, seq, dtype=torch.long)
 
     # Set logit at token 0 to have deviation = margin
     model_logits[:, :, 0] = config.margin
@@ -184,8 +178,8 @@ def test_quail_loss_at_margin():
     print(f"  Test 1: loss at margin = {loss_at_margin.item():.8f} (expected 0) — PASS")
 
     # Test 2: Zero deviation -> loss should equal margin
-    model_logits_zero = torch.zeros(B, T, V)
-    ref_logits_zero = torch.zeros(B, T, V)
+    model_logits_zero = torch.zeros(batch, seq, vocab)
+    ref_logits_zero = torch.zeros(batch, seq, vocab)
 
     loss_zero_dev = compute_quail_loss(model_logits_zero, ref_logits_zero, labels, config)
     assert abs(loss_zero_dev.item() - config.margin) < 1e-5, (

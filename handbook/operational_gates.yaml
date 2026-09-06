@@ -1,42 +1,53 @@
-# FQ-SSIUU Operational Gates
-# These gates block experiments due to infrastructure, environment, or tooling limitations.
-# They are distinct from scientific research gates (research_gates.yaml).
-
+# Operational gates: infrastructure readiness, separate from scientific acceptance.
 OG-001:
   title: Reproducible Kaggle Environment Overlay
   category: operational reproducibility
   status: PARTIAL
   blocks_new_experiments: true
   does_not_invalidate_historical_pilots: true
-  evidence_run_id: "b9e29923-ffc3-4162-8883-fa35a1dbc04c"
+  evidence_run_id: 0b2980fa-c045-4c1f-8c66-4f8f890fd447
   validating_commit: null
-  attempted_source_origin_sha: "91b6aa39e520f9312b098997134c1deabeabfb8f"
-  attempted_snapshot_sha: "b1d15c5002c927a8c85791f8bf1e2422feda6166"
-  orchestration_commit: "24b25b5f3883646d1841e83cdd6a88a54b3fd93d"
-  evidence_path: "handbook/evidence/og001_kaggle/20260905_kernel_v2_24b25b5f/VERDICT.json"
-  kernel_version: 2
+  attempted_source_origin_sha: 6cb7933dd4eb4d3753bc3535aae6388c6a1d2236
+  attempted_snapshot_sha: d1d5328cc899e09181479bcae2df668e20f747d3
+  orchestration_commit: 82e8736fbdb22b7e807cfaa7d2ace3791afd494a
+  evidence_path: handbook/evidence/og001_kaggle/20260906_kernel_v3_82e8736f/VERDICT.json
+  kernel_version: 3
   kernel_status: ERROR
   setup_returncode: 1
   current_hardware_status: PASS
-  current_dependency_status: PARTIAL
-  installed_but_runtime_imports_unverified:
+  current_dependency_status: NOT_REACHED
+  separate_observations:
+    omegaconf: OmegaConf is already present and importable (version 2.3.0).
+    trl: TRL is absent and zero executable imports were found in codebase. Removed from active overlay
+      requirements (DL-022).
+  required_evidence_for_closure:
+  - No changes to protected packages (torch 2.10.0+cu128, torchvision 0.25.0+cu128, torchaudio 2.10.0+cu128,
+    triton 3.6.0, CUDA build 12.8).
+  - Single-device cuda:0 enforcement.
+  - Genuine NF4 quantise/dequantise operation verified.
+  - Successful imports for all required overlay packages.
+  - 'Differential pre/post pip consistency: CLEAN or BASELINE_DIRTY_NO_REGRESSION; no introduced or overlay-related
+    diagnostic, with raw stdout/stderr/return codes retained.'
+  - Complete distribution inventory including direct-reference installs; no protected, unreported package
+    or native platform drift.
+  - CUDA FP16, SDPA and peak selected-device memory below 16,000,000,000 bytes.
+  - Before/after environment manifests.
+  - Overlay-only lock (no blind full-environment lockfile).
+  allowed_next_stage: Authorised differential OG-001 closure work unit, maximum two new private Kaggle
+    submissions; integration only after substantive PASS. See MASTER_EXECUTION_PLAN.md.
+  rationale: Kernel v3 (submission 1/2) verified private source, then rejected duplicate native PyGObject
+    metadata before installation or baseline pip check. Effective freeze pin 3.48.2 is observed; the second
+    version/location was not retained and is not inferred. Kernel v2 installation and six pip diagnostics
+    remain historical evidence. Duplicate-aware inventory repair passes offline tests; one authorised
+    submission remains. No runtime or scientific success is claimed.
+  differential_submissions_used: 1
+  differential_submission_limit: 2
+  historical_installation_observation:
+    kernel_version: 2
+    evidence_path: handbook/evidence/og001_kaggle/20260905_kernel_v2_24b25b5f/VERDICT.json
+    installed_but_runtime_imports_unverified:
     - bitsandbytes
     - captum
     - hydra-core
     - lm-eval
     - jsonlines
-  separate_observations:
-    omegaconf: "OmegaConf is already present and importable (version 2.3.0)."
-    trl: "TRL is absent and zero executable imports were found in codebase. Removed from active overlay requirements (DL-022)."
-  required_evidence_for_closure:
-    - "No changes to protected packages (torch 2.10.0+cu128, torchvision 0.25.0+cu128, torchaudio 2.10.0+cu128, triton 3.6.0, CUDA build 12.8)."
-    - "Single-device cuda:0 enforcement."
-    - "Genuine NF4 quantise/dequantise operation verified."
-    - "Successful imports for all required overlay packages."
-    - "Differential pre/post pip consistency: CLEAN or BASELINE_DIRTY_NO_REGRESSION; no introduced or overlay-related diagnostic, with raw stdout/stderr/return codes retained."
-    - "Complete distribution inventory including direct-reference installs; no protected, unreported package or native platform drift."
-    - "CUDA FP16, SDPA and peak selected-device memory below 16,000,000,000 bytes."
-    - "Before/after environment manifests."
-    - "Overlay-only lock (no blind full-environment lockfile)."
-  allowed_next_stage: "Authorised differential OG-001 closure work unit, maximum two new private Kaggle submissions; integration only after substantive PASS. See MASTER_EXECUTION_PLAN.md."
-  rationale: "Kernel version 2 verified private history-free source transport, selected one Tesla T4, installed the overlay and editable project with exit 0, and preserved every protected package. Global pip check returned 1, first reporting missing google-cloud-bigquery-storage required by bigframes 2.39.0, followed by other native-image conflicts. Runtime imports, FP16, SDPA, NF4, after-manifest and lock generation were not reached. No second repaired submission occurred."

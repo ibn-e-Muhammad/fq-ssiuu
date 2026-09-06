@@ -5,8 +5,8 @@ scripts/research_gate.py
 Scientific gate diagnostic reporter.
 
 Checks the status of all research gates (scientific blockers) by reading
-handbook/research_gates.yaml and executing dynamic checks where applicable,
-then reporting which experimental conditions are blocked.
+handbook/research_gates.yaml without promoting statuses from implementation
+heuristics, then reporting which experimental conditions are blocked.
 
 Usage:
     python scripts/research_gate.py
@@ -16,9 +16,9 @@ Usage:
 import argparse
 import json
 import sys
+from dataclasses import asdict, dataclass
 from pathlib import Path
-from dataclasses import asdict, dataclass, field
-from typing import Dict, List, Any
+
 import yaml
 
 
@@ -30,66 +30,48 @@ class Gate:
     status: str
     blocks_training: bool
     blocks_evaluation: bool
-    blocked_conditions: List[str]
-    dependencies: List[str]
-    source_citations: List[str]
+    blocked_conditions: list[str]
+    dependencies: list[str]
+    source_citations: list[str]
     verification_command: str
     required_evidence: str
     validating_commit: str
     validation_date: str
     rationale: str
 
-def load_gates(yaml_path: Path) -> List[Gate]:
+
+def load_gates(yaml_path: Path) -> list[Gate]:
     if not yaml_path.exists():
         print(f"Error: {yaml_path} not found.")
         sys.exit(1)
-    with open(yaml_path, "r", encoding="utf-8") as f:
+    with open(yaml_path, encoding="utf-8") as f:
         data = yaml.safe_load(f)
-    
+
+    if not isinstance(data, dict) or not isinstance(data.get("gates"), list) or not data["gates"]:
+        raise ValueError("Research gate registry must contain a non-empty gates list")
     gates = []
-    for g in data.get("gates", []):
+    seen = set()
+    for g in data["gates"]:
+        if g.get("id") in seen:
+            raise ValueError("Duplicate research gate ID")
+        seen.add(g.get("id"))
         gates.append(Gate(**g))
     return gates
 
 
 def evaluate_gate(gate: Gate) -> Gate:
-    """Dynamically evaluate whether the gate condition holds and update status."""
-    if gate.id == "RG-001":
-        try:
-            import inspect
-            from fq_ssiuu.attribution.ssiuu_reg import compute_negative_attribution
-            source = inspect.getsource(compute_negative_attribution)
-            has_detach = ".detach()" in source
-            gate.status = "BLOCKED" if has_detach else "RESOLVED"
-        except Exception:
-            gate.status = "BLOCKED"
-            
-    elif gate.id == "RG-002":
-        try:
-            from fq_ssiuu.quantisation.fake_quant import QUANTISER_META
-            is_deployment_equivalent = QUANTISER_META.get("deployment_equivalent", False)
-            gate.status = "RESOLVED" if is_deployment_equivalent else "BLOCKED"
-        except Exception:
-            gate.status = "BLOCKED"
-            
-    elif gate.id == "RG-003":
-        try:
-            from fq_ssiuu.unlearning.quail_loss import QUAILConfig
-            config = QUAILConfig()
-            margin_matches = abs(config.margin - 0.5) < 0.01
-            gate.status = "RESOLVED" if margin_matches else "BLOCKED"
-        except Exception:
-            gate.status = "BLOCKED"
-            
-    elif gate.id == "RG-004":
-        # Evaluated manually via documentation review, currently OPEN
-        if gate.status != "RESOLVED":
-            gate.status = "OPEN"
-    
+    """Report the authoritative record; code heuristics cannot resolve a gate.
+
+    Method acceptance requires the recorded mathematical, runtime and evidence
+    criteria. Source text, quantiser metadata and one scalar hyperparameter are
+    insufficient to promote or otherwise rewrite this status.
+    """
+    if gate.status not in {"BLOCKED", "OPEN", "RESOLVED"}:
+        raise ValueError(f"Invalid research gate status: {gate.id}")
     return gate
 
 
-def run_all_gates(yaml_path: Path) -> List[Gate]:
+def run_all_gates(yaml_path: Path) -> list[Gate]:
     gates = load_gates(yaml_path)
     evaluated_gates = []
     for g in gates:
@@ -97,7 +79,14 @@ def run_all_gates(yaml_path: Path) -> List[Gate]:
     return evaluated_gates
 
 
-def print_gate_report(gates: List[Gate]) -> None:
+def is_blocking(gate: Gate) -> bool:
+    evaluate_gate(gate)
+    return gate.status == "BLOCKED" or (
+        gate.status != "RESOLVED" and (gate.blocks_training or gate.blocks_evaluation)
+    )
+
+
+def print_gate_report(gates: list[Gate]) -> None:
     blocked = [g for g in gates if g.status == "BLOCKED"]
     resolved = [g for g in gates if g.status == "RESOLVED"]
     open_gates = [g for g in gates if g.status == "OPEN"]
@@ -124,14 +113,18 @@ def print_gate_report(gates: List[Gate]) -> None:
     print("\n" + "=" * 70)
     print(f"  SUMMARY: {len(blocked)} BLOCKED, {len(resolved)} RESOLVED, {len(open_gates)} OPEN")
 
-    if blocked:
+    unresolved_blockers = [g for g in gates if is_blocking(g)]
+    if unresolved_blockers:
         all_blocked = set()
-        for g in blocked:
+        for g in unresolved_blockers:
             all_blocked.update(g.blocked_conditions)
         print(f"  BLOCKED CONDITIONS: {', '.join(sorted(all_blocked))}")
+        print("  UNRESOLVED BLOCKING GATES: " + ", ".join(g.id for g in unresolved_blockers))
         print("\n  ❌ EXPERIMENT PHASE CANNOT PROCEED for blocked conditions.")
     else:
-        print("\n  ✅ ALL GATES RESOLVED (or non-blocking) — experiment phase can proceed.")
+        print(
+            "\n  Research gates resolved or non-blocking; operational and protocol approval still apply."
+        )
 
     print("=" * 70)
 
@@ -148,13 +141,14 @@ def main():
         output = {
             "gates": [asdict(g) for g in gates],
             "blocked_count": sum(1 for g in gates if g.status == "BLOCKED"),
-            "all_clear": all(g.status != "BLOCKED" for g in gates),
+            "unresolved_blocking_count": sum(is_blocking(g) for g in gates),
+            "all_clear": not any(is_blocking(g) for g in gates),
         }
         print(json.dumps(output, indent=2))
     else:
         print_gate_report(gates)
 
-    if any(g.status == "BLOCKED" for g in gates):
+    if any(is_blocking(g) for g in gates):
         sys.exit(1)
     sys.exit(0)
 

@@ -9,16 +9,18 @@ or same-version modification involving hard-protected or native-stability packag
 Uses standard library only.
 """
 
-import os
-import sys
-import json
-import re
 import argparse
+import json
+import os
+import re
+import sys
 import tempfile
+
 
 def normalize_name(name: str) -> str:
     """Normalize distribution name per PEP 503 / packaging rules."""
     return re.sub(r"[-_.]+", "-", name).lower()
+
 
 def atomic_write_json(filepath: str, data: dict, indent: int = 2) -> None:
     """Atomically write JSON data to file to prevent partial writes."""
@@ -36,6 +38,7 @@ def atomic_write_json(filepath: str, data: dict, indent: int = 2) -> None:
             os.remove(temp_file.name)
         raise
 
+
 def validate_baseline(baseline_data: dict) -> tuple[bool, list[str]]:
     """Strictly validates baseline dictionary structure and required keys."""
     errors = []
@@ -44,7 +47,9 @@ def validate_baseline(baseline_data: dict) -> tuple[bool, list[str]]:
 
     hard_stack = baseline_data.get("hard_protected_compute_stack")
     if not isinstance(hard_stack, dict) or not hard_stack:
-        errors.append("Baseline must contain a non-empty 'hard_protected_compute_stack' dictionary.")
+        errors.append(
+            "Baseline must contain a non-empty 'hard_protected_compute_stack' dictionary."
+        )
     else:
         for k, v in hard_stack.items():
             if not isinstance(k, str) or not isinstance(v, str) or not k.strip() or not v.strip():
@@ -63,11 +68,16 @@ def validate_baseline(baseline_data: dict) -> tuple[bool, list[str]]:
         required = {"torch", "torchvision", "torchaudio", "triton"}
         missing_req = required - norm_hard
         if missing_req:
-            errors.append(f"Baseline hard_protected_compute_stack missing required packages: {sorted(list(missing_req))}")
+            errors.append(
+                f"Baseline hard_protected_compute_stack missing required packages: {sorted(list(missing_req))}"
+            )
 
     return len(errors) == 0, errors
 
-def verify_report(report_data: dict, baseline_data: dict, allow_no_ops: bool = False) -> tuple[bool, list[str], dict]:
+
+def verify_report(
+    report_data: dict, baseline_data: dict, allow_no_ops: bool = False
+) -> tuple[bool, list[str], dict]:
     """
     Verifies pip report against baseline data.
     By default (allow_no_ops=False), fail closed and reject any protected package proposal,
@@ -84,28 +94,50 @@ def verify_report(report_data: dict, baseline_data: dict, allow_no_ops: bool = F
             "total_proposed_packages": 0,
             "violations_count": len(b_errors),
             "violations": b_errors,
-            "packages": []
+            "packages": [],
         }
         return False, b_errors, summary
 
-    hard_protected = {normalize_name(k): v for k, v in baseline_data["hard_protected_compute_stack"].items()}
-    native_stability = {normalize_name(k): v for k, v in baseline_data["native_stability_stack"].items()}
+    hard_protected = {
+        normalize_name(k): v for k, v in baseline_data["hard_protected_compute_stack"].items()
+    }
+    native_stability = {
+        normalize_name(k): v for k, v in baseline_data["native_stability_stack"].items()
+    }
     all_protected = {**hard_protected, **native_stability}
 
     if not isinstance(report_data, dict):
         violations.append("Malformed pip report: report data must be a dictionary.")
-        summary = {"status": "FAIL", "total_proposed_packages": 0, "violations_count": 1, "violations": violations, "packages": []}
+        summary = {
+            "status": "FAIL",
+            "total_proposed_packages": 0,
+            "violations_count": 1,
+            "violations": violations,
+            "packages": [],
+        }
         return False, violations, summary
 
     if "install" not in report_data:
         violations.append("Malformed pip report: missing 'install' field.")
-        summary = {"status": "FAIL", "total_proposed_packages": 0, "violations_count": 1, "violations": violations, "packages": []}
+        summary = {
+            "status": "FAIL",
+            "total_proposed_packages": 0,
+            "violations_count": 1,
+            "violations": violations,
+            "packages": [],
+        }
         return False, violations, summary
 
     install_list = report_data.get("install")
     if not isinstance(install_list, list):
         violations.append("Malformed pip report: 'install' field must be a list.")
-        summary = {"status": "FAIL", "total_proposed_packages": 0, "violations_count": 1, "violations": violations, "packages": []}
+        summary = {
+            "status": "FAIL",
+            "total_proposed_packages": 0,
+            "violations_count": 1,
+            "violations": violations,
+            "packages": [],
+        }
         return False, violations, summary
 
     for item in install_list:
@@ -126,14 +158,23 @@ def verify_report(report_data: dict, baseline_data: dict, allow_no_ops: bool = F
         if not raw_version:
             raw_version = item.get("version")
 
-        if not raw_name or not raw_version or not isinstance(raw_name, str) or not isinstance(raw_version, str) or not raw_name.strip() or not raw_version.strip():
+        if (
+            not raw_name
+            or not raw_version
+            or not isinstance(raw_name, str)
+            or not isinstance(raw_version, str)
+            or not raw_name.strip()
+            or not raw_version.strip()
+        ):
             violations.append("Malformed pip report: missing or empty package name or version.")
             continue
 
         raw_name = raw_name.strip()
         raw_version = raw_version.strip()
         norm_name = normalize_name(raw_name)
-        processed_pkgs.append({"name": raw_name, "normalized_name": norm_name, "version": raw_version})
+        processed_pkgs.append(
+            {"name": raw_name, "normalized_name": norm_name, "version": raw_version}
+        )
 
         if norm_name in all_protected:
             expected_ver = all_protected[norm_name]
@@ -149,20 +190,27 @@ def verify_report(report_data: dict, baseline_data: dict, allow_no_ops: bool = F
                         f"(version '{raw_version}') is strictly rejected by fail-closed policy."
                     )
 
-    is_valid = (len(violations) == 0)
+    is_valid = len(violations) == 0
     summary = {
         "status": "PASS" if is_valid else "FAIL",
         "total_proposed_packages": len(install_list),
         "violations_count": len(violations),
         "violations": violations,
-        "packages": processed_pkgs
+        "packages": processed_pkgs,
     }
     return is_valid, violations, summary
 
+
 def main():
-    parser = argparse.ArgumentParser(description="Verify pip --report JSON against Kaggle baseline policy (fail-closed).")
+    parser = argparse.ArgumentParser(
+        description="Verify pip --report JSON against Kaggle baseline policy (fail-closed)."
+    )
     parser.add_argument("--report", required=True, help="Path to pip --report JSON file.")
-    parser.add_argument("--baseline", default="requirements/kaggle-native-baseline.json", help="Path to baseline JSON file.")
+    parser.add_argument(
+        "--baseline",
+        default="requirements/kaggle-native-baseline.json",
+        help="Path to baseline JSON file.",
+    )
     parser.add_argument("--output-json", help="Optional path to write JSON validation result.")
 
     args = parser.parse_args()
@@ -186,7 +234,7 @@ def main():
         sys.exit(1)
 
     try:
-        with open(args.baseline, "r", encoding="utf-8") as f:
+        with open(args.baseline, encoding="utf-8") as f:
             baseline_data = json.load(f)
     except Exception as e:
         err_msg = f"Failed to parse baseline JSON: {e}"
@@ -197,7 +245,7 @@ def main():
         sys.exit(1)
 
     try:
-        with open(args.report, "r", encoding="utf-8") as f:
+        with open(args.report, encoding="utf-8") as f:
             report_data = json.load(f)
     except (OSError, ValueError) as exc:
         err_msg = f"Failed to parse pip report JSON: {exc}"
@@ -222,6 +270,7 @@ def main():
     else:
         print("Verification passed cleanly: No protected or native-stability packages modified.")
         sys.exit(0)
+
 
 if __name__ == "__main__":
     main()

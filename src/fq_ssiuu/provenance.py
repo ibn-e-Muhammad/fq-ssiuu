@@ -26,9 +26,8 @@ import logging
 import os
 import uuid
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
-from pathlib import Path
-from typing import Any, Dict, List, Optional
+from datetime import UTC, datetime
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -53,6 +52,7 @@ class RunContext:
         failure_reason: Error message if status='failed'.
         notes: Free-text notes.
     """
+
     run_id: str
     condition_id: str
     seed: int
@@ -62,9 +62,9 @@ class RunContext:
     git_commit: str = ""
     git_dirty: bool = False
     git_branch: str = ""
-    config_snapshot: Dict[str, Any] = field(default_factory=dict)
-    environment_manifest: Dict[str, Any] = field(default_factory=dict)
-    artifact_checksums: Dict[str, str] = field(default_factory=dict)
+    config_snapshot: dict[str, Any] = field(default_factory=dict)
+    environment_manifest: dict[str, Any] = field(default_factory=dict)
+    artifact_checksums: dict[str, str] = field(default_factory=dict)
     failure_reason: str = ""
     notes: str = ""
 
@@ -78,7 +78,7 @@ def generate_run_id() -> str:
     Returns:
         Unique run identifier string.
     """
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     timestamp = now.strftime("%Y%m%d-%H%M%S")
     short_uuid = uuid.uuid4().hex[:8]
     return f"{timestamp}-{short_uuid}"
@@ -87,7 +87,7 @@ def generate_run_id() -> str:
 def create_run(
     condition_id: str,
     seed: int,
-    config: Optional[Dict[str, Any]] = None,
+    config: dict[str, Any] | None = None,
     repo_path: str = ".",
 ) -> RunContext:
     """Create a new run context and write the initial provenance record.
@@ -102,14 +102,15 @@ def create_run(
         RunContext with 'running' status.
     """
     run_id = generate_run_id()
-    start_time = datetime.now(timezone.utc).isoformat()
+    start_time = datetime.now(UTC).isoformat()
 
     # Capture environment manifest
     env_manifest = {}
     try:
         from fq_ssiuu.environment import capture_manifest
+
         manifest = capture_manifest(repo_path)
-        env_manifest = asdict(manifest) if hasattr(manifest, '__dataclass_fields__') else {}
+        env_manifest = asdict(manifest) if hasattr(manifest, "__dataclass_fields__") else {}
     except Exception as e:
         logger.warning("Could not capture environment manifest: %s", e)
 
@@ -154,11 +155,10 @@ def complete_run(
     """
     if ctx.status != "running":
         raise ValueError(
-            f"Cannot complete run {ctx.run_id}: status is '{ctx.status}', "
-            f"expected 'running'."
+            f"Cannot complete run {ctx.run_id}: status is '{ctx.status}', expected 'running'."
         )
 
-    ctx.end_time = datetime.now(timezone.utc).isoformat()
+    ctx.end_time = datetime.now(UTC).isoformat()
     ctx.status = "completed"
 
     # Compute checksums for all files in output_dir
@@ -191,7 +191,7 @@ def fail_run(
     Returns:
         Updated RunContext with 'failed' status.
     """
-    ctx.end_time = datetime.now(timezone.utc).isoformat()
+    ctx.end_time = datetime.now(UTC).isoformat()
     ctx.status = "failed"
     ctx.failure_reason = reason
 
@@ -247,11 +247,9 @@ def load_provenance(provenance_path: str) -> RunContext:
         FileNotFoundError: If the file does not exist.
     """
     if not os.path.isfile(provenance_path):
-        raise FileNotFoundError(
-            f"Provenance record not found: {provenance_path}"
-        )
+        raise FileNotFoundError(f"Provenance record not found: {provenance_path}")
 
-    with open(provenance_path, "r") as f:
+    with open(provenance_path) as f:
         data = json.load(f)
 
     return RunContext(**data)

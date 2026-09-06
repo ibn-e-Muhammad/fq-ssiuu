@@ -9,12 +9,12 @@ import argparse
 import hashlib
 import json
 import os
-from pathlib import Path, PurePosixPath
 import re
 import shutil
 import subprocess
 import tempfile
-from datetime import datetime, timezone
+from datetime import UTC, datetime
+from pathlib import Path, PurePosixPath
 
 BUNDLE_NAME = "fq-ssiuu-source.bundle"
 MANIFEST_NAME = "SOURCE_MANIFEST.json"
@@ -28,8 +28,9 @@ SECRET_PATTERNS = {
 
 
 def git(repo, *args, input=None):
-    result = subprocess.run(["git", "-C", str(repo), *args], input=input,
-                            capture_output=True, check=False)
+    result = subprocess.run(
+        ["git", "-C", str(repo), *args], input=input, capture_output=True, check=False
+    )
     if result.returncode:
         # Do not echo Git output: tracked paths or commit messages can contain secrets.
         raise ValueError(f"Git operation {args[0]} failed (exit {result.returncode})")
@@ -57,10 +58,13 @@ def scan_tree(repo, revision):
     for mode, kind, oid, name in tree_entries(repo, revision):
         path = PurePosixPath(name)
         lower = path.name.lower()
-        banned = (lower == ".env" or (lower.startswith(".env.") and lower != ".env.example")
-                  or lower.endswith((".docx", ".pem", ".key", ".p12", ".pfx"))
-                  or lower in {"kaggle.json", "credentials.json", "access_token", "id_rsa", "id_ed25519"}
-                  or any(part in {".git", ".venv", ".ssh", ".kaggle"} for part in path.parts))
+        banned = (
+            lower == ".env"
+            or (lower.startswith(".env.") and lower != ".env.example")
+            or lower.endswith((".docx", ".pem", ".key", ".p12", ".pfx"))
+            or lower in {"kaggle.json", "credentials.json", "access_token", "id_rsa", "id_ed25519"}
+            or any(part in {".git", ".venv", ".ssh", ".kaggle"} for part in path.parts)
+        )
         if banned:
             findings.append({"path": name, "category": "forbidden-file", "status": "FAIL"})
             continue
@@ -88,18 +92,22 @@ def verify_bundle(directory, expected_origin=None, expected_manifest_sha256=None
             raise ValueError(f"Invalid {key}")
     if expected_origin and manifest["source_origin_sha"] != expected_origin:
         raise ValueError("Source origin mismatch")
-    if (manifest.get("schema_version") != "1.0"
-            or manifest.get("bundle_filename") != BUNDLE_NAME
-            or manifest.get("history_commit_count") != 1
-            or manifest.get("contains_original_history") is not False
-            or manifest.get("secret_scan_status") != "PASS"):
+    if (
+        manifest.get("schema_version") != "1.0"
+        or manifest.get("bundle_filename") != BUNDLE_NAME
+        or manifest.get("history_commit_count") != 1
+        or manifest.get("contains_original_history") is not False
+        or manifest.get("secret_scan_status") != "PASS"
+    ):
         raise ValueError("Invalid source manifest policy")
     ref = manifest.get("snapshot_ref", "")
     git(directory, "check-ref-format", f"refs/heads/{ref}")
     bundle = directory / BUNDLE_NAME
     if bundle.is_symlink() or not bundle.is_file():
         raise ValueError("Bundle must be a regular file")
-    if bundle.stat().st_size != manifest.get("bundle_size_bytes") or digest(bundle) != manifest.get("bundle_sha256"):
+    if bundle.stat().st_size != manifest.get("bundle_size_bytes") or digest(bundle) != manifest.get(
+        "bundle_sha256"
+    ):
         raise ValueError("Bundle hash or size mismatch")
     with tempfile.TemporaryDirectory(prefix="fq-source-verify-") as temp:
         root = Path(temp)
@@ -118,7 +126,9 @@ def verify_bundle(directory, expected_origin=None, expected_manifest_sha256=None
             raise ValueError("Original history is present")
         if len(git(clone, "rev-list", "--parents", "-n", "1", "HEAD").split()) != 1:
             raise ValueError("Snapshot has a parent")
-        types = git(clone, "cat-file", "--batch-all-objects", "--batch-check=%(objecttype)").splitlines()
+        types = git(
+            clone, "cat-file", "--batch-all-objects", "--batch-check=%(objecttype)"
+        ).splitlines()
         if types.count(b"commit") != 1 or b"tag" in types:
             raise ValueError("Unexpected history objects in bundle")
         findings = scan_tree(clone, "HEAD")
@@ -136,39 +146,61 @@ def package_source(source_repo, source_origin_sha, output_dir, snapshot_ref="kag
     git(source, "check-ref-format", f"refs/heads/{snapshot_ref}")
     if not re.fullmatch(r"[0-9a-fA-F]{7,40}", source_origin_sha):
         raise ValueError("Source must be a commit SHA, not a mutable branch")
-    origin = git(source, "rev-parse", "--verify", f"{source_origin_sha}^{{commit}}").decode().strip()
+    origin = (
+        git(source, "rev-parse", "--verify", f"{source_origin_sha}^{{commit}}").decode().strip()
+    )
     tree = git(source, "rev-parse", f"{origin}^{{tree}}").decode().strip()
     findings = scan_tree(source, tree)
     if findings:
         raise ValueError("Source scan failed: " + json.dumps(findings))
     if output.exists() and any(output.iterdir()):
         raise ValueError("Output directory must be absent or empty")
-    created = datetime.now(timezone.utc).isoformat()
+    created = datetime.now(UTC).isoformat()
     with tempfile.TemporaryDirectory(prefix="fq-source-package-") as temp:
         root = Path(temp)
         git(root, "clone", "--shared", "--no-checkout", str(source), "objects")
         objects = root / "objects"
         # Fixed author/date make the snapshot and bundle reproducible for a given origin.
-        snapshot = git(objects, "-c", "user.name=FQ-SSIUU Source Snapshot",
-                       "-c", "user.email=source-snapshot@invalid",
-                       "hash-object", "-t", "commit", "-w", "--stdin", input=(
-                           f"tree {tree}\n"
-                           "author FQ-SSIUU Source Snapshot <source-snapshot@invalid> 0 +0000\n"
-                           "committer FQ-SSIUU Source Snapshot <source-snapshot@invalid> 0 +0000\n\n"
-                           f"History-free source snapshot of {origin}\n"
-                       ).encode()).decode().strip()
+        snapshot = (
+            git(
+                objects,
+                "-c",
+                "user.name=FQ-SSIUU Source Snapshot",
+                "-c",
+                "user.email=source-snapshot@invalid",
+                "hash-object",
+                "-t",
+                "commit",
+                "-w",
+                "--stdin",
+                input=(
+                    f"tree {tree}\n"
+                    "author FQ-SSIUU Source Snapshot <source-snapshot@invalid> 0 +0000\n"
+                    "committer FQ-SSIUU Source Snapshot <source-snapshot@invalid> 0 +0000\n\n"
+                    f"History-free source snapshot of {origin}\n"
+                ).encode(),
+            )
+            .decode()
+            .strip()
+        )
         git(objects, "update-ref", f"refs/heads/{snapshot_ref}", snapshot)
         stage = root / "stage"
         stage.mkdir()
         bundle = stage / BUNDLE_NAME
         git(objects, "bundle", "create", str(bundle), f"refs/heads/{snapshot_ref}")
         manifest = {
-            "schema_version": "1.0", "source_repository_name": source.name,
-            "source_origin_sha": origin, "source_tree_sha": tree,
-            "snapshot_commit_sha": snapshot, "snapshot_ref": snapshot_ref,
-            "bundle_filename": BUNDLE_NAME, "bundle_size_bytes": bundle.stat().st_size,
-            "bundle_sha256": digest(bundle), "creation_utc": created,
-            "secret_scan_status": "PASS", "history_commit_count": 1,
+            "schema_version": "1.0",
+            "source_repository_name": source.name,
+            "source_origin_sha": origin,
+            "source_tree_sha": tree,
+            "snapshot_commit_sha": snapshot,
+            "snapshot_ref": snapshot_ref,
+            "bundle_filename": BUNDLE_NAME,
+            "bundle_size_bytes": bundle.stat().st_size,
+            "bundle_sha256": digest(bundle),
+            "creation_utc": created,
+            "secret_scan_status": "PASS",
+            "history_commit_count": 1,
             "contains_original_history": False,
         }
         (stage / MANIFEST_NAME).write_text(json.dumps(manifest, indent=2) + "\n")

@@ -1,15 +1,18 @@
 """Validate tracked notebooks and compile Python cells without executing them."""
+
 import argparse
 import json
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
 import nbformat
 
 
 def check_notebooks(root):
     root = Path(root)
-    names = subprocess.check_output(["git", "ls-files", "-z", "*.ipynb"], cwd=root).decode().split("\0")
+    names = (
+        subprocess.check_output(["git", "ls-files", "-z", "*.ipynb"], cwd=root).decode().split("\0")
+    )
     results = []
     for name in filter(None, names):
         entry = {"path": name, "status": "PASS", "python_cells": 0, "transformed_cells": 0}
@@ -24,6 +27,7 @@ def check_notebooks(root):
                     compile(source, f"{name}:cell-{i}", "exec")
                 except SyntaxError:
                     from IPython.core.inputtransformer2 import TransformerManager
+
                     source = TransformerManager().transform_cell(source)
                     compile(source, f"{name}:cell-{i}:ipython", "exec")
                     entry["transformed_cells"] += 1
@@ -31,8 +35,11 @@ def check_notebooks(root):
         except Exception as exc:
             entry.update(status="FAIL", error_type=type(exc).__name__)
         results.append(entry)
-    return {"status": "PASS" if results and all(r["status"] == "PASS" for r in results) else "FAIL",
-            "notebooks": results, "execution_performed": False}
+    return {
+        "status": "PASS" if results and all(r["status"] == "PASS" for r in results) else "FAIL",
+        "notebooks": results,
+        "execution_performed": False,
+    }
 
 
 if __name__ == "__main__":

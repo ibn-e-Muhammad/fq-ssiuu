@@ -4,6 +4,7 @@ Unit tests for NPO loss implementation.
 Tests that can run on CPU use dummy logits — no model loading required.
 Reference: Zhang et al. 2024, arXiv:2404.05868
 """
+
 import math
 
 import pytest
@@ -51,9 +52,7 @@ class TestNPOLoss:
             labels = torch.randint(0, vocab, (batch, seq))
 
             loss = compute_npo_loss(model_logits, ref_logits, labels, beta=beta)
-            assert loss.item() >= 0.0, (
-                f"NPO loss {loss.item():.4f} is negative at scale {scale}"
-            )
+            assert loss.item() >= 0.0, f"NPO loss {loss.item():.4f} is negative at scale {scale}"
 
     @pytest.mark.cpu
     def test_retain_kl_zero_when_equal(self):

@@ -19,7 +19,9 @@ import torch
 class TestNPONumerical:
     """Numerical stability tests for NPO loss."""
 
-    def _make_inputs(self, ratio_value: float, batch_size: int = 4, seq_len: int = 8, vocab_size: int = 32):
+    def _make_inputs(
+        self, ratio_value: float, batch_size: int = 4, seq_len: int = 8, vocab_size: int = 32
+    ):
         """Create synthetic log-probability tensors with a controlled ratio.
 
         Args:
@@ -106,6 +108,4 @@ class TestNPONumerical:
 
             loss.backward()
             assert model_lp.grad is not None, f"No gradient at ratio={ratio}"
-            assert torch.isfinite(model_lp.grad).all(), (
-                f"Non-finite gradients at ratio={ratio}"
-            )
+            assert torch.isfinite(model_lp.grad).all(), f"Non-finite gradients at ratio={ratio}"

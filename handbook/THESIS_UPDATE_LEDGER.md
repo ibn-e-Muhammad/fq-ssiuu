@@ -23,6 +23,8 @@
 | DL-023 (Stage 1I Kaggle Validation Run) | §Reproducibility, §Infrastructure | Document original anonymous-clone failure and subsequent private bundle transport, which requires no GitHub authentication inside Kaggle |
 | OG-001 repaired kernel v2 | §Reproducibility, §Infrastructure | Record verified private parentless source transport; distinguish origin, tree, snapshot and notebook commits. Installation succeeded, but native-image pip-check conflicts prevented runtime smoke validation. OG-001 remains PARTIAL; no scientific claim follows. |
 
+| OG-001 differential kernel v3 | Chapter 3 environment/reproducibility | Preserve the failed pre-install inventory attempt and distinguish duplicate native metadata from introduced dependency conflicts. Source `6cb7933d`, notebook `82e8736f`, setup run `0b2980fa-c045-4c1f-8c66-4f8f890fd447`; raw evidence in `evidence/og001_kaggle/20260906_kernel_v3_82e8736f/`. No runtime or scientific success follows. |
+
 ---
 
 ## Notes

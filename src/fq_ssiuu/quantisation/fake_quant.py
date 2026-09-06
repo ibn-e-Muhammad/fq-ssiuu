@@ -42,7 +42,6 @@ WHY THIS WORKS FOR UNLEARNING:
 
 import logging
 from dataclasses import dataclass
-from typing import Optional, Tuple
 
 import torch
 
@@ -117,7 +116,7 @@ class _FakeQuantiseAutograd(torch.autograd.Function):
         return x_fq
 
     @staticmethod
-    def backward(ctx, grad_output: torch.Tensor) -> Tuple[torch.Tensor, None]:
+    def backward(ctx, grad_output: torch.Tensor) -> tuple[torch.Tensor, None]:
         """STE backward pass: identity.
 
         Returns:
@@ -171,7 +170,7 @@ def compute_scale(x: torch.Tensor, symmetric: bool = True) -> torch.Tensor:
     return scale
 
 
-def fake_quantise(x: torch.Tensor, scale: Optional[torch.Tensor] = None) -> torch.Tensor:
+def fake_quantise(x: torch.Tensor, scale: torch.Tensor | None = None) -> torch.Tensor:
     """Fake-quantise a tensor with STE backward pass.
 
     This is the main function used by the FQ-QAT training loop. It:
@@ -209,9 +208,7 @@ def test_ste_correctness():
     # (a) Forward shape preservation
     x = torch.randn(10, 20)
     x_fq = fake_quantise(x)
-    assert x_fq.shape == x.shape, (
-        f"(a) Shape mismatch: input {x.shape}, output {x_fq.shape}"
-    )
+    assert x_fq.shape == x.shape, f"(a) Shape mismatch: input {x.shape}, output {x_fq.shape}"
     print("  (a) Forward shape: PASS")
 
     # (b) QDQ error bound: |x_fq - x| <= scale/2 + epsilon
@@ -221,9 +218,7 @@ def test_ste_correctness():
     error = torch.abs(x_fq - x)
     max_error = error.max().item()
     bound = (scale.item() / 2) + 1e-6
-    assert max_error <= bound, (
-        f"(b) QDQ error {max_error:.6f} exceeds bound {bound:.6f}"
-    )
+    assert max_error <= bound, f"(b) QDQ error {max_error:.6f} exceeds bound {bound:.6f}"
     print(f"  (b) QDQ error bound: PASS (max error={max_error:.6f}, bound={bound:.6f})")
 
     # (c) STE backward identity: gradient must be EXACTLY ones

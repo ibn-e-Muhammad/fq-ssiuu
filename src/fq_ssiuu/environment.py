@@ -21,9 +21,7 @@ import shutil
 import subprocess
 import sys
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
-from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from datetime import UTC, datetime
 
 logger = logging.getLogger(__name__)
 
@@ -50,6 +48,7 @@ class PreflightResult:
         message: Descriptive message (pass or fail reason).
         severity: 'error' (blocks execution), 'warning' (degraded), 'info'.
     """
+
     check_name: str
     passed: bool
     message: str
@@ -76,20 +75,21 @@ class EnvironmentManifest:
         disk_free_gb: Free disk space in GB at working directory.
         env_vars_set: List of relevant env var names that are set (NOT values).
     """
+
     timestamp: str = ""
     python_version: str = ""
     platform_info: str = ""
-    packages: Dict[str, str] = field(default_factory=dict)
+    packages: dict[str, str] = field(default_factory=dict)
     cuda_available: bool = False
     cuda_version: str = ""
-    gpu_info: List[str] = field(default_factory=list)
-    gpu_memory_gb: List[float] = field(default_factory=list)
+    gpu_info: list[str] = field(default_factory=list)
+    gpu_memory_gb: list[float] = field(default_factory=list)
     driver_version: str = ""
     git_commit: str = ""
     git_dirty: bool = False
     git_branch: str = ""
     disk_free_gb: float = 0.0
-    env_vars_set: List[str] = field(default_factory=list)
+    env_vars_set: list[str] = field(default_factory=list)
 
 
 def _check_python_version() -> PreflightResult:
@@ -108,25 +108,29 @@ def _check_python_version() -> PreflightResult:
     )
 
 
-def _check_critical_packages() -> List[PreflightResult]:
+def _check_critical_packages() -> list[PreflightResult]:
     """Check that all critical packages are importable."""
     results = []
     for pkg in CRITICAL_PACKAGES:
         try:
             version = importlib.metadata.version(pkg)
-            results.append(PreflightResult(
-                f"Package: {pkg}",
-                True,
-                f"{pkg}=={version}",
-                severity="info",
-            ))
+            results.append(
+                PreflightResult(
+                    f"Package: {pkg}",
+                    True,
+                    f"{pkg}=={version}",
+                    severity="info",
+                )
+            )
         except importlib.metadata.PackageNotFoundError:
-            results.append(PreflightResult(
-                f"Package: {pkg}",
-                False,
-                f"{pkg} not installed",
-                severity="error",
-            ))
+            results.append(
+                PreflightResult(
+                    f"Package: {pkg}",
+                    False,
+                    f"{pkg} not installed",
+                    severity="error",
+                )
+            )
     return results
 
 
@@ -134,6 +138,7 @@ def _check_cuda() -> PreflightResult:
     """Check CUDA availability."""
     try:
         import torch
+
         if torch.cuda.is_available():
             device_name = torch.cuda.get_device_name(0)
             mem_gb = torch.cuda.get_device_properties(0).total_memory / (1024**3)
@@ -216,7 +221,7 @@ def _check_git_state(repo_path: str = ".") -> PreflightResult:
         )
 
 
-def preflight_check(repo_path: str = ".") -> Tuple[bool, List[PreflightResult]]:
+def preflight_check(repo_path: str = ".") -> tuple[bool, list[PreflightResult]]:
     """Run all preflight checks.
 
     Args:
@@ -226,7 +231,7 @@ def preflight_check(repo_path: str = ".") -> Tuple[bool, List[PreflightResult]]:
         Tuple of (all_passed, list of PreflightResult).
         all_passed is False if any 'error'-severity check failed.
     """
-    results: List[PreflightResult] = []
+    results: list[PreflightResult] = []
 
     results.append(_check_python_version())
     results.extend(_check_critical_packages())
@@ -234,9 +239,7 @@ def preflight_check(repo_path: str = ".") -> Tuple[bool, List[PreflightResult]]:
     results.append(_check_disk_space(repo_path))
     results.append(_check_git_state(repo_path))
 
-    all_passed = all(
-        r.passed for r in results if r.severity == "error"
-    )
+    all_passed = all(r.passed for r in results if r.severity == "error")
 
     return all_passed, results
 
@@ -251,7 +254,7 @@ def capture_manifest(repo_path: str = ".") -> EnvironmentManifest:
         EnvironmentManifest with all fields populated.
     """
     manifest = EnvironmentManifest()
-    manifest.timestamp = datetime.now(timezone.utc).isoformat()
+    manifest.timestamp = datetime.now(UTC).isoformat()
     manifest.python_version = sys.version
     manifest.platform_info = f"{platform.system()} {platform.release()} {platform.machine()}"
 
@@ -268,20 +271,21 @@ def capture_manifest(repo_path: str = ".") -> EnvironmentManifest:
     # CUDA / GPU info
     try:
         import torch
+
         manifest.cuda_available = torch.cuda.is_available()
         if manifest.cuda_available:
             manifest.cuda_version = torch.version.cuda or ""
             for i in range(torch.cuda.device_count()):
                 props = torch.cuda.get_device_properties(i)
                 manifest.gpu_info.append(props.name)
-                manifest.gpu_memory_gb.append(
-                    round(props.total_memory / (1024**3), 2)
-                )
+                manifest.gpu_memory_gb.append(round(props.total_memory / (1024**3), 2))
             # Driver version
             try:
                 result = subprocess.run(
                     ["nvidia-smi", "--query-gpu=driver_version", "--format=csv,noheader"],
-                    capture_output=True, text=True, timeout=10,
+                    capture_output=True,
+                    text=True,
+                    timeout=10,
                 )
                 if result.returncode == 0:
                     manifest.driver_version = result.stdout.strip().split("\n")[0]
@@ -294,20 +298,28 @@ def capture_manifest(repo_path: str = ".") -> EnvironmentManifest:
     try:
         commit_result = subprocess.run(
             ["git", "rev-parse", "HEAD"],
-            capture_output=True, text=True, cwd=repo_path, timeout=10,
+            capture_output=True,
+            text=True,
+            cwd=repo_path,
+            timeout=10,
         )
         if commit_result.returncode == 0:
             manifest.git_commit = commit_result.stdout.strip()
 
         dirty_result = subprocess.run(
             ["git", "diff", "--quiet"],
-            capture_output=True, cwd=repo_path, timeout=10,
+            capture_output=True,
+            cwd=repo_path,
+            timeout=10,
         )
         manifest.git_dirty = dirty_result.returncode != 0
 
         branch_result = subprocess.run(
             ["git", "rev-parse", "--abbrev-ref", "HEAD"],
-            capture_output=True, text=True, cwd=repo_path, timeout=10,
+            capture_output=True,
+            text=True,
+            cwd=repo_path,
+            timeout=10,
         )
         if branch_result.returncode == 0:
             manifest.git_branch = branch_result.stdout.strip()
@@ -323,10 +335,15 @@ def capture_manifest(repo_path: str = ".") -> EnvironmentManifest:
 
     # Environment variable presence (names only, NOT values)
     relevant_vars = [
-        "HF_TOKEN", "KAGGLE_USERNAME", "KAGGLE_KEY",
-        "GDRIVE_SERVICE_ACCOUNT_JSON", "GDRIVE_FOLDER_ID",
-        "CUDA_VISIBLE_DEVICES", "TRANSFORMERS_CACHE",
-        "HF_HOME", "BNB_CUDA_VERSION",
+        "HF_TOKEN",
+        "KAGGLE_USERNAME",
+        "KAGGLE_KEY",
+        "GDRIVE_SERVICE_ACCOUNT_JSON",
+        "GDRIVE_FOLDER_ID",
+        "CUDA_VISIBLE_DEVICES",
+        "TRANSFORMERS_CACHE",
+        "HF_HOME",
+        "BNB_CUDA_VERSION",
     ]
     manifest.env_vars_set = [v for v in relevant_vars if v in os.environ]
 

@@ -28,7 +28,6 @@ Authentication:
 import logging
 import os
 from dataclasses import dataclass, field
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -116,7 +115,7 @@ def _get_hf_token() -> str:
     return token
 
 
-def load_base_model(config: Optional[ModelConfig] = None):
+def load_base_model(config: ModelConfig | None = None):
     """Load the base model with NF4 quantisation via BitsAndBytesConfig.
 
     This is the primary loading function for training. It loads the model
@@ -179,7 +178,7 @@ def load_base_model(config: Optional[ModelConfig] = None):
     return model
 
 
-def load_model_fp16(model_id: str, token: Optional[str] = None):
+def load_model_fp16(model_id: str, token: str | None = None):
     """Load a model in full FP16 precision (no quantisation).
 
     Used for QRA evaluation after adapter merging. The merged model
@@ -217,7 +216,7 @@ def load_model_fp16(model_id: str, token: Optional[str] = None):
     return model
 
 
-def wrap_with_lora(model, lora_config_dict: Optional[dict] = None):
+def wrap_with_lora(model, lora_config_dict: dict | None = None):
     """Apply LoRA adapters to the model for parameter-efficient fine-tuning.
 
     Uses peft's get_peft_model to wrap the base model with LoRA adapters
@@ -265,7 +264,7 @@ def wrap_with_lora(model, lora_config_dict: Optional[dict] = None):
     return peft_model
 
 
-def get_reference_model(model_id: str, config: Optional[ModelConfig] = None):
+def get_reference_model(model_id: str, config: ModelConfig | None = None):
     """Load a frozen copy of the pre-unlearning model for NPO reference.
 
     The NPO loss requires a reference model π_ref that represents the
@@ -309,7 +308,7 @@ def get_reference_model(model_id: str, config: Optional[ModelConfig] = None):
     return model
 
 
-def merge_adapter(peft_model_path: str, base_model_id: str, token: Optional[str] = None):
+def merge_adapter(peft_model_path: str, base_model_id: str, token: str | None = None):
     """Merge a trained LoRA adapter into the base model.
 
     Loads the PEFT adapter from disk, merges it into the base model using

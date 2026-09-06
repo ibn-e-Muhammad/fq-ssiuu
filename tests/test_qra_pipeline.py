@@ -3,10 +3,12 @@ tests/test_qra_pipeline.py
 Unit tests for the Quantisation Recovery Attack (QRA) pipeline.
 Validates the BF16 → INT4 quantisation and metric comparison pipeline.
 """
+
 import pytest
 
 try:
-    import torch
+    import torch  # noqa: F401 — optional dependency availability probe
+
     HAS_TORCH = True
 except ImportError:
     HAS_TORCH = False

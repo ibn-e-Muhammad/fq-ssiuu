@@ -21,14 +21,11 @@ import json
 import logging
 import os
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
-from typing import Dict, Optional, Any
+from datetime import UTC, datetime
 
-logger = logging.getLogger(__name__)
-
-# Import QRAResult for the generate_certificate function
 from fq_ssiuu.evaluation.qra_pipeline import QRAResult
 
+logger = logging.getLogger(__name__)
 
 _GDPR_DISCLAIMER = (
     "This empirical durability report records precision-sensitivity measurements "
@@ -128,6 +125,7 @@ def generate_certificate(
     Returns:
         DurabilityCertificate: The generated certificate.
     """
+
     def _precision_to_dict(precision: str) -> dict:
         """Extract metrics dict for a precision level."""
         if precision in qra_result.results_by_precision:
@@ -143,7 +141,7 @@ def generate_certificate(
         model_id=model_id,
         condition_id=qra_result.condition_id,
         seed=qra_result.seed,
-        date_generated=datetime.now(timezone.utc).isoformat(),
+        date_generated=datetime.now(UTC).isoformat(),
         forget_dataset=forget_dataset,
         forget_split=forget_split,
         metrics_fp16=_precision_to_dict("fp16"),
@@ -214,7 +212,7 @@ def load_certificate(cert_path: str) -> DurabilityCertificate:
     if not os.path.isfile(cert_path):
         raise FileNotFoundError(f"Report file not found: {cert_path}")
 
-    with open(cert_path, "r") as f:
+    with open(cert_path) as f:
         data = json.load(f)
 
     # v1 → v2 migration: translate legacy field names

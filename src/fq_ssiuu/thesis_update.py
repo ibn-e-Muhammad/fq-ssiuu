@@ -15,8 +15,7 @@ import json
 import logging
 import os
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
-from typing import Dict, List, Optional
+from datetime import UTC, datetime
 
 logger = logging.getLogger(__name__)
 
@@ -39,17 +38,18 @@ class ThesisUpdatePacket:
         corrections_applied: List of correction IDs applied before this run.
         notes: Free-text notes.
     """
+
     run_id: str
     condition_id: str
     git_commit: str
     timestamp: str = ""
-    affected_sections: List[str] = field(default_factory=list)
-    metrics: Dict[str, float] = field(default_factory=dict)
-    evidence_paths: List[str] = field(default_factory=list)
-    claims_supported: List[str] = field(default_factory=list)
-    claims_unsupported: List[str] = field(default_factory=list)
-    limitations: List[str] = field(default_factory=list)
-    corrections_applied: List[str] = field(default_factory=list)
+    affected_sections: list[str] = field(default_factory=list)
+    metrics: dict[str, float] = field(default_factory=dict)
+    evidence_paths: list[str] = field(default_factory=list)
+    claims_supported: list[str] = field(default_factory=list)
+    claims_unsupported: list[str] = field(default_factory=list)
+    limitations: list[str] = field(default_factory=list)
+    corrections_applied: list[str] = field(default_factory=list)
     notes: str = ""
 
 
@@ -57,13 +57,13 @@ def generate_thesis_packet(
     run_id: str,
     condition_id: str,
     git_commit: str,
-    metrics: Optional[Dict[str, float]] = None,
-    evidence_paths: Optional[List[str]] = None,
-    affected_sections: Optional[List[str]] = None,
-    claims_supported: Optional[List[str]] = None,
-    claims_unsupported: Optional[List[str]] = None,
-    limitations: Optional[List[str]] = None,
-    corrections_applied: Optional[List[str]] = None,
+    metrics: dict[str, float] | None = None,
+    evidence_paths: list[str] | None = None,
+    affected_sections: list[str] | None = None,
+    claims_supported: list[str] | None = None,
+    claims_unsupported: list[str] | None = None,
+    limitations: list[str] | None = None,
+    corrections_applied: list[str] | None = None,
     notes: str = "",
 ) -> ThesisUpdatePacket:
     """Generate a thesis update packet from run results.
@@ -88,7 +88,7 @@ def generate_thesis_packet(
         run_id=run_id,
         condition_id=condition_id,
         git_commit=git_commit,
-        timestamp=datetime.now(timezone.utc).isoformat(),
+        timestamp=datetime.now(UTC).isoformat(),
         affected_sections=affected_sections or [],
         metrics=metrics or {},
         evidence_paths=evidence_paths or [],
@@ -145,7 +145,7 @@ def load_thesis_packet(packet_path: str) -> ThesisUpdatePacket:
     if not os.path.isfile(packet_path):
         raise FileNotFoundError(f"Thesis packet not found: {packet_path}")
 
-    with open(packet_path, "r") as f:
+    with open(packet_path) as f:
         data = json.load(f)
 
     return ThesisUpdatePacket(**data)

@@ -23,7 +23,6 @@ Current Implementation (LayerIG surrogate):
 
 import logging
 from dataclasses import dataclass
-from typing import Optional
 
 import torch
 
@@ -179,7 +178,7 @@ class SSIUURegulariser:
         self,
         model: torch.nn.Module,
         forget_loader,
-        config: Optional[SSIUUConfig] = None,
+        config: SSIUUConfig | None = None,
     ):
         """Initialise the regulariser.
 
@@ -191,7 +190,7 @@ class SSIUURegulariser:
         self.model = model
         self.forget_loader = forget_loader
         self.config = config or SSIUUConfig()
-        self.d_neg_init: Optional[torch.Tensor] = None
+        self.d_neg_init: torch.Tensor | None = None
 
     @property
     def is_initialised(self) -> bool:
@@ -248,9 +247,7 @@ class SSIUURegulariser:
             )
 
         # Compute current negative attributions
-        d_neg_current = compute_negative_attribution(
-            self.model, forget_batch, self.config
-        )
+        d_neg_current = compute_negative_attribution(self.model, forget_batch, self.config)
 
         # L_attr = lambda * sum max(0, D^-_init - D^-_current)
         # When D^-_current is MORE negative than D^-_init (neuron became more

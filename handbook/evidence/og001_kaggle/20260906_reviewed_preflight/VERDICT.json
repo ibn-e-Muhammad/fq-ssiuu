@@ -1,0 +1,16 @@
+{
+  "status": "PASS_WITH_EXPLICIT_LIMITATIONS",
+  "passed": 131,
+  "skipped": 8,
+  "deselected": 12,
+  "xfailed": 1,
+  "subtests_passed": 21,
+  "independent_review_findings_fixed": [
+    "Editable pip-freeze comments parsed as pins",
+    "OPEN gate blocking flags ignored"
+  ],
+  "coverage_limits": "Eight historical certificate/FADE tests contain unconditional implementation-placeholder skips. Locally four FADE skips also meet an outer missing-NumPy condition. SSIUU expected failure remains BLOCKED. The GPU/model selection is excluded locally. These tests do not establish method acceptance or GPU readiness.",
+  "supersedes_interpretation": "../20260906_final_local_preflight/VERDICT.json incorrectly described all eight skips as dependency-related; raw output is unchanged. This record corrects that classification, and tests the two subsequent review fixes.",
+  "gpu_run": false,
+  "methods_changed": false
+}

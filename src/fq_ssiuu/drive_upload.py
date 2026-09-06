@@ -23,8 +23,6 @@ import json
 import logging
 import os
 import time
-from pathlib import Path
-from typing import Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -56,6 +54,7 @@ def _get_drive_service():
     sa_json_path = None
     try:
         from fq_ssiuu.secrets import get_secret
+
         sa_json_path = get_secret("GDRIVE_SERVICE_ACCOUNT_JSON", required=False)
     except Exception:
         sa_json_path = os.environ.get("GDRIVE_SERVICE_ACCOUNT_JSON")
@@ -82,8 +81,7 @@ def _get_drive_service():
             )
         except (json.JSONDecodeError, ValueError):
             raise RuntimeError(
-                f"GDRIVE_SERVICE_ACCOUNT_JSON is neither a valid file path "
-                f"nor valid inline JSON."
+                "GDRIVE_SERVICE_ACCOUNT_JSON is neither a valid file path nor valid inline JSON."
             )
 
     service = build("drive", "v3", credentials=creds)
@@ -96,7 +94,7 @@ def _upload_file_with_retry(
     local_path: str,
     parent_folder_id: str,
     max_retries: int = MAX_RETRIES,
-) -> Dict:
+) -> dict:
     """Upload a single file to Google Drive with exponential backoff.
 
     Args:
@@ -125,11 +123,15 @@ def _upload_file_with_retry(
 
     for attempt in range(max_retries + 1):
         try:
-            file = service.files().create(
-                body=file_metadata,
-                media_body=media,
-                fields="id,name,size",
-            ).execute()
+            file = (
+                service.files()
+                .create(
+                    body=file_metadata,
+                    media_body=media,
+                    fields="id,name,size",
+                )
+                .execute()
+            )
 
             uploaded_size = int(file.get("size", 0))
             if uploaded_size != file_size:
@@ -152,8 +154,7 @@ def _upload_file_with_retry(
             if attempt < max_retries:
                 wait = BACKOFF_BASE ** (attempt + 1)
                 logger.warning(
-                    "Upload attempt %d/%d failed for '%s': %s. "
-                    "Retrying in %.1f seconds.",
+                    "Upload attempt %d/%d failed for '%s': %s. Retrying in %.1f seconds.",
                     attempt + 1,
                     max_retries + 1,
                     file_name,
@@ -163,8 +164,7 @@ def _upload_file_with_retry(
                 time.sleep(wait)
             else:
                 raise RuntimeError(
-                    f"Failed to upload '{file_name}' after {max_retries + 1} "
-                    f"attempts: {e}"
+                    f"Failed to upload '{file_name}' after {max_retries + 1} attempts: {e}"
                 )
 
 
@@ -188,19 +188,23 @@ def _create_drive_folder(
         "mimeType": "application/vnd.google-apps.folder",
         "parents": [parent_folder_id],
     }
-    folder = service.files().create(
-        body=file_metadata,
-        fields="id",
-    ).execute()
+    folder = (
+        service.files()
+        .create(
+            body=file_metadata,
+            fields="id",
+        )
+        .execute()
+    )
     logger.info("Created Drive folder '%s' (ID: %s)", folder_name, folder["id"])
     return folder["id"]
 
 
 def upload_run_directory(
     local_dir: str,
-    folder_id: Optional[str] = None,
-    run_id: Optional[str] = None,
-) -> Dict:
+    folder_id: str | None = None,
+    run_id: str | None = None,
+) -> dict:
     """Upload an experiment run directory to Google Drive.
 
     Creates a subfolder named after the run_id (or directory basename)
@@ -221,6 +225,7 @@ def upload_run_directory(
     if not folder_id:
         try:
             from fq_ssiuu.secrets import get_secret
+
             folder_id = get_secret("GDRIVE_FOLDER_ID", required=True)
         except Exception:
             folder_id = os.environ.get("GDRIVE_FOLDER_ID")
@@ -238,8 +243,8 @@ def upload_run_directory(
     drive_folder_id = _create_drive_folder(service, subfolder_name, folder_id)
 
     # Upload all files
-    uploaded_files: List[Dict] = []
-    errors: List[str] = []
+    uploaded_files: list[dict] = []
+    errors: list[str] = []
     total_bytes = 0
 
     for root, dirs, files in os.walk(local_dir):

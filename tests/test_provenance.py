@@ -4,20 +4,16 @@ tests/test_provenance.py
 Unit tests for the provenance tracking module.
 """
 
-import json
-import os
-
 import pytest
 
 from fq_ssiuu.provenance import (
-    RunContext,
-    generate_run_id,
-    create_run,
-    complete_run,
-    fail_run,
-    save_provenance,
-    load_provenance,
     _sha256_file,
+    complete_run,
+    create_run,
+    fail_run,
+    generate_run_id,
+    load_provenance,
+    save_provenance,
 )
 
 

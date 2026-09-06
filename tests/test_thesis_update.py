@@ -9,10 +9,9 @@ import json
 import pytest
 
 from fq_ssiuu.thesis_update import (
-    ThesisUpdatePacket,
     generate_thesis_packet,
-    save_thesis_packet,
     load_thesis_packet,
+    save_thesis_packet,
 )
 
 

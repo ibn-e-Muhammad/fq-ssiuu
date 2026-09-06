@@ -9,17 +9,14 @@ import sys
 from types import SimpleNamespace
 from unittest.mock import patch
 
-import pytest
-
 from fq_ssiuu.environment import (
-    preflight_check,
-    capture_manifest,
-    save_manifest,
-    EnvironmentManifest,
     PreflightResult,
-    _check_python_version,
-    _check_disk_space,
     _check_cuda,
+    _check_disk_space,
+    _check_python_version,
+    capture_manifest,
+    preflight_check,
+    save_manifest,
 )
 
 
@@ -33,8 +30,11 @@ class TestPreflight:
         assert result.passed is True
 
     def test_cuda_uses_documented_total_memory_property(self):
-        cuda = SimpleNamespace(is_available=lambda: True, get_device_name=lambda i: "Tesla T4",
-                               get_device_properties=lambda i: SimpleNamespace(total_memory=15_636_037_632))
+        cuda = SimpleNamespace(
+            is_available=lambda: True,
+            get_device_name=lambda i: "Tesla T4",
+            get_device_properties=lambda i: SimpleNamespace(total_memory=15_636_037_632),
+        )
         with patch.dict(sys.modules, {"torch": SimpleNamespace(cuda=cuda)}):
             result = _check_cuda()
         assert result.passed is True

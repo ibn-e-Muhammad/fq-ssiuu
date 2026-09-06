@@ -5,9 +5,8 @@ Unit tests for Google Drive upload module.
 All tests use mocks — no actual Google Drive access.
 """
 
-import json
 import os
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 import pytest
 
@@ -18,6 +17,7 @@ class TestDriveUpload:
     def test_import(self):
         """Module should be importable."""
         import fq_ssiuu.drive_upload as du
+
         assert hasattr(du, "upload_run_directory")
         assert hasattr(du, "_get_drive_service")
 

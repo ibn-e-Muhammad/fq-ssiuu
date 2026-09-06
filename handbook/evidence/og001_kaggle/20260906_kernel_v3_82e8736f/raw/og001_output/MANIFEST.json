@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "run_id": "0b2980fa-c045-4c1f-8c66-4f8f890fd447",
+  "git_sha": "d1d5328cc899e09181479bcae2df668e20f747d3",
+  "execution_status": "FAIL",
+  "start_utc_timestamp": "2026-09-06T04:36:38.860111+00:00",
+  "end_utc_timestamp": "2026-09-06T04:36:48.800446+00:00",
+  "artifacts": [
+    {
+      "path": "before_freeze.log",
+      "size_bytes": 18534,
+      "sha256": "adb45b486828a86f7f95eba637d1320aa2eb71f35d77839424c4ee4b605072ab"
+    },
+    {
+      "path": "native_baseline.json",
+      "size_bytes": 999,
+      "sha256": "7b33f273b3150ef6aade5bcbf7ea47e8d0787c9440744d04c8e8c5d61659aafc"
+    },
+    {
+      "path": "post_attempt_manifest.json",
+      "size_bytes": 29061,
+      "sha256": "a23ca8757da77b016b21a7aed1d241727fd2dda75c15cf795bb764fca06f3c67"
+    },
+    {
+      "path": "setup_status.json",
+      "size_bytes": 125,
+      "sha256": "3d1d4716383d2d7b80d73a2f14b56f02ce7d5316c3bcc8e1dc856463c12493e7"
+    }
+  ]
+}

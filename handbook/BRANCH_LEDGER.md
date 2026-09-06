@@ -118,3 +118,13 @@ history rather than storing a self-referential or invented tip SHA.
 ### `audit/pilot-verification`
 - **Tip**: `82bdbf2a3d3f44e125f4973d036896db5ae5e213`
 - **Relationship**: 2 commits behind `dev`
+
+## 2026-09-06 differential closure checkpoint
+
+Starting tip `0bbeaeb560acd5b9357ddfc25f18246d103b379b` was clean and agreed
+with the remote. Source `6cb7933dd4eb4d3753bc3535aae6388c6a1d2236` and notebook
+`82e8736fbdb22b7e807cfaa7d2ace3791afd494a` were published non-destructively.
+Kernel v3 is submission 1/2 of the differential work unit; it failed at native
+duplicate-metadata inventory before installation. See its run-specific evidence.
+The repair and final preflight are recorded in the commit containing this entry.
+No integration merge has occurred; four untracked DOCX files remain excluded.

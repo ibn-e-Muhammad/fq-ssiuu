@@ -12,83 +12,120 @@ Offline behavioral testing without live hardware or network calls:
 - Single run ID enforcement across manifests and lock files
 """
 
-import os
-import sys
 import json
+import os
 import shutil
+import subprocess
+import sys
 import tempfile
 import unittest
-import subprocess
 from unittest.mock import MagicMock, patch
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if REPO_ROOT not in sys.path:
     sys.path.insert(0, REPO_ROOT)
 
-import scripts.kaggle_setup as ks
-import scripts.verify_kaggle_env as ve
-import scripts.verify_kaggle_env as ve
-import scripts.verify_pip_report as vp
-from scripts.verify_pip_report import normalize_name
+import scripts.kaggle_setup as ks  # noqa: E402 — direct-script path bootstrap
+import scripts.verify_kaggle_env as ve  # noqa: E402 — direct-script path bootstrap
+import scripts.verify_pip_report as vp  # noqa: E402 — direct-script path bootstrap
+
 
 class TestKaggleDependencyPolicyBehavioral(unittest.TestCase):
-
     def test_verifier_entrypoint_writes_report_with_real_control_flow(self):
         """Stub external boundaries, not check_env or its production helpers."""
         fake_torch = MagicMock()
-        fake_torch.__version__ = self.mock_baseline_data['hard_protected_compute_stack']['torch']
-        fake_torch.version.cuda = '12.8'
+        fake_torch.__version__ = self.mock_baseline_data["hard_protected_compute_stack"]["torch"]
+        fake_torch.version.cuda = "12.8"
         fake_torch.cuda.max_memory_allocated.return_value = 1024
         fake_torch.cuda.max_memory_reserved.return_value = 2048
         fake_torch.cuda.device_count.return_value = 1
         fake_torch.cuda.is_available.return_value = True
-        fake_torch.cuda.get_device_name.return_value = 'Tesla T4'
+        fake_torch.cuda.get_device_name.return_value = "Tesla T4"
         fake_torch.cuda.get_device_capability.return_value = (7, 5)
         fake_torch.cuda.get_device_properties.return_value.total_memory = 15 * 1024**3
         fake_torch.all.return_value.item.return_value = True
         fake_bnb = MagicMock()
-        fake_bnb.functional.quantize_nf4.return_value = (MagicMock(), type('State', (), {'quant_type': 'nf4'})())
-        versions = {**self.mock_baseline_data['hard_protected_compute_stack'],
-                    **self.mock_baseline_data['native_stability_stack']}
-        modules = {'torch': fake_torch, 'bitsandbytes': fake_bnb,
-                   'bitsandbytes.functional': fake_bnb.functional,
-                   **{name: MagicMock() for name in ('captum', 'hydra', 'lm_eval', 'jsonlines')}}
+        fake_bnb.functional.quantize_nf4.return_value = (
+            MagicMock(),
+            type("State", (), {"quant_type": "nf4"})(),
+        )
+        versions = {
+            **self.mock_baseline_data["hard_protected_compute_stack"],
+            **self.mock_baseline_data["native_stability_stack"],
+        }
+        modules = {
+            "torch": fake_torch,
+            "bitsandbytes": fake_bnb,
+            "bitsandbytes.functional": fake_bnb.functional,
+            **{name: MagicMock() for name in ("captum", "hydra", "lm_eval", "jsonlines")},
+        }
+
         def external(cmd, **kwargs):
-            if cmd[:3] == ['git', 'rev-parse', 'HEAD']:
-                return subprocess.CompletedProcess(cmd, 0, 'a' * 40 + '\n', '')
-            if cmd == [sys.executable, '-m', 'pip', 'check']:
-                return subprocess.CompletedProcess(cmd, 0, 'No broken requirements found.' + chr(10), '')
-            raise AssertionError(f'Unexpected external operation: {cmd}')
-        out = os.path.join(self.temp_dir, 'verifier')
-        with patch.dict(sys.modules, modules), patch.dict(os.environ, {'CUDA_VISIBLE_DEVICES': '0'}), \
-             patch.object(ve.subprocess, 'run', side_effect=external), \
-             patch.object(ve.importlib.metadata, 'version', side_effect=versions.__getitem__), \
-             patch.object(sys, 'argv', ['verify', '--baseline', self.mock_baseline_path,
-                                       '--output-dir', out, '--run-id', 'entrypoint-test']):
+            if cmd[:3] == ["git", "rev-parse", "HEAD"]:
+                return subprocess.CompletedProcess(cmd, 0, "a" * 40 + "\n", "")
+            if cmd == [sys.executable, "-m", "pip", "check"]:
+                return subprocess.CompletedProcess(
+                    cmd, 0, "No broken requirements found." + chr(10), ""
+                )
+            raise AssertionError(f"Unexpected external operation: {cmd}")
+
+        out = os.path.join(self.temp_dir, "verifier")
+        with (
+            patch.dict(sys.modules, modules),
+            patch.dict(os.environ, {"CUDA_VISIBLE_DEVICES": "0"}),
+            patch.object(ve.subprocess, "run", side_effect=external),
+            patch.object(ve.importlib.metadata, "version", side_effect=versions.__getitem__),
+            patch.object(
+                sys,
+                "argv",
+                [
+                    "verify",
+                    "--baseline",
+                    self.mock_baseline_path,
+                    "--output-dir",
+                    out,
+                    "--run-id",
+                    "entrypoint-test",
+                ],
+            ),
+        ):
             with self.assertRaises(SystemExit) as result:
                 ve.main()
         self.assertEqual(result.exception.code, 0)
-        with open(os.path.join(out, 'kaggle_env_verification.json')) as handle:
+        with open(os.path.join(out, "kaggle_env_verification.json")) as handle:
             report = json.load(handle)
-        self.assertEqual(report['git_sha'], 'a' * 40)
-        self.assertEqual(report['run_id'], 'entrypoint-test')
-        self.assertEqual(report['statuses']['overall'], 'PASS')
-        self.assertEqual(report['checks']['pip_check']['status'], 'PASS')
+        self.assertEqual(report["git_sha"], "a" * 40)
+        self.assertEqual(report["run_id"], "entrypoint-test")
+        self.assertEqual(report["statuses"]["overall"], "PASS")
+        self.assertEqual(report["checks"]["pip_check"]["status"], "PASS")
 
     def test_report_cli_reads_valid_and_malformed_reports(self):
-        for content, expected in [(' {"install": []}', 0), ('invalid-json', 1)]:
+        for content, expected in [(' {"install": []}', 0), ("invalid-json", 1)]:
             with self.subTest(content=content):
-                report = os.path.join(self.temp_dir, 'pip-report.json')
-                output = os.path.join(self.temp_dir, 'report-result.json')
-                with open(report, 'w') as handle:
+                report = os.path.join(self.temp_dir, "pip-report.json")
+                output = os.path.join(self.temp_dir, "report-result.json")
+                with open(report, "w") as handle:
                     handle.write(content)
-                with patch.object(sys, 'argv', ['verify', '--baseline', self.mock_baseline_path,
-                                               '--report', report, '--output-json', output]):
+                with patch.object(
+                    sys,
+                    "argv",
+                    [
+                        "verify",
+                        "--baseline",
+                        self.mock_baseline_path,
+                        "--report",
+                        report,
+                        "--output-json",
+                        output,
+                    ],
+                ):
                     with self.assertRaises(SystemExit) as result:
                         vp.main()
                 self.assertEqual(result.exception.code, expected)
                 with open(output) as handle:
-                    self.assertEqual(json.load(handle)['status'], 'PASS' if expected == 0 else 'FAIL')
+                    self.assertEqual(
+                        json.load(handle)["status"], "PASS" if expected == 0 else "FAIL"
+                    )
 
     def setUp(self):
         self.temp_dir = tempfile.mkdtemp(prefix="test_kaggle_policy_")
@@ -101,7 +138,7 @@ class TestKaggleDependencyPolicyBehavioral(unittest.TestCase):
                 "torch": "2.10.0+cu128",
                 "torchvision": "0.25.0+cu128",
                 "torchaudio": "2.10.0+cu128",
-                "triton": "3.6.0"
+                "triton": "3.6.0",
             },
             "native_stability_stack": {
                 "transformers": "4.46.3",
@@ -114,8 +151,8 @@ class TestKaggleDependencyPolicyBehavioral(unittest.TestCase):
                 "pandas": "2.2.3",
                 "omegaconf": "2.3.0",
                 "tokenizers": "0.20.3",
-                "safetensors": "0.4.5"
-            }
+                "safetensors": "0.4.5",
+            },
         }
         self.mock_baseline_path = os.path.join(self.temp_dir, "kaggle-native-baseline.json")
         with open(self.mock_baseline_path, "w", encoding="utf-8") as f:
@@ -182,7 +219,7 @@ class TestKaggleDependencyPolicyBehavioral(unittest.TestCase):
     # 5. transformers changing from the protected baseline causes lock generation to fail
     def test_05_transformers_mutation_causes_lock_generation_failure(self):
         before = {"torch": "2.10.0+cu128", "transformers": "4.46.3"}
-        after = {"torch": "2.10.0+cu128", "transformers": "4.47.0"} # Mutated transformers
+        after = {"torch": "2.10.0+cu128", "transformers": "4.47.0"}  # Mutated transformers
         with self.assertRaises(ValueError) as ctx:
             ks.generate_overlay_lock(before, after, self.mock_baseline_data, "test_run", "test_sha")
         self.assertIn("Protected package mutation detected", str(ctx.exception))
@@ -191,7 +228,7 @@ class TestKaggleDependencyPolicyBehavioral(unittest.TestCase):
     # 6. datasets changing from the protected baseline causes lock generation to fail
     def test_06_datasets_mutation_causes_lock_generation_failure(self):
         before = {"torch": "2.10.0+cu128", "datasets": "3.1.0"}
-        after = {"torch": "2.10.0+cu128", "datasets": "3.2.0"} # Mutated datasets
+        after = {"torch": "2.10.0+cu128", "datasets": "3.2.0"}  # Mutated datasets
         with self.assertRaises(ValueError) as ctx:
             ks.generate_overlay_lock(before, after, self.mock_baseline_data, "test_run", "test_sha")
         self.assertIn("Protected package mutation detected", str(ctx.exception))
@@ -212,8 +249,19 @@ class TestKaggleDependencyPolicyBehavioral(unittest.TestCase):
         env["CUDA_VISIBLE_DEVICES"] = "0"
         env["PYTHONPATH"] = "."
 
-        mock_freeze = "\n".join([f"{k}=={v}" for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()] +
-                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()]) + "\nbitsandbytes==0.45.0"
+        mock_freeze = (
+            "\n".join(
+                [
+                    f"{k}=={v}"
+                    for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()
+                ]
+                + [
+                    f"{k}=={v}"
+                    for k, v in self.mock_baseline_data["native_stability_stack"].items()
+                ]
+            )
+            + "\nbitsandbytes==0.45.0"
+        )
 
         code = f"""
 import sys, subprocess, json, os
@@ -228,7 +276,8 @@ def mock_freeze():
         return ("", 1) # Final freeze fails
     return ({repr(mock_freeze)}, 0)
 
-ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+from tests.og001_fixtures import synthetic_inventory
+ks.get_distribution_inventory = lambda: synthetic_inventory({repr({**self.mock_baseline_data["hard_protected_compute_stack"], **self.mock_baseline_data["native_stability_stack"], "bitsandbytes": "0.45.0"})})
 ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = mock_freeze
 
@@ -279,9 +328,20 @@ ks.main()
         env["CUDA_VISIBLE_DEVICES"] = "0"
         env["PYTHONPATH"] = "."
 
-        mock_freeze_before = "\n".join([f"{k}=={v}" for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()] +
-                                       [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()]) + "\nbitsandbytes==0.45.0"
-        mock_freeze_after = mock_freeze_before.replace("4.46.3", "4.47.0") # Mutates transformers
+        mock_freeze_before = (
+            "\n".join(
+                [
+                    f"{k}=={v}"
+                    for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()
+                ]
+                + [
+                    f"{k}=={v}"
+                    for k, v in self.mock_baseline_data["native_stability_stack"].items()
+                ]
+            )
+            + "\nbitsandbytes==0.45.0"
+        )
+        mock_freeze_after = mock_freeze_before.replace("4.46.3", "4.47.0")  # Mutates transformers
 
         code = f"""
 import sys, subprocess, json, os
@@ -296,7 +356,8 @@ def mock_freeze():
         return ({repr(mock_freeze_after)}, 0)
     return ({repr(mock_freeze_before)}, 0)
 
-ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+from tests.og001_fixtures import synthetic_inventory
+ks.get_distribution_inventory = lambda: synthetic_inventory({repr({**self.mock_baseline_data["hard_protected_compute_stack"], **self.mock_baseline_data["native_stability_stack"], "bitsandbytes": "0.45.0"})})
 ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = mock_freeze
 
@@ -342,15 +403,27 @@ ks.main()
         env["CUDA_VISIBLE_DEVICES"] = "0"
         env["PYTHONPATH"] = "."
 
-        mock_freeze = "\n".join([f"{k}=={v}" for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()] +
-                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()]) + "\nbitsandbytes==0.45.0"
+        mock_freeze = (
+            "\n".join(
+                [
+                    f"{k}=={v}"
+                    for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()
+                ]
+                + [
+                    f"{k}=={v}"
+                    for k, v in self.mock_baseline_data["native_stability_stack"].items()
+                ]
+            )
+            + "\nbitsandbytes==0.45.0"
+        )
 
         code = f"""
 import sys, subprocess, json, os
 import scripts.kaggle_setup as ks
 import scripts.verify_kaggle_env as ve
 
-ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+from tests.og001_fixtures import synthetic_inventory
+ks.get_distribution_inventory = lambda: synthetic_inventory({repr({**self.mock_baseline_data["hard_protected_compute_stack"], **self.mock_baseline_data["native_stability_stack"], "bitsandbytes": "0.45.0"})})
 ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = lambda: ({repr(mock_freeze)}, 0)
 
@@ -399,15 +472,27 @@ ks.main()
         env["CUDA_VISIBLE_DEVICES"] = "0"
         env["PYTHONPATH"] = "."
 
-        mock_freeze = "\n".join([f"{k}=={v}" for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()] +
-                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()]) + "\nbitsandbytes==0.45.0"
+        mock_freeze = (
+            "\n".join(
+                [
+                    f"{k}=={v}"
+                    for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()
+                ]
+                + [
+                    f"{k}=={v}"
+                    for k, v in self.mock_baseline_data["native_stability_stack"].items()
+                ]
+            )
+            + "\nbitsandbytes==0.45.0"
+        )
 
         code = f"""
 import sys, subprocess, json, os
 import scripts.kaggle_setup as ks
 import scripts.verify_kaggle_env as ve
 
-ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+from tests.og001_fixtures import synthetic_inventory
+ks.get_distribution_inventory = lambda: synthetic_inventory({repr({**self.mock_baseline_data["hard_protected_compute_stack"], **self.mock_baseline_data["native_stability_stack"], "bitsandbytes": "0.45.0"})})
 ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = lambda: ({repr(mock_freeze)}, 0)
 
@@ -456,15 +541,27 @@ ks.main()
         env["CUDA_VISIBLE_DEVICES"] = "0"
         env["PYTHONPATH"] = "."
 
-        mock_freeze = "\n".join([f"{k}=={v}" for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()] +
-                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()]) + "\nbitsandbytes==0.45.0"
+        mock_freeze = (
+            "\n".join(
+                [
+                    f"{k}=={v}"
+                    for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()
+                ]
+                + [
+                    f"{k}=={v}"
+                    for k, v in self.mock_baseline_data["native_stability_stack"].items()
+                ]
+            )
+            + "\nbitsandbytes==0.45.0"
+        )
 
         code = f"""
 import sys, subprocess, json, os
 import scripts.kaggle_setup as ks
 import scripts.verify_kaggle_env as ve
 
-ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+from tests.og001_fixtures import synthetic_inventory
+ks.get_distribution_inventory = lambda: synthetic_inventory({repr({**self.mock_baseline_data["hard_protected_compute_stack"], **self.mock_baseline_data["native_stability_stack"], "bitsandbytes": "0.45.0"})})
 ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = lambda: ({repr(mock_freeze)}, 0)
 
@@ -514,15 +611,27 @@ ks.main()
         env["CUDA_VISIBLE_DEVICES"] = "0"
         env["PYTHONPATH"] = "."
 
-        mock_freeze = "\n".join([f"{k}=={v}" for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()] +
-                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()]) + "\nbitsandbytes==0.45.0"
+        mock_freeze = (
+            "\n".join(
+                [
+                    f"{k}=={v}"
+                    for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()
+                ]
+                + [
+                    f"{k}=={v}"
+                    for k, v in self.mock_baseline_data["native_stability_stack"].items()
+                ]
+            )
+            + "\nbitsandbytes==0.45.0"
+        )
 
         code = f"""
 import sys, subprocess, json, os
 import scripts.kaggle_setup as ks
 import scripts.verify_kaggle_env as ve
 
-ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+from tests.og001_fixtures import synthetic_inventory
+ks.get_distribution_inventory = lambda: synthetic_inventory({repr({**self.mock_baseline_data["hard_protected_compute_stack"], **self.mock_baseline_data["native_stability_stack"], "bitsandbytes": "0.45.0"})})
 ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = lambda: ({repr(mock_freeze)}, 0)
 
@@ -586,8 +695,18 @@ ks.main()
         env["PYTHONPATH"] = "."
 
         res = subprocess.run(
-            [sys.executable, "scripts/kaggle_setup.py", "--preview", "--baseline", invalid_baseline_path, "--output-dir", out_dir],
-            capture_output=True, text=True, env=env
+            [
+                sys.executable,
+                "scripts/kaggle_setup.py",
+                "--preview",
+                "--baseline",
+                invalid_baseline_path,
+                "--output-dir",
+                out_dir,
+            ],
+            capture_output=True,
+            text=True,
+            env=env,
         )
         self.assertNotEqual(res.returncode, 0)
         self.assertIn("Baseline structural validation failed", res.stderr)
@@ -604,7 +723,8 @@ import sys
 import scripts.kaggle_setup as ks
 import scripts.verify_kaggle_env as ve
 
-ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+from tests.og001_fixtures import synthetic_inventory
+ks.get_distribution_inventory = lambda: synthetic_inventory({repr({**self.mock_baseline_data["hard_protected_compute_stack"], **self.mock_baseline_data["native_stability_stack"], "bitsandbytes": "0.45.0"})})
 ks.get_git_info = lambda: ("UNKNOWN", True, False)
 sys.argv = ['kaggle_setup.py', '--preview', '--baseline', {repr(self.mock_baseline_path)}, '--output-dir', {repr(out_dir)}]
 ks.main()
@@ -625,7 +745,8 @@ import sys
 import scripts.kaggle_setup as ks
 import scripts.verify_kaggle_env as ve
 
-ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+from tests.og001_fixtures import synthetic_inventory
+ks.get_distribution_inventory = lambda: synthetic_inventory({repr({**self.mock_baseline_data["hard_protected_compute_stack"], **self.mock_baseline_data["native_stability_stack"], "bitsandbytes": "0.45.0"})})
 ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = lambda: ("", 1)
 sys.argv = ['kaggle_setup.py', '--preview', '--baseline', {repr(self.mock_baseline_path)}, '--output-dir', {repr(out_dir)}]
@@ -642,15 +763,27 @@ ks.main()
         env["CUDA_VISIBLE_DEVICES"] = "0"
         env["PYTHONPATH"] = "."
 
-        mock_freeze = "\n".join([f"{k}=={v}" for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()] +
-                                [f"{k}=={v}" for k, v in self.mock_baseline_data["native_stability_stack"].items()]) + "\nbitsandbytes==0.45.0"
+        mock_freeze = (
+            "\n".join(
+                [
+                    f"{k}=={v}"
+                    for k, v in self.mock_baseline_data["hard_protected_compute_stack"].items()
+                ]
+                + [
+                    f"{k}=={v}"
+                    for k, v in self.mock_baseline_data["native_stability_stack"].items()
+                ]
+            )
+            + "\nbitsandbytes==0.45.0"
+        )
 
         code = f"""
 import sys, subprocess, json, os
 import scripts.kaggle_setup as ks
 import scripts.verify_kaggle_env as ve
 
-ks.get_distribution_inventory = lambda: {repr({**self.mock_baseline_data['hard_protected_compute_stack'], **self.mock_baseline_data['native_stability_stack'], 'bitsandbytes': '0.45.0'})}
+from tests.og001_fixtures import synthetic_inventory
+ks.get_distribution_inventory = lambda: synthetic_inventory({repr({**self.mock_baseline_data["hard_protected_compute_stack"], **self.mock_baseline_data["native_stability_stack"], "bitsandbytes": "0.45.0"})})
 ks.get_git_info = lambda: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", False, True)
 ks.get_pip_freeze = lambda: ({repr(mock_freeze)}, 0)
 
@@ -687,9 +820,11 @@ ks.main()
             "torch": "2.10.0+cu128",
             "transformers": "4.46.3",
             "bitsandbytes": "0.45.0",
-            "transitive-dep": "1.2.3"
+            "transitive-dep": "1.2.3",
         }
-        lock_dict, lock_text = ks.generate_overlay_lock(before, after, self.mock_baseline_data, "test_run", "test_sha")
+        lock_dict, lock_text = ks.generate_overlay_lock(
+            before, after, self.mock_baseline_data, "test_run", "test_sha"
+        )
         entries = {e["normalized_name"]: e for e in lock_dict["lock_entries"]}
         self.assertIn("bitsandbytes", entries)
         self.assertIn("transitive-dep", entries)
@@ -701,11 +836,14 @@ ks.main()
     def test_20_lock_helper_excludes_all_protected_packages(self):
         before = {"torch": "2.10.0+cu128", "transformers": "4.46.3"}
         after = {"torch": "2.10.0+cu128", "transformers": "4.46.3", "bitsandbytes": "0.45.0"}
-        lock_dict, lock_text = ks.generate_overlay_lock(before, after, self.mock_baseline_data, "test_run", "test_sha")
+        lock_dict, lock_text = ks.generate_overlay_lock(
+            before, after, self.mock_baseline_data, "test_run", "test_sha"
+        )
         locked_names = [e["normalized_name"] for e in lock_dict["lock_entries"]]
         self.assertNotIn("torch", locked_names)
         self.assertNotIn("transformers", locked_names)
         self.assertIn("bitsandbytes", locked_names)
+
 
 if __name__ == "__main__":
     unittest.main()

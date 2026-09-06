@@ -35,7 +35,7 @@ evidence. Published history and raw results are immutable.
 
 | Workstream | Dependency | Falsifiable acceptance criteria | Status | Supporting commit | Evidence | Exact next action | Blocking user decision |
 |---|---|---|---|---|---|---|---|
-| OG-001 environment closure | Verified starting source | Raw pre/post pip checks; no introduced/overlay diagnostic; resolver policy and unchanged protected stack; required imports, CUDA FP16, SDPA, genuine NF4; one T4; peak memory; verified before/after manifests, verifier record and overlay lock; no scientific run | IN PROGRESS | `0bbeaeb5` (prior partial evidence) | `handbook/evidence/og001_kaggle/20260905_kernel_v2_24b25b5f/` | Implement and test shared differential consistency, then bounded Kaggle validation | None |
+| OG-001 environment closure | Verified starting source | Raw pre/post pip checks; no introduced/overlay diagnostic; resolver policy and unchanged protected stack; required imports, CUDA FP16, SDPA, genuine NF4; one T4; peak memory; verified before/after manifests, verifier record and overlay lock; no scientific run | IN PROGRESS | `6cb7933d` source / `82e8736f` notebook (first attempt) | `handbook/evidence/og001_kaggle/20260906_kernel_v3_82e8736f/`; `20260906_final_local_preflight/` | Run final authorised submission with duplicate-aware inventory; preserve results and evaluate every runtime criterion | None |
 | Integration into dev | OG-001 PASS | Complete non-model suite in validated Kaggle runtime; all notebook Python cells compile; secret scan; full dev diff independently reviewed; evidence retained; no operational defect, DOCX or credentials; scientific gates honest | WAITING | — | — | Validate integration suite in closure runtime after OG-001 checks pass, then review PR | None if criteria pass |
 | RG-003 faithful QUAIL | Environment/integration | Primary-paper conformance specification; independently verified forget/retain/hinge terms, coefficients, margin, token masks and gradients; deterministic integration; corrected P4 | BLOCKED | Existing gate record | `handbook/research_gates.yaml` | Obtain authoritative paper/version and equations on successor branch | Any unresolved scientific adaptation |
 | RG-002 deployment-aligned FQ-QAT | Environment/integration | Weight NF4 conformance, codebook, differentiable approximation and LoRA treatment explicit; gradient/location/disabled-path/reference tests; corrected P3 | BLOCKED | Existing gate record | `handbook/research_gates.yaml` | Reconcile primary sources and deployment weight transform after QUAIL work | Any unresolved scientific adaptation |
@@ -47,6 +47,18 @@ evidence. Published history and raw results are immutable.
 | Thesis maintenance | Consequential verified milestones | Ledger linked to raw run IDs; Chapters 1–3 reflect actual method; Chapters 4–5 use verified results/limits; no manually copied unsupported metrics | ACTIVE | `0bbeaeb5` | `handbook/THESIS_UPDATE_LEDGER.md` | Update ledger at operational closure or consequential blocker | Four existing DOCX files remain untouched |
 | Reproducibility/publication | Accepted analysis and manuscript | Empirical Durability Report, reproduction instructions, artifact manifest, licenses/model/data cards, limitations/ethics, manuscript and release package; no certification/universal/legal claims | WAITING | — | — | Assemble from immutable code/config/data/results provenance | Explicit approval before any public submission |
 
+## Current work-unit checkpoint — 2026-09-06
+
+One of two authorised submissions used (kernel version 3). Private source
+verification passed; the pre-install inventory rejected duplicate PyGObject
+metadata before pip baseline capture or installation. The effective freeze pin
+was 3.48.2; the second version was not preserved and must not be inferred.
+The repair records every distribution and location in precedence order, checks
+first-visible versions against pip freeze, and rejects unreported metadata drift.
+Local checks: 70 infrastructure tests; 129 CPU tests pass, eight historical placeholder skips,
+one known SSIUU xfail; all seven notebooks compile. Kaggle acceptance is pending.
+No scientific gate changed. One submission remains.
+
 ## Evidence rule
 
 Use raw artifacts first, machine manifests/hashes second, recorded code/config
@@ -55,3 +67,8 @@ records origin/tree/notebook identity, run/condition/seed, model/data revisions,
 environment and lock, GPU/peak memory, config, logs, checkpoints and output
 hashes, termination and supported/unsupported claims. Corrections supersede
 records explicitly; they never overwrite raw evidence.
+
+Follow-up review fixed editable pip-freeze comment parsing and OPEN gate blocking
+flags. Final broader CPU suite: 131 passed, eight historical placeholder skips,
+12 deselected, one SSIUU xfail. See `handbook/evidence/og001_kaggle/20260906_reviewed_preflight/`
+for raw output and correction of the earlier skip classification. No GPU claim follows.

@@ -48,12 +48,20 @@ class TestOG001Evidence(unittest.TestCase):
             validate_setup_artifacts(self.output, SHA)
 
     def test_runtime_failure_rejected_despite_overall_pass(self):
-        self.mutate("kaggle_env_verification.json", lambda x: x["checks"]["nf4_quantise_dequantise"].update(status="FAIL"))
+        self.mutate(
+            "kaggle_env_verification.json",
+            lambda x: x["checks"]["nf4_quantise_dequantise"].update(status="FAIL"),
+        )
         with self.assertRaisesRegex(ValueError, "Substantive runtime"):
             validate_setup_artifacts(self.output, SHA)
 
     def test_invalid_peak_memory_observation_rejected(self):
-        self.mutate("kaggle_env_verification.json", lambda x: x["checks"]["peak_memory"]["observed"].update(peak_reserved_bytes=16_000_000_000))
+        self.mutate(
+            "kaggle_env_verification.json",
+            lambda x: x["checks"]["peak_memory"]["observed"].update(
+                peak_reserved_bytes=16_000_000_000
+            ),
+        )
         with self.assertRaisesRegex(ValueError, "Peak memory"):
             validate_setup_artifacts(self.output, SHA)
 

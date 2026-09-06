@@ -16,7 +16,6 @@ Security:
 
 import logging
 import os
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +33,7 @@ def _is_kaggle_runtime() -> bool:
     return os.path.exists("/kaggle/working") or "KAGGLE_KERNEL_RUN_TYPE" in os.environ
 
 
-def _try_env(name: str) -> Optional[str]:
+def _try_env(name: str) -> str | None:
     """Try to load a secret from environment variables."""
     val = os.environ.get(name)
     if val:
@@ -42,12 +41,13 @@ def _try_env(name: str) -> Optional[str]:
     return val
 
 
-def _try_kaggle(name: str) -> Optional[str]:
+def _try_kaggle(name: str) -> str | None:
     """Try to load a secret from Kaggle Secrets."""
     if not _is_kaggle_runtime():
         return None
     try:
         from kaggle_secrets import UserSecretsClient
+
         client = UserSecretsClient()
         val = client.get_secret(name)
         if val:
@@ -58,10 +58,11 @@ def _try_kaggle(name: str) -> Optional[str]:
     return None
 
 
-def _try_dotenv(name: str) -> Optional[str]:
+def _try_dotenv(name: str) -> str | None:
     """Try to load a secret from .env file via python-dotenv."""
     try:
         from dotenv import load_dotenv
+
         load_dotenv()  # Idempotent — only loads once
         val = os.environ.get(name)
         if val:
@@ -72,7 +73,7 @@ def _try_dotenv(name: str) -> Optional[str]:
     return None
 
 
-def get_secret(name: str, required: bool = True) -> Optional[str]:
+def get_secret(name: str, required: bool = True) -> str | None:
     """Retrieve a secret by name.
 
     Checks sources in precedence order: env > Kaggle Secrets > .env file.
@@ -89,8 +90,7 @@ def get_secret(name: str, required: bool = True) -> Optional[str]:
     """
     if name not in _KNOWN_SECRETS:
         logger.warning(
-            "Secret '%s' is not in the known secrets list. "
-            "Consider adding it to _KNOWN_SECRETS.",
+            "Secret '%s' is not in the known secrets list. Consider adding it to _KNOWN_SECRETS.",
             name,
         )
 
@@ -111,7 +111,7 @@ def get_secret(name: str, required: bool = True) -> Optional[str]:
     return None
 
 
-def check_all_secrets(required_names: Optional[list] = None) -> dict:
+def check_all_secrets(required_names: list | None = None) -> dict:
     """Check availability of all known secrets.
 
     Args:
@@ -135,4 +135,5 @@ def check_all_secrets(required_names: Optional[list] = None) -> dict:
 
 class SecretNotFoundError(Exception):
     """Raised when a required secret cannot be found in any source."""
+
     pass

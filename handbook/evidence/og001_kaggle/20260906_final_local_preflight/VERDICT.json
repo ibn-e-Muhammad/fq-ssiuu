@@ -1,0 +1,25 @@
+{
+  "scope": "Local pre-submission infrastructure and CPU checks; no GPU evidence",
+  "offline_unittest": {
+    "passed": 70
+  },
+  "local_integration": {
+    "passed": 129,
+    "skipped": 8,
+    "deselected": 12,
+    "xfailed": 1,
+    "subtests_passed": 18,
+    "limitations": "NumPy absent locally; certificate/FADE dependency skips. GPU/model tests deselected. SSIUU gradient xfail remains a scientific blocker."
+  },
+  "notebooks": {
+    "passed": 7,
+    "executed": false
+  },
+  "lint_format_compile_shell_diff": "PASS",
+  "runtime_environment": "Existing project venv unchanged; Ruff/nbformat/IPython only in isolated /tmp tool venv",
+  "commands": [
+    "./.venv/bin/python -m unittest -v tests.test_kaggle_dependency_policy tests.test_pip_consistency tests.test_kaggle_source_transport tests.test_og001_artifacts tests.test_research_gate_authority",
+    "HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 ./.venv/bin/python -m pytest tests -m \"not requires_gpu and not requires_model\" --junitxml=/tmp/ogclosure-local-integration.xml",
+    "/tmp/fq-ci-tools-20260906/bin/python scripts/check_notebooks.py --output /tmp/ogclosure-final-notebooks.json"
+  ]
+}

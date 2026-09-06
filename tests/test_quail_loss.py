@@ -4,10 +4,12 @@ Unit tests for QUAIL loss re-implementation.
 Validates hinge loss computation and margin correctness.
 Reference: Mishra & Mehreen 2026, arXiv:2601.15538
 """
+
 import pytest
 
 try:
-    import torch
+    import torch  # noqa: F401 — optional dependency availability probe
+
     HAS_TORCH = True
 except ImportError:
     HAS_TORCH = False

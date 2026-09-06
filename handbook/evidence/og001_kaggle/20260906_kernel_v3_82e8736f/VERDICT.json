@@ -1,0 +1,23 @@
+{
+  "status": "FAILED_WITH_EVIDENCE",
+  "og001_status": "PARTIAL",
+  "kernel_version": 3,
+  "submission_index": 1,
+  "submission_limit": 2,
+  "source_origin_sha": "6cb7933dd4eb4d3753bc3535aae6388c6a1d2236",
+  "source_tree_sha": "23e501ef34cb33e6b0840cf84c0e4e532449063b",
+  "snapshot_commit_sha": "d1d5328cc899e09181479bcae2df668e20f747d3",
+  "notebook_commit": "82e8736fbdb22b7e807cfaa7d2ace3791afd494a",
+  "run_id": "0b2980fa-c045-4c1f-8c66-4f8f890fd447",
+  "orchestration_run_id": "8973e45e-dd15-4414-96fb-2fdfeed278d6",
+  "source_validation": "PASS",
+  "setup_returncode": 1,
+  "first_causal_failure": "Before inventory failed: Conflicting installed distribution metadata: pygobject",
+  "overlay_installation": "NOT_REACHED",
+  "differential_pip_consistency": "NOT_REACHED",
+  "runtime_smokes": "NOT_REACHED",
+  "interpretation": "The collector rejected duplicate pygobject distribution metadata inherited from the native image before installation. The raw freeze reports effective PyGObject3.48.2, but the duplicate version/location were not retained by this implementation. No second version is inferred as observed.",
+  "correction": "Preserve every discovered distribution and location; use first-visible precedence consistent with pip; cross-check effective freeze pins and reject unreported changes to either effective versions or lower-precedence metadata.",
+  "scientific_experiment_executed": false,
+  "raw_artifact_hashes_verified": 4
+}

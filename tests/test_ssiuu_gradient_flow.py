@@ -65,11 +65,12 @@ class TestSSIUUGradientFlow:
         # Simulate current attributions - the question is whether
         # this gets detached or not
         try:
-            from fq_ssiuu.attribution.ssiuu_reg import compute_negative_attribution
-
             # We can't easily call compute_negative_attribution on our tiny
             # model because it needs captum. Instead, check the source.
             import inspect
+
+            from fq_ssiuu.attribution.ssiuu_reg import compute_negative_attribution
+
             source = inspect.getsource(compute_negative_attribution)
             detach_present = ".detach()" in source
 
@@ -83,8 +84,7 @@ class TestSSIUUGradientFlow:
                 penalty.backward()
 
                 has_grad = any(
-                    p.grad is not None and p.grad.abs().sum() > 0
-                    for p in model.parameters()
+                    p.grad is not None and p.grad.abs().sum() > 0 for p in model.parameters()
                 )
                 assert has_grad, (
                     "SSIUU attribution penalty produced zero gradients. "
@@ -103,7 +103,9 @@ class TestSSIUUGradientFlow:
         """Verify that .detach() IS currently present (documenting the blocker)."""
         try:
             import inspect
+
             from fq_ssiuu.attribution.ssiuu_reg import compute_negative_attribution
+
             source = inspect.getsource(compute_negative_attribution)
             assert ".detach()" in source, (
                 "If .detach() has been removed, also update RG-001 status, "
