@@ -1,0 +1,20 @@
+{
+  "parameters": {
+    "source_origin_sha": "23682ea12ff03ea867f220406423b6f54f77091c",
+    "source_tree_sha": "be5a1376f57f84b84bf1f5de38614d819137e49a",
+    "source_manifest_sha256": "c5edf57aee057af880e66854504c1be8779545084c17fac062f1c574e2de6b20",
+    "dataset_id": "muhammadii/fq-ssiuu-source-23682ea1",
+    "orchestration_commit": "23682ea12ff03ea867f220406423b6f54f77091c",
+    "recipe": "configs/runs/integration_v1.json"
+  },
+  "committed_notebook_sha256": "a55506fd4d23b76a151617f27188bb7302beff5447108cf54a49ed672ee7a8a8",
+  "staged_notebook_sha256": "e5e59dcda540aa0f88075ade563290c5fcdccf73e882e758e0f7f966776a4135",
+  "metadata_sha256": "2dd4d99263aef87451e114f73a722c4fd9f1d3c79fef5c740cfd3a5697319f39",
+  "work_unit": "MOTHER_INTEGRATION_STORAGE",
+  "submission_index": 1,
+  "submission_limit": 2,
+  "stage_dir": "/tmp/fq-mother-kernel-23682ea1",
+  "kernel_id": "muhammadii/fq-ssiuu-mother-runner",
+  "attempt_utc": "2026-09-08T04:18:18.897289+00:00",
+  "state": "SUBMISSION_REQUESTING"
+}

@@ -138,3 +138,12 @@ separate hash-verified environment acceptance. No dev merge has occurred.
 The commit containing this entry adds the Mother runner, exact validated lock,
 explicit test package, dotenv-compatible secret handling and dual-store receipts.
 Historical branches and four untracked DOCX files remain untouched.
+
+## 2026-09-08 Mother integration acceptance
+
+Source/orchestration `23682ea12ff03ea867f220406423b6f54f77091c` completed Mother
+kernel v1. The independent operational review found no implementation blocker;
+raw evidence, exact source/staging pins and private storage receipts are recorded
+in `handbook/evidence/mother_runner/20260908_kernel_v1_23682ea1/`.
+The evidence commit is the commit containing this entry. Integration requires a
+reviewed PR and passing CI; no merge is claimed by this pre-merge record.

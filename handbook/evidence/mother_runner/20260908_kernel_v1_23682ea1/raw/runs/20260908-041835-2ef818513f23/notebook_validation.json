@@ -1,0 +1,66 @@
+{
+  "status": "PASS",
+  "notebooks": [
+    {
+      "path": "experiments/notebooks/kaggle/EXPERIMENT_RUNNER.ipynb",
+      "status": "PASS",
+      "python_cells": 1,
+      "transformed_cells": 0
+    },
+    {
+      "path": "experiments/notebooks/kaggle/GATE1_evaluation.ipynb",
+      "status": "PASS",
+      "python_cells": 4,
+      "transformed_cells": 3
+    },
+    {
+      "path": "experiments/notebooks/kaggle/MOTHER_RUNNER.ipynb",
+      "status": "PASS",
+      "python_cells": 2,
+      "transformed_cells": 0
+    },
+    {
+      "path": "experiments/notebooks/kaggle/PILOT_P1_P2.ipynb",
+      "status": "PASS",
+      "python_cells": 6,
+      "transformed_cells": 0
+    },
+    {
+      "path": "experiments/notebooks/kaggle/PILOT_P3_P4.ipynb",
+      "status": "PASS",
+      "python_cells": 4,
+      "transformed_cells": 0
+    },
+    {
+      "path": "experiments/notebooks/kaggle/gate0_environment_audit/GATE0_KAGGLE_ENV_AUDIT.ipynb",
+      "status": "PASS",
+      "python_cells": 1,
+      "transformed_cells": 0
+    },
+    {
+      "path": "experiments/notebooks/kaggle/og001_overlay_validation/OG001_KAGGLE_OVERLAY_VALIDATION.ipynb",
+      "status": "PASS",
+      "python_cells": 1,
+      "transformed_cells": 0
+    },
+    {
+      "path": "handbook/evidence/og001_kaggle/20260905_kernel_v2_24b25b5f/submitted_notebook.ipynb",
+      "status": "PASS",
+      "python_cells": 1,
+      "transformed_cells": 0
+    },
+    {
+      "path": "handbook/evidence/og001_kaggle/20260906_kernel_v3_82e8736f/submitted_notebook.ipynb",
+      "status": "PASS",
+      "python_cells": 1,
+      "transformed_cells": 0
+    },
+    {
+      "path": "handbook/evidence/og001_kaggle/20260906_kernel_v4_2be46116/submitted_notebook.ipynb",
+      "status": "PASS",
+      "python_cells": 1,
+      "transformed_cells": 0
+    }
+  ],
+  "execution_performed": false
+}

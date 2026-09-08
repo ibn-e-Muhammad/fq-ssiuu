@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "status": "PASS",
+  "state": "BASELINE_DIRTY_NO_REGRESSION",
+  "unchanged": [
+    {
+      "kind": "conflict",
+      "owner": "moviepy",
+      "owner_version": "1.0.3",
+      "dependency": "decorator",
+      "requirement": "decorator<5.0,>=4.0.2",
+      "installed_version": "5.3.1"
+    },
+    {
+      "kind": "missing",
+      "owner": "bigframes",
+      "owner_version": "2.39.0",
+      "dependency": "google-cloud-bigquery-storage"
+    },
+    {
+      "kind": "missing",
+      "owner": "google-adk",
+      "owner_version": "1.29.0",
+      "dependency": "google-cloud-bigquery-storage"
+    },
+    {
+      "kind": "conflict",
+      "owner": "dopamine-rl",
+      "owner_version": "4.1.2",
+      "dependency": "gym",
+      "requirement": "gym<=0.25.2",
+      "installed_version": "0.26.2"
+    },
+    {
+      "kind": "conflict",
+      "owner": "google-colab",
+      "owner_version": "1.0.0",
+      "dependency": "jupyter-server",
+      "requirement": "jupyter-server==2.14.0",
+      "installed_version": "2.12.5"
+    },
+    {
+      "kind": "conflict",
+      "owner": "google-colab",
+      "owner_version": "1.0.0",
+      "dependency": "pandas",
+      "requirement": "pandas==2.2.2",
+      "installed_version": "2.3.3"
+    }
+  ],
+  "introduced": [],
+  "resolved": [],
+  "overlay_diagnostics": [],
+  "run_id": "d72ec4e5-98d7-4934-8597-fec99bad4091",
+  "git_sha": "8cc68b39e39ee61682b1b659d5d2d64a199ed951",
+  "before_returncode": 1,
+  "after_returncode": 1
+}

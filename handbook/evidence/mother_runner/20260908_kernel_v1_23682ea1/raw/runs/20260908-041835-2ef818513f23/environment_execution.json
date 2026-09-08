@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "/kaggle/working/checkout-20260908-041835-2ef818513f23/scripts/kaggle_setup.py",
+    "--apply",
+    "--overlay",
+    "/kaggle/working/checkout-20260908-041835-2ef818513f23/requirements/kaggle-overlay.validated.lock",
+    "--output-dir",
+    "/kaggle/working/runs/20260908-041835-2ef818513f23/environment"
+  ],
+  "started_utc": "2026-09-08T04:18:37.493111+00:00",
+  "returncode": 0,
+  "elapsed_seconds": 59.41718357900004
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "source_repository_name": "fq-ssiuu",
+  "source_origin_sha": "23682ea12ff03ea867f220406423b6f54f77091c",
+  "source_tree_sha": "be5a1376f57f84b84bf1f5de38614d819137e49a",
+  "snapshot_commit_sha": "8cc68b39e39ee61682b1b659d5d2d64a199ed951",
+  "snapshot_ref": "kaggle-snapshot",
+  "bundle_filename": "fq-ssiuu-source.bundle",
+  "bundle_size_bytes": 715720,
+  "bundle_sha256": "4fba483fe6bbeade751210f8bd942520884be0b4a74f65e7bce13eec4f0bdf02",
+  "creation_utc": "2026-09-08T04:16:29.756002+00:00",
+  "secret_scan_status": "PASS",
+  "history_commit_count": 1,
+  "contains_original_history": false
+}

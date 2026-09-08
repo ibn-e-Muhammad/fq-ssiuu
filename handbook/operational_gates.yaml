@@ -33,8 +33,8 @@ OG-001:
   - CUDA FP16, SDPA and peak selected-device memory below 16,000,000,000 bytes.
   - Before/after environment manifests.
   - Overlay-only lock (no blind full-environment lockfile).
-  allowed_next_stage: Reusable Mother notebook and full integration rerun using the validated overlay
-    lock. Method gates and frozen-protocol approval still apply.
+  allowed_next_stage: Reviewed operational integration into dev, then upstream method reconciliation.
+    Method gates and frozen-protocol approval still apply.
   rationale: All substantive OG-001 checks pass in kernel v4, independently revalidated from 35 hash-verified
     setup artifacts. Six native diagnostics unchanged, none introduced or overlay-related; protected stack/platform
     unchanged; imports/FP16/SDPA/genuine NF4/single T4/memory/manifests/lock PASS. Kernel ERROR is later
@@ -50,4 +50,11 @@ OG-001:
     - hydra-core
     - lm-eval
     - jsonlines
-  integration_status: FAIL_COLLECTION
+  integration_status: PASS
+  integration_evidence_path: handbook/evidence/mother_runner/20260908_kernel_v1_23682ea1/VERDICT.json
+  integration_run_id: 20260908-041835-2ef818513f23
+  integration_source_commit: 23682ea12ff03ea867f220406423b6f54f77091c
+  integration_kernel_version: 1
+  integration_observation: Mother kernel COMPLETE; 144 passed, 12 historical placeholder skips,
+    8 deselected, one known SSIUU expected failure; ten notebooks schema/compile PASS.
+    Environment independently revalidated. Scientific gate status is unchanged.

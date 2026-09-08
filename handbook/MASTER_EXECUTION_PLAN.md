@@ -36,8 +36,8 @@ evidence. Published history and raw results are immutable.
 | Workstream | Dependency | Falsifiable acceptance criteria | Status | Supporting commit | Evidence | Exact next action | Blocking user decision |
 |---|---|---|---|---|---|---|---|
 | OG-001 environment closure | Verified starting source | Raw pre/post pip checks; no introduced/overlay diagnostic; resolver policy and unchanged protected stack; required imports, CUDA FP16, SDPA, genuine NF4; one T4; peak memory; verified before/after manifests, verifier record and overlay lock; no scientific run | PASS | `1efe2b32` source / `2be46116` notebook | `handbook/evidence/og001_kaggle/20260906_kernel_v4_2be46116/` | Reuse validated overlay lock in Mother notebook | None |
-| Mother notebook and durable run loop | OG-001 PASS | Full non-model suite runs from pinned source and exact lock; one notebook/versioned recipe; dotenv providers tested without credential exposure; failure artifacts retained; private Kaggle and HF copies hash-verified | IN PROGRESS | Commit containing Mother implementation | `handbook/evidence/mother_runner/20260908_local_preflight/`; v4 archive receipts | Publish, stage and submit integration recipe (0/2 new submissions used) | None |
-| Integration into dev | OG-001 PASS | Complete non-model suite in validated Kaggle runtime; all notebook Python cells compile; secret scan; full dev diff independently reviewed; evidence retained; no operational defect, DOCX or credentials; scientific gates honest | WAITING | — | — | Validate integration suite in closure runtime after OG-001 checks pass, then review PR | None if criteria pass |
+| Mother notebook and durable run loop | OG-001 PASS | Full non-model suite runs from pinned source and exact lock; one notebook/versioned recipe; dotenv providers tested without credential exposure; failure artifacts retained; private Kaggle and HF copies hash-verified | PASS (integration recipe) | `23682ea1` | `handbook/evidence/mother_runner/20260908_kernel_v1_23682ea1/` | Reviewed PR into dev; add scientific adapters with accepted methods (1/2 submissions used) | None |
+| Integration into dev | OG-001 PASS | Complete non-model suite in validated Kaggle runtime; all notebook Python cells compile; secret scan; full dev diff independently reviewed; evidence retained; no operational defect, DOCX or credentials; scientific gates honest | READY FOR PR | `23682ea1` | Mother v1 verdict and independent review | Create PR, verify CI and final diff, merge without rewriting history | None if criteria pass |
 | RG-003 faithful QUAIL | Environment/integration | Primary-paper conformance specification; independently verified forget/retain/hinge terms, coefficients, margin, token masks and gradients; deterministic integration; corrected P4 | BLOCKED | Existing gate record | `handbook/research_gates.yaml` | Obtain authoritative paper/version and equations on successor branch | Any unresolved scientific adaptation |
 | RG-002 deployment-aligned FQ-QAT | Environment/integration | Weight NF4 conformance, codebook, differentiable approximation and LoRA treatment explicit; gradient/location/disabled-path/reference tests; corrected P3 | BLOCKED | Existing gate record | `handbook/research_gates.yaml` | Reconcile primary sources and deployment weight transform after QUAIL work | Any unresolved scientific adaptation |
 | RG-001 faithful SSIUU | Environment/integration | Parameter attribution and prior-step state per primary algorithm; current attribution differentiable; previous detached; first-step zero; index selection/HVP reference/gradient tests; tiny GATE-2 then 1B feasibility within memory | BLOCKED | Existing gate record | `handbook/research_gates.yaml` | Obtain algorithm and derive conformance specification after quantisation work | Any unresolved scientific adaptation |
@@ -78,10 +78,13 @@ New work unit: Mother notebook/integration/storage. Dotenv-compatible secrets
 are read on demand from the ignored local file or an in-memory Kaggle Secret;
 no credential file is part of a notebook, source snapshot or artifact.
  At most two Kaggle submissions
-for this work unit; none submitted yet. The OG-001 work unit is closed at 2/2.
-Integration into dev still requires validated-runtime suite and independent review.
-No additional environment audit stage is required. Exact next action: implement
-and exercise the Mother integration recipe and dual-store archival pipeline.
+for this work unit; one submitted and passed (kernel v1). The OG-001 work unit
+is closed at 2/2. Mother source `23682ea1` passed runtime acceptance and independent
+review; 144 passed, 12 historical placeholder skips, eight deselected and one known
+SSIUU expected failure. Ten notebooks compiled. Full outputs have private Kaggle
+and Hugging Face archives with downloaded hash verification.
+No additional environment audit stage is required. Exact next action: complete the
+reviewed PR into dev and create the scientific reconciliation successor branch.
 
 ## Evidence rule
 

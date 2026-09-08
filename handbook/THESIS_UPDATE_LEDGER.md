@@ -28,6 +28,8 @@
 | OG-001 environment closure, kernel v4 | Chapter 3 software environment/reproducibility | PASS under BASELINE_DIRTY_NO_REGRESSION; six native diagnostics unchanged, runtime operations verified. Raw run `04396fe9-0195-476c-bb74-29e6a5ca074b` is linked by `evidence/og001_kaggle/20260906_kernel_v4_2be46116/VERDICT.json`. Integration collection failure is separate. Smoke memory must not be presented as training memory. |
 | Upstream implementation reconciliation | Chapters 2–3 methods | QUAIL author code located; NPO sequence reduction/alignment needs upstream equivalence before any new pilot claim. See `methods/UPSTREAM_IMPLEMENTATIONS.md`. |
 
+| Mother integration and archival | Chapter 3 execution/reproducibility | Run `20260908-041835-2ef818513f23`, source `23682ea1`, passed environment and implemented non-model integration checks. Link `evidence/mother_runner/20260908_kernel_v1_23682ea1/VERDICT.json` and storage receipts. Twelve placeholders and SSIUU expected failure remain; no scientific or training-memory claim. Dotenv providers are lazy and values are excluded from artifacts. |
+
 ---
 
 ## Notes

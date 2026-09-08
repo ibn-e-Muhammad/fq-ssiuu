@@ -26,14 +26,23 @@ until the researcher approves the frozen protocol.
    --sealed SEALED_DIR --receipt NEW_RECEIPT.json`. Never mark synchronization
    complete until downloaded content hashes match at both destinations.
 
-Kaggle automatically expands uploaded tar archives. Verify every expanded file
-against `ARCHIVE_MANIFEST.json`; Hugging Face also preserves the container hash.
+Kaggle recursively expands uploaded tar archives. For exact container preservation,
+copy `artifacts.tar` to `artifacts.tar.bin` in the Kaggle upload staging directory
+and record the filename mapping in `STORAGE.json`. Download and compare the file
+hash with the manifest's original archive hash before marking archival complete.
+Hugging Face preserves the original filename and container hash. An expanded
+Kaggle representation can still be useful, but is not an exact container copy.
 Each run has its own dataset namespace. Failed synchronization retains the local
 and notebook output recovery copies; a retry must not replace differing content.
 
 The OG-001 v4 pipeline has already exercised both private stores. See
 `evidence/og001_kaggle/20260907_v4_archive_receipts/` for verified receipts.
-The Mother integration recipe still needs its first Kaggle execution.
+The Mother integration recipe passed in kernel v1, run
+`20260908-041835-2ef818513f23`, source/orchestration `23682ea1`.
+See `evidence/mother_runner/20260908_kernel_v1_23682ea1/` for raw outputs,
+independent verification and both private storage receipts. Archival currently
+runs from the host after output download; checkpoint synchronization belongs to
+the next method-specific adapter, not the integration recipe.
 
 ## Credentials
 

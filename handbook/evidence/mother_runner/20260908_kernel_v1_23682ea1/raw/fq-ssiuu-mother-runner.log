@@ -1,0 +1,60 @@
+[{"stream_name":"stderr","time":8.247626337,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.247691021,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.247694989,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.247697505,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.863320876,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.863352612,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.863359173,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.86336359,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":113.310311838,"data":"{\n"}
+,{"stream_name":"stdout","time":113.310369978,"data":"  \"run_id\": \"20260908-041835-2ef818513f23\",\n"}
+,{"stream_name":"stdout","time":113.310377163,"data":"  \"kind\": \"integration\",\n"}
+,{"stream_name":"stdout","time":113.310382741,"data":"  \"seed\": 42,\n"}
+,{"stream_name":"stdout","time":113.310388234,"data":"  \"started_utc\": \"2026-09-08T04:18:37.490346+00:00\",\n"}
+,{"stream_name":"stdout","time":113.310392924,"data":"  \"status\": \"PASS\",\n"}
+,{"stream_name":"stdout","time":113.310397552,"data":"  \"recipe_sha256\": \"2e312e6c31fe3e923d0b51f533fef6b7e6c468ef15aef2195e8f69b2f2d2c01c\",\n"}
+,{"stream_name":"stdout","time":113.310402673,"data":"  \"scientific_experiment_executed\": false,\n"}
+,{"stream_name":"stdout","time":113.310407268,"data":"  \"supported_claims\": [\n"}
+,{"stream_name":"stdout","time":113.310411559,"data":"    \"Validated environment and non-model integration recipe\"\n"}
+,{"stream_name":"stdout","time":113.310416046,"data":"  ],\n"}
+,{"stream_name":"stdout","time":113.310420233,"data":"  \"unsupported_claims\": [\n"}
+,{"stream_name":"stdout","time":113.310424614,"data":"    \"Scientific hypothesis confirmation\"\n"}
+,{"stream_name":"stdout","time":113.310429029,"data":"  ],\n"}
+,{"stream_name":"stdout","time":113.310435069,"data":"  \"environment_run_id\": \"d72ec4e5-98d7-4934-8597-fec99bad4091\",\n"}
+,{"stream_name":"stdout","time":113.310443271,"data":"  \"returncodes\": {\n"}
+,{"stream_name":"stdout","time":113.310446393,"data":"    \"notebooks\": 0,\n"}
+,{"stream_name":"stdout","time":113.310449413,"data":"    \"tests\": 0\n"}
+,{"stream_name":"stdout","time":113.310452367,"data":"  },\n"}
+,{"stream_name":"stdout","time":113.310455412,"data":"  \"finished_utc\": \"2026-09-08T04:20:19.208639+00:00\"\n"}
+,{"stream_name":"stdout","time":113.310458657,"data":"}\n"}
+,{"stream_name":"stdout","time":113.345412484,"data":"{\n"}
+,{"stream_name":"stdout","time":113.345437182,"data":"  \"run_id\": \"20260908-041835-2ef818513f23\",\n"}
+,{"stream_name":"stdout","time":113.345444458,"data":"  \"kind\": \"integration\",\n"}
+,{"stream_name":"stdout","time":113.345449603,"data":"  \"seed\": 42,\n"}
+,{"stream_name":"stdout","time":113.345454689,"data":"  \"started_utc\": \"2026-09-08T04:18:37.490346+00:00\",\n"}
+,{"stream_name":"stdout","time":113.345464811,"data":"  \"status\": \"PASS\",\n"}
+,{"stream_name":"stdout","time":113.345468969,"data":"  \"recipe_sha256\": \"2e312e6c31fe3e923d0b51f533fef6b7e6c468ef15aef2195e8f69b2f2d2c01c\",\n"}
+,{"stream_name":"stdout","time":113.345472361,"data":"  \"scientific_experiment_executed\": false,\n"}
+,{"stream_name":"stdout","time":113.345483529,"data":"  \"supported_claims\": [\n"}
+,{"stream_name":"stdout","time":113.345486157,"data":"    \"Validated environment and non-model integration recipe\"\n"}
+,{"stream_name":"stdout","time":113.345488616,"data":"  ],\n"}
+,{"stream_name":"stdout","time":113.345490774,"data":"  \"unsupported_claims\": [\n"}
+,{"stream_name":"stdout","time":113.345493059,"data":"    \"Scientific hypothesis confirmation\"\n"}
+,{"stream_name":"stdout","time":113.345495323,"data":"  ],\n"}
+,{"stream_name":"stdout","time":113.345497577,"data":"  \"environment_run_id\": \"d72ec4e5-98d7-4934-8597-fec99bad4091\",\n"}
+,{"stream_name":"stdout","time":113.345499936,"data":"  \"returncodes\": {\n"}
+,{"stream_name":"stdout","time":113.345502184,"data":"    \"notebooks\": 0,\n"}
+,{"stream_name":"stdout","time":113.345504462,"data":"    \"tests\": 0\n"}
+,{"stream_name":"stdout","time":113.345507512,"data":"  },\n"}
+,{"stream_name":"stdout","time":113.34552409,"data":"  \"finished_utc\": \"2026-09-08T04:20:19.208639+00:00\"\n"}
+,{"stream_name":"stdout","time":113.345528494,"data":"}\n"}
+,{"stream_name":"stdout","time":113.345532089,"data":"Run complete: 20260908-041835-2ef818513f23 — preserve sealed outputs with both private archive receipts.\n"}
+,{"stream_name":"stderr","time":115.643359785,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":115.643388614,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":115.798202351,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":115.798233913,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":116.410671462,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":116.69529113,"data":"[NbConvertApp] Writing 10937 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":119.02078591,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":119.816384164,"data":"[NbConvertApp] Writing 298851 bytes to __results__.html\n"}
+]

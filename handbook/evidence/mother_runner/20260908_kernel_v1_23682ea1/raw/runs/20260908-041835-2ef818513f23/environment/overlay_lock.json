@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0",
+  "run_id": "d72ec4e5-98d7-4934-8597-fec99bad4091",
+  "git_sha": "8cc68b39e39ee61682b1b659d5d2d64a199ed951",
+  "created_utc": "2026-09-08T04:19:36.446608+00:00",
+  "report_hashes": {
+    "pip_dry_run_report": "7fa282a7c0efe9a9a72b16457492b64a64a88be323b14bcc936dc858bdfa3c3c",
+    "pip_install_report": "7fa282a7c0efe9a9a72b16457492b64a64a88be323b14bcc936dc858bdfa3c3c",
+    "pip_consistency": "188e01615c1ab9df75b5bb88e17fdfb66143e237ab5885338720860fa9ddc356",
+    "environment_transition": "bc5ee06269c78f946b2534d51c0f62ee6f1315e81d3107aa3d94cbe1c6efa8e7"
+  },
+  "lock_entries": [
+    {
+      "normalized_name": "bitsandbytes",
+      "before_version": null,
+      "after_version": "0.45.5",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "captum",
+      "before_version": null,
+      "after_version": "0.7.0",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "dataproperty",
+      "before_version": null,
+      "after_version": "1.1.1",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "evaluate",
+      "before_version": null,
+      "after_version": "0.4.6",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "hydra-core",
+      "before_version": null,
+      "after_version": "1.3.6",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "jsonlines",
+      "before_version": null,
+      "after_version": "4.0.0",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "lm-eval",
+      "before_version": null,
+      "after_version": "0.4.13",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "mbstrdecoder",
+      "before_version": null,
+      "after_version": "1.1.5",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "pathvalidate",
+      "before_version": null,
+      "after_version": "3.3.1",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "portalocker",
+      "before_version": null,
+      "after_version": "4.3.0",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "pytablewriter",
+      "before_version": null,
+      "after_version": "1.2.1",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "sacrebleu",
+      "before_version": null,
+      "after_version": "2.6.0",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "sqlitedict",
+      "before_version": null,
+      "after_version": "2.1.0",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "tabledata",
+      "before_version": null,
+      "after_version": "1.3.5",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "tcolorpy",
+      "before_version": null,
+      "after_version": "0.1.7",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "typepy",
+      "before_version": null,
+      "after_version": "1.3.5",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "word2number",
+      "before_version": null,
+      "after_version": "1.1",
+      "operation": "added"
+    }
+  ]
+}

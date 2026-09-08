@@ -1,6 +1,6 @@
 # FQ-SSIUU project status
 
-Updated 2026-09-06. Canonical plan: [MASTER_EXECUTION_PLAN.md](MASTER_EXECUTION_PLAN.md).
+Updated 2026-09-08. Canonical plan: [MASTER_EXECUTION_PLAN.md](MASTER_EXECUTION_PLAN.md).
 Active branch: `fix/kaggle-overlay-evidence-integrity`; not merged into `dev`.
 
 ## Current decision
@@ -8,13 +8,18 @@ Active branch: `fix/kaggle-overlay-evidence-integrity`; not merged into `dev`.
 OG-001 is **PASS**, independently revalidated from kernel v4 raw artifacts.
 The environment is `BASELINE_DIRTY_NO_REGRESSION`: six native diagnostics remain,
 none were introduced, and all runtime/protected-stack checks pass. The kernel's
-ERROR status belongs to a later integration test-package collision. Its repair
-and the new Mother notebook are the current work unit.
+ERROR status belongs to a later integration test-package collision. The repaired
+Mother notebook completed its first private Kaggle run successfully at source
+`23682ea1`: 144 passed, 12 historical placeholder skips, 8 deselected and one
+known SSIUU expected failure; all ten notebooks compiled. Environment and archive
+hashes were independently replayed. No scientific experiment ran.
 
 The researcher-directed execution loop is faithful upstream method → one Mother
 notebook → private Kaggle + Hugging Face archives → consistent research records.
-The exact next action is the Mother integration recipe using the verified lock;
-then upstream NPO parity and scientific reconciliation, before corrected pilots.
+The exact next action is the reviewed integration PR into `dev`; then upstream
+NPO parity and scientific reconciliation on a successor branch, before corrected
+pilots. Mother run `20260908-041835-2ef818513f23` used 1/2 authorised submissions.
+See its [verdict and private archive receipts](evidence/mother_runner/20260908_kernel_v1_23682ea1/VERDICT.json).
 
 | Evidence | What it establishes | Limit |
 |---|---|---|
@@ -32,7 +37,7 @@ scientific validity. No unrelated native package repair is planned.
 
 | Gate | Status | Required next evidence |
 |---|---|---|
-| OG-001 environment | PASS | [Kernel v4 closure](evidence/og001_kaggle/20260906_kernel_v4_2be46116/VERDICT.json); integration suite remains pending |
+| OG-001 environment | PASS | [Kernel v4 closure](evidence/og001_kaggle/20260906_kernel_v4_2be46116/VERDICT.json); reproduced in Mother v1 with full implemented non-model suite |
 | RG-003 QUAIL fidelity | BLOCKED | Primary-paper specification, complete objective and gradient/masking tests, corrected P4 |
 | RG-002 weight quantisation | BLOCKED | Deployment-aligned weight NF4 semantics and gradients, corrected P3 |
 | RG-001 SSIUU fidelity | BLOCKED | Faithful parameter attribution/state/HVP, gradient and resource evidence, corrected P2 |
