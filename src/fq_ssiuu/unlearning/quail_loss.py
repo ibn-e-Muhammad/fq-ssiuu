@@ -7,22 +7,28 @@ Reference: Mishra & Mehreen 2026, "QUAIL: Quantization-Aware Unlearning
 with Invariant Logits", arXiv:2601.15538.
 
 NOTE: This is a re-implementation from the paper description. No official
-code repository is available as of this writing.
+code repository is available as of 2026-09-03.
 
-Equation:
-    L_QUAIL = E_{(x,y) in D_f} [max(0, delta/2 - |logit_theta(y|x) - logit_ref(y|x)|)]
+FIDELITY WARNING (CR-005):
+    This module implements ONLY the hinge loss component of QUAIL.
+    The published QUAIL objective (Section VI-B of arXiv:2601.15538) has
+    THREE components:
+        L_total = α·L_forget + β·L_retain + γ·L_hinge
+    Where:
+        - L_forget: gradient ascent on forget set (cross-entropy negation)
+        - L_retain: gradient descent on retain set (standard CE loss)
+        - L_hinge: quantisation-aware hinge loss (this module)
+        - α, β, γ: dataset-specific weights (e.g. α=5, γ=8 for NEWS)
 
-Where:
-    - delta is the NF4 quantisation bin width (~8.4e-4)
-    - delta/2 is the hinge margin
-    - logit_theta is the logit from the current (unlearning) model at the target token
-    - logit_ref is the logit from the frozen reference model at the target token
+    ADDITIONALLY, the published margin is Δq = 1.0 (a surrogate for
+    numerical stability), giving margin = Δq/2 = 0.5. This implementation
+    uses margin = nf4_bin_width/2 = 4.2e-4, which is 1190× smaller.
 
-Intuition:
-    A logit deviation larger than half a quantisation bin cannot be erased by
-    INT4 rounding. The sign of the deviation is preserved across the bin boundary.
-    By enforcing |logit_theta - logit_ref| > delta/2, QUAIL ensures that the
-    unlearning signal survives quantisation.
+    Pilot P4 results are from this incomplete surrogate and cannot be
+    attributed to the full QUAIL method.
+
+Equation (hinge component only):
+    L_hinge = E_{(x,y) in D_f} [max(0, Δq/2 - |logit_θ(y|x) - logit_ref(y|x)|)]
 
 IMPORTANT DISTINCTION:
     This operates in OUTPUT space (logits). It is fundamentally different from
@@ -45,16 +51,24 @@ logger = logging.getLogger(__name__)
 class QUAILConfig:
     """Configuration for QUAIL hinge loss.
 
+    FIDELITY NOTE (CR-005):
+        Published QUAIL uses Δq=1.0 (surrogate), giving margin=0.5.
+        This config defaults to nf4_bin_width=8.4e-4, margin=4.2e-4.
+        This is a 1190× smaller margin. The values here are a project-specific
+        choice for initial experimentation and do NOT match the published method.
+
     Attributes:
         nf4_bin_width: NF4 quantisation bin width. Value 8.4e-4 is the
             empirical mean bin width from MANSU (arXiv:2605.15138), measured
             across the 16 NF4 codebook bins for typical LLM weight distributions.
+            Published QUAIL uses Δq=1.0 instead.
         margin: Hinge margin, set to nf4_bin_width / 2. A logit deviation
             exceeding this margin survives INT4 rounding.
+            Published QUAIL margin is 0.5 (Δq/2 where Δq=1.0).
     """
 
     nf4_bin_width: float = 8.4e-4
-    margin: float = 4.2e-4  # nf4_bin_width / 2
+    margin: float = 4.2e-4  # nf4_bin_width / 2 (published: 0.5)
 
 
 def compute_quail_loss(
@@ -95,9 +109,7 @@ def compute_quail_loss(
 
     # --- Input validation ---
     if model_logits.dim() != 3:
-        raise ValueError(
-            f"model_logits must be 3D [B, T, V], got shape {model_logits.shape}"
-        )
+        raise ValueError(f"model_logits must be 3D [B, T, V], got shape {model_logits.shape}")
     if ref_logits.shape != model_logits.shape:
         raise ValueError(
             f"ref_logits shape {ref_logits.shape} must match "
@@ -122,12 +134,8 @@ def compute_quail_loss(
     # Step 2: Gather logits at target token positions
     safe_labels = labels.clamp(min=0)  # Replace -100 with 0 for gather
     # Shape: [B, T, 1] -> [B, T]
-    model_target_logits = model_logits.gather(
-        dim=-1, index=safe_labels.unsqueeze(-1)
-    ).squeeze(-1)
-    ref_target_logits = ref_logits.gather(
-        dim=-1, index=safe_labels.unsqueeze(-1)
-    ).squeeze(-1)
+    model_target_logits = model_logits.gather(dim=-1, index=safe_labels.unsqueeze(-1)).squeeze(-1)
+    ref_target_logits = ref_logits.gather(dim=-1, index=safe_labels.unsqueeze(-1)).squeeze(-1)
 
     # Step 3: Compute absolute deviation at target positions
     diff = model_target_logits - ref_target_logits  # [B, T]
@@ -152,12 +160,12 @@ def test_quail_loss_at_margin():
     Test 2: When |logit_theta - logit_ref| == 0, loss == margin.
     """
     config = QUAILConfig()
-    B, T, V = 2, 3, 10
+    batch, seq, vocab = 2, 3, 10
 
     # Test 1: Deviation exactly at margin -> loss should be 0
-    ref_logits = torch.zeros(B, T, V)
-    model_logits = torch.zeros(B, T, V)
-    labels = torch.zeros(B, T, dtype=torch.long)
+    ref_logits = torch.zeros(batch, seq, vocab)
+    model_logits = torch.zeros(batch, seq, vocab)
+    labels = torch.zeros(batch, seq, dtype=torch.long)
 
     # Set logit at token 0 to have deviation = margin
     model_logits[:, :, 0] = config.margin
@@ -170,8 +178,8 @@ def test_quail_loss_at_margin():
     print(f"  Test 1: loss at margin = {loss_at_margin.item():.8f} (expected 0) — PASS")
 
     # Test 2: Zero deviation -> loss should equal margin
-    model_logits_zero = torch.zeros(B, T, V)
-    ref_logits_zero = torch.zeros(B, T, V)
+    model_logits_zero = torch.zeros(batch, seq, vocab)
+    ref_logits_zero = torch.zeros(batch, seq, vocab)
 
     loss_zero_dev = compute_quail_loss(model_logits_zero, ref_logits_zero, labels, config)
     assert abs(loss_zero_dev.item() - config.margin) < 1e-5, (

@@ -1,0 +1,6 @@
+bigframes 2.39.0 requires google-cloud-bigquery-storage, which is not installed.
+google-adk 1.29.0 requires google-cloud-bigquery-storage, which is not installed.
+google-colab 1.0.0 has requirement jupyter-server==2.14.0, but you have jupyter-server 2.12.5.
+google-colab 1.0.0 has requirement pandas==2.2.2, but you have pandas 2.3.3.
+dopamine-rl 4.1.2 has requirement gym<=0.25.2, but you have gym 0.26.2.
+moviepy 1.0.3 has requirement decorator<5.0,>=4.0.2, but you have decorator 5.3.1.

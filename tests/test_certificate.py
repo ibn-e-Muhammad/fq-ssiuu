@@ -3,8 +3,8 @@ tests/test_certificate.py
 Unit tests for the Unlearning Durability Certificate (UDT output).
 Validates certificate structure, pass/fail logic, and JSON schema.
 """
+
 import pytest
-import json
 
 pytestmark = pytest.mark.cpu  # These run in CI — no heavy dependencies needed
 

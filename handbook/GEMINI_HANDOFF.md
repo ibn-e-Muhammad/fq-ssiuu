@@ -114,7 +114,7 @@ Every item below has a self-test that passed on CPU (Python 3.11.15, torch CPU):
 
 8. **Google Drive: All persistent artefacts go here.** Path: `My Drive/fq-ssiuu-research/`. Subdirectories: `checkpoints/`, `data/processed/`, `results/`, `merged_models/`. See `checkpoints/README.md`.
 
-9. **HuggingFace token: NEVER hardcode.** Always read from `HF_TOKEN` environment variable. The token is `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`. Set it in Colab with `os.environ['HF_TOKEN'] = '...'`.
+9. **HuggingFace token: NEVER hardcode.** Always read from `HF_TOKEN` environment variable via the central secret provider (`src/fq_ssiuu/secrets.py`). Set it in Colab/Kaggle with `os.environ['HF_TOKEN'] = '<your_token>'` or store it in a Kaggle Secret named `HF_TOKEN`. **[REDACTED — token was exposed here; rotation required]**
 
 10. **Gradient checkpointing conflicts with captum.** When computing IG attributions in `ssiuu_reg.py`, gradient checkpointing must be temporarily disabled. The code handles this, but be aware if modifying the training loop.
 
@@ -246,7 +246,7 @@ Always pass `attn_implementation="sdpa"` to `from_pretrained()`. This must be ad
 **What to do:**
 1. Open a Google Colab session with L4 GPU runtime
 2. Clone the repo: `git clone https://github.com/ibn-e-Muhammad/fq-ssiuu.git`
-3. Set environment: `export HF_TOKEN='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'`
+3. Set environment: `export HF_TOKEN='<your_token>'`  # Load via secret provider; see src/fq_ssiuu/secrets.py. **[REDACTED — rotation required]**
 4. Run: `python scripts/colab_mount.py` (mount Google Drive)
 5. Run: `bash scripts/setup_env.sh` (install all dependencies)
 6. Run: `python experiments/gate0_env_check.py`
@@ -357,7 +357,7 @@ GATE-1 evaluation completed successfully:
 ### What Gemini Must Do Next:
 1. Run the Kaggle notebook: `experiments/notebooks/kaggle/PILOT_P1_P2.ipynb`
    Use **SINGLE T4 GPU** — not dual GPU (evaluation requires single-process)
-2. Replace `YOUR_HF_TOKEN` with `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` in each cell
+2. Replace `YOUR_HF_TOKEN` with the value of your `HF_TOKEN` secret in each cell. **[REDACTED — rotation required]**
 3. Run all cells in order (Cell 1 through Cell 6)
 4. Copy the complete output of Cell 4 (P1 verdict) and Cell 5 (P2 verdict)
 5. Report results back — DO NOT interpret results without reporting them first

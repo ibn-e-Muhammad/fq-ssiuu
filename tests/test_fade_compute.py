@@ -3,10 +3,12 @@ tests/test_fade_compute.py
 Unit tests for FADE (Forget Accuracy Distance Evaluation) metric computation.
 Validates statistical correctness of the KS-test-based FADE metric.
 """
+
 import pytest
 
 try:
-    import numpy as np
+    import numpy as np  # noqa: F401 — optional dependency availability probe
+
     HAS_NUMPY = True
 except ImportError:
     HAS_NUMPY = False

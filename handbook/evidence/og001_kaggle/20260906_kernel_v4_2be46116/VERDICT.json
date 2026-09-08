@@ -1,0 +1,55 @@
+{
+  "og001_status": "PASS",
+  "integration_status": "FAIL_COLLECTION",
+  "kernel_version": 4,
+  "kernel_status": "ERROR",
+  "submission_index": 2,
+  "submission_limit": 2,
+  "source_origin_sha": "1efe2b32ad65e89b3352946a568f3312f758fa00",
+  "source_tree_sha": "85974380d5aa776eaa65748eebb2a20217a9d8ec",
+  "snapshot_commit_sha": "121ddca30a4578053b214b177b7aef26f505defe",
+  "orchestration_commit": "2be461167407694826f0417afa3594b5328a3b73",
+  "run_id": "04396fe9-0195-476c-bb74-29e6a5ca074b",
+  "orchestration_run_id": "49b9cf1c-c6d8-402d-8769-fa637f74b3e6",
+  "acceptance": {
+    "status": "PASS",
+    "run_id": "04396fe9-0195-476c-bb74-29e6a5ca074b",
+    "git_sha": "121ddca30a4578053b214b177b7aef26f505defe",
+    "pip_consistency_state": "BASELINE_DIRTY_NO_REGRESSION",
+    "artifact_count": 35,
+    "peak_memory": {
+      "device": "cuda:0",
+      "peak_allocated_bytes": 8792576,
+      "peak_reserved_bytes": 23068672,
+      "device_total_bytes": 15636037632,
+      "budget_bytes": 16000000000,
+      "scope": "verifier smoke process"
+    },
+    "scientific_experiment_executed": false
+  },
+  "independent_revalidation": "PASS: validate_setup_artifacts recomputed all 35 setup artifact checks and source linkage locally",
+  "native_diagnostics": {
+    "unchanged": 6,
+    "introduced": 0,
+    "resolved": 0,
+    "overlay_related": 0
+  },
+  "imports_fp16_sdpa_nf4_device_protected_platform": "PASS",
+  "overlay_install": "PASS",
+  "editable_install": "PASS",
+  "manifests_lock": "PASS",
+  "notebooks": {
+    "validated": 8,
+    "status": "PASS"
+  },
+  "integration_failure": "Installed regular tests package shadows project namespace: tests.og001_fixtures not found. No integration tests executed after collection errors.",
+  "next_action": "Add explicit project tests package; validate full suite through the reusable Mother notebook work unit. Environment closure is retained.",
+  "scientific_experiment_executed": false,
+  "unsupported_claims": [
+    "Scientific method fidelity",
+    "Pilot or hypothesis results",
+    "Model-training memory budget",
+    "Globally clean pip environment",
+    "Complete integration-suite acceptance"
+  ]
+}

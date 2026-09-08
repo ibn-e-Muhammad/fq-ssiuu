@@ -4,6 +4,7 @@ CRITICAL: Validates STE backward pass correctness analytically.
 Must pass before any FQ-QAT experiment begins.
 These tests run on CPU — no GPU required.
 """
+
 import pytest
 import torch
 

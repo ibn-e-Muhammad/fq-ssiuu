@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "stage": "post_attempt",
+  "run_id": "b9e29923-ffc3-4162-8883-fa35a1dbc04c",
+  "utc_timestamp": "2026-09-05T09:46:04.121328+00:00",
+  "git_commit": "b1d15c5002c927a8c85791f8bf1e2422feda6166",
+  "git_dirty": false,
+  "python_version": "3.12.13 (main, Mar  4 2026, 09:23:07) [GCC 11.4.0]",
+  "cuda_visible_devices": "0",
+  "protected_packages": {
+    "torch": {
+      "name": "torch",
+      "expected_version": "2.10.0+cu128",
+      "actual_version": "2.10.0+cu128",
+      "match": true
+    },
+    "torchvision": {
+      "name": "torchvision",
+      "expected_version": "0.25.0+cu128",
+      "actual_version": "0.25.0+cu128",
+      "match": true
+    },
+    "torchaudio": {
+      "name": "torchaudio",
+      "expected_version": "2.10.0+cu128",
+      "actual_version": "2.10.0+cu128",
+      "match": true
+    },
+    "triton": {
+      "name": "triton",
+      "expected_version": "3.6.0",
+      "actual_version": "3.6.0",
+      "match": true
+    },
+    "transformers": {
+      "name": "transformers",
+      "expected_version": "5.0.0",
+      "actual_version": "5.0.0",
+      "match": true
+    },
+    "datasets": {
+      "name": "datasets",
+      "expected_version": "5.0.0",
+      "actual_version": "5.0.0",
+      "match": true
+    },
+    "accelerate": {
+      "name": "accelerate",
+      "expected_version": "1.13.0",
+      "actual_version": "1.13.0",
+      "match": true
+    },
+    "peft": {
+      "name": "peft",
+      "expected_version": "0.19.1",
+      "actual_version": "0.19.1",
+      "match": true
+    },
+    "huggingface-hub": {
+      "name": "huggingface-hub",
+      "expected_version": "1.11.0",
+      "actual_version": "1.11.0",
+      "match": true
+    },
+    "numpy": {
+      "name": "numpy",
+      "expected_version": "2.0.2",
+      "actual_version": "2.0.2",
+      "match": true
+    },
+    "scipy": {
+      "name": "scipy",
+      "expected_version": "1.16.3",
+      "actual_version": "1.16.3",
+      "match": true
+    },
+    "pandas": {
+      "name": "pandas",
+      "expected_version": "2.3.3",
+      "actual_version": "2.3.3",
+      "match": true
+    },
+    "omegaconf": {
+      "name": "omegaconf",
+      "expected_version": "2.3.0",
+      "actual_version": "2.3.0",
+      "match": true
+    },
+    "tokenizers": {
+      "name": "tokenizers",
+      "expected_version": "0.22.2",
+      "actual_version": "0.22.2",
+      "match": true
+    },
+    "safetensors": {
+      "name": "safetensors",
+      "expected_version": "0.7.0",
+      "actual_version": "0.7.0",
+      "match": true
+    }
+  },
+  "overlay_packages": {
+    "bitsandbytes": "0.45.5",
+    "captum": "0.7.0",
+    "hydra-core": "1.3.6",
+    "lm-eval": "0.4.13",
+    "jsonlines": "4.0.0"
+  },
+  "pytorch_version": "2.10.0+cu128",
+  "pytorch_cuda_version": "12.8",
+  "cudnn_version": "91002",
+  "cuda_device_count": 1,
+  "selected_gpu_name": "Tesla T4",
+  "compute_capability": [
+    7,
+    5
+  ],
+  "total_memory_bytes": 15636037632,
+  "snapshot_status": "PASS"
+}

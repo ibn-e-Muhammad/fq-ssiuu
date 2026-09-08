@@ -1,0 +1,6 @@
+# FQ-SSIUU Optional Google Drive Integration Dependencies
+# Note: Must NOT be installed by the Kaggle scientific overlay unless Drive export is explicitly requested.
+google-api-python-client>=2.194.0
+google-auth>=2.47.0
+google-auth-oauthlib>=1.2.0
+google-auth-httplib2>=0.2.0

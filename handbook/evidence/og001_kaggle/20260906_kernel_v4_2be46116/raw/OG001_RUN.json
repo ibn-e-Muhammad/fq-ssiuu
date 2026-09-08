@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0",
+  "orchestration_run_id": "49b9cf1c-c6d8-402d-8769-fa637f74b3e6",
+  "start_utc": "2026-09-06T14:24:00.859983+00:00",
+  "source_origin_sha": "1efe2b32ad65e89b3352946a568f3312f758fa00",
+  "source_tree_sha": "85974380d5aa776eaa65748eebb2a20217a9d8ec",
+  "source_manifest_sha256": "56652d45cbff5a022a6c0489e55570835f86484b928d8d8544afca5ad7f1202f",
+  "orchestration_git_commit": "2be461167407694826f0417afa3594b5328a3b73",
+  "dataset_id": "muhammadii/fq-ssiuu-source-1efe2b32",
+  "source_validation_status": "NOT_REACHED",
+  "setup_returncode": null,
+  "execution_status": "FAIL",
+  "cuda_visible_devices": "0",
+  "scientific_experiment_executed": false
+}

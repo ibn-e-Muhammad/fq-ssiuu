@@ -1,0 +1,72 @@
+test_direct_reference_distribution_version_and_removal_are_observed (tests.test_pip_consistency.TestDifferentialSetup.test_direct_reference_distribution_version_and_removal_are_observed) ... ok
+test_dirty_baseline_reaches_verifier_and_generates_lock_after_pass (tests.test_pip_consistency.TestDifferentialSetup.test_dirty_baseline_reaches_verifier_and_generates_lock_after_pass) ... ok
+test_lock_rejects_removed_package (tests.test_pip_consistency.TestDifferentialSetup.test_lock_rejects_removed_package) ... ok
+test_malformed_native_baseline_stops_before_install (tests.test_pip_consistency.TestDifferentialSetup.test_malformed_native_baseline_stops_before_install) ... ok
+test_native_duplicate_metadata_preserves_precedence_and_every_version (tests.test_pip_consistency.TestDifferentialSetup.test_native_duplicate_metadata_preserves_precedence_and_every_version) ... ok
+test_native_platform_drift_fails (tests.test_pip_consistency.TestDifferentialSetup.test_native_platform_drift_fails) ... ok
+test_new_diagnostic_still_runs_verifier_but_never_generates_lock (tests.test_pip_consistency.TestDifferentialSetup.test_new_diagnostic_still_runs_verifier_but_never_generates_lock) ... ok
+test_protected_drift_cannot_get_lock_even_with_verifier_pass (tests.test_pip_consistency.TestDifferentialSetup.test_protected_drift_cannot_get_lock_even_with_verifier_pass) ... ok
+test_unreported_change_cannot_get_lock (tests.test_pip_consistency.TestDifferentialSetup.test_unreported_change_cannot_get_lock) ... ok
+test_verifier_failure_preserves_after_manifest_and_no_lock (tests.test_pip_consistency.TestDifferentialSetup.test_verifier_failure_preserves_after_manifest_and_no_lock) ... ok
+test_clean_and_resolved_diagnostics (tests.test_pip_consistency.TestPipConsistency.test_clean_and_resolved_diagnostics) ... ok
+test_freeze_editable_comments_and_direct_references_are_not_pins (tests.test_pip_consistency.TestPipConsistency.test_freeze_editable_comments_and_direct_references_are_not_pins) ... ok
+test_malformed_or_forged_baseline_records_fail_closed (tests.test_pip_consistency.TestPipConsistency.test_malformed_or_forged_baseline_records_fail_closed) ... ok
+test_new_diagnostic_or_version_change_fails (tests.test_pip_consistency.TestPipConsistency.test_new_diagnostic_or_version_change_fails) ... ok
+test_overlay_roots_transitives_and_dependency_intersections_fail (tests.test_pip_consistency.TestPipConsistency.test_overlay_roots_transitives_and_dependency_intersections_fail) ... ok
+test_raw_bytes_are_preserved_and_tampering_rejected (tests.test_pip_consistency.TestPipConsistency.test_raw_bytes_are_preserved_and_tampering_rejected) ... ok
+test_recorded_interpreter_is_portable_but_cannot_change_during_run (tests.test_pip_consistency.TestPipConsistency.test_recorded_interpreter_is_portable_but_cannot_change_during_run) ... ok
+test_unchanged_diagnostics_accept_explicit_dirty_state (tests.test_pip_consistency.TestPipConsistency.test_unchanged_diagnostics_accept_explicit_dirty_state) ... ok
+test_unknown_output_and_inconsistent_returncodes_fail_closed (tests.test_pip_consistency.TestPipConsistency.test_unknown_output_and_inconsistent_returncodes_fail_closed) ... ok
+test_dirty_native_baseline_passes_independent_runtime_policy (tests.test_pip_consistency.TestRuntimeDifferential.test_dirty_native_baseline_passes_independent_runtime_policy) ... ok
+test_new_diagnostic_fails_despite_successful_smokes (tests.test_pip_consistency.TestRuntimeDifferential.test_new_diagnostic_fails_despite_successful_smokes) ... ok
+test_non_nf4_state_fails_even_with_finite_output (tests.test_pip_consistency.TestRuntimeDifferential.test_non_nf4_state_fails_even_with_finite_output) ... ok
+test_peak_budget_boundary_fails (tests.test_pip_consistency.TestRuntimeDifferential.test_peak_budget_boundary_fails) ... ok
+test_blocked_science_gates_are_not_promoted_or_imported (tests.test_research_gate_authority.TestResearchGateAuthority.test_blocked_science_gates_are_not_promoted_or_imported) ... ok
+test_documentation_gate_keeps_its_authoritative_status (tests.test_research_gate_authority.TestResearchGateAuthority.test_documentation_gate_keeps_its_authoritative_status) ... ok
+test_empty_registry_cannot_report_all_clear (tests.test_research_gate_authority.TestResearchGateAuthority.test_empty_registry_cannot_report_all_clear) ... ok
+test_invalid_status_fails_closed (tests.test_research_gate_authority.TestResearchGateAuthority.test_invalid_status_fails_closed) ... ok
+test_open_blocking_flags_control_json_and_exit_status (tests.test_research_gate_authority.TestResearchGateAuthority.test_open_blocking_flags_control_json_and_exit_status) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.135s
+
+OK
+=== KAGGLE OVERLAY SETUP (MODE: APPLY) ===
+Generating dry-run pip report against /home/muhammad-arslan/Downloads/projects/fq-ssiuu/requirements/kaggle-overlay.in...
+Dry-run pip report validation PASSED cleanly.
+
+Applying overlay installation...
+Installing repository editable with --no-deps...
+Running post-install environment verifier (scripts/verify_kaggle_env.py)...
+
+=== OVERLAY SETUP COMPLETE (RUN ID: 9c8dcbff-40c2-4512-8441-7ec0d91ccd9e) ===
+Artifacts and overlay lock saved to: /tmp/tmpini_2urh/out
+=== KAGGLE OVERLAY SETUP (MODE: APPLY) ===
+=== KAGGLE OVERLAY SETUP (MODE: APPLY) ===
+Generating dry-run pip report against /home/muhammad-arslan/Downloads/projects/fq-ssiuu/requirements/kaggle-overlay.in...
+Dry-run pip report validation PASSED cleanly.
+
+Applying overlay installation...
+Installing repository editable with --no-deps...
+Running post-install environment verifier (scripts/verify_kaggle_env.py)...
+=== KAGGLE OVERLAY SETUP (MODE: APPLY) ===
+Generating dry-run pip report against /home/muhammad-arslan/Downloads/projects/fq-ssiuu/requirements/kaggle-overlay.in...
+Dry-run pip report validation PASSED cleanly.
+
+Applying overlay installation...
+Installing repository editable with --no-deps...
+Running post-install environment verifier (scripts/verify_kaggle_env.py)...
+=== KAGGLE OVERLAY SETUP (MODE: APPLY) ===
+Generating dry-run pip report against /home/muhammad-arslan/Downloads/projects/fq-ssiuu/requirements/kaggle-overlay.in...
+Dry-run pip report validation PASSED cleanly.
+
+Applying overlay installation...
+Installing repository editable with --no-deps...
+Running post-install environment verifier (scripts/verify_kaggle_env.py)...
+=== KAGGLE OVERLAY SETUP (MODE: APPLY) ===
+Generating dry-run pip report against /home/muhammad-arslan/Downloads/projects/fq-ssiuu/requirements/kaggle-overlay.in...
+Dry-run pip report validation PASSED cleanly.
+
+Applying overlay installation...
+Installing repository editable with --no-deps...
+Running post-install environment verifier (scripts/verify_kaggle_env.py)...

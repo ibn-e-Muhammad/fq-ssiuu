@@ -3,40 +3,26 @@ src/fq_ssiuu/attribution/ssiuu_reg.py
 
 SSIUU-style attribution regularisation for machine unlearning.
 
-Reference: Yang et al. 2025, "SSIUU: Spurious-free Selective Integrated-gradient
-Unlearning for Unlearning", arXiv:2509.22263.
+Reference: Yang et al., “Erase or Hide? Suppressing Spurious Unlearning Neurons for
+Robust Unlearning,” arXiv:2509.22263v2.
 
-This is a re-implementation from Algorithm 1 of arXiv:2509.22263.
-The paper uses gradient-based attribution; this implementation uses
-Layer Integrated Gradients from captum, which satisfies the completeness
-and sensitivity axioms required for a valid attribution. Attribution is
-computed at the target layer's hidden state output, not at the embedding layer.
+This repository currently implements a LayerIntegratedGradients surrogate.
+It is not the published Ssiuu method.
 
-Problem addressed:
-    Standard Gradient Ascent (GA) creates "spurious unlearning neurons": instead
-    of reducing positive attributions of knowledge-encoding neurons, it creates
-    new neurons with large negative attributions that functionally suppress
-    outputs without erasing knowledge. These spurious neurons can be removed
-    by quantisation, restoring the original knowledge (the QRA mechanism).
+Published Ssiuu Mechanism:
+    - Published Ssiuu uses parameter-level attribution in Appendix B.
+    - It compares current-step attribution with the previous step.
+    - The previous-step attribution is detached.
+    - The current-step attribution remains differentiable.
+    - Its gradient includes a Hessian-vector product.
+    - The first optimization step has zero Ssiuu penalty.
 
-Mechanism:
-    SSIUU prevents this by monitoring negative attributions during training
-    and penalising any neuron that develops a MORE negative attribution than
-    it had at initialisation.
-
-Equations:
-    D^-(theta)_i = sum_{(x,y) in D_f} min(0, IG_i(x,y,theta))
-        -- sum of negative attribution values for neuron i across forget set
-
-    L_attr = lambda_attr * sum_i max(0, D^-_i(theta_0) - D^-_i(theta))
-        -- penalise neurons that became more negatively attributed than at init
-
-    Where IG_i is the Integrated Gradient for neuron i at the target layer.
+Current Implementation (LayerIG surrogate):
+    - The current surrogate uses a static initial baseline and returns detached current attribution.
 """
 
 import logging
 from dataclasses import dataclass
-from typing import Optional
 
 import torch
 
@@ -51,7 +37,9 @@ class SSIUUConfig:
         lambda_attr: Weight for the attribution regularisation loss.
             Default 1.0 from SSIUU paper. Ablate over [0.1, 0.5, 1.0, 5.0].
         target_layer_idx: Index of the target layer for attribution.
-            Default 14 (layer 14 of 28 for Llama-3.2-1B). Confirm via layer sweep.
+            Default 14 (layer 14 of 16 for Llama-3.2-1B, the penultimate
+            layer). This captures near-final representations, not middle-layer
+            features. Confirm via layer sweep.
         n_ig_steps: Number of Integrated Gradients interpolation steps.
             20 steps for speed during pilot experiments.
             Use 50 for final publication-quality results.
@@ -152,6 +140,20 @@ def compute_negative_attribution(
             model.gradient_checkpointing_enable()
         model.config.use_cache = gc_was_enabled
 
+    # CR-006 GRADIENT FLOW DIAGNOSTIC:
+    # .detach() severs the computation graph from model parameters.
+    # The resulting d_neg tensor has requires_grad=False and cannot
+    # propagate loss gradients back through the model. The surrogate
+    # regularisation loss computed from this tensor is a constant
+    # w.r.t. model parameters — the optimizer receives zero gradient
+    # from the attribution penalty.
+    #
+    # Note: Removing .detach() will NOT make this surrogate equivalent
+    # to Published SSIUU. Published SSIUU uses parameter-level gradients
+    # and Hessian-vector products. This LayerIG surrogate uses hidden
+    # layer activations.
+    #
+    # See: handbook/corrections/REGISTER.md#cr-006-ssiuu-gradient-flow
     return d_neg.detach()
 
 
@@ -176,7 +178,7 @@ class SSIUURegulariser:
         self,
         model: torch.nn.Module,
         forget_loader,
-        config: Optional[SSIUUConfig] = None,
+        config: SSIUUConfig | None = None,
     ):
         """Initialise the regulariser.
 
@@ -188,7 +190,7 @@ class SSIUURegulariser:
         self.model = model
         self.forget_loader = forget_loader
         self.config = config or SSIUUConfig()
-        self.d_neg_init: Optional[torch.Tensor] = None
+        self.d_neg_init: torch.Tensor | None = None
 
     @property
     def is_initialised(self) -> bool:
@@ -245,9 +247,7 @@ class SSIUURegulariser:
             )
 
         # Compute current negative attributions
-        d_neg_current = compute_negative_attribution(
-            self.model, forget_batch, self.config
-        )
+        d_neg_current = compute_negative_attribution(self.model, forget_batch, self.config)
 
         # L_attr = lambda * sum max(0, D^-_init - D^-_current)
         # When D^-_current is MORE negative than D^-_init (neuron became more

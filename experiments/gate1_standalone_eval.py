@@ -47,8 +47,11 @@ FQ_SSIUU_DIR = "/kaggle/working/fq-ssiuu"
 # Where the NPO checkpoint lives (upload the ZIP and extract here)
 CHECKPOINT_DIR = "/kaggle/working/checkpoints/c2_npo/seed42"
 
-# HuggingFace token
-HF_TOKEN = "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"
+# HuggingFace token — load from environment; NEVER hardcode.
+# [REDACTED — token was exposed here; rotation required]
+HF_TOKEN = os.environ.get("HF_TOKEN", "")
+if not HF_TOKEN:
+    raise RuntimeError("HF_TOKEN environment variable is not set. See src/fq_ssiuu/secrets.py.")
 
 # Evaluation output directory
 EVAL_OUTPUT_DIR = "/kaggle/working/eval_output/GATE1_STANDALONE"

@@ -1,0 +1,142 @@
+test_01_exit_code_mapping_non_zero_for_non_pass (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_01_exit_code_mapping_non_zero_for_non_pass) ... ok
+test_02_exit_code_mapping_zero_only_for_pass (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_02_exit_code_mapping_zero_only_for_pass) ... ok
+test_03_nf4_helper_invokes_quantize_and_dequantize_nf4 (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_03_nf4_helper_invokes_quantize_and_dequantize_nf4) ... ok
+test_04_sdpa_helper_invokes_scaled_dot_product_attention (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_04_sdpa_helper_invokes_scaled_dot_product_attention) ... ok
+test_05_transformers_mutation_causes_lock_generation_failure (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_05_transformers_mutation_causes_lock_generation_failure) ... ok
+test_06_datasets_mutation_causes_lock_generation_failure (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_06_datasets_mutation_causes_lock_generation_failure) ... ok
+test_07_version_comparison_0_9_0_to_0_10_0_is_upgraded (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_07_version_comparison_0_9_0_to_0_10_0_is_upgraded) ... ok
+test_08_version_comparison_1_10_0_to_1_9_0_is_downgraded (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_08_version_comparison_1_10_0_to_1_9_0_is_downgraded) ... ok
+test_09_final_pip_freeze_failure_prevents_lock_generation_and_pass (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_09_final_pip_freeze_failure_prevents_lock_generation_and_pass) ... ok
+test_10_after_manifest_non_pass_prevents_lock_generation (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_10_after_manifest_non_pass_prevents_lock_generation) ... ok
+test_11_verifier_run_id_mismatch_produces_all_required_failure_artifacts (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_11_verifier_run_id_mismatch_produces_all_required_failure_artifacts) ... ok
+test_12_verifier_git_sha_mismatch_produces_all_required_failure_artifacts (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_12_verifier_git_sha_mismatch_produces_all_required_failure_artifacts) ... ok
+test_13_verifier_status_partial_produces_all_required_failure_artifacts (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_13_verifier_status_partial_produces_all_required_failure_artifacts) ... ok
+test_14_verifier_execution_json_contains_returncode_statuses_hashes_and_verdicts (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_14_verifier_execution_json_contains_returncode_statuses_hashes_and_verdicts) ... ok
+test_15_invalid_baseline_stops_execution_before_pip (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_15_invalid_baseline_stops_execution_before_pip) ... ok
+test_16_git_provenance_failure_stops_execution (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_16_git_provenance_failure_stops_execution) ... ok
+test_17_pip_freeze_failure_stops_execution (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_17_pip_freeze_failure_stops_execution) ... ok
+test_18_missing_pip_install_report_rejected (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_18_missing_pip_install_report_rejected) ... ok
+test_19_lock_helper_includes_newly_installed_transitive_packages (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_19_lock_helper_includes_newly_installed_transitive_packages) ... ok
+test_20_lock_helper_excludes_all_protected_packages (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_20_lock_helper_excludes_all_protected_packages) ... ok
+test_report_cli_reads_valid_and_malformed_reports (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_report_cli_reads_valid_and_malformed_reports) ... ERROR: Failed to parse pip report JSON: Expecting value: line 1 column 1 (char 0)
+ok
+test_verifier_entrypoint_writes_report_with_real_control_flow (tests.test_kaggle_dependency_policy.TestKaggleDependencyPolicyBehavioral.test_verifier_entrypoint_writes_report_with_real_control_flow)
+Stub external boundaries, not check_env or its production helpers. ... ok
+test_corrupt_bundle_never_reaches_setup (tests.test_kaggle_source_transport.TestNotebookBootstrap.test_corrupt_bundle_never_reaches_setup) ... ok
+test_missing_source_writes_failure_summary_before_raising (tests.test_kaggle_source_transport.TestNotebookBootstrap.test_missing_source_writes_failure_summary_before_raising) ... ok
+test_real_setup_failure_preserves_logs_and_return_code (tests.test_kaggle_source_transport.TestNotebookBootstrap.test_real_setup_failure_preserves_logs_and_return_code) ... ok
+test_zero_exit_without_evidence_is_failure (tests.test_kaggle_source_transport.TestNotebookBootstrap.test_zero_exit_without_evidence_is_failure) ... ok
+test_cli_uses_resolved_full_sha (tests.test_kaggle_source_transport.TestSourceTransport.test_cli_uses_resolved_full_sha) ... ok
+test_existing_output_is_not_overwritten (tests.test_kaggle_source_transport.TestSourceTransport.test_existing_output_is_not_overwritten) ... ok
+test_full_history_bundle_is_rejected_even_with_matching_hash (tests.test_kaggle_source_transport.TestSourceTransport.test_full_history_bundle_is_rejected_even_with_matching_hash) ... ok
+test_manifest_digest_and_origin_mismatch_rejected (tests.test_kaggle_source_transport.TestSourceTransport.test_manifest_digest_and_origin_mismatch_rejected) ... ok
+test_parentless_tree_identical_bundle_excludes_history_and_untracked_files (tests.test_kaggle_source_transport.TestSourceTransport.test_parentless_tree_identical_bundle_excludes_history_and_untracked_files) ... ok
+test_tampered_bundle_is_rejected_before_clone (tests.test_kaggle_source_transport.TestSourceTransport.test_tampered_bundle_is_rejected_before_clone) ... ok
+test_tracked_forbidden_file_rejected_without_filtering_tree (tests.test_kaggle_source_transport.TestSourceTransport.test_tracked_forbidden_file_rejected_without_filtering_tree) ... ok
+test_tracked_secret_is_rejected_without_revealing_value (tests.test_kaggle_source_transport.TestSourceTransport.test_tracked_secret_is_rejected_without_revealing_value) ... ok
+test_tree_and_head_mismatches_rejected (tests.test_kaggle_source_transport.TestSourceTransport.test_tree_and_head_mismatches_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 11.181s
+
+OK
+=== PIP REPORT VERIFICATION: PASS ===
+Total proposed operations: 0
+Verification passed cleanly: No protected or native-stability packages modified.
+=== KAGGLE ENVIRONMENT VERIFICATION SUMMARY ===
+Overall Status: PASS
+  git_provenance: PASS
+  baseline_file: PASS
+  python_version: PASS
+  cuda_visible_devices_var: PASS
+  pytorch_version: PASS
+  cuda_device_count: PASS
+  t4_hardware: PASS
+  fp16_operation: PASS
+  sdpa_operation: PASS
+  protected_stack_integrity: PASS
+  overlay_imports: PASS
+  nf4_quantise_dequantise: PASS
+  pip_check: PASS
+{
+  "schema_version": "2.0",
+  "orchestration_run_id": "b3d40166-c0c9-4dcf-9314-ecdcb80e2563",
+  "start_utc": "2026-09-05T09:42:11.475979+00:00",
+  "source_origin_sha": "62f84556a5f2366cd28e3f971f94bc550189bf35",
+  "source_tree_sha": "75f5f505df9eb0a7dbb2d5b5052af1ec649c2925",
+  "source_manifest_sha256": "06cd4164cfabc22d4d237ea4fdf05b46cfe89048a6cd5e239ff803df767c4179",
+  "orchestration_git_commit": "cccccccccccccccccccccccccccccccccccccccc",
+  "dataset_id": "muhammadii/fq-ssiuu-source-91b6aa39",
+  "source_validation_status": "NOT_REACHED",
+  "setup_returncode": null,
+  "execution_status": "FAIL",
+  "cuda_visible_devices": "0",
+  "scientific_experiment_executed": false,
+  "failure_phase": "source_validation",
+  "first_failure": "RuntimeError: Source bundle SHA-256 or size mismatch",
+  "end_utc": "2026-09-05T09:42:11.476433+00:00",
+  "setup_status_file_exists": false
+}
+{
+  "schema_version": "2.0",
+  "orchestration_run_id": "3477f9b8-d66d-4987-94c3-d17e5a7014d7",
+  "start_utc": "2026-09-05T09:42:11.481300+00:00",
+  "source_origin_sha": "91b6aa39e520f9312b098997134c1deabeabfb8f",
+  "source_tree_sha": "1a6bd790404e39fae90f96b60cf9700a59bc2de5",
+  "source_manifest_sha256": "d64749565df66adc5be617aea959f2ff676eefbf19526dacdcc1d445f214046c",
+  "orchestration_git_commit": "cccccccccccccccccccccccccccccccccccccccc",
+  "dataset_id": "muhammadii/fq-ssiuu-source-91b6aa39",
+  "source_validation_status": "NOT_REACHED",
+  "setup_returncode": null,
+  "execution_status": "FAIL",
+  "cuda_visible_devices": "0",
+  "scientific_experiment_executed": false,
+  "failure_phase": "source_validation",
+  "first_failure": "RuntimeError: Expected exactly one attached source manifest with the pinned SHA-256",
+  "end_utc": "2026-09-05T09:42:11.481485+00:00",
+  "setup_status_file_exists": false
+}
+{
+  "schema_version": "2.0",
+  "orchestration_run_id": "b789c3f6-f257-4516-9a95-1dd7aa397096",
+  "start_utc": "2026-09-05T09:42:11.535864+00:00",
+  "source_origin_sha": "e9dc7a01506e13055977b703cf09687e8cfe6ad0",
+  "source_tree_sha": "96afe8a40e8468018ea94b983eac26d7f52e58fa",
+  "source_manifest_sha256": "11744410dce1b0fb1ea28f4ee3aeb3fbf6447fe4bc6164171fef7cec0b8dae1f",
+  "orchestration_git_commit": "cccccccccccccccccccccccccccccccccccccccc",
+  "dataset_id": "muhammadii/fq-ssiuu-source-91b6aa39",
+  "source_validation_status": "PASS",
+  "setup_returncode": 37,
+  "execution_status": "FAIL",
+  "cuda_visible_devices": "0",
+  "scientific_experiment_executed": false,
+  "snapshot_commit_sha": "8f12db3df3c65ff2b8971bc25020123d582ba963",
+  "bundle_sha256": "b4cd989413e7d2d767c32ee3eb9da909b0f30ec09761c6c39fb601e2c6133b11",
+  "history_commit_count": 1,
+  "failure_phase": "setup",
+  "first_failure": "RuntimeError: Environment setup failed with exit 37; see setup logs",
+  "end_utc": "2026-09-05T09:42:11.589406+00:00",
+  "setup_status_file_exists": false
+}
+{
+  "schema_version": "2.0",
+  "orchestration_run_id": "3d95904b-8179-49a6-a981-4b0bf874a6a9",
+  "start_utc": "2026-09-05T09:42:11.645170+00:00",
+  "source_origin_sha": "f023c3d5591d9d6188b39f6e758e7a4398da4d4e",
+  "source_tree_sha": "6406dae09fcf74fbbb92024874984a2646f57cb9",
+  "source_manifest_sha256": "268d6deade76208f59e20e7cc5e20d07ab20da65a64db7c5abe6acb2e6234952",
+  "orchestration_git_commit": "cccccccccccccccccccccccccccccccccccccccc",
+  "dataset_id": "muhammadii/fq-ssiuu-source-91b6aa39",
+  "source_validation_status": "PASS",
+  "setup_returncode": 0,
+  "execution_status": "FAIL",
+  "cuda_visible_devices": "0",
+  "scientific_experiment_executed": false,
+  "snapshot_commit_sha": "d16ac04d61af10d15e55c14430ea9ae4c69f9cfb",
+  "bundle_sha256": "b35b9ca2d712525126adb5783fb0c44e90633299c8de57ee7971855dc00727f7",
+  "history_commit_count": 1,
+  "failure_phase": "evidence_validation",
+  "first_failure": "RuntimeError: Missing setup evidence: setup_status.json",
+  "end_utc": "2026-09-05T09:42:11.700447+00:00",
+  "setup_status_file_exists": false
+}

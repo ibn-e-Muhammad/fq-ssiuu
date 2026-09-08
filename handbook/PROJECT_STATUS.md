@@ -1,74 +1,63 @@
-# FQ-SSIUU Project Status
+# FQ-SSIUU project status
 
-**Last updated:** 2026-08-15  
-**Verified by:** Claude Opus 4 (Thinking), full audit session  
-**Branch:** audit/pilot-verification
+Updated 2026-09-08. Canonical plan: [MASTER_EXECUTION_PLAN.md](MASTER_EXECUTION_PLAN.md).
+Active branch: `fix/kaggle-overlay-evidence-integrity`; not merged into `dev`.
 
----
+## Current decision
 
-## Confirmed Completed Milestones
+OG-001 is **PASS**, independently revalidated from kernel v4 raw artifacts.
+The environment is `BASELINE_DIRTY_NO_REGRESSION`: six native diagnostics remain,
+none were introduced, and all runtime/protected-stack checks pass. The kernel's
+ERROR status belongs to a later integration test-package collision. The repaired
+Mother notebook completed its first private Kaggle run successfully at source
+`23682ea1`: 144 passed, 12 historical placeholder skips, 8 deselected and one
+known SSIUU expected failure; all ten notebooks compiled. Environment and archive
+hashes were independently replayed. No scientific experiment ran.
 
-| Milestone | Date | Key Result | Verdict | Evidence |
-|-----------|------|------------|---------|----------|
-| GATE-0 | 2026-08-04 | Environment checks pass (SDPA, bnb 0.45.5) | PASS | experiments/gate0_env_check.py |
-| GATE-1 | 2026-08-08 | FQ=0.393718, MU=0.554501 | PASS (exceeds target) | results/gate1_baseline/ |
-| Pilot P1 | 2026-08-09 | Q-INT4=0.214906 (4.3× threshold) | PASS — QRA confirmed | results/pilot_p1/ |
-| Pilot P2 | 2026-08-09 | Peak VRAM=2.511 GB (12.5 GB margin) | PASS — IG feasible | results/pilot_p2/ |
-| Pilot P3 | 2026-08-10 | Loss 13.72→8.65 (-37%), coherence 5/5 | PASS (corrected from FAIL) | results/pilot_p3/ |
-| Pilot P4 | 2026-08-10 | QUAIL Q-INT4=0.227678, MU=0.280369 | PASS — C8 established | results/pilot_p4/ |
+The researcher-directed execution loop is faithful upstream method → one Mother
+notebook → private Kaggle + Hugging Face archives → consistent research records.
+The exact next action is the reviewed integration PR into `dev`; then upstream
+NPO parity and scientific reconciliation on a successor branch, before corrected
+pilots. Mother run `20260908-041835-2ef818513f23` used 1/2 authorised submissions.
+See its [verdict and private archive receipts](evidence/mother_runner/20260908_kernel_v1_23682ea1/VERDICT.json).
 
-## Confirmed Scientific Findings
+| Evidence | What it establishes | Limit |
+|---|---|---|
+| [Kernel v2](evidence/og001_kaggle/20260905_kernel_v2_24b25b5f/VERDICT.json) | Private transport, one T4, overlay/editable installs, protected packages preserved | Six global pip diagnostics; no runtime smoke result |
+| [Kernel v3](evidence/og001_kaggle/20260906_kernel_v3_82e8736f/VERDICT.json) | Source origin/tree/snapshot linkage verified; failure preserved | Inventory failed before baseline pip check or installation |
+| [Local preflight](evidence/og001_kaggle/20260906_reviewed_preflight/VERDICT.json) | Infrastructure/CPU regression tests and seven compiled notebooks; lint/format pass | Eight historical placeholder skips and known SSIUU xfail; no GPU evidence |
 
-- **H1 CONFIRMED**: QRA manifests at Llama-3.2-1B scale. Q-INT4=0.214906 (4.3× pass threshold of 0.05). Reproducible across 2 independent runs.
-- **H2 SUPPORTED**: captum IG feasible at 2.511 GB (P2 PASS). FQ-QAT+NPO training stable over 5 epochs (P3 PASS corrected).
-- **C8 ESTABLISHED**: QUAIL produces strong forgetting (FQ≈0.000121) with severe utility cost (MU=0.280). Q-INT4=0.2277 ≈ NPO Q-INT4.
-- **INT8 ANOMALY DOCUMENTED**: Q-INT8=0.426023 > Q-INT4=0.214906. INT8 (LLM.int8()) mixed-precision outlier handling disrupts distribution differently than NF4.
+[Kernel v4](evidence/og001_kaggle/20260906_kernel_v4_2be46116/VERDICT.json) passed
+source verification, installations, required imports, FP16, SDPA, genuine NF4,
+one-device enforcement, protected/native integrity, manifests and overlay lock.
+The observation establishes environment readiness, not model-training memory or
+scientific validity. No unrelated native package repair is planned.
 
-## Corrections Made During Audit
+## Gates
 
-| Item | Original Assessment | Corrected Assessment | Reason |
-|------|---------------------|----------------------|--------|
-| P3 Verdict | FAIL (grad norm > 5.0 in 5/5 epochs) | PASS | Script evaluated pre-clip gradient norms. EVB criterion specifies post-clip norm with gradient_clip=1.0 active. Post-clip norm is always ≤ 1.0 by mathematical definition. See AMENDMENT_gradient_norm_clarification.md |
+| Gate | Status | Required next evidence |
+|---|---|---|
+| OG-001 environment | PASS | [Kernel v4 closure](evidence/og001_kaggle/20260906_kernel_v4_2be46116/VERDICT.json); reproduced in Mother v1 with full implemented non-model suite |
+| RG-003 QUAIL fidelity | BLOCKED | Primary-paper specification, complete objective and gradient/masking tests, corrected P4 |
+| RG-002 weight quantisation | BLOCKED | Deployment-aligned weight NF4 semantics and gradients, corrected P3 |
+| RG-001 SSIUU fidelity | BLOCKED | Faithful parameter attribution/state/HVP, gradient and resource evidence, corrected P2 |
+| RG-004 TOFU interpretation | OPEN, documentation only | Preserve interpretation as a KS p-value, not forgetting magnitude |
 
-## Pre-Implementation Checklist (EVB Table 24)
+Machine records: [operational gates](operational_gates.yaml),
+[scientific gates](research_gates.yaml). Passing surrogate tests cannot close
+a scientific gate. Historical August pilots remain feasibility evidence only;
+their raw artifacts and correction records remain unchanged.
 
-| # | Item | Status | Evidence | Blocking? | Action Required |
-|---|------|--------|----------|-----------|----------------|
-| 1 | HF access to Llama-3.2-1B-Instruct | ✅ DONE | GATE-1 ran successfully | No | — |
-| 2 | GATE-0 environment verification | ✅ DONE | gate0_env_check.py passes | No | — |
-| 3 | GATE-1 NPO baseline reproduction | ✅ DONE | FQ=0.3937, MU=0.5545 | No | — |
-| 4 | Pilot P1 QRA existence | ✅ DONE | Q-INT4=0.2149 | No | — |
-| 5 | Pilot P2 IG attribution feasibility | ✅ DONE | Peak VRAM=2.511 GB | No | — |
-| 6 | Pilot P3 FQ-QAT stability | ✅ DONE (corrected) | Loss monotonically decreasing, coherence 5/5 | No | — |
-| 7 | Pilot P4 QUAIL baseline | ✅ DONE | Q-INT4=0.2277, C8 established | No | — |
-| 8 | GUARD-IT and QUAIL differentiation doc | ❌ PENDING | No file found in repo | No | Write DL entry distinguishing GUARD-IT/QUAIL/FQ-SSIUU |
-| 9 | OSF pre-registration | ❌ PENDING | No file found in repo | No | Draft and submit before full experiments |
-| 10 | C3 (GA baseline) config file | ❌ PENDING | configs/conditions/ missing c3_ga.yaml | No | Create config |
-| 11 | FakeQuantiseNF4 unit test | ✅ DONE | tests/test_ste_gradients.py (4 tests pass) | No | — |
-| 12 | SSIUU regularisation unit test | ✅ DONE | tests/test_attribution.py (3 tests pass) | No | — |
-| 13 | Oracle model quality (E0b) | ❌ PENDING | E0b not started | Yes (for FADE) | Run E0b oracle fine-tune |
-| 14 | Supervisor sign-off on experimental plan | ⏳ PARTIAL | Plan exists but no documented approval | No | Obtain and document sign-off |
+## Progression requirements
 
-**Summary: 10/14 DONE, 4/14 PENDING. No items block the start of full experiments except E0b (blocks FADE computation only).**
+After OG-001 and the complete validated-runtime acceptance suite pass, review the
+full `dev..HEAD` diff independently, open/update one PR and merge non-destructively
+into `dev` only if no operational defect remains. Retain historical branches and
+the four untracked DOCX files. Create one scientific reconciliation branch from
+updated `dev`, then repair RG-003, RG-002 and RG-001 using primary sources.
 
-## What Must Happen Before Full Experiments
-
-1. **Merge pilot/p3-p4 → dev** (P3+P4 results need to reach dev branch)
-2. **Create C3 (GA baseline) and C7 (DurableUn-SAF) config files**
-3. **Write GUARD-IT/QUAIL differentiation document** (DL-012)
-4. **Draft OSF pre-registration** (can be concurrent with experiments)
-5. **Obtain supervisor sign-off** on the experimental plan
-
-## The Full Experiment Dependency Order
-
-| Phase | Experiments | Status | Dependencies |
-|-------|-------------|--------|--------------|
-| Phase 0 | E0b (Oracle fine-tune) | NOT STARTED | None — can start NOW |
-| Phase 0 | GATE-2 (SSIUU validation) | NOT STARTED | P2 ✓ |
-| Phase 1 | E1+E2 (NPO 3 seeds) | NOT STARTED | GATE-1 ✓ |
-| Phase 1 | E3 (QUAIL 3 seeds) | NOT STARTED | P4 ✓ |
-| Phase 1 | E5 (FQ-QAT+NPO 3 seeds) | NOT STARTED | P3 ✓ |
-| Phase 1 | E7 (DurableUn-SAF 3 seeds) | NOT STARTED | Config needed |
-| Phase 2 | E4 (SSIUU+NPO 3 seeds) | NOT STARTED | GATE-2 |
-| Phase 3 | E6 (FQ-SSIUU full, 3 seeds) | NOT STARTED | E4 AND E5 |
-| Phase 4 | FADE computation | NOT STARTED | E0b + all conditions |
+Corrected pilots precede protocol freeze. Full hypothesis tests require a frozen
+protocol, researcher-approved preregistration and a code/config tag; they must not
+start concurrently with preregistration drafting. Public submission still requires
+Muhammad Arslan's approval. Thesis consequences are recorded in the
+[thesis ledger](THESIS_UPDATE_LEDGER.md); no new scientific metrics are claimed.

@@ -22,8 +22,14 @@ THE THREE-PRECISION PROTOCOL:
     1. Evaluate merged model at FP16 -> measure FQ_FP16 (baseline)
     2. Evaluate merged model at INT8 -> measure FQ_INT8 (intermediate)
     3. Evaluate merged model at NF4  -> measure FQ_NF4  (attack surface)
-    4. Compute: Q-INT4 = |FQ_NF4 - FQ_FP16| / (FQ_FP16 + eps)
-    5. Verdict: Q-INT4 > 0.05 = PASS (QRA confirmed)
+    4. Compute: relative_precision_sensitivity = |FQ_NF4 - FQ_FP16| / (FQ_FP16 + eps)
+    5. Verdict: sensitivity > 0.05 = PASS (QRA confirmed)
+
+    NOTE on Forget Quality (FQ): FQ is a Kolmogorov-Smirnov test p-value
+    comparing the unlearned model's output distribution against a retain-only
+    oracle. A larger p-value indicates less evidence of distributional
+    difference (= better forgetting under TOFU protocol). Near-zero FQ
+    means the distributions are statistically distinguishable. See CR-001.
 
     Each evaluation loads the model FRESH from disk at the target precision.
     Models are never re-quantised from an already-loaded checkpoint.
@@ -40,14 +46,12 @@ import os
 import subprocess
 import sys
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
-from pathlib import Path
-from typing import Dict, List, Optional
+from datetime import UTC, datetime
 
 logger = logging.getLogger(__name__)
 
 # The precisions to evaluate, in order
-PRECISIONS: List[str] = ["fp16", "int8", "nf4"]
+PRECISIONS: list[str] = ["fp16", "int8", "nf4"]
 
 
 @dataclass
@@ -68,9 +72,7 @@ class QRAConfig:
 
     checkpoint_path: str = ""
     open_unlearning_path: str = ""
-    retain_logs_path: str = (
-        "saves/eval/tofu_Llama-3.2-1B-Instruct_retain90/TOFU_EVAL.json"
-    )
+    retain_logs_path: str = "saves/eval/tofu_Llama-3.2-1B-Instruct_retain90/TOFU_EVAL.json"
     forget_split: str = "forget05"
     holdout_split: str = "holdout10"
     output_base_dir: str = "/tmp/qra_eval"
@@ -85,7 +87,9 @@ class PrecisionResult:
 
     Attributes:
         precision: The precision level ('fp16', 'int8', 'nf4').
-        forget_quality: Forget Quality metric (KS p-value, higher = better unlearning).
+        forget_quality: Forget Quality metric (KS p-value comparing unlearned
+            model vs retain-only oracle; higher = less evidence of distributional
+            difference = better forgetting under TOFU protocol). See CR-001.
         model_utility: Model Utility metric (higher = better utility preservation).
         all_metrics: Complete metric dict from TOFU_SUMMARY.json.
         elapsed_seconds: Time taken for this evaluation.
@@ -95,7 +99,7 @@ class PrecisionResult:
     precision: str
     forget_quality: float
     model_utility: float
-    all_metrics: Dict = field(default_factory=dict)
+    all_metrics: dict = field(default_factory=dict)
     elapsed_seconds: float = 0.0
     evaluation_timestamp: str = ""
 
@@ -109,17 +113,20 @@ class QRAResult:
         seed: Random seed used.
         results_by_precision: Dict mapping precision name to PrecisionResult.
         q_int4_score: |FQ_NF4 - FQ_FP16| / (FQ_FP16 + eps).
+            Renamed to 'relative_precision_sensitivity' in certificate.py v2.
         q_int8_score: |FQ_INT8 - FQ_FP16| / (FQ_FP16 + eps) (intermediate check).
+        certification_threshold: The pass threshold used for verdict.
         verdict: 'PASS', 'FAIL', or 'BORDERLINE'.
-        certified: True if Q-INT4 > pass_threshold (QRA confirmed).
+        certified: True if q_int4_score > certification_threshold.
         notes: Free-text notes.
     """
 
     condition_id: str
     seed: int
-    results_by_precision: Dict[str, PrecisionResult] = field(default_factory=dict)
+    results_by_precision: dict[str, PrecisionResult] = field(default_factory=dict)
     q_int4_score: float = 0.0
     q_int8_score: float = 0.0
+    certification_threshold: float = 0.05
     verdict: str = "PENDING"
     certified: bool = False
     notes: str = ""
@@ -142,7 +149,9 @@ def _find_eval_script() -> str:
     """Locate the _eval_at_precision.py helper script."""
     candidates = [
         # When running from the fq-ssiuu repo root
-        os.path.join(os.path.dirname(__file__), "..", "..", "..", "experiments", "_eval_at_precision.py"),
+        os.path.join(
+            os.path.dirname(__file__), "..", "..", "..", "experiments", "_eval_at_precision.py"
+        ),
         # When installed as a package
         os.path.join(os.getcwd(), "experiments", "_eval_at_precision.py"),
         # Absolute fallback
@@ -154,8 +163,7 @@ def _find_eval_script() -> str:
             return abspath
 
     raise FileNotFoundError(
-        "Cannot find experiments/_eval_at_precision.py. "
-        "Searched: " + ", ".join(candidates)
+        "Cannot find experiments/_eval_at_precision.py. Searched: " + ", ".join(candidates)
     )
 
 
@@ -199,14 +207,22 @@ def evaluate_at_precision(config: QRAConfig, precision: str) -> PrecisionResult:
     cmd = [
         sys.executable,
         eval_script,
-        "--precision", precision,
-        "--checkpoint_path", config.checkpoint_path,
-        "--open_unlearning_path", config.open_unlearning_path,
-        "--retain_logs_path", config.retain_logs_path,
-        "--output_dir", output_dir,
-        "--forget_split", config.forget_split,
-        "--holdout_split", config.holdout_split,
-        "--seed", str(config.seed),
+        "--precision",
+        precision,
+        "--checkpoint_path",
+        config.checkpoint_path,
+        "--open_unlearning_path",
+        config.open_unlearning_path,
+        "--retain_logs_path",
+        config.retain_logs_path,
+        "--output_dir",
+        output_dir,
+        "--forget_split",
+        config.forget_split,
+        "--holdout_split",
+        config.holdout_split,
+        "--seed",
+        str(config.seed),
     ]
 
     print(f"\n--- Running evaluation at {precision.upper()} precision ---", flush=True)
@@ -260,7 +276,7 @@ def evaluate_at_precision(config: QRAConfig, precision: str) -> PrecisionResult:
             "This is the GATE-1 bug — must be fixed before continuing."
         )
 
-    timestamp = datetime.now(timezone.utc).isoformat()
+    timestamp = datetime.now(UTC).isoformat()
 
     result = PrecisionResult(
         precision=precision,
@@ -273,7 +289,8 @@ def evaluate_at_precision(config: QRAConfig, precision: str) -> PrecisionResult:
 
     print(
         f"{precision.upper()} evaluation complete: FQ={result.forget_quality:.6f}, "
-        f"MU={result.model_utility:.6f} ({elapsed:.1f} sec)", flush=True
+        f"MU={result.model_utility:.6f} ({elapsed:.1f} sec)",
+        flush=True,
     )
 
     return result
@@ -357,6 +374,7 @@ def run_qra_evaluation(config: QRAConfig, condition_id: str = "P1_QRA") -> QRARe
         results_by_precision=results,
         q_int4_score=q_int4,
         q_int8_score=q_int8,
+        certification_threshold=config.qra_pass_threshold,
         verdict=verdict,
         certified=certified,
         notes=notes,
@@ -364,7 +382,10 @@ def run_qra_evaluation(config: QRAConfig, condition_id: str = "P1_QRA") -> QRARe
 
     print("=" * 60, flush=True)
     print("QRA EVALUATION COMPLETE", flush=True)
-    print(f"  Q-INT4 = {q_int4:.6f}  (threshold: >{config.qra_pass_threshold:.2f} for PASS)", flush=True)
+    print(
+        f"  Q-INT4 = {q_int4:.6f}  (threshold: >{config.qra_pass_threshold:.2f} for PASS)",
+        flush=True,
+    )
     print(f"  Q-INT8 = {q_int8:.6f}", flush=True)
     print(f"  VERDICT: {verdict}", flush=True)
     print("=" * 60, flush=True)
@@ -386,12 +407,11 @@ def save_qra_result(result: QRAResult, output_path: str) -> None:
         "seed": result.seed,
         "q_int4_score": result.q_int4_score,
         "q_int8_score": result.q_int8_score,
+        "certification_threshold": result.certification_threshold,
         "verdict": result.verdict,
         "certified": result.certified,
         "notes": result.notes,
-        "results_by_precision": {
-            k: asdict(v) for k, v in result.results_by_precision.items()
-        },
+        "results_by_precision": {k: asdict(v) for k, v in result.results_by_precision.items()},
     }
 
     with open(output_path, "w") as f:
@@ -401,6 +421,7 @@ def save_qra_result(result: QRAResult, output_path: str) -> None:
 
 
 # ─── Self-Test ───────────────────────────────────────────────────
+
 
 def test_q_int4_formula():
     """Verify Q-INT4 formula on known values.

@@ -1,0 +1,64 @@
+[{"stream_name":"stderr","time":7.746236898,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.746301877,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.746306077,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.746312214,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.352980822,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.353008292,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.35301385,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.353018124,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":22.360211018,"data":"{\n"}
+,{"stream_name":"stdout","time":22.360254892,"data":"  \"schema_version\": \"2.0\",\n"}
+,{"stream_name":"stdout","time":22.360260825,"data":"  \"orchestration_run_id\": \"8973e45e-dd15-4414-96fb-2fdfeed278d6\",\n"}
+,{"stream_name":"stdout","time":22.360265702,"data":"  \"start_utc\": \"2026-09-06T04:36:37.714211+00:00\",\n"}
+,{"stream_name":"stdout","time":22.360275551,"data":"  \"source_origin_sha\": \"6cb7933dd4eb4d3753bc3535aae6388c6a1d2236\",\n"}
+,{"stream_name":"stdout","time":22.360279043,"data":"  \"source_tree_sha\": \"23e501ef34cb33e6b0840cf84c0e4e532449063b\",\n"}
+,{"stream_name":"stdout","time":22.360282285,"data":"  \"source_manifest_sha256\": \"32336cd78b174ac5471dad52fc57660d436505cba46d7542f7fc1e8ec95d4eea\",\n"}
+,{"stream_name":"stdout","time":22.36028544,"data":"  \"orchestration_git_commit\": \"82e8736fbdb22b7e807cfaa7d2ace3791afd494a\",\n"}
+,{"stream_name":"stdout","time":22.360288663,"data":"  \"dataset_id\": \"muhammadii/fq-ssiuu-source-6cb7933d\",\n"}
+,{"stream_name":"stdout","time":22.360291913,"data":"  \"source_validation_status\": \"PASS\",\n"}
+,{"stream_name":"stdout","time":22.360295128,"data":"  \"setup_returncode\": 1,\n"}
+,{"stream_name":"stdout","time":22.36029813,"data":"  \"execution_status\": \"FAIL\",\n"}
+,{"stream_name":"stdout","time":22.360301095,"data":"  \"cuda_visible_devices\": \"0\",\n"}
+,{"stream_name":"stdout","time":22.360304183,"data":"  \"scientific_experiment_executed\": false,\n"}
+,{"stream_name":"stdout","time":22.360307235,"data":"  \"snapshot_commit_sha\": \"d1d5328cc899e09181479bcae2df668e20f747d3\",\n"}
+,{"stream_name":"stdout","time":22.360310286,"data":"  \"bundle_sha256\": \"afc81dd9c7997db1fce62a84cd66ccb0d8069afd5d378e346a51e33a75be9fc2\",\n"}
+,{"stream_name":"stdout","time":22.360313367,"data":"  \"history_commit_count\": 1,\n"}
+,{"stream_name":"stdout","time":22.3603164,"data":"  \"failure_phase\": \"setup\",\n"}
+,{"stream_name":"stdout","time":22.360319409,"data":"  \"first_failure\": \"RuntimeError: Environment setup failed with exit 1; see setup logs\",\n"}
+,{"stream_name":"stdout","time":22.360322603,"data":"  \"end_utc\": \"2026-09-06T04:36:50.619461+00:00\",\n"}
+,{"stream_name":"stdout","time":22.360325793,"data":"  \"setup_status_file_exists\": true\n"}
+,{"stream_name":"stdout","time":22.360328781,"data":"}\n"}
+,{"stream_name":"stderr","time":22.584108727,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":22.584135962,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":22.584142595,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":22.584233887,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":22.584240676,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":22.584433857,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":22.584566685,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":22.584572674,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":22.584576924,"data":"Exception encountered at \"In [1]\":\n"}
+,{"stream_name":"stderr","time":22.584580597,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":22.584584539,"data":"RuntimeError                              Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":22.584588432,"data":"/tmp/ipykernel_24/3008918361.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":22.584592818,"data":"    163 \n"}
+,{"stream_name":"stderr","time":22.584596789,"data":"    164 if __name__ == \"__main__\":\n"}
+,{"stream_name":"stderr","time":22.584600774,"data":"--\u003e 165     run_validation()\n"}
+,{"stream_name":"stderr","time":22.58460499,"data":"\n"}
+,{"stream_name":"stderr","time":22.58460832,"data":"/tmp/ipykernel_24/3008918361.py in run_validation(input_root, working)\n"}
+,{"stream_name":"stderr","time":22.584611779,"data":"    158         print(json.dumps(summary, indent=2))\n"}
+,{"stream_name":"stderr","time":22.584615078,"data":"    159     if summary[\"execution_status\"] != \"PASS\":\n"}
+,{"stream_name":"stderr","time":22.584619271,"data":"--\u003e 160         raise RuntimeError(summary.get(\"first_failure\", \"Validation failed\"))\n"}
+,{"stream_name":"stderr","time":22.584623166,"data":"    161     return summary\n"}
+,{"stream_name":"stderr","time":22.584626355,"data":"    162 \n"}
+,{"stream_name":"stderr","time":22.584629519,"data":"\n"}
+,{"stream_name":"stderr","time":22.584632629,"data":"RuntimeError: RuntimeError: Environment setup failed with exit 1; see setup logs\n"}
+,{"stream_name":"stderr","time":22.584636087,"data":"\n"}
+,{"stream_name":"stderr","time":24.621265461,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":24.621286883,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":24.772262041,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":24.772303166,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":25.362216237,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":25.649679621,"data":"[NbConvertApp] Writing 16630 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":27.901038304,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":28.691795524,"data":"[NbConvertApp] Writing 315957 bytes to __results__.html\n"}
+]

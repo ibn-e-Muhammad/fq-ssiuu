@@ -15,9 +15,10 @@ model:
   quantisation:
     load_in_4bit: true
     bnb_4bit_quant_type: "nf4"
-    bnb_4bit_compute_dtype: "bfloat16"
+    # T4 does not support BF16, using FP16
+    bnb_4bit_compute_dtype: "float16"
     bnb_4bit_use_double_quant: true
-  torch_dtype: "bfloat16"
+  torch_dtype: "float16"
   device_map: "auto"
 
 lora:

@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.1",
+  "probe_version": "1.1.0",
+  "run_id": "57588774-bdd5-41c8-b56e-7df0c2f5049b",
+  "utc_timestamp": "2026-09-04T18:52:48.388417+00:00",
+  "statuses": {
+    "execution_status": "PASS",
+    "hardware_gate_status": "PASS",
+    "nf4_status": "UNAVAILABLE",
+    "dependency_readiness": "READY",
+    "overall_gate0_status": "PARTIAL"
+  }
+}

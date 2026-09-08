@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/tmp/ipykernel_23/606014009.py", line 111, in run_validation
+    raise RuntimeError(f"Environment setup failed with exit {setup.returncode}; see setup logs")
+RuntimeError: Environment setup failed with exit 1; see setup logs

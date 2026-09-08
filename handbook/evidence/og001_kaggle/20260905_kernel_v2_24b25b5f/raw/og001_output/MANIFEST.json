@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "run_id": "b9e29923-ffc3-4162-8883-fa35a1dbc04c",
+  "git_sha": "b1d15c5002c927a8c85791f8bf1e2422feda6166",
+  "execution_status": "FAIL",
+  "start_utc_timestamp": "2026-09-05T09:45:25.741677+00:00",
+  "end_utc_timestamp": "2026-09-05T09:46:05.879119+00:00",
+  "artifacts": [
+    {
+      "path": "before_freeze.log",
+      "size_bytes": 18522,
+      "sha256": "ecdc6ea75835d585a669d3fd8397479fd7d53844d3c8c86a2c6c5e1d57883657"
+    },
+    {
+      "path": "before_manifest.json",
+      "size_bytes": 2937,
+      "sha256": "0a8256e32b61df10b95456917f2cc969ded4d5e6d02272a2565e8f5b988d68da"
+    },
+    {
+      "path": "dry_run_stderr.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "dry_run_stdout.log",
+      "size_bytes": 26571,
+      "sha256": "49879b32cc67f3e1bd621391993185a08340dbd6e136997611331ec45c399b6b"
+    },
+    {
+      "path": "editable_stderr.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "editable_stdout.log",
+      "size_bytes": 1131,
+      "sha256": "e665c4ee5fee6c83b628f53a05613ee1d860c794f6d1384da83d99a8517962ec"
+    },
+    {
+      "path": "install_stderr.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "install_stdout.log",
+      "size_bytes": 26294,
+      "sha256": "df5d198f476fc192e36f8614af1d334d09bd625894bba4b47dbab28bad436394"
+    },
+    {
+      "path": "install_verification_report.json",
+      "size_bytes": 1947,
+      "sha256": "ec0dfb7329be70f504ca6d2390ba60f177dfaf99532163b4d4351b182e0c5bc9"
+    },
+    {
+      "path": "pip_check.log",
+      "size_bytes": 490,
+      "sha256": "2c99993bdaa1efa61406b281e3c408724a14e714bcaf3dfb4da60af8ec2a044c"
+    },
+    {
+      "path": "pip_dry_run_report.json",
+      "size_bytes": 286844,
+      "sha256": "aa611e0d38899068e3b7e33cfffbb79c337cb4e31f746097943c8e130ee4bff9"
+    },
+    {
+      "path": "pip_install_report.json",
+      "size_bytes": 286844,
+      "sha256": "aa611e0d38899068e3b7e33cfffbb79c337cb4e31f746097943c8e130ee4bff9"
+    },
+    {
+      "path": "post_attempt_manifest.json",
+      "size_bytes": 2960,
+      "sha256": "8efc631d46829b796538ef9c28321437a5dcfebaaed515920073f1043601d0d7"
+    },
+    {
+      "path": "setup_status.json",
+      "size_bytes": 130,
+      "sha256": "6114e4720fe46ef6450f228fda8a1eb8936d804ca956c9718ec20e6b1d634cb2"
+    },
+    {
+      "path": "verification_report.json",
+      "size_bytes": 1947,
+      "sha256": "ec0dfb7329be70f504ca6d2390ba60f177dfaf99532163b4d4351b182e0c5bc9"
+    }
+  ]
+}

@@ -22,11 +22,15 @@ Why NPO prevents catastrophic collapse:
 
     NPO clips the effective loss contribution: as π_θ → 0, the ratio
     log(π_θ/π_ref) → -∞, so softplus(β·ratio) → 0. The loss approaches:
-        L_NPO → (2/β) · log(2) ≈ (2/β) · 0.693
-    This is a finite constant, not infinity. The optimizer stops receiving
-    signal to push further once forgetting is sufficient.
+        L_NPO → 0 (the global infimum)
+    At ratio = 0 (identical models):
+        L_NPO = (2/β) · log(2) ≈ (2/β) · 0.693
+    As ratio → +∞ (model assigns higher probability than reference):
+        L_NPO → 2 · ratio, which is unbounded above.
 
-    Bounded range: 0 ≤ L_NPO ≤ 2/β for each example.
+    In the intended unlearning direction (π_θ → 0), the loss is effectively
+    bounded, which prevents catastrophic collapse. In the reverse direction
+    (model probability increases), the loss grows without bound.
 """
 
 import logging
@@ -74,14 +78,11 @@ def compute_npo_loss(model_logits, ref_logits, labels, beta: float = 0.1):
     Raises:
         ValueError: If tensor shapes are incompatible or beta <= 0.
     """
-    import torch
-    import torch.nn.functional as F
+    import torch.nn.functional as functional
 
     # --- Input validation ---
     if model_logits.dim() != 3:
-        raise ValueError(
-            f"model_logits must be 3D [B, T, V], got shape {model_logits.shape}"
-        )
+        raise ValueError(f"model_logits must be 3D [B, T, V], got shape {model_logits.shape}")
     if ref_logits.shape != model_logits.shape:
         raise ValueError(
             f"ref_logits shape {ref_logits.shape} must match "
@@ -101,8 +102,8 @@ def compute_npo_loss(model_logits, ref_logits, labels, beta: float = 0.1):
 
     # Step 1: Compute per-token log-probabilities via log_softmax
     # Shape: [B, T, V]
-    model_log_probs = F.log_softmax(model_logits, dim=-1)
-    ref_log_probs = F.log_softmax(ref_logits, dim=-1)
+    model_log_probs = functional.log_softmax(model_logits, dim=-1)
+    ref_log_probs = functional.log_softmax(ref_logits, dim=-1)
 
     # Step 2: Gather log-probabilities at the label positions
     # Create a mask for valid (non-padding) tokens
@@ -112,12 +113,10 @@ def compute_npo_loss(model_logits, ref_logits, labels, beta: float = 0.1):
 
     # Gather: select the log-prob of the correct token at each position
     # Shape: [B, T, 1] → [B, T]
-    model_token_log_probs = model_log_probs.gather(
-        dim=-1, index=safe_labels.unsqueeze(-1)
-    ).squeeze(-1)
-    ref_token_log_probs = ref_log_probs.gather(
-        dim=-1, index=safe_labels.unsqueeze(-1)
-    ).squeeze(-1)
+    model_token_log_probs = model_log_probs.gather(dim=-1, index=safe_labels.unsqueeze(-1)).squeeze(
+        -1
+    )
+    ref_token_log_probs = ref_log_probs.gather(dim=-1, index=safe_labels.unsqueeze(-1)).squeeze(-1)
 
     # Step 3: Mask out padding positions
     model_token_log_probs = model_token_log_probs * mask.float()
@@ -133,7 +132,7 @@ def compute_npo_loss(model_logits, ref_logits, labels, beta: float = 0.1):
     # ratio = β · (log_prob_θ − log_prob_ref)
     ratio = beta * (model_avg_log_prob - ref_avg_log_prob)  # [B]
     # L_NPO = (2/β) · softplus(ratio)
-    npo_loss = (2.0 / beta) * F.softplus(ratio)  # [B]
+    npo_loss = (2.0 / beta) * functional.softplus(ratio)  # [B]
 
     # Step 6: Average over batch
     loss = npo_loss.mean()
@@ -149,8 +148,8 @@ def compute_retain_kl_loss(model_logits, ref_logits):
 
     Property: when model_logits == ref_logits, KL = 0 exactly.
 
-    IMPORTANT: F.kl_div argument order matters:
-        F.kl_div(input=log_probs, target=probs, reduction='batchmean', log_target=False)
+    IMPORTANT: functional.kl_div argument order matters:
+        functional.kl_div(input=log_probs, target=probs, reduction='batchmean', log_target=False)
     The 'input' is LOG-probabilities from the current model.
     The 'target' is PROBABILITIES from the reference model.
     Getting this wrong produces incorrect gradients.
@@ -167,35 +166,29 @@ def compute_retain_kl_loss(model_logits, ref_logits):
     Raises:
         ValueError: If shapes don't match.
     """
-    import torch.nn.functional as F
+    import torch.nn.functional as functional
 
     if model_logits.shape != ref_logits.shape:
         raise ValueError(
-            f"Shape mismatch: model_logits {model_logits.shape} "
-            f"vs ref_logits {ref_logits.shape}"
+            f"Shape mismatch: model_logits {model_logits.shape} vs ref_logits {ref_logits.shape}"
         )
 
-    # Log-probabilities for the current model (input to kl_div)
-    model_log_probs = F.log_softmax(model_logits, dim=-1)
-    # Probabilities for the reference model (target for kl_div)
-    ref_probs = F.softmax(ref_logits, dim=-1)
-
     # KL(π_θ ‖ π_ref) = Σ π_ref(x) · [log π_ref(x) − log π_θ(x)]
-    # F.kl_div computes: Σ target · (log(target) − input)
+    # functional.kl_div computes: Σ target · (log(target) − input)
     # which equals KL(target ‖ input) when target=π_ref and input=log(π_θ)
-    # Wait — F.kl_div(input, target) = target * (log(target) - input)
+    # Wait — functional.kl_div(input, target) = target * (log(target) - input)
     # This gives KL(target ‖ exp(input)), which is what we want: KL(π_ref ‖ π_θ).
     # Actually, we want KL(π_θ ‖ π_ref), so we need:
-    # F.kl_div(input=log_ref, target=probs_model) — but convention in unlearning
+    # functional.kl_div(input=log_ref, target=probs_model) — but convention in unlearning
     # is to use KL(π_θ ‖ π_ref), keeping the model close to the reference.
     #
     # For retain regularisation, we use KL(π_θ ‖ π_ref):
     # = Σ π_θ(x) · [log π_θ(x) − log π_ref(x)]
-    # F.kl_div(input=log_ref, target=π_θ) gives Σ π_θ · (log π_θ − log_ref) ✓
-    ref_log_probs = F.log_softmax(ref_logits, dim=-1)
-    model_probs = F.softmax(model_logits, dim=-1)
+    # functional.kl_div(input=log_ref, target=π_θ) gives Σ π_θ · (log π_θ − log_ref) ✓
+    ref_log_probs = functional.log_softmax(ref_logits, dim=-1)
+    model_probs = functional.softmax(model_logits, dim=-1)
 
-    kl_loss = F.kl_div(
+    kl_loss = functional.kl_div(
         input=ref_log_probs,
         target=model_probs,
         reduction="batchmean",
@@ -239,4 +232,6 @@ def test_npo_loss_zero_when_equal():
     kl = compute_retain_kl_loss(logits, logits)
     assert abs(kl.item()) < 1e-5, f"KL with identical logits should be 0, got {kl.item()}"
 
-    logger.info("Self-test PASSED: NPO=%.4f (expected %.4f), KL=%.6f", loss.item(), expected, kl.item())
+    logger.info(
+        "Self-test PASSED: NPO=%.4f (expected %.4f), KL=%.6f", loss.item(), expected, kl.item()
+    )

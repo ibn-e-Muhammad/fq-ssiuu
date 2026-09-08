@@ -1,0 +1,17 @@
+{
+  "work_unit": "OG001_DIFFERENTIAL_CLOSURE_20260905",
+  "submission_limit": 2,
+  "submission_index": 1,
+  "stage_dir": "/tmp/fq-ogclosure-kernel-_eohalpf",
+  "source_commit": "6cb7933dd4eb4d3753bc3535aae6388c6a1d2236",
+  "source_tree": "23e501ef34cb33e6b0840cf84c0e4e532449063b",
+  "notebook_commit": "82e8736fbdb22b7e807cfaa7d2ace3791afd494a",
+  "source_manifest_sha256": "32336cd78b174ac5471dad52fc57660d436505cba46d7542f7fc1e8ec95d4eea",
+  "source_download_verification": "PASS",
+  "committed_notebook_sha256": "d6f70dd4d1276e6097606d64ed8e6171f3fd5f43759b3e5d239ce0da9060c760",
+  "staged_notebook_sha256": "91f0ff278e883f711a7806f20bf99169334f2c4bd0968382d9db115d566a351a",
+  "metadata_sha256": "8254da413e6eabcee415c9e14e6e000c2302739afa1618e1e9f69651b134a603",
+  "attempt_utc": "2026-09-06T04:36:21.303805+00:00",
+  "state": "SUBMISSION_REQUESTING",
+  "kernel_id": "muhammadii/fq-ssiuu-og-001-overlay-validation"
+}

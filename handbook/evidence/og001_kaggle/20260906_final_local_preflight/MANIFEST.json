@@ -1,0 +1,34 @@
+{
+  "artifacts": [
+    {
+      "path": "VERDICT.json",
+      "sha256": "898ece7bff6db996f92c36656666f1929399078d80f3f8a4d1b0eb3930dd17d8",
+      "bytes": 1189
+    },
+    {
+      "path": "local-integration.log",
+      "sha256": "e588edae447bad000f6979b8151d81f98cc15f96f28cca44a1f698c9cead503e",
+      "bytes": 16778
+    },
+    {
+      "path": "local-integration.xml",
+      "sha256": "ad3defcf173049893523eaaa0cf928edb0732b81a7b9d79462ddc48fcda6c53e",
+      "bytes": 20639
+    },
+    {
+      "path": "notebook-validation.json",
+      "sha256": "dd8fed3d6ac4e41c0318aeae24cd023dc72eb7f4464e30f42f3f489fd71e56d0",
+      "bytes": 1289
+    },
+    {
+      "path": "offline-unittest.log",
+      "sha256": "6598d29200f06e9da5d9859658f4ca6a90788fc2ee98692a99de629aa299785c",
+      "bytes": 20051
+    },
+    {
+      "path": "static-checks.log",
+      "sha256": "c63b646ec462044af48b890504c75e21db2e84c1f41887f2656dd2f90296cbac",
+      "bytes": 459
+    }
+  ]
+}

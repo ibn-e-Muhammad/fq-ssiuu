@@ -1,0 +1,29 @@
+{
+  "artifacts": [
+    {
+      "path": "REVIEW.md",
+      "sha256": "dc1cd11e394691896c842d931121875c3368911e47de98356d2c1f6e70e1cfe8",
+      "bytes": 669
+    },
+    {
+      "path": "VERDICT.json",
+      "sha256": "e08fbb92b2d16e2954c9370971dab9e8f4d0f0913f579ef0cb2fc31049732dca",
+      "bytes": 917
+    },
+    {
+      "path": "integration.log",
+      "sha256": "acd3be4cfe72a53b4aa81bca0142959ec1fd79e2ddfb7922d74e9fd777958ad3",
+      "bytes": 18060
+    },
+    {
+      "path": "integration.xml",
+      "sha256": "d96d6da1c414f8929ba7353a391f7aa83c49eb5e90627dcfb05eefa9457424c3",
+      "bytes": 20953
+    },
+    {
+      "path": "review-regressions.log",
+      "sha256": "df8024e327ea3833dee9a5813e4d65f7d718e265361b570900a5f98dc7ee3150",
+      "bytes": 6760
+    }
+  ]
+}

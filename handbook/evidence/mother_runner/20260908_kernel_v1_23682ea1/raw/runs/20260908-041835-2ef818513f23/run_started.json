@@ -1,0 +1,8 @@
+{
+  "run_id": "20260908-041835-2ef818513f23",
+  "kind": "integration",
+  "seed": 42,
+  "started_utc": "2026-09-08T04:18:37.490346+00:00",
+  "status": "RUNNING",
+  "recipe_sha256": "2e312e6c31fe3e923d0b51f533fef6b7e6c468ef15aef2195e8f69b2f2d2c01c"
+}

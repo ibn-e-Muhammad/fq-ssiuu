@@ -1,0 +1,13 @@
+{
+  "dataset_stage": "/tmp/fq-og001-dataset-lcwecnyq",
+  "dataset_id": "muhammadii/fq-ssiuu-source-91b6aa39",
+  "source_manifest_sha256": "d64749565df66adc5be617aea959f2ff676eefbf19526dacdcc1d445f214046c",
+  "kernel_stage": "/tmp/fq-og001-kernel-k3bl1fih",
+  "transport_commit": "24b25b5f3883646d1841e83cdd6a88a54b3fd93d",
+  "kernel_id": "muhammadii/fq-ssiuu-og-001-overlay-validation",
+  "requested_accelerator": "NvidiaTeslaT4",
+  "staged_notebook_sha256": "90b44542e9825162887a2e2bb749d06f26e7bc3f47efbe485c6f34d35a85d7aa",
+  "staged_metadata_sha256": "31b995bc06371576b1a887cace013a26d1456016ecc516f16735c05e1500fba8",
+  "committed_notebook_sha256": "a20d43b6d8fbd329257ea82435a1b80fd8b0caa9d736d01acbab426017dc0302",
+  "staging_delta": "Only ORCHESTRATION_COMMIT parameter is populated with the containing Git commit; nbformat serialization is applied."
+}

@@ -1,0 +1,12 @@
+COMMAND: ['/tmp/fq-ci-tools-20260906/bin/ruff', 'check', 'src', 'tests', 'scripts']
+All checks passed!
+RETURN_CODE: 0
+COMMAND: ['/tmp/fq-ci-tools-20260906/bin/ruff', 'format', '--check', 'src', 'tests', 'scripts']
+51 files already formatted
+RETURN_CODE: 0
+COMMAND: ['python3', '-m', 'compileall', '-q', 'scripts', 'src', 'tests']
+RETURN_CODE: 0
+COMMAND: ['bash', '-n', 'scripts/setup_env.sh']
+RETURN_CODE: 0
+COMMAND: ['git', 'diff', '--check']
+RETURN_CODE: 0

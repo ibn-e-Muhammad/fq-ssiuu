@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "store": "kaggle",
+  "dataset_id": "muhammadii/fq-ssiuu-og001-04396fe9",
+  "private_create_confirmed": true,
+  "downloaded_content_hashes_verified": 57,
+  "storage_representation": "Kaggle automatically expanded artifacts.tar into artifacts/. Every file and the separate archive manifest match exactly; archive-container byte identity is not claimed."
+}

@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-m",
+    "pytest",
+    "tests",
+    "-m",
+    "not requires_model",
+    "-ra",
+    "--junitxml=/kaggle/working/runs/20260908-041835-2ef818513f23/tests.xml"
+  ],
+  "started_utc": "2026-09-08T04:19:38.778246+00:00",
+  "returncode": 0,
+  "elapsed_seconds": 40.43013304300007
+}

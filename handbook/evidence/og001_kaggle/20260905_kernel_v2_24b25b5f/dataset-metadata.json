@@ -1,0 +1,10 @@
+{
+  "title": "FQ SSIUU Source 91b6aa39",
+  "id": "muhammadii/fq-ssiuu-source-91b6aa39",
+  "licenses": [
+    {
+      "name": "other"
+    }
+  ],
+  "description": "Private history-free source snapshot for OG-001 environment validation. Source origin: 91b6aa39e520f9312b098997134c1deabeabfb8f. The source code is licensed under the MIT License, retained as LICENSE inside the bundle; Kaggle Other is selected because the CLI metadata specification does not list MIT."
+}

@@ -40,7 +40,6 @@ Dependencies:
 """
 
 import logging
-from typing import Optional, Tuple
 
 import torch
 import torch.nn as nn
@@ -48,6 +47,23 @@ import torch.nn as nn
 from fq_ssiuu.quantisation.fake_quant import _FakeQuantiseAutograd, compute_scale
 
 logger = logging.getLogger(__name__)
+
+
+# Structured metadata for the quantisation-location research gate (CR-007).
+FQ_HOOKS_META = {
+    "quantised_tensor": "adapter_output_activation",
+    "quantisation_point": "after lora_B(lora_A(x)) * scaling, before addition to base",
+    "deployment_quantisation": "merged_weights_nf4_via_bitsandbytes",
+    "deployment_equivalent": False,
+    "mismatch_summary": (
+        "This module applies symmetric INT4 QDQ to the adapter OUTPUT activation "
+        "before it is added to the base layer output. Deployment NF4 quantisation "
+        "via bitsandbytes applies the NF4 codebook to the MERGED model weights "
+        "after merge_and_unload(). These quantise different tensors (activations "
+        "vs merged weights) using different codebooks (symmetric INT4 vs NF4) "
+        "at different granularity (per-tensor vs per-block)."
+    ),
+}
 
 
 class FQLoRALinear(nn.Module):
@@ -102,12 +118,14 @@ class FQLoRALinear(nn.Module):
         base_output = self.original.base_layer(x)
 
         # Step 2: Check if any active adapters exist
-        if not hasattr(self.original, 'active_adapters') or not self.original.active_adapters:
+        if not hasattr(self.original, "active_adapters") or not self.original.active_adapters:
             # Fallback: check for active_adapter (older peft versions)
-            if hasattr(self.original, 'active_adapter'):
-                active_adapters = [self.original.active_adapter] if isinstance(
-                    self.original.active_adapter, str
-                ) else list(self.original.active_adapter)
+            if hasattr(self.original, "active_adapter"):
+                active_adapters = (
+                    [self.original.active_adapter]
+                    if isinstance(self.original.active_adapter, str)
+                    else list(self.original.active_adapter)
+                )
             else:
                 return base_output
         else:
@@ -120,21 +138,24 @@ class FQLoRALinear(nn.Module):
             if adapter_name not in self.original.lora_A:
                 continue
 
-            lora_A = self.original.lora_A[adapter_name]
-            lora_B = self.original.lora_B[adapter_name]
+            lora_a = self.original.lora_A[adapter_name]
+            lora_b = self.original.lora_B[adapter_name]
 
             # Apply dropout if present
-            if hasattr(self.original, 'lora_dropout') and adapter_name in self.original.lora_dropout:
+            if (
+                hasattr(self.original, "lora_dropout")
+                and adapter_name in self.original.lora_dropout
+            ):
                 dropout = self.original.lora_dropout[adapter_name]
                 x_drop = dropout(x)
             else:
                 x_drop = x
 
             # Compute adapter delta: lora_B(lora_A(x_drop)) * scaling
-            adapter_delta = lora_B(lora_A(x_drop))
+            adapter_delta = lora_b(lora_a(x_drop))
 
             # Apply scaling
-            if hasattr(self.original, 'scaling') and adapter_name in self.original.scaling:
+            if hasattr(self.original, "scaling") and adapter_name in self.original.scaling:
                 scaling = self.original.scaling[adapter_name]
                 adapter_delta = adapter_delta * scaling
 
@@ -151,7 +172,7 @@ class FQLoRALinear(nn.Module):
         return f"FQLoRALinear(fq_enabled={self.fq_enabled}, original={self.original})"
 
 
-def wrap_model_with_fq_lora(model: nn.Module) -> Tuple[nn.Module, int]:
+def wrap_model_with_fq_lora(model: nn.Module) -> tuple[nn.Module, int]:
     """Replace all peft LoRA linear layers with FQLoRALinear wrappers.
 
     Iterates over all named modules in the model, identifies peft LoRA
@@ -169,13 +190,17 @@ def wrap_model_with_fq_lora(model: nn.Module) -> Tuple[nn.Module, int]:
 
     # Collect all LoRA layers to replace (can't modify dict during iteration)
     for name, module in model.named_modules():
-        if hasattr(module, 'lora_A') and hasattr(module, 'lora_B') and hasattr(module, 'base_layer'):
+        if (
+            hasattr(module, "lora_A")
+            and hasattr(module, "lora_B")
+            and hasattr(module, "base_layer")
+        ):
             # This is a peft LoRA layer — wrap it
             replacements.append((name, module))
 
     for name, module in replacements:
         # Navigate to the parent module and replace the child
-        parts = name.split('.')
+        parts = name.split(".")
         parent = model
         for part in parts[:-1]:
             parent = getattr(parent, part)
@@ -190,7 +215,7 @@ def wrap_model_with_fq_lora(model: nn.Module) -> Tuple[nn.Module, int]:
     return model, wrapped_count
 
 
-def unwrap_model_from_fq_lora(model: nn.Module) -> Tuple[nn.Module, int]:
+def unwrap_model_from_fq_lora(model: nn.Module) -> tuple[nn.Module, int]:
     """Reverse the FQLoRALinear wrapping, restoring original peft layers.
 
     Args:
@@ -207,7 +232,7 @@ def unwrap_model_from_fq_lora(model: nn.Module) -> Tuple[nn.Module, int]:
             replacements.append((name, module))
 
     for name, module in replacements:
-        parts = name.split('.')
+        parts = name.split(".")
         parent = model
         for part in parts[:-1]:
             parent = getattr(parent, part)
@@ -232,32 +257,28 @@ def test_fq_lora_wrapping():
     2. Backward pass produces non-zero gradients on lora_A weight
     3. Wrap/unwrap round-trip preserves the original module
     """
+
     # Create a mock LoRA layer that mimics peft's internal structure
     class MockLoRALayer(nn.Module):
         def __init__(self, in_features=4, out_features=4, rank=2):
             super().__init__()
             self.base_layer = nn.Linear(in_features, out_features, bias=False)
             # peft stores adapters in ModuleDicts keyed by adapter name
-            self.lora_A = nn.ModuleDict({
-                'default': nn.Linear(in_features, rank, bias=False)
-            })
-            self.lora_B = nn.ModuleDict({
-                'default': nn.Linear(rank, out_features, bias=False)
-            })
-            self.lora_dropout = nn.ModuleDict({
-                'default': nn.Identity()
-            })
-            self.scaling = {'default': 2.0}
-            self.active_adapters = ['default']
+            self.lora_A = nn.ModuleDict({"default": nn.Linear(in_features, rank, bias=False)})
+            self.lora_B = nn.ModuleDict({"default": nn.Linear(rank, out_features, bias=False)})
+            self.lora_dropout = nn.ModuleDict({"default": nn.Identity()})
+            self.scaling = {"default": 2.0}
+            self.active_adapters = ["default"]
 
             # Freeze base layer (simulates NF4 frozen weights)
             self.base_layer.weight.requires_grad = False
 
         def forward(self, x):
             base_out = self.base_layer(x)
-            adapter_out = self.lora_B['default'](
-                self.lora_A['default'](self.lora_dropout['default'](x))
-            ) * self.scaling['default']
+            adapter_out = (
+                self.lora_B["default"](self.lora_A["default"](self.lora_dropout["default"](x)))
+                * self.scaling["default"]
+            )
             return base_out + adapter_out
 
     # Step 1: Create mock layer and compute reference output
@@ -282,7 +303,7 @@ def test_fq_lora_wrapping():
     loss = fq_output.sum()
     loss.backward()
 
-    lora_a_grad = fq_layer.original.lora_A['default'].weight.grad
+    lora_a_grad = fq_layer.original.lora_A["default"].weight.grad
     assert lora_a_grad is not None, "lora_A gradient is None"
     assert torch.any(lora_a_grad != 0), "lora_A gradient is all zeros"
     print(f"  Test 2 (non-zero grads): PASS — grad norm = {lora_a_grad.norm().item():.6f}")

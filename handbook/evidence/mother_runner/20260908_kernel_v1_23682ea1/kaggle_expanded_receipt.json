@@ -1,0 +1,7 @@
+{
+  "status": "PARTIAL_CONTAINER_EXPANDED",
+  "dataset_id": "muhammadii/fq-ssiuu-mother-20260908-2ef818513f23",
+  "private_create_confirmed": true,
+  "reason": "Kaggle recursively expanded outer and nested tar files. Inner tar-container bytes unavailable in this representation. Preserved dataset; superseded for exact archival by opaque-container dataset.",
+  "replacement_dataset_id": "muhammadii/fq-ssiuu-mother-20260908-2ef818513f23-complete"
+}

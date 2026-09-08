@@ -1,0 +1,17 @@
+{
+  "attempt_count": 1,
+  "start_utc": "2026-09-05T09:45:11.025374+00:00",
+  "kernel_id": "muhammadii/fq-ssiuu-og-001-overlay-validation",
+  "kernel_stage": "/tmp/fq-og001-kernel-k3bl1fih",
+  "command": [
+    "./.venv/bin/python",
+    "-m",
+    "kaggle",
+    "kernels",
+    "push",
+    "-p",
+    "/tmp/fq-og001-kernel-k3bl1fih",
+    "--accelerator",
+    "NvidiaTeslaT4"
+  ]
+}

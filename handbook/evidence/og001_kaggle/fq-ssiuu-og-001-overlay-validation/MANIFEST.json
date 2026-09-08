@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "kernel_id": "muhammadii/fq-ssiuu-og-001-overlay-validation",
+  "executed_code_sha": null,
+  "committed_notebook_sha256": "e86f4e4ae1e80b48a71bf724a92cd427026577bc4c6104ccddb7b7e29cbf92b8",
+  "staged_notebook_sha256": "e86f4e4ae1e80b48a71bf724a92cd427026577bc4c6104ccddb7b7e29cbf92b8",
+  "privacy_status": "private",
+  "internet_status": "enabled",
+  "requested_accelerator": "Tesla T4",
+  "factual_runtime_timestamp_utc": "2026-09-05T07:10:38Z",
+  "artifact_retrieval_timestamp_utc": "2026-09-05T07:12:08Z",
+  "artifacts": [
+    {
+      "filename": "fq-ssiuu-og-001-overlay-validation.log",
+      "size_bytes": 5093,
+      "sha256": "175d32fbb7ba1afca16d7d530123e148348215cdced92aad05449137b08828cb",
+      "source": "Kaggle Kernel Execution Log"
+    }
+  ],
+  "target_source_origin_sha": "502871a57b275bffaa65ba6a24f9e834c3721fb6",
+  "provenance_correction_2026_09_05": {
+    "note": "The prior run never cloned the source. The original executed_code_sha was an intended source pin, not executed source. Mistyped commit IDs in derived records are corrected here; the raw Kaggle log is unchanged.",
+    "runner_notebook_commit": "8d3bc14d0b4230d216b88473cd13c7085ecf3ee2",
+    "evidence_commit": "e63d26f2e2d810e2c070ff08fdc119dd9b11697f",
+    "command_transcript_commit": "3fd39547a3dc7e467e9a6484c421b1238d4357f5",
+    "actual_prior_tip": "3fd39547a3dc7e467e9a6484c421b1238d4357f5",
+    "verified_notebook_sha256": "e86f4e4ae1e80b48a71bf724a92cd427026577bc4c6104ccddb7b7e29cbf92b8"
+  }
+}

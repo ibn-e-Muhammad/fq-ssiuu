@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "store": "kaggle",
+  "dataset_id": "muhammadii/fq-ssiuu-mother-20260908-2ef818513f23-complete",
+  "private_create_confirmed": true,
+  "downloaded_content_hashes_verified": 56,
+  "archive_sha256": "a08c9d358efffc81e3ce9ccb4657f951fe202f5af5b57f2f6fe4459dac866ec8",
+  "archive_container_hash_verified": true,
+  "stored_filename": "artifacts.tar.bin",
+  "original_filename": "artifacts.tar",
+  "archive_manifest_sha256": "a887bad10c23503b7110b15276012ac93b6fbffdfe0a158a4f69a94f9b811de6"
+}

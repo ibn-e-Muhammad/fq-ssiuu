@@ -1,55 +1,75 @@
 """
 src/fq_ssiuu/evaluation/certificate.py
 
-Unlearning Durability Certificate generator.
+Empirical Durability Report generator.
 
-This module generates, saves, loads, and displays the JSON durability
-certificate -- the primary product artefact of the FQ-SSIUU project.
+This module generates, saves, loads, and displays the JSON empirical durability
+report -- a structured record of precision-sensitivity measurements for an
+unlearned model.
 
-A durability certificate attests that a specific unlearned model produces
-QRA-robust forgetting at INT4 precision, as measured by the Q-INT4 metric.
+A durability report records whether the unlearned model's metrics change
+substantially across precision levels (FP16, INT8, NF4). It does NOT constitute
+a formal certificate or mathematical guarantee of unlearning robustness.
+
+Schema versioning:
+    v1 (legacy): Fields 'q_int4_score' and 'certified'. Pilots P1-P4 use this.
+    v2 (current): Fields 'relative_precision_sensitivity' and 'threshold_met'.
+        Legacy fields preserved as deprecated aliases when loading v1 artifacts.
 """
 
 import json
 import logging
 import os
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
-from typing import Dict, Optional
+from datetime import UTC, datetime
+
+from fq_ssiuu.evaluation.qra_pipeline import QRAResult
 
 logger = logging.getLogger(__name__)
 
-# Import QRAResult for the generate_certificate function
-from fq_ssiuu.evaluation.qra_pipeline import QRAResult
-
-
 _GDPR_DISCLAIMER = (
-    "This certificate indicates technical QRA robustness at INT4 precision "
-    "under the specified evaluation protocol. It does not constitute a legal "
-    "determination of GDPR Article 17 compliance. Legal compliance requires "
-    "assessment by qualified legal counsel."
+    "This empirical durability report records precision-sensitivity measurements "
+    "under the specified evaluation protocol. It does not constitute a formal "
+    "certificate, mathematical guarantee, or legal determination of GDPR "
+    "Article 17 compliance. Legal compliance requires assessment by qualified "
+    "legal counsel."
 )
+
+
+# Schema version for newly generated reports.
+_SCHEMA_VERSION = "v2"
 
 
 @dataclass
 class DurabilityCertificate:
-    """JSON durability certificate for an unlearned model.
+    """Empirical durability report for an unlearned model.
+
+    Schema v2 fields (preferred):
+        relative_precision_sensitivity: |FQ_NF4 - FQ_FP16| / FQ_FP16.
+            Measures how much Forget Quality changes under NF4 quantisation.
+            This is an unsigned relative change, not a directional recovery metric.
+        threshold_met: Whether relative_precision_sensitivity < threshold.
+
+    Schema v1 fields (deprecated, preserved for loading historical artifacts):
+        q_int4_score: Alias for relative_precision_sensitivity.
+        certified: Alias for threshold_met.
 
     Attributes:
         model_id: The base model HuggingFace identifier.
         condition_id: Experimental condition (e.g., 'c6_fq_ssiuu').
         seed: Random seed used for this experiment.
-        date_generated: ISO 8601 timestamp of certificate generation.
+        date_generated: ISO 8601 timestamp of report generation.
         forget_dataset: Name of the forget dataset (e.g., 'tofu').
         forget_split: Forget split identifier (e.g., 'forget05').
-        metrics_bf16: Dict of metrics at BF16 precision.
+        metrics_fp16: Dict of metrics at FP16 precision.
         metrics_int8: Dict of metrics at INT8 precision.
-        metrics_int4: Dict of metrics at INT4 precision.
-        q_int4_score: The Q-INT4 metric value.
-        certification_threshold: The threshold used for certification.
-        certified: Whether the model passes the durability threshold.
-        gdpr_disclaimer: Legal disclaimer about GDPR compliance.
-        method: The unlearning method used (e.g., 'FQ-SSIUU').
+        metrics_nf4: Dict of metrics at NF4 precision.
+        relative_precision_sensitivity: |FQ_NF4 - FQ_FP16| / FQ_FP16.
+        certification_threshold: The threshold used for comparison.
+        threshold_met: Whether sensitivity < threshold.
+        schema_version: 'v1' for legacy, 'v2' for current.
+        gdpr_disclaimer: Legal disclaimer.
+        method: The unlearning method used.
         method_config: Dict of method-specific configuration parameters.
         notes: Free-text notes.
     """
@@ -60,16 +80,28 @@ class DurabilityCertificate:
     date_generated: str
     forget_dataset: str
     forget_split: str
-    metrics_bf16: dict
+    metrics_fp16: dict
     metrics_int8: dict
-    metrics_int4: dict
-    q_int4_score: float
+    metrics_nf4: dict
+    relative_precision_sensitivity: float
     certification_threshold: float
-    certified: bool
+    threshold_met: bool
+    schema_version: str = field(default=_SCHEMA_VERSION)
     gdpr_disclaimer: str = field(default=_GDPR_DISCLAIMER)
     method: str = ""
     method_config: dict = field(default_factory=dict)
     notes: str = ""
+
+    # --- Deprecated aliases for v1 compatibility ---
+    @property
+    def q_int4_score(self) -> float:
+        """Deprecated alias for relative_precision_sensitivity."""
+        return self.relative_precision_sensitivity
+
+    @property
+    def certified(self) -> bool:
+        """Deprecated alias for threshold_met."""
+        return self.threshold_met
 
 
 def generate_certificate(
@@ -93,6 +125,7 @@ def generate_certificate(
     Returns:
         DurabilityCertificate: The generated certificate.
     """
+
     def _precision_to_dict(precision: str) -> dict:
         """Extract metrics dict for a precision level."""
         if precision in qra_result.results_by_precision:
@@ -108,25 +141,25 @@ def generate_certificate(
         model_id=model_id,
         condition_id=qra_result.condition_id,
         seed=qra_result.seed,
-        date_generated=datetime.now(timezone.utc).isoformat(),
+        date_generated=datetime.now(UTC).isoformat(),
         forget_dataset=forget_dataset,
         forget_split=forget_split,
-        metrics_bf16=_precision_to_dict("bf16"),
+        metrics_fp16=_precision_to_dict("fp16"),
         metrics_int8=_precision_to_dict("int8"),
-        metrics_int4=_precision_to_dict("int4"),
-        q_int4_score=qra_result.q_int4_score,
+        metrics_nf4=_precision_to_dict("nf4"),
+        relative_precision_sensitivity=qra_result.q_int4_score,
         certification_threshold=qra_result.certification_threshold,
-        certified=qra_result.certified,
+        threshold_met=qra_result.certified,
         method=method,
         method_config=method_config,
         notes=qra_result.notes,
     )
 
     logger.info(
-        "Certificate generated for %s (seed %d): %s",
+        "Report generated for %s (seed %d): %s",
         cert.condition_id,
         cert.seed,
-        "CERTIFIED" if cert.certified else "NOT CERTIFIED",
+        "THRESHOLD MET" if cert.threshold_met else "THRESHOLD NOT MET",
     )
 
     return cert
@@ -145,56 +178,81 @@ def save_certificate(cert: DurabilityCertificate, output_path: str) -> None:
     os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
 
     cert_dict = asdict(cert)
+    # Also include deprecated aliases for readers that expect v1 fields
+    cert_dict["q_int4_score"] = cert.relative_precision_sensitivity
+    cert_dict["certified"] = cert.threshold_met
+    cert_dict["_deprecation_notice"] = (
+        "Fields 'q_int4_score' and 'certified' are deprecated v1 aliases. "
+        "Use 'relative_precision_sensitivity' and 'threshold_met' (v2)."
+    )
 
     with open(output_path, "w") as f:
         json.dump(cert_dict, f, indent=2)
 
-    logger.info("Certificate saved to '%s'", output_path)
+    logger.info("Report saved to '%s'", output_path)
 
 
 def load_certificate(cert_path: str) -> DurabilityCertificate:
-    """Load a durability certificate from a JSON file.
+    """Load a durability report from a JSON file.
+
+    Supports both v1 (legacy) and v2 (current) schema formats.
+    v1 artifacts with 'q_int4_score'/'certified' are automatically
+    migrated to v2 field names on load.
 
     Args:
-        cert_path: Path to the certificate JSON file.
+        cert_path: Path to the report JSON file.
 
     Returns:
-        DurabilityCertificate: The loaded certificate.
+        DurabilityCertificate: The loaded report.
 
     Raises:
         FileNotFoundError: If the file does not exist.
         json.JSONDecodeError: If the file is not valid JSON.
     """
     if not os.path.isfile(cert_path):
-        raise FileNotFoundError(f"Certificate file not found: {cert_path}")
+        raise FileNotFoundError(f"Report file not found: {cert_path}")
 
-    with open(cert_path, "r") as f:
+    with open(cert_path) as f:
         data = json.load(f)
+
+    # v1 → v2 migration: translate legacy field names
+    if "q_int4_score" in data and "relative_precision_sensitivity" not in data:
+        data["relative_precision_sensitivity"] = data.pop("q_int4_score")
+        data["schema_version"] = "v1"
+    if "certified" in data and "threshold_met" not in data:
+        data["threshold_met"] = data.pop("certified")
+
+    # Remove fields that are properties, not constructor args
+    data.pop("q_int4_score", None)
+    data.pop("certified", None)
+    data.pop("_deprecation_notice", None)
 
     cert = DurabilityCertificate(**data)
 
     logger.info(
-        "Certificate loaded from '%s': %s",
+        "Report loaded from '%s' (schema %s): %s",
         cert_path,
-        "CERTIFIED" if cert.certified else "NOT CERTIFIED",
+        cert.schema_version,
+        "THRESHOLD MET" if cert.threshold_met else "THRESHOLD NOT MET",
     )
 
     return cert
 
 
 def print_certificate_summary(cert: DurabilityCertificate) -> None:
-    """Print a human-readable summary of a durability certificate.
+    """Print a human-readable summary of an empirical durability report.
 
     Args:
-        cert: The certificate to summarise.
+        cert: The report to summarise.
     """
-    status_icon = "✅" if cert.certified else "❌"
-    status_text = "CERTIFIED" if cert.certified else "NOT CERTIFIED"
+    status_icon = "✅" if cert.threshold_met else "❌"
+    status_text = "THRESHOLD MET" if cert.threshold_met else "THRESHOLD NOT MET"
 
     print("=" * 60)
-    print(f"  UNLEARNING DURABILITY CERTIFICATE  {status_icon}")
+    print(f"  EMPIRICAL DURABILITY REPORT  {status_icon}")
     print("=" * 60)
     print(f"  Status:       {status_text}")
+    print(f"  Schema:       {cert.schema_version}")
     print(f"  Model:        {cert.model_id}")
     print(f"  Condition:    {cert.condition_id}")
     print(f"  Method:       {cert.method}")
@@ -204,9 +262,9 @@ def print_certificate_summary(cert: DurabilityCertificate) -> None:
     print("-" * 60)
     print("  Metrics by Precision:")
     for label, metrics in [
-        ("BF16", cert.metrics_bf16),
+        ("FP16", cert.metrics_fp16),
         ("INT8", cert.metrics_int8),
-        ("INT4", cert.metrics_int4),
+        ("NF4", cert.metrics_nf4),
     ]:
         fq = metrics.get("forget_quality", "N/A")
         mu = metrics.get("model_utility", "N/A")
@@ -214,8 +272,8 @@ def print_certificate_summary(cert: DurabilityCertificate) -> None:
         mu_str = f"{mu:.4f}" if isinstance(mu, float) else str(mu)
         print(f"    {label:>4s}: FQ={fq_str}, MU={mu_str}")
     print("-" * 60)
-    print(f"  Q-INT4:       {cert.q_int4_score:.6f}")
-    print(f"  Threshold:    {cert.certification_threshold:.4f}")
+    print(f"  Precision Sensitivity: {cert.relative_precision_sensitivity:.6f}")
+    print(f"  Threshold:             {cert.certification_threshold:.4f}")
     print("-" * 60)
     print(f"  {cert.gdpr_disclaimer}")
     if cert.notes:

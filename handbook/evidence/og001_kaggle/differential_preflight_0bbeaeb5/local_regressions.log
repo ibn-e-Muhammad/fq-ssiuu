@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/muhammad-arslan/Downloads/projects/fq-ssiuu
+configfile: pyproject.toml
+collected 13 items
+
+tests/test_environment.py .                                              [  7%]
+tests/test_npo_numerical.py .                                            [ 15%]
+tests/test_secrets.py .......                                            [ 69%]
+tests/test_drive_upload.py ....                                          [100%]
+
+=============================== warnings summary ===============================
+.venv/lib/python3.11/site-packages/torch/_subclasses/functional_tensor.py:368
+  /home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/lib/python3.11/site-packages/torch/_subclasses/functional_tensor.py:368: UserWarning: Failed to initialize NumPy: No module named 'numpy' (Triggered internally at /__w/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:84.)
+    cpu = _conversion_method_template(device=torch.device("cpu"))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 13 passed, 1 warning in 1.36s =========================

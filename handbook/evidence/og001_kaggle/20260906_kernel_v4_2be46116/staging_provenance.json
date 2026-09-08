@@ -1,0 +1,14 @@
+{
+  "work_unit": "OG001_DIFFERENTIAL_CLOSURE_20260905",
+  "submission_limit": 2,
+  "submission_index": 2,
+  "stage_dir": "/tmp/fq-ogclosure-kernel-final-17l9_l4f",
+  "source_commit": "1efe2b32ad65e89b3352946a568f3312f758fa00",
+  "source_tree": "85974380d5aa776eaa65748eebb2a20217a9d8ec",
+  "notebook_commit": "2be461167407694826f0417afa3594b5328a3b73",
+  "source_manifest_sha256": "56652d45cbff5a022a6c0489e55570835f86484b928d8d8544afca5ad7f1202f",
+  "source_download_verification": "PASS",
+  "committed_notebook_sha256": "77f0127362628acdbec543eedca4162128feb3d0dd8a604907cf78ad9cb28a47",
+  "staged_notebook_sha256": "68b86e1aaf04b81e3e2d4b8dde8c6edafee9a54f935195b7e79c81666633032b",
+  "metadata_sha256": "ccd794dc5ab1f290c9f252017658701355630a3210818906791b1c9241dad8e4"
+}

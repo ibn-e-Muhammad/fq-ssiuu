@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.1",
+  "probe_version": "1.1.0",
+  "run_id": "57588774-bdd5-41c8-b56e-7df0c2f5049b",
+  "utc_timestamp": "2026-09-04T18:52:48.388417+00:00",
+  "checks": {
+    "cpu_tensor": {
+      "status": "PASS",
+      "observed": {
+        "sum": 10.0
+      },
+      "exception_type": null,
+      "exception_message": null
+    },
+    "cuda_fp16_creation": {
+      "status": "PASS",
+      "observed": {
+        "device": "cuda:0",
+        "dtype": "torch.float16"
+      },
+      "exception_type": null,
+      "exception_message": null
+    },
+    "cuda_fp16_matmul": {
+      "status": "PASS",
+      "observed": {
+        "shape": [
+          10,
+          10
+        ]
+      },
+      "exception_type": null,
+      "exception_message": null
+    },
+    "sdpa": {
+      "status": "PASS",
+      "observed": {
+        "shape": [
+          1,
+          1,
+          10,
+          10
+        ]
+      },
+      "exception_type": null,
+      "exception_message": null
+    },
+    "nf4_quantise": {
+      "status": "UNAVAILABLE",
+      "observed": {},
+      "exception_type": "NotImplementedError",
+      "exception_message": "bitsandbytes not importable"
+    },
+    "peak_memory": {
+      "status": "PASS",
+      "observed": {
+        "peak_allocated_bytes": 8525824
+      },
+      "exception_type": null,
+      "exception_message": null
+    }
+  }
+}

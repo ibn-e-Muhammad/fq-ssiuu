@@ -1,0 +1,60 @@
+# Operational infrastructure readiness, separate from scientific acceptance.
+OG-001:
+  title: Reproducible Kaggle Environment Overlay
+  category: operational reproducibility
+  status: PASS
+  blocks_new_experiments: false
+  does_not_invalidate_historical_pilots: true
+  evidence_run_id: 04396fe9-0195-476c-bb74-29e6a5ca074b
+  validating_commit: 1efe2b32ad65e89b3352946a568f3312f758fa00
+  attempted_source_origin_sha: 1efe2b32ad65e89b3352946a568f3312f758fa00
+  attempted_snapshot_sha: 121ddca30a4578053b214b177b7aef26f505defe
+  orchestration_commit: 2be461167407694826f0417afa3594b5328a3b73
+  evidence_path: handbook/evidence/og001_kaggle/20260906_kernel_v4_2be46116/VERDICT.json
+  kernel_version: 4
+  kernel_status: ERROR
+  setup_returncode: 0
+  current_hardware_status: PASS
+  current_dependency_status: BASELINE_DIRTY_NO_REGRESSION
+  separate_observations:
+    omegaconf: OmegaConf is already present and importable (version 2.3.0).
+    trl: TRL is absent and zero executable imports were found in codebase. Removed from active overlay
+      requirements (DL-022).
+  required_evidence_for_closure:
+  - No changes to protected packages (torch 2.10.0+cu128, torchvision 0.25.0+cu128, torchaudio 2.10.0+cu128,
+    triton 3.6.0, CUDA build 12.8).
+  - Single-device cuda:0 enforcement.
+  - Genuine NF4 quantise/dequantise operation verified.
+  - Successful imports for all required overlay packages.
+  - 'Differential pre/post pip consistency: CLEAN or BASELINE_DIRTY_NO_REGRESSION; no introduced or overlay-related
+    diagnostic, with raw stdout/stderr/return codes retained.'
+  - Complete distribution inventory including direct-reference installs; no protected, unreported package
+    or native platform drift.
+  - CUDA FP16, SDPA and peak selected-device memory below 16,000,000,000 bytes.
+  - Before/after environment manifests.
+  - Overlay-only lock (no blind full-environment lockfile).
+  allowed_next_stage: Reviewed operational integration into dev, then upstream method reconciliation.
+    Method gates and frozen-protocol approval still apply.
+  rationale: All substantive OG-001 checks pass in kernel v4, independently revalidated from 35 hash-verified
+    setup artifacts. Six native diagnostics unchanged, none introduced or overlay-related; protected stack/platform
+    unchanged; imports/FP16/SDPA/genuine NF4/single T4/memory/manifests/lock PASS. Kernel ERROR is later
+    integration collection failure from a tests package naming collision, not environment failure.
+  differential_submissions_used: 2
+  differential_submission_limit: 2
+  historical_installation_observation:
+    kernel_version: 2
+    evidence_path: handbook/evidence/og001_kaggle/20260905_kernel_v2_24b25b5f/VERDICT.json
+    installed_but_runtime_imports_unverified:
+    - bitsandbytes
+    - captum
+    - hydra-core
+    - lm-eval
+    - jsonlines
+  integration_status: PASS
+  integration_evidence_path: handbook/evidence/mother_runner/20260908_kernel_v1_23682ea1/VERDICT.json
+  integration_run_id: 20260908-041835-2ef818513f23
+  integration_source_commit: 23682ea12ff03ea867f220406423b6f54f77091c
+  integration_kernel_version: 1
+  integration_observation: Mother kernel COMPLETE; 144 passed, 12 historical placeholder skips,
+    8 deselected, one known SSIUU expected failure; ten notebooks schema/compile PASS.
+    Environment independently revalidated. Scientific gate status is unchanged.
