@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "run_id": "04396fe9-0195-476c-bb74-29e6a5ca074b",
+  "git_sha": "121ddca30a4578053b214b177b7aef26f505defe",
+  "pip_consistency_state": "BASELINE_DIRTY_NO_REGRESSION",
+  "artifact_count": 35,
+  "peak_memory": {
+    "device": "cuda:0",
+    "peak_allocated_bytes": 8792576,
+    "peak_reserved_bytes": 23068672,
+    "device_total_bytes": 15636037632,
+    "budget_bytes": 16000000000,
+    "scope": "verifier smoke process"
+  },
+  "scientific_experiment_executed": false
+}

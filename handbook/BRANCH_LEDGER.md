@@ -128,3 +128,13 @@ Kernel v3 is submission 1/2 of the differential work unit; it failed at native
 duplicate-metadata inventory before installation. See its run-specific evidence.
 The repair and final preflight are recorded in the commit containing this entry.
 No integration merge has occurred; four untracked DOCX files remain excluded.
+
+## 2026-09-08 operational closure and Mother runner
+
+Source `1efe2b32ad65e89b3352946a568f3312f758fa00` and notebook
+`2be461167407694826f0417afa3594b5328a3b73` produced OG-001 PASS in kernel v4.
+The kernel failed later at integration collection; this does not invalidate its
+separate hash-verified environment acceptance. No dev merge has occurred.
+The commit containing this entry adds the Mother runner, exact validated lock,
+explicit test package, dotenv-compatible secret handling and dual-store receipts.
+Historical branches and four untracked DOCX files remain untouched.

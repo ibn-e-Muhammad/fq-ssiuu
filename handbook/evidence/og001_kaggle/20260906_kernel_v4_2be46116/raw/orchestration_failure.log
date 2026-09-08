@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/tmp/ipykernel_24/1545565983.py", line 150, in run_validation
+    raise RuntimeError("Non-model integration suite failed; OG-001 acceptance retained separately")
+RuntimeError: Non-model integration suite failed; OG-001 acceptance retained separately

@@ -1,7 +1,10 @@
 # Method-Implementation Matrix
 
 **Purpose:** Compare published methods against their actual implementation in this repository.
-**Last updated:** 2026-09-03
+**Last updated:** 2026-09-07
+
+The [upstream implementation register](methods/UPSTREAM_IMPLEMENTATIONS.md)
+supersedes earlier blanket NPO fidelity and QUAIL code-availability claims.
 
 ---
 
@@ -13,7 +16,7 @@
 | Retain KL | Optional | ✅ Implemented (compute_retain_kl_loss) |
 | Temperature β | 0.1 | ✅ Matches (configurable) |
 | Reference model | Frozen pre-unlearning model | ✅ Matches |
-| Fidelity | FAITHFUL | — |
+| Fidelity | RECONCILIATION REQUIRED | Current helper averages token losses; upstream uses a causally shifted sequence sum. No new NPO pilot acceptance is claimed. |
 
 ---
 
@@ -58,7 +61,7 @@
 | Margin Δq | 1.0 (surrogate for numerical stability in reported exp) | ❌ Uses NF4 bin width 8.4e-4 |
 | Coefficients | Internal ambiguities in paper regarding independent α, β, γ | ❌ No weighting |
 | Optimization | Alternates updates in Algorithm 1, ambiguity with Eq 15 | ❌ None |
-| Official code | None available as of 2026-09-04 | — |
+| Official code | Appendix E links `himans-iitk/CS534L_Project` | Pinned source recorded in upstream register; earlier absence claim superseded |
 | Fidelity | FAITHFUL (defined by paper) | **SPECIFICATION_AMBIGUOUS** (CR-005) |
 
 ---

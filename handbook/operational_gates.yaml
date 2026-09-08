@@ -1,21 +1,21 @@
-# Operational gates: infrastructure readiness, separate from scientific acceptance.
+# Operational infrastructure readiness, separate from scientific acceptance.
 OG-001:
   title: Reproducible Kaggle Environment Overlay
   category: operational reproducibility
-  status: PARTIAL
-  blocks_new_experiments: true
+  status: PASS
+  blocks_new_experiments: false
   does_not_invalidate_historical_pilots: true
-  evidence_run_id: 0b2980fa-c045-4c1f-8c66-4f8f890fd447
-  validating_commit: null
-  attempted_source_origin_sha: 6cb7933dd4eb4d3753bc3535aae6388c6a1d2236
-  attempted_snapshot_sha: d1d5328cc899e09181479bcae2df668e20f747d3
-  orchestration_commit: 82e8736fbdb22b7e807cfaa7d2ace3791afd494a
-  evidence_path: handbook/evidence/og001_kaggle/20260906_kernel_v3_82e8736f/VERDICT.json
-  kernel_version: 3
+  evidence_run_id: 04396fe9-0195-476c-bb74-29e6a5ca074b
+  validating_commit: 1efe2b32ad65e89b3352946a568f3312f758fa00
+  attempted_source_origin_sha: 1efe2b32ad65e89b3352946a568f3312f758fa00
+  attempted_snapshot_sha: 121ddca30a4578053b214b177b7aef26f505defe
+  orchestration_commit: 2be461167407694826f0417afa3594b5328a3b73
+  evidence_path: handbook/evidence/og001_kaggle/20260906_kernel_v4_2be46116/VERDICT.json
+  kernel_version: 4
   kernel_status: ERROR
-  setup_returncode: 1
+  setup_returncode: 0
   current_hardware_status: PASS
-  current_dependency_status: NOT_REACHED
+  current_dependency_status: BASELINE_DIRTY_NO_REGRESSION
   separate_observations:
     omegaconf: OmegaConf is already present and importable (version 2.3.0).
     trl: TRL is absent and zero executable imports were found in codebase. Removed from active overlay
@@ -33,14 +33,13 @@ OG-001:
   - CUDA FP16, SDPA and peak selected-device memory below 16,000,000,000 bytes.
   - Before/after environment manifests.
   - Overlay-only lock (no blind full-environment lockfile).
-  allowed_next_stage: Authorised differential OG-001 closure work unit, maximum two new private Kaggle
-    submissions; integration only after substantive PASS. See MASTER_EXECUTION_PLAN.md.
-  rationale: Kernel v3 (submission 1/2) verified private source, then rejected duplicate native PyGObject
-    metadata before installation or baseline pip check. Effective freeze pin 3.48.2 is observed; the second
-    version/location was not retained and is not inferred. Kernel v2 installation and six pip diagnostics
-    remain historical evidence. Duplicate-aware inventory repair passes offline tests; one authorised
-    submission remains. No runtime or scientific success is claimed.
-  differential_submissions_used: 1
+  allowed_next_stage: Reusable Mother notebook and full integration rerun using the validated overlay
+    lock. Method gates and frozen-protocol approval still apply.
+  rationale: All substantive OG-001 checks pass in kernel v4, independently revalidated from 35 hash-verified
+    setup artifacts. Six native diagnostics unchanged, none introduced or overlay-related; protected stack/platform
+    unchanged; imports/FP16/SDPA/genuine NF4/single T4/memory/manifests/lock PASS. Kernel ERROR is later
+    integration collection failure from a tests package naming collision, not environment failure.
+  differential_submissions_used: 2
   differential_submission_limit: 2
   historical_installation_observation:
     kernel_version: 2
@@ -51,3 +50,4 @@ OG-001:
     - hydra-core
     - lm-eval
     - jsonlines
+  integration_status: FAIL_COLLECTION

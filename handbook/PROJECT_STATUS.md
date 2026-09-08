@@ -5,12 +5,16 @@ Active branch: `fix/kaggle-overlay-evidence-integrity`; not merged into `dev`.
 
 ## Current decision
 
-OG-001 is **PARTIAL**. One of two authorised differential closure submissions
-has been used. Kernel v3 verified private parentless source, then failed before
-installation because the inventory collector rejected duplicate native PyGObject
-metadata. The repair preserves all metadata and validates changes by precedence.
-The exact next action is the final authorised private OG-001 submission, followed
-by the complete non-model suite in that runtime if operational checks pass.
+OG-001 is **PASS**, independently revalidated from kernel v4 raw artifacts.
+The environment is `BASELINE_DIRTY_NO_REGRESSION`: six native diagnostics remain,
+none were introduced, and all runtime/protected-stack checks pass. The kernel's
+ERROR status belongs to a later integration test-package collision. Its repair
+and the new Mother notebook are the current work unit.
+
+The researcher-directed execution loop is faithful upstream method → one Mother
+notebook → private Kaggle + Hugging Face archives → consistent research records.
+The exact next action is the Mother integration recipe using the verified lock;
+then upstream NPO parity and scientific reconciliation, before corrected pilots.
 
 | Evidence | What it establishes | Limit |
 |---|---|---|
@@ -18,16 +22,17 @@ by the complete non-model suite in that runtime if operational checks pass.
 | [Kernel v3](evidence/og001_kaggle/20260906_kernel_v3_82e8736f/VERDICT.json) | Source origin/tree/snapshot linkage verified; failure preserved | Inventory failed before baseline pip check or installation |
 | [Local preflight](evidence/og001_kaggle/20260906_reviewed_preflight/VERDICT.json) | Infrastructure/CPU regression tests and seven compiled notebooks; lint/format pass | Eight historical placeholder skips and known SSIUU xfail; no GPU evidence |
 
-The environment may be accepted as `BASELINE_DIRTY_NO_REGRESSION` only after
-raw pre/post checks establish no introduced or overlay-related unsatisfied
-dependency, with protected/platform integrity and every runtime check passing.
-This is not global pip cleanliness. No unrelated native package repair is planned.
+[Kernel v4](evidence/og001_kaggle/20260906_kernel_v4_2be46116/VERDICT.json) passed
+source verification, installations, required imports, FP16, SDPA, genuine NF4,
+one-device enforcement, protected/native integrity, manifests and overlay lock.
+The observation establishes environment readiness, not model-training memory or
+scientific validity. No unrelated native package repair is planned.
 
 ## Gates
 
 | Gate | Status | Required next evidence |
 |---|---|---|
-| OG-001 environment | PARTIAL | Differential consistency, imports, FP16, SDPA, genuine NF4, one T4, memory, manifests and verified overlay lock |
+| OG-001 environment | PASS | [Kernel v4 closure](evidence/og001_kaggle/20260906_kernel_v4_2be46116/VERDICT.json); integration suite remains pending |
 | RG-003 QUAIL fidelity | BLOCKED | Primary-paper specification, complete objective and gradient/masking tests, corrected P4 |
 | RG-002 weight quantisation | BLOCKED | Deployment-aligned weight NF4 semantics and gradients, corrected P3 |
 | RG-001 SSIUU fidelity | BLOCKED | Faithful parameter attribution/state/HVP, gradient and resource evidence, corrected P2 |

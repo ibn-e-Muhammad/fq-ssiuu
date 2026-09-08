@@ -1,0 +1,19 @@
+{
+  "artifacts": [
+    {
+      "path": "VERDICT.json",
+      "sha256": "1a315863dcb083c74f857288ce362fb94fe78a1a1bbd0d8066f951d9939bdb18",
+      "size_bytes": 462
+    },
+    {
+      "path": "pytest.log",
+      "sha256": "8936654d97120e2a729873b745944dedcdbd7faaf055bcab4fb5d2ae46302cd8",
+      "size_bytes": 19322
+    },
+    {
+      "path": "pytest.xml",
+      "sha256": "ebc9254f3dd55990e410d6a76e7d5ec0c8d8d655bf5f147a795718ac24a70032",
+      "size_bytes": 22553
+    }
+  ]
+}

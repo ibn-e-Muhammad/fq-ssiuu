@@ -6,7 +6,8 @@ Central secret-loading interface for the FQ-SSIUU project.
 Precedence (first found wins):
     1. Environment variables (os.environ)
     2. Kaggle Secrets (kaggle_secrets.UserSecretsClient) — only inside Kaggle runtime
-    3. Local .env file (python-dotenv, if installed)
+    3. FQ_SSIUU_DOTENV in Kaggle Secrets (dotenv text, parsed in memory)
+    4. Local project .env file (outside Kaggle only)
 
 Security:
     - Never logs, prints, or includes secret values in exceptions.
@@ -16,16 +17,21 @@ Security:
 
 import logging
 import os
+from io import StringIO
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
 _KNOWN_SECRETS = {
+    "GITHUB_TOKEN",
+    "GIT_TOKEN",
     "HF_TOKEN",
     "KAGGLE_USERNAME",
     "KAGGLE_KEY",
     "GDRIVE_SERVICE_ACCOUNT_JSON",
     "GDRIVE_FOLDER_ID",
 }
+LOCAL_DOTENV_PATH = Path(__file__).resolve().parents[2] / ".env"
 
 
 def _is_kaggle_runtime() -> bool:
@@ -49,22 +55,32 @@ def _try_kaggle(name: str) -> str | None:
         from kaggle_secrets import UserSecretsClient
 
         client = UserSecretsClient()
-        val = client.get_secret(name)
+        try:
+            val = client.get_secret(name)
+        except Exception:
+            val = None
         if val:
             logger.debug("Secret '%s' found in Kaggle Secrets.", name)
             return val
+        # Same KEY=value format as local .env, held only in Kaggle Secrets.
+        # Resolve just the requested key; never export or persist the whole file.
+        from dotenv import dotenv_values
+
+        payload = client.get_secret("FQ_SSIUU_DOTENV")
+        return dotenv_values(stream=StringIO(payload), interpolate=False).get(name)
     except Exception:
         logger.debug("Kaggle Secrets lookup failed for '%s'.", name)
     return None
 
 
 def _try_dotenv(name: str) -> str | None:
-    """Try to load a secret from .env file via python-dotenv."""
+    """Read one key from the ignored local project file; no environment mutation."""
+    if _is_kaggle_runtime():
+        return None
     try:
-        from dotenv import load_dotenv
+        from dotenv import dotenv_values
 
-        load_dotenv()  # Idempotent — only loads once
-        val = os.environ.get(name)
+        val = dotenv_values(LOCAL_DOTENV_PATH, interpolate=False).get(name)
         if val:
             logger.debug("Secret '%s' found via .env file.", name)
             return val
@@ -76,7 +92,7 @@ def _try_dotenv(name: str) -> str | None:
 def get_secret(name: str, required: bool = True) -> str | None:
     """Retrieve a secret by name.
 
-    Checks sources in precedence order: env > Kaggle Secrets > .env file.
+    Checks env > individual Kaggle Secret > Kaggle dotenv text > local .env.
 
     Args:
         name: The secret name (e.g. 'HF_TOKEN').

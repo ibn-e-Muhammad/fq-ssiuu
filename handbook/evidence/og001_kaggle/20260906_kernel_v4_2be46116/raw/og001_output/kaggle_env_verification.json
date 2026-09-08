@@ -1,0 +1,264 @@
+{
+  "schema_version": "1.0",
+  "verifier_version": "1.0",
+  "run_id": "04396fe9-0195-476c-bb74-29e6a5ca074b",
+  "git_sha": "121ddca30a4578053b214b177b7aef26f505defe",
+  "utc_timestamp": "2026-09-06T14:24:45.431643+00:00",
+  "statuses": {
+    "overall": "PASS"
+  },
+  "checks": {
+    "git_provenance": {
+      "status": "PASS",
+      "observed": "121ddca30a4578053b214b177b7aef26f505defe"
+    },
+    "baseline_file": {
+      "status": "PASS",
+      "path": "/kaggle/working/fq-ssiuu/requirements/kaggle-native-baseline.json"
+    },
+    "python_version": {
+      "status": "PASS",
+      "observed": {
+        "actual": "3.12.13",
+        "expected": "3.12.13"
+      }
+    },
+    "cuda_visible_devices_var": {
+      "status": "PASS",
+      "observed": "0"
+    },
+    "pytorch_version": {
+      "status": "PASS",
+      "observed": {
+        "actual": "2.10.0+cu128",
+        "expected": "2.10.0+cu128"
+      }
+    },
+    "cuda_build": {
+      "status": "PASS",
+      "observed": {
+        "actual": "12.8",
+        "expected": "12.8"
+      }
+    },
+    "cuda_device_count": {
+      "status": "PASS",
+      "observed": 1
+    },
+    "t4_hardware": {
+      "status": "PASS",
+      "observed": {
+        "name": "Tesla T4",
+        "compute_capability": [
+          7,
+          5
+        ],
+        "total_memory_gib": 14.56
+      }
+    },
+    "fp16_operation": {
+      "status": "PASS",
+      "observed": {
+        "shape": [
+          10,
+          10
+        ],
+        "dtype": "torch.float16",
+        "device": "cuda:0",
+        "is_finite": true
+      }
+    },
+    "sdpa_operation": {
+      "status": "PASS",
+      "observed": {
+        "shape": [
+          1,
+          4,
+          16,
+          32
+        ],
+        "dtype": "torch.float16",
+        "device": "cuda:0",
+        "is_finite": true
+      }
+    },
+    "protected_stack_integrity": {
+      "status": "PASS",
+      "observed": {
+        "torch": {
+          "expected": "2.10.0+cu128",
+          "actual": "2.10.0+cu128",
+          "match": true
+        },
+        "torchvision": {
+          "expected": "0.25.0+cu128",
+          "actual": "0.25.0+cu128",
+          "match": true
+        },
+        "torchaudio": {
+          "expected": "2.10.0+cu128",
+          "actual": "2.10.0+cu128",
+          "match": true
+        },
+        "triton": {
+          "expected": "3.6.0",
+          "actual": "3.6.0",
+          "match": true
+        },
+        "transformers": {
+          "expected": "5.0.0",
+          "actual": "5.0.0",
+          "match": true
+        },
+        "datasets": {
+          "expected": "5.0.0",
+          "actual": "5.0.0",
+          "match": true
+        },
+        "accelerate": {
+          "expected": "1.13.0",
+          "actual": "1.13.0",
+          "match": true
+        },
+        "peft": {
+          "expected": "0.19.1",
+          "actual": "0.19.1",
+          "match": true
+        },
+        "huggingface-hub": {
+          "expected": "1.11.0",
+          "actual": "1.11.0",
+          "match": true
+        },
+        "numpy": {
+          "expected": "2.0.2",
+          "actual": "2.0.2",
+          "match": true
+        },
+        "scipy": {
+          "expected": "1.16.3",
+          "actual": "1.16.3",
+          "match": true
+        },
+        "pandas": {
+          "expected": "2.3.3",
+          "actual": "2.3.3",
+          "match": true
+        },
+        "omegaconf": {
+          "expected": "2.3.0",
+          "actual": "2.3.0",
+          "match": true
+        },
+        "tokenizers": {
+          "expected": "0.22.2",
+          "actual": "0.22.2",
+          "match": true
+        },
+        "safetensors": {
+          "expected": "0.7.0",
+          "actual": "0.7.0",
+          "match": true
+        }
+      }
+    },
+    "overlay_imports": {
+      "status": "PASS",
+      "observed": {
+        "bitsandbytes": "PASS",
+        "captum": "PASS",
+        "hydra": "PASS",
+        "lm_eval": "PASS",
+        "jsonlines": "PASS"
+      }
+    },
+    "nf4_quantise_dequantise": {
+      "status": "PASS",
+      "observed": {
+        "shape": [
+          8192,
+          1
+        ],
+        "device": "cuda:0",
+        "quant_dtype": "torch.uint8",
+        "rec_dtype": "torch.float32",
+        "quant_type": "nf4",
+        "is_rec_finite": true,
+        "mean_reconstruction_error": 0.07174444198608398,
+        "max_reconstruction_error": 0.48101139068603516
+      }
+    },
+    "peak_memory": {
+      "status": "PASS",
+      "observed": {
+        "device": "cuda:0",
+        "peak_allocated_bytes": 8792576,
+        "peak_reserved_bytes": 23068672,
+        "device_total_bytes": 15636037632,
+        "budget_bytes": 16000000000,
+        "scope": "verifier smoke process"
+      }
+    },
+    "pip_check": {
+      "status": "PASS",
+      "observed": {
+        "schema_version": "1.0",
+        "status": "PASS",
+        "state": "BASELINE_DIRTY_NO_REGRESSION",
+        "unchanged": [
+          {
+            "kind": "conflict",
+            "owner": "moviepy",
+            "owner_version": "1.0.3",
+            "dependency": "decorator",
+            "requirement": "decorator<5.0,>=4.0.2",
+            "installed_version": "5.3.1"
+          },
+          {
+            "kind": "missing",
+            "owner": "bigframes",
+            "owner_version": "2.39.0",
+            "dependency": "google-cloud-bigquery-storage"
+          },
+          {
+            "kind": "missing",
+            "owner": "google-adk",
+            "owner_version": "1.29.0",
+            "dependency": "google-cloud-bigquery-storage"
+          },
+          {
+            "kind": "conflict",
+            "owner": "dopamine-rl",
+            "owner_version": "4.1.2",
+            "dependency": "gym",
+            "requirement": "gym<=0.25.2",
+            "installed_version": "0.26.2"
+          },
+          {
+            "kind": "conflict",
+            "owner": "google-colab",
+            "owner_version": "1.0.0",
+            "dependency": "jupyter-server",
+            "requirement": "jupyter-server==2.14.0",
+            "installed_version": "2.12.5"
+          },
+          {
+            "kind": "conflict",
+            "owner": "google-colab",
+            "owner_version": "1.0.0",
+            "dependency": "pandas",
+            "requirement": "pandas==2.2.2",
+            "installed_version": "2.3.3"
+          }
+        ],
+        "introduced": [],
+        "resolved": [],
+        "overlay_diagnostics": [],
+        "run_id": "04396fe9-0195-476c-bb74-29e6a5ca074b",
+        "git_sha": "121ddca30a4578053b214b177b7aef26f505defe",
+        "before_returncode": 1,
+        "after_returncode": 1
+      }
+    }
+  }
+}
