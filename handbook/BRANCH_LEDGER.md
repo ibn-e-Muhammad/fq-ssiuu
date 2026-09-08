@@ -12,6 +12,20 @@
 - Historical branches can be deleted only after ancestry, open-PR status and integration are reverified.
 - Experiment evidence must use commit SHA and run ID, not branch name alone.
 
+## Current integration — 2026-09-08
+
+- `dev`: `d310815c07669b86ce5d402ff1a1af0d076f9d8e`, non-force merge PR #7.
+- `fix/kaggle-overlay-evidence-integrity`: merged at `c0eb92fd`, retained.
+- All ancestor branches in the historical active lineage below are superseded
+  by PR #7 and retained; no branch was deleted.
+- `fix/upstream-method-reconciliation`: current focused successor, created from
+  updated dev. No main changes and no untracked DOCX inclusion.
+
+## Historical inventory before PR #7
+
+The relationships and statuses below are a preserved pre-merge snapshot,
+superseded by the current integration record above.
+
 ## Mainline Branches
 
 ### `main`

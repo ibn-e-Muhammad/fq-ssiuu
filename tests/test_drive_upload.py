@@ -40,15 +40,31 @@ class TestDriveUpload:
             with pytest.raises((RuntimeError, ImportError)):
                 upload_run_directory(str(test_dir), folder_id="fake_id")
 
-    def test_upload_summary_structure(self):
-        """Upload summary should have expected keys."""
-        expected_keys = {
-            "drive_folder_id",
-            "drive_folder_name",
-            "file_count",
-            "total_bytes",
-            "error_count",
-            "errors",
-        }
-        # Just verify the structure is documented
-        assert expected_keys  # Placeholder for mocked test
+    @pytest.mark.parametrize("fail_second", [False, True])
+    def test_upload_summary_accounts_for_success_and_failure(self, tmp_path, fail_second):
+        from fq_ssiuu import drive_upload as du
+
+        first = tmp_path / "a.txt"
+        second = tmp_path / "b.txt"
+        first.write_bytes(b"abc")
+        second.write_bytes(b"12345")
+        outcomes = [{"id": "a", "size": "3"}, {"id": "b", "size": "5"}]
+        if fail_second:
+            outcomes[1] = RuntimeError("synthetic upload failure")
+        with (
+            patch.object(du, "_get_drive_service", return_value=object()) as service,
+            patch.object(du, "_create_drive_folder", return_value="run-folder") as folder,
+            patch.object(du, "_upload_file_with_retry", side_effect=outcomes) as upload,
+        ):
+            result = du.upload_run_directory(str(tmp_path), folder_id="parent", run_id="run-test")
+            folder.assert_called_once_with(service.return_value, "run-test", "parent")
+            assert [call.args[1] for call in upload.call_args_list] == [str(first), str(second)]
+        assert result["drive_folder_id"] == "run-folder"
+        assert result["drive_folder_name"] == "run-test"
+        assert result["file_count"] == (1 if fail_second else 2)
+        assert result["total_bytes"] == (3 if fail_second else 8)
+        assert result["error_count"] == int(fail_second)
+        assert len(result["errors"]) == int(fail_second)
+        if fail_second:
+            assert "synthetic upload failure" in result["errors"][0]
+        assert first.read_bytes() == b"abc" and second.read_bytes() == b"12345"

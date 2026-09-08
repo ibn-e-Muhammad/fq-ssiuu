@@ -96,14 +96,17 @@ def parse_args():
     parser.add_argument(
         "--skip_fp16",
         action="store_true",
-        help="Skip FP16 eval and use GATE-1 known value (saves ~5 min).",
+        help="Unsupported legacy option; rejected because FP16 must be measured for this run.",
     )
     parser.add_argument(
         "--hf_token",
         default="",
         help="HuggingFace token. Falls back to HF_TOKEN env var.",
     )
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.skip_fp16:
+        parser.error("--skip_fp16 is unsupported: measure FP16 in this run; historical values cannot replace it")
+    return args
 
 
 def download_checkpoint(hf_token: str, local_dir: str) -> str:
@@ -322,14 +325,8 @@ def main():
         qra_fail_threshold=FAIL_THRESHOLD,
     )
 
-    # Evaluate baseline
-    if args.skip_fp16:
-        # Use known GATE-1 value for FP16 — save ~5 minutes
-        print(f"Skipping FP16 eval (using GATE-1 known value: FQ={GATE1_FQ_BASELINE:.4f})", flush=True)
-        fq_fp16 = GATE1_FQ_BASELINE
-        print("NOTE: FP16 value is from GATE-1 evaluation, not re-measured.", flush=True)
-        t0 = time.time()
-    else: t0 = time.time()
+    # Evaluate every precision from the current checkpoint.
+    t0 = time.time()
     qra_result = run_qra_evaluation(config, condition_id="P1_QRA_1B")
     elapsed = time.time() - t0
 

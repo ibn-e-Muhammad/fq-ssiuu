@@ -1,7 +1,8 @@
 # FQ-SSIUU project status
 
 Updated 2026-09-08. Canonical plan: [MASTER_EXECUTION_PLAN.md](MASTER_EXECUTION_PLAN.md).
-Active branch: `fix/kaggle-overlay-evidence-integrity`; not merged into `dev`.
+Active branch: `fix/upstream-method-reconciliation`, from `dev` merge
+`d310815c07669b86ce5d402ff1a1af0d076f9d8e` (PR #7).
 
 ## Current decision
 
@@ -16,9 +17,9 @@ hashes were independently replayed. No scientific experiment ran.
 
 The researcher-directed execution loop is faithful upstream method → one Mother
 notebook → private Kaggle + Hugging Face archives → consistent research records.
-The exact next action is the reviewed integration PR into `dev`; then upstream
-NPO parity and scientific reconciliation on a successor branch, before corrected
-pilots. Mother run `20260908-041835-2ef818513f23` used 1/2 authorised submissions.
+Operational integration is complete. The exact next action is upstream NPO
+causal sequence-loss parity on the successor branch, followed by scientific
+reconciliation before corrected pilots. Mother run `20260908-041835-2ef818513f23` used 1/2 authorised submissions.
 See its [verdict and private archive receipts](evidence/mother_runner/20260908_kernel_v1_23682ea1/VERDICT.json).
 
 | Evidence | What it establishes | Limit |
@@ -50,11 +51,11 @@ their raw artifacts and correction records remain unchanged.
 
 ## Progression requirements
 
-After OG-001 and the complete validated-runtime acceptance suite pass, review the
-full `dev..HEAD` diff independently, open/update one PR and merge non-destructively
-into `dev` only if no operational defect remains. Retain historical branches and
-the four untracked DOCX files. Create one scientific reconciliation branch from
-updated `dev`, then repair RG-003, RG-002 and RG-001 using primary sources.
+PR #7 merged after runtime acceptance, independent review and successful CI.
+The subsequent automated review found a misleading legacy P1 skip flag and a
+Drive placeholder assertion; their bounded fixes are recorded on the successor
+branch. Historical branches and the four untracked DOCX files remain untouched.
+Reconcile upstream NPO, then RG-003, RG-002 and RG-001 using primary sources.
 
 Corrected pilots precede protocol freeze. Full hypothesis tests require a frozen
 protocol, researcher-approved preregistration and a code/config tag; they must not
