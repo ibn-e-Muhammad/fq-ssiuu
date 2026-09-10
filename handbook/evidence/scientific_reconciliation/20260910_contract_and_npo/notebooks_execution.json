@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "/tmp/fq-ci-tools-20260906/bin/python",
+    "scripts/check_notebooks.py",
+    "--output",
+    "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/scientific_reconciliation/20260910_contract_and_npo/notebook_validation.json"
+  ],
+  "started_utc": "2026-09-10T03:46:49.639870+00:00",
+  "finished_utc": "2026-09-10T03:46:50.004782+00:00",
+  "returncode": 0,
+  "model_experiment": false,
+  "kaggle_submission": false
+}

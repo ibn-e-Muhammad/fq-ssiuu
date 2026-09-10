@@ -1,0 +1,29 @@
+{
+  "artifacts": [
+    {
+      "path": "REVIEW_FOLLOWUP.md",
+      "sha256": "b016512099fb3d71892684e7f0c98739425ab771ea832776e8ffc86484073af7",
+      "size_bytes": 1049
+    },
+    {
+      "path": "followup_tests.log",
+      "sha256": "0fd4f52e3214ab0a85d2decc3905890e122c17c9a0541e453fa4123748cffaff",
+      "size_bytes": 625
+    },
+    {
+      "path": "followup_tests.xml",
+      "sha256": "f8bc9ccf667d1474ec37b21f26627eb8ff92efa3ca6c5610a67142f53943ab70",
+      "size_bytes": 1082
+    },
+    {
+      "path": "github_check_runs.json",
+      "sha256": "e8f3e59ac4369e0020009f7afcd7e29c9e3ffc6da4e4f35d8cd28b9434de2d3b",
+      "size_bytes": 6205
+    },
+    {
+      "path": "merge_commit.json",
+      "sha256": "6fe8d16f66016f8c1ee8ba199dba381970cceedcfa57e8df45514dfe09c3dd93",
+      "size_bytes": 2823
+    }
+  ]
+}

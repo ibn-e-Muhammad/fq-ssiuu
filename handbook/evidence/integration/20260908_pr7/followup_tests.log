@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/muhammad-arslan/Downloads/projects/fq-ssiuu
+configfile: pyproject.toml
+collected 7 items
+
+tests/test_drive_upload.py .....                                         [ 71%]
+tests/test_pilot_cli.py ..                                               [100%]
+
+- generated xml file: /home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/integration/20260908_pr7/followup_tests.xml -
+============================== 7 passed in 0.05s ===============================

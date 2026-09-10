@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/bin/python",
+    "-m",
+    "pytest",
+    "tests",
+    "-m",
+    "not requires_gpu and not requires_model",
+    "-ra",
+    "--junitxml=/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/scientific_reconciliation/20260910_contract_and_npo/tests.xml"
+  ],
+  "started_utc": "2026-09-10T03:46:29.583163+00:00",
+  "finished_utc": "2026-09-10T03:46:47.637912+00:00",
+  "returncode": 0,
+  "model_experiment": false,
+  "kaggle_submission": false
+}

@@ -212,3 +212,22 @@ The previous 22-test result was real but had insufficient behavioral coverage an
 Replaced weak tests with 20 pure behavioral tests covering baseline validation, git provenance failure, pip freeze failure, missing install reports, verifier PARTIAL status, run ID and git SHA linkage, log persistence, and overlay lock generation (including transitive package deltas while excluding protected packages).
 
 See `handbook/corrections/CR-011_kaggle_overlay_validation_coverage.md` for full details.
+
+---
+
+## CR-012: QRA outcome validity and inverted durability verdict
+
+Status: CODE/DOCUMENTATION CORRECTED; RG-005 BLOCKED. Discovered 2026-09-09.
+See [correction and preserved-evidence scope](CR-012_qra_outcome_validity.md).
+This supersedes CR-004's “precision sensitivity demonstrated” wording as evidence
+of recovery and CR-008's certified-to-threshold_met alias. P1/P4 produced historical
+evaluations only; neither a p-value ratio nor an inverted PASS supports durability.
+
+## 2026-09-10 status annotations
+
+Earlier paths and statuses above are discovery-time records. Surrogates now live
+in `experiments/reproductions/METHOD/historical/`. CR-009/011 operational closure
+is evidenced by OG-001 and Mother verdicts. CR-010 loader defaults now use FP16 and
+device 0 with mocked argument/reference tests; actual 1B runtime remains pending.
+CR-005's code-not-found statement is superseded by the pinned author repository
+in `handbook/methods/UPSTREAM_IMPLEMENTATIONS.md`; full QUAIL fidelity remains blocked.

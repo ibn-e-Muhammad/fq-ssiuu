@@ -1,0 +1,59 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1086,
+      "sha256": "5bc74d43af7be957fe060aaaea42a7887b23e1398cb77591f293e468a7d4b71a"
+    },
+    {
+      "path": "SOURCE_MANIFEST.json",
+      "bytes": 626,
+      "sha256": "b834d160224ce3804498454a43885b347f6b4e732e5920990a420dc5eeea1410"
+    },
+    {
+      "path": "VERDICT.json",
+      "bytes": 659,
+      "sha256": "4c198e284e51c547ff2aca5020b7a700a164a1b6e7656f6046dfed9912bc7603"
+    },
+    {
+      "path": "github_ci_run.json",
+      "bytes": 15143,
+      "sha256": "99b07c65c9b645a43d6000d6c5189995c1951600f99483e7b1f1c81837a8f41d"
+    },
+    {
+      "path": "kernel-metadata.json",
+      "bytes": 637,
+      "sha256": "4292e871da51fd083e225f658829aeef90f354a05cc1697a64deff6795503efb"
+    },
+    {
+      "path": "package_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "package_stdout.log",
+      "bytes": 626,
+      "sha256": "b834d160224ce3804498454a43885b347f6b4e732e5920990a420dc5eeea1410"
+    },
+    {
+      "path": "source_secret_scan.json",
+      "bytes": 95,
+      "sha256": "39a87c7197626ef958395311def1798d34588d87dcb5a87607f6fe805ecf0a7e"
+    },
+    {
+      "path": "stage_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stage_stdout.log",
+      "bytes": 734,
+      "sha256": "dccb9bf7b7c15a032db8f885babfa1db2ce4572777c26ed9b945f08fc4b18a55"
+    },
+    {
+      "path": "staging_provenance.json",
+      "bytes": 734,
+      "sha256": "dccb9bf7b7c15a032db8f885babfa1db2ce4572777c26ed9b945f08fc4b18a55"
+    }
+  ]
+}

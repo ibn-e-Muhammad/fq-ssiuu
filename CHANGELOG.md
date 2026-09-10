@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026-09-10 — scientific reconciliation A
+
+- Separate NPO, QUAIL, SSIUU, FQ_QAT and QRA workspaces; preserve historical
+  surrogates, notebooks and raw results. One current Kaggle Mother entry point.
+- Add causal NPO candidate with CPU parity against both pinned upstreams.
+- Retire p-value recovery scores and inverted certification; descriptive report
+  decisions stay null. Register blocking RG-005/006.
+- Default loading to FP16/device 0, remove nonexistent CLI, prevent Colab setup on import.
+
+The historical entries below record what was claimed at the time, **not accepted
+current scientific conclusions**. CR-012 supersedes P1/P4 attack and robustness
+claims. Gate 1 is a historical baseline attempt; P2 is offline hidden-layer IG; P3
+is an activation-INT4/token-mean surrogate; P4 is hinge-only. No faithful corrected
+pilot or full hypothesis test is claimed. The old Stage 2 names do not establish
+published SSIUU, QUAIL or weight-NF4 fidelity. Their implementations now live in
+method `historical/` folders; see the current method matrix.
+
+## Historical entries (superseded interpretation)
+
 ## [Unreleased — Stage 1]
 
 ### Added

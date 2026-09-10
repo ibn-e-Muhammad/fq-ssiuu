@@ -40,6 +40,11 @@ def load_recipe(path):
     if type(recipe.get("seed")) is not int or not 0 <= recipe["seed"] < 2**32:
         raise ValueError("Explicit integer seed required")
     if recipe["kind"] != "integration":
+        from scripts.research_gate import is_blocking, load_gates
+
+        gates = load_gates(ROOT / "handbook/research_gates.yaml")
+        if not any(gate.id == "RG-005" and not is_blocking(gate) for gate in gates):
+            raise ValueError("RG-005 blocks every corrected pilot and scientific experiment")
         # Each accepted method supplies its own adapter recipe. Do not relabel
         # a historical surrogate as an accepted method or invent missing inputs.
         spec = json.loads(checked_path(ROOT, recipe["method_spec"]).read_text())

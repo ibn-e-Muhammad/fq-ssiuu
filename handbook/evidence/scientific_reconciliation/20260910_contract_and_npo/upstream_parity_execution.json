@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/bin/python",
+    "experiments/reproductions/NPO/validate_upstream.py",
+    "--upstream",
+    "/tmp/fq-upstream-npo",
+    "--openunlearning",
+    "/tmp/fq-upstream-openunlearning",
+    "--output",
+    "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/scientific_reconciliation/20260910_contract_and_npo/npo_parity.json"
+  ],
+  "started_utc": "2026-09-10T03:46:47.638097+00:00",
+  "finished_utc": "2026-09-10T03:46:49.606701+00:00",
+  "returncode": 0,
+  "model_experiment": false,
+  "kaggle_submission": false
+}

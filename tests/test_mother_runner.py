@@ -65,3 +65,10 @@ def test_staging_never_overwrites_existing_provenance(tmp_path):
         stage(tmp_path / "absent-source", "owner/dataset", "recipe.json", output)
     assert receipt.read_text() == "original receipt\n"
     assert not output.exists()
+
+
+def test_qra_gate_blocks_pilot_before_adapter_or_model_access(tmp_path):
+    recipe = tmp_path / "recipe.json"
+    recipe.write_text(json.dumps({"schema_version": "1.0", "kind": "pilot", "seed": 42}))
+    with pytest.raises(ValueError, match="RG-005"):
+        load_recipe(recipe)

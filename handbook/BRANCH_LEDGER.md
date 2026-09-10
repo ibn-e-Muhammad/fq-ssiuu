@@ -12,6 +12,20 @@
 - Historical branches can be deleted only after ancestry, open-PR status and integration are reverified.
 - Experiment evidence must use commit SHA and run ID, not branch name alone.
 
+## Current integration — 2026-09-08
+
+- `dev`: `d310815c07669b86ce5d402ff1a1af0d076f9d8e`, non-force merge PR #7.
+- `fix/kaggle-overlay-evidence-integrity`: merged at `c0eb92fd`, retained.
+- All ancestor branches in the historical active lineage below are superseded
+  by PR #7 and retained; no branch was deleted.
+- `fix/upstream-method-reconciliation`: current focused successor, created from
+  updated dev. No main changes and no untracked DOCX inclusion.
+
+## Historical inventory before PR #7
+
+The relationships and statuses below are a preserved pre-merge snapshot,
+superseded by the current integration record above.
+
 ## Mainline Branches
 
 ### `main`
@@ -147,3 +161,17 @@ raw evidence, exact source/staging pins and private storage receipts are recorde
 in `handbook/evidence/mother_runner/20260908_kernel_v1_23682ea1/`.
 The evidence commit is the commit containing this entry. Integration requires a
 reviewed PR and passing CI; no merge is claimed by this pre-merge record.
+
+## Scientific reconciliation A — 2026-09-10
+
+Remote dev `d310815c` and successor `291bbda5` matched local refs before this change.
+The containing commit organises method workspaces, adds QRA/NPO acceptance code
+and preserves historical source/evidence. No Kaggle submission, dev/main merge,
+branch deletion or history rewrite belongs to this work unit. Four untracked DOCX
+files remain excluded. Current integration status at the top supersedes dated
+pre-merge narratives above.
+
+Work unit A was published at `07158770d810c3212c0de2be9f14ea008fe333c4`.
+PR #8 targets dev; CI run 55 passed the exact head. Local parentless-source/notebook
+staging also passed. The following evidence-only commit records those receipts;
+no integration merge is claimed.

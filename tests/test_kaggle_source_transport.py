@@ -201,7 +201,7 @@ class TestNotebookBootstrap(unittest.TestCase):
         self.setup_path = self.repo / "scripts/kaggle_setup.py"
         git(self.repo, "init")
         path = Path(
-            "experiments/notebooks/kaggle/og001_overlay_validation/OG001_KAGGLE_OVERLAY_VALIDATION.ipynb"
+            "notebooks/kaggle/archive/og001_overlay_validation/OG001_KAGGLE_OVERLAY_VALIDATION.ipynb"
         )
         notebook = json.loads(path.read_text())
         self.namespace = {"__name__": "notebook_test"}
