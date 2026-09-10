@@ -170,3 +170,8 @@ and preserves historical source/evidence. No Kaggle submission, dev/main merge,
 branch deletion or history rewrite belongs to this work unit. Four untracked DOCX
 files remain excluded. Current integration status at the top supersedes dated
 pre-merge narratives above.
+
+Work unit A was published at `07158770d810c3212c0de2be9f14ea008fe333c4`.
+PR #8 targets dev; CI run 55 passed the exact head. Local parentless-source/notebook
+staging also passed. The following evidence-only commit records those receipts;
+no integration merge is claimed.

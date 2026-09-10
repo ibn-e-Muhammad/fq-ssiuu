@@ -1,0 +1,13 @@
+{
+  "parameters": {
+    "source_origin_sha": "07158770d810c3212c0de2be9f14ea008fe333c4",
+    "source_tree_sha": "e76d0c51a9865c82700bd12504683660e536079c",
+    "source_manifest_sha256": "b834d160224ce3804498454a43885b347f6b4e732e5920990a420dc5eeea1410",
+    "dataset_id": "muhammadii/fq-ssiuu-source-0715877-layout-check",
+    "orchestration_commit": "07158770d810c3212c0de2be9f14ea008fe333c4",
+    "recipe": "configs/runs/integration_v1.json"
+  },
+  "committed_notebook_sha256": "a55506fd4d23b76a151617f27188bb7302beff5447108cf54a49ed672ee7a8a8",
+  "staged_notebook_sha256": "64462d8f032cc213aff63d8e03fba369962798ec2f1ab624ebd6e6e1916a5533",
+  "metadata_sha256": "4292e871da51fd083e225f658829aeef90f354a05cc1697a64deff6795503efb"
+}

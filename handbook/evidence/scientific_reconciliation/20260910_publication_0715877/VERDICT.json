@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "origin_commit": "07158770d810c3212c0de2be9f14ea008fe333c4",
+  "source_tree": "e76d0c51a9865c82700bd12504683660e536079c",
+  "private_parentless_source_staging": "PASS",
+  "notebook_cells_compile": "PASS",
+  "tracked_source_secret_scan": "PASS",
+  "github_ci": {
+    "run_id": 34435075587,
+    "conclusion": "success",
+    "url": "https://github.com/ibn-e-Muhammad/fq-ssiuu/actions/runs/34435075587"
+  },
+  "pr": "https://github.com/ibn-e-Muhammad/fq-ssiuu/pull/8",
+  "kaggle_submissions": 0,
+  "model_experiments": 0,
+  "uploaded": false,
+  "acceptance_scope": "Local staging and CPU CI for exact source; no scientific gate closure"
+}

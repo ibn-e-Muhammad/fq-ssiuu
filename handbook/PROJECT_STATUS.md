@@ -2,7 +2,8 @@
 
 Updated 2026-09-10. [Canonical plan](MASTER_EXECUTION_PLAN.md).
 Active branch: `fix/upstream-method-reconciliation`, from dev `d310815c`
-(PR #7 merged). Environment and Mother installation are frozen.
+(PR #7 merged). Work unit A is published at `0715877`, [PR #8](https://github.com/ibn-e-Muhammad/fq-ssiuu/pull/8).
+CI run 55 passed that exact source. Environment and Mother installation are frozen.
 
 ## Current outcome
 
@@ -49,7 +50,7 @@ evidence, not model-level scientific validation or training-memory evidence.
 
 ## Exact next action
 
-Finish local evidence/review and publish scientific reconciliation A, then build the
+Scientific reconciliation A passed its bounded acceptance. Next build the
 upstream-faithful NPO caller/data/reference adapter and concrete QRA metric validation.
 Proceed through QUAIL, weight NF4 and SSIUU before corrected pilots. Resolve and
 approve the final protocol only after feasibility; no outcome-dependent adjustments.
