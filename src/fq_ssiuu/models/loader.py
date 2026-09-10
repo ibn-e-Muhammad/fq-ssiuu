@@ -49,10 +49,10 @@ class ModelConfig:
     base_model_id: str = "meta-llama/Llama-3.2-1B-Instruct"
     load_in_4bit: bool = True
     bnb_4bit_quant_type: str = "nf4"
-    bnb_4bit_compute_dtype: str = "bfloat16"
+    bnb_4bit_compute_dtype: str = "float16"
     bnb_4bit_use_double_quant: bool = True
-    torch_dtype: str = "bfloat16"
-    device_map: str = "auto"
+    torch_dtype: str = "float16"
+    device_map: dict = field(default_factory=lambda: {"": 0})
     # LoRA defaults matching configs/base.yaml
     lora_r: int = 16
     lora_alpha: int = 32
@@ -99,7 +99,9 @@ def _get_hf_token() -> str:
     Raises:
         RuntimeError: If HF_TOKEN is not set, empty, or set to 'PENDING'.
     """
-    token = os.environ.get("HF_TOKEN", "")
+    from fq_ssiuu.secrets import get_secret
+
+    token = get_secret("HF_TOKEN")
     if not token:
         raise RuntimeError(
             "HF_TOKEN environment variable is not set. "
@@ -205,7 +207,7 @@ def load_model_fp16(model_id: str, token: str | None = None):
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
         torch_dtype=torch.float16,
-        device_map="auto",
+        device_map={"": 0},
         token=token,
         attn_implementation="sdpa",
     )
@@ -344,7 +346,7 @@ def merge_adapter(peft_model_path: str, base_model_id: str, token: str | None = 
     base_model = AutoModelForCausalLM.from_pretrained(
         base_model_id,
         torch_dtype=torch.float16,
-        device_map="auto",
+        device_map={"": 0},
         token=token,
         attn_implementation="sdpa",
     )

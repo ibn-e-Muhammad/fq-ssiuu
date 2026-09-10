@@ -1,0 +1,17 @@
+{
+  "argv": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests",
+    "-m",
+    "not requires_gpu and not requires_model",
+    "-ra",
+    "--junitxml=handbook/evidence/scientific_reconciliation/20260910_contract_and_npo/final_tests.xml"
+  ],
+  "started_utc": "2026-09-10T03:48:34.200966+00:00",
+  "finished_utc": "2026-09-10T03:48:51.804023+00:00",
+  "returncode": 0,
+  "model_experiment": false,
+  "kaggle_submission": false
+}

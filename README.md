@@ -1,90 +1,67 @@
 # FQ-SSIUU: Verifiable Machine Unlearning Against Quantisation Recovery Attacks in Large Language Models
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python 3.11/3.12](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue.svg)](https://python.org)
-[![Status: In Development](https://img.shields.io/badge/status-in%20development-orange.svg)]()
+Muhammad Arslan (23BSAI020), Rohan Ahmed (23BSAI008), supervisor Dr. Sania Bhatti.
+BS Artificial Intelligence, MUET, academic year 2026–27.
 
-## Overview
+The proposed method combines NPO, parameter-attribution SSIUU and deployment-aligned
+weight fake quantisation. The research target is empirical durability at FP16,
+INT8 and NF4 on approximately 1B parameters using one Kaggle Tesla T4 below 16 GB.
+No full hypothesis experiment has run. No formal certification is claimed.
 
-FQ-SSIUU is a proposed machine unlearning framework under active implementation and evaluation for LLMs. It combines Negative Preference Optimisation (NPO), SSIUU-style attribution-guided regularisation, and Fake-Quantisation QAT (FQ-QAT) with Straight-Through Estimators aiming to produce unlearning results that are verifiable and resilient against Quantisation Recovery Attacks (QRA) at INT4 deployment precision.
+## Start here
 
-## Scientific Research Status
+Open [notebooks/kaggle/00_MOTHER_RUNNER.ipynb](notebooks/kaggle/00_MOTHER_RUNNER.ipynb).
+The [Kaggle quick start](notebooks/kaggle/README.md) explains how to stage a committed
+source snapshot, attach its private dataset and select a versioned recipe.
+The template needs those inputs before execution. The validated integration recipe
+runs environment checks and non-model tests; scientific recipes remain blocked.
 
-> [!IMPORTANT]
-> This research project is currently in the **implementation and environment verification stage**.
-> - **Hypothesis Status:** Proposed framework undergoing systematic evaluation. Full experimental hypothesis is NOT yet verified.
-> - **Pilot Results:** Preliminary pilot tests demonstrate technical feasibility only.
-> - **Scientific Blockers (Unresolved):**
->   - **RG-001:** SSIUU attribution gradient flow and loss formulation.
->   - **RG-002:** Training-time FQ vs deployment-time bitsandbytes NF4 quantisation location mismatch.
->   - **RG-003:** QUAIL objective fidelity and retain loss integration.
->   - **RG-004:** TOFU Forget Quality interpretation.
-> - **Execution Target:** Canonical NVIDIA Tesla T4 single-device FP16 compute environment on Kaggle.
+[Mother guide](handbook/MOTHER_NOTEBOOK.md) covers lazy dotenv/Kaggle Secret providers
+and private Kaggle/Hugging Face archives. Never put tokens or a .env file in a notebook,
+source bundle or artifact. Source transport uses a private parentless bundle.
 
-## The Problem We Target
+## Research code
 
-Standard machine unlearning methods pass full-precision or FP16 evaluation audits but degrade when the deployed model is quantised to INT4/NF4 precision (the Quantisation Recovery Attack, or QRA). We evaluate our proposed method at Llama-3.2-1B scale against this vulnerability.
+| Location | Purpose |
+|---|---|
+| [experiments/reproductions/NPO](experiments/reproductions/NPO/) | Candidate causal NPO and parity against two pinned upstream implementations |
+| [experiments/reproductions/QUAIL](experiments/reproductions/QUAIL/) | Complete QUAIL reproduction workspace |
+| [experiments/reproductions/FQ_QAT](experiments/reproductions/FQ_QAT/) | Deployment-aligned weight-NF4 component workspace |
+| [experiments/reproductions/SSIUU](experiments/reproductions/SSIUU/) | Parameter-attribution/HVP reproduction workspace |
+| [experiments/reproductions/QRA](experiments/reproductions/QRA/) | Directional evaluation contract and historical pipeline |
+| [experiments/combined/FQ_SSIUU](experiments/combined/FQ_SSIUU/) | Combination after individual components meet acceptance |
+| [src/fq_ssiuu](src/fq_ssiuu/README.md) | Reusable components with explicit acceptance scope |
+| [tests/methods](tests/methods/) | Current behavioral method tests; historical tests are separate |
 
-## Installation & Setup
+Historical surrogates are named and retained inside each method's `historical/`
+folder. Archived notebooks live under `notebooks/kaggle/archive/`. Raw results and
+previous execution evidence remain unchanged. See [layout inventory](experiments/LAYOUT.json).
 
-### Generic Local Development
-Local installation requires an active virtual environment to prevent accidental global Python environment mutations:
+## Current acceptance
 
-```bash
-# Create and activate virtual environment
-python3 -m venv .venv
-source .venv/bin/activate
+OG-001 and Mother integration are PASS; the validated environment is frozen.
+Scientific gates RG-001/002/003/005/006 remain BLOCKED. RG-004 tracks the KS p-value
+interpretation. The QRA report records observations with separate nullable
+`attack_detected` and `durability_pass`; it cannot issue scientific verdicts yet.
+Historical P1/P4 p-value ratios establish neither recovery nor durability.
+See [CR-012](handbook/corrections/CR-012_qra_outcome_validity.md).
 
-# Install package with local development dependency groups
-python3 -m pip install -e ".[quantisation,attribution,evaluation,dev]"
+[Project status](handbook/PROJECT_STATUS.md), [master plan](handbook/MASTER_EXECUTION_PLAN.md)
+and [method matrix](handbook/METHOD_IMPLEMENTATION_MATRIX.md) are the current records.
+There is no implemented `unlearn-toolkit` CLI. Corrected 1B pilots, protocol approval
+and multi-seed experiments remain ahead of us.
 
-# Or using Makefile (enforces active VIRTUAL_ENV)
-make setup-dev
-```
+## Local checks
 
-### Kaggle Execution Overlay (OG-001)
-For canonical Kaggle T4 execution, the environment uses a protected decoupled architecture. See `requirements/README.md` and `handbook/KAGGLE_ENVIRONMENT_ARCHITECTURE.md`.
-
-```bash
-# Preview dry-run report validation (non-mutating, fail-closed)
-CUDA_VISIBLE_DEVICES=0 python3 scripts/kaggle_setup.py --preview
-
-# Apply overlay installation (requires explicit --apply and CUDA_VISIBLE_DEVICES=0)
-CUDA_VISIBLE_DEVICES=0 python3 scripts/kaggle_setup.py --apply
-```
-
-## Research Gate Execution
-
-Research gates are executed directly via script:
-
-```bash
-python scripts/research_gate.py
-```
-
-## Unlearning Durability Toolkit (UDT)
-
-The UDT CLI generates a structured JSON **Empirical Durability Report**:
+Use a project virtual environment; do not modify global Python packages.
+For dependency setup see [requirements](requirements/README.md). From the repository root:
 
 ```bash
-unlearn-toolkit certify \
-  --model checkpoints/c6_fq_ssiuu/seed42 \
-  --base-model meta-llama/Llama-3.2-1B-Instruct \
-  --forget-set data/processed/tofu_forget05.jsonl \
-  --output certificates/my_durability_report.json
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
+  .venv/bin/python -m pytest tests -m "not requires_gpu and not requires_model"
 ```
 
-## Repository Structure
-
-See [handbook/KAGGLE_ENVIRONMENT_ARCHITECTURE.md](handbook/KAGGLE_ENVIRONMENT_ARCHITECTURE.md) and [requirements/README.md](requirements/README.md) for the complete dependency and execution architecture.
-
-## References
-
-- DurableUn (arXiv:2605.02196)
-- SSIUU (arXiv:2509.22263)
-- QUAIL (arXiv:2601.15538)
-- OpenUnlearning (arXiv:2506.12618)
-- TOFU (Maini et al., COLM 2024)
-
-## Licence
-
-MIT. See [LICENSE](LICENSE).
+This establishes CPU helper and objective behavior, not training feasibility or a
+scientific result. Primary sources and upstream pins are in the
+[upstream register](handbook/methods/UPSTREAM_IMPLEMENTATIONS.md). Project code is
+[MIT licensed](LICENSE); external upstream licenses must be checked separately.

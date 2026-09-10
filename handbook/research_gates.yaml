@@ -1,4 +1,33 @@
 gates:
+  - id: "RG-005"
+    title: "QRA Outcome Definition and Directional Metric Validity"
+    category: "Evaluation Validity"
+    status: "BLOCKED"
+    blocks_training: true
+    blocks_evaluation: true
+    blocked_conditions: ["ALL_CORRECTED_PILOTS", "EMPIRICAL_DURABILITY_REPORT"]
+    dependencies: ["RG-004"]
+    source_citations: ["arXiv:2401.06121v1", "arXiv:2410.16454v2"]
+    verification_command: "pytest tests/methods/QRA"
+    required_evidence: "Directional metric definitions, matched sample/checkpoint provenance, separate nullable attack_detected/durability_pass, behavioral tests, approved versioned decision rule before any scientific verdict."
+    validating_commit: null
+    validation_date: null
+    rationale: "Ratios or differences of KS p-values do not measure recovery. Historical attack PASS was inverted into a durability PASS. All corrected pilots and durability verdicts are blocked pending an interpretable outcome contract."
+
+  - id: "RG-006"
+    title: "NPO Reference Parity"
+    category: "Method Validity"
+    status: "BLOCKED"
+    blocks_training: true
+    blocks_evaluation: false
+    blocked_conditions: ["NPO_REPRODUCTION", "C2", "C4", "C5", "C6", "C7"]
+    dependencies: []
+    source_citations: ["arXiv:2404.05868v2", "locuslab/open-unlearning@4ad738aaf60f6a4385f6e2506d01da99e76c31f3"]
+    verification_command: "pytest tests/methods/NPO"
+    required_evidence: "Values and current/retain gradients match both pinned upstreams; explicit NPO versus NPO+RT distinction; causal answer/EOS masking and frozen reference behavior; recorded adaptations before corrected 1B reproduction."
+    validating_commit: null
+    validation_date: null
+    rationale: "Historical helper was an unshifted token-mean surrogate. The candidate has CPU value/gradient parity against both pinned upstreams; data/caller and reference adapter acceptance remain pending."
   - id: "RG-001"
     title: "SSIUU Gradient Flow"
     category: "Method Validity"
@@ -8,8 +37,8 @@ gates:
     blocked_conditions: ["C4", "C6", "C7"]
     dependencies: []
     source_citations: ["arXiv:2509.22263v2"]
-    verification_command: "pytest tests/test_ssiuu_gradient_flow.py"
-    required_evidence: "loss.backward() produces non-zero param.grad for at least one model parameter"
+    verification_command: "pytest tests/historical/SSIUU/test_ssiuu_gradient_flow.py"
+    required_evidence: "Published parameter attribution, current/previous state, negative-index selection, first-step zero and HVP reference tests; non-zero regularisation gradients and measured single-T4 training memory. Historical regression command cannot close this gate."
     validating_commit: null
     validation_date: null
     rationale: ".detach() at ssiuu_reg.py:173 severs gradient flow. SSIUU regularisation loss cannot affect model parameters."
@@ -23,8 +52,8 @@ gates:
     blocked_conditions: ["C5", "C6", "C7"]
     dependencies: []
     source_citations: ["FQ-SSIUU Design Intent"]
-    verification_command: "pytest tests/test_quantisation_location.py"
-    required_evidence: "Quantiser metadata deployment_equivalent field must be True, or scope documented as ablation"
+    verification_command: "pytest tests/historical/FQ_QAT/test_quantisation_location.py"
+    required_evidence: "Behavioral comparison of training and deployment merged-weight NF4 codebook/block/scale semantics, gradient and disabled-path tests plus corrected P3. A metadata flag or ablation label cannot close this gate."
     validating_commit: null
     validation_date: null
     rationale: "Training-time FQ applies symmetric INT4 QDQ to adapter output activations. Deployment NF4 applies the NF4 codebook to merged model weights. These are different operations."
@@ -38,8 +67,8 @@ gates:
     blocked_conditions: ["C8"]
     dependencies: []
     source_citations: ["arXiv:2601.15538v1"]
-    verification_command: "pytest tests/test_quail_loss.py"
-    required_evidence: "QUAIL loss function must match published equation structure with all three components."
+    verification_command: "pytest tests/historical/QUAIL/test_quail_loss.py"
+    required_evidence: "Complete published forget/retain/all-logit hinge objective, coefficients and margin; independent numerical/masking/gradient tests and corrected P4. Historical hinge tests cannot close this gate."
     validating_commit: null
     validation_date: null
     rationale: "Current implementation has hinge loss only (no forget loss, no retain loss), uses margin 4.2e-4 (published: 1.0/2), and has no loss weighting coefficients."

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "work_unit": "Scientific reconciliation A and repository method organisation",
+  "status": "PASS_WITHIN_CPU_DESCRIPTIVE_SCOPE",
+  "base_commit": "291bbda5db05d8ee5e1093be32112e58c29e2726",
+  "supporting_commit": "Commit containing this evidence; resolve with git log --follow.",
+  "offline_suite": {
+    "passed": 203,
+    "skipped": 4,
+    "deselected": 10,
+    "expected_failures": 1,
+    "subtests_passed": 21,
+    "source": "final_offline_tests_stdout.log",
+    "limitation": "Four historical FADE placeholders remain; local NumPy absent. Known historical SSIUU gradient xfail remains. GPU/model tests deselected."
+  },
+  "npo_parity": {
+    "status": "PASS",
+    "cases": 16,
+    "maximum_gradient_absolute_error": 2.9802322387695312e-08,
+    "source": "npo_parity.json",
+    "upstreams": [
+      "author",
+      "OpenUnlearning"
+    ]
+  },
+  "notebooks": {
+    "status": "PASS",
+    "count": 11,
+    "executed": false
+  },
+  "lint": "PASS",
+  "format": "PASS",
+  "independent_review": "independent_review.md",
+  "kaggle_submissions": 0,
+  "model_experiment_executed": false,
+  "global_packages_changed": false,
+  "acceptance": {
+    "pvalue_recovery_score_retired": true,
+    "matched_report_provenance": true,
+    "utility_interpretation_separate": true,
+    "nullable_decisions_without_scientific_verdict": true,
+    "dual_upstream_objective_gradients": true,
+    "method_layout_and_notebook_bytes_preserved": true,
+    "raw_historical_evidence_unchanged": true
+  },
+  "gates": {
+    "OG-001": "PASS_UNCHANGED",
+    "RG-001": "BLOCKED",
+    "RG-002": "BLOCKED",
+    "RG-003": "BLOCKED",
+    "RG-004": "OPEN",
+    "RG-005": "BLOCKED",
+    "RG-006": "BLOCKED"
+  },
+  "supported_claims": [
+    "CPU objective/value-gradient conformance for the tested NPO variants and fixtures",
+    "Descriptive QRA/report invariants",
+    "Organised entry points, preserved notebook bytes and historical evidence"
+  ],
+  "unsupported_claims": [
+    "Accepted scientific decision rule",
+    "Faithful tokenizer/dataset/reference adapter",
+    "Corrected 1B NPO reproduction",
+    "GPU numerics or training memory",
+    "Published QUAIL/SSIUU/weight-NF4 implementation",
+    "Corrected pilots or full hypothesis results"
+  ],
+  "next_action": "Publish/review work unit A; implement upstream-faithful NPO data/reference adapter and concrete QRA metric validation before any corrected model run."
+}

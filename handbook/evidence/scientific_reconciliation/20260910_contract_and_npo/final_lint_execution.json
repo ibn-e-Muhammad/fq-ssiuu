@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/tmp/fq-ci-tools-20260906/bin/ruff",
+    "check",
+    "src",
+    "tests",
+    "scripts",
+    "experiments/reproductions/NPO/candidate.py",
+    "experiments/reproductions/NPO/validate_upstream.py"
+  ],
+  "started_utc": "2026-09-10T03:48:51.804545+00:00",
+  "finished_utc": "2026-09-10T03:48:51.843131+00:00",
+  "returncode": 0,
+  "model_experiment": false,
+  "kaggle_submission": false
+}

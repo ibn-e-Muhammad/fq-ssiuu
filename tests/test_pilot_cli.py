@@ -4,7 +4,7 @@ import sys
 
 import pytest
 
-from experiments.pilot_p1_qra_check import parse_args
+from experiments.reproductions.QRA.historical.pilot_p1 import parse_args
 
 
 def test_p1_rejects_historical_fp16_substitution(monkeypatch, capsys):

@@ -32,8 +32,8 @@ jobs:
 
       - name: Lint with ruff
         run: |
-          ruff check src/ tests/ scripts/ --output-format=github
-          ruff format --check src/ tests/ scripts/
+          ruff check src/ tests/ scripts/ experiments/reproductions/NPO/candidate.py experiments/reproductions/NPO/validate_upstream.py --output-format=github
+          ruff format --check src/ tests/ scripts/ experiments/reproductions/NPO/candidate.py experiments/reproductions/NPO/validate_upstream.py
 
       - name: Validate notebook syntax without execution
         run: python scripts/check_notebooks.py --output notebook-validation.json

@@ -37,3 +37,14 @@
 - The thesis itself (LaTeX/Word documents) is NOT tracked in this repository.
 - This ledger tracks WHAT needs updating. The actual thesis edits are the author's responsibility.
 - Each correction entry in the correction register (`handbook/corrections/REGISTER.md`) is cross-referenced here.
+
+## Scientific reconciliation A — 2026-09-10
+
+| Consequence | Chapters | Required change and evidence |
+|---|---|---|
+| CR-012 QRA interpretation/direction | 3–5 | Withdraw historical P1/P4 attack/durability conclusions; retain observations with raw linkage. Cite `corrections/CR-012_qra_outcome_validity.md`. No p-value recovery magnitude or certified pass. |
+| NPO objective parity | 2–3 | Describe causal sequence sums and pure NPO versus NPO+RT; CPU value/gradient parity is distinct from a faithful 1B reproduction. See `methods/NPO_CONFORMANCE.md`. |
+| Method workspace and promotion | 3 reproducibility | Individual candidate/historical folders, one Mother entry point, accepted-code promotion and later protocol tag are distinct milestones. |
+
+Authoritative working thesis remains untracked; the four protected DOCX files were
+not modified. This ledger records pending thesis changes, not completed prose edits.

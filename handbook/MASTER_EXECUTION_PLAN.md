@@ -1,97 +1,71 @@
 # Master execution plan
 
-Research: FQ-SSIUU: Verifiable Machine Unlearning Against Quantisation Recovery
-Attacks in Large Language Models. Muhammad Arslan (23BSAI020), Rohan Ahmed
+Updated 2026-09-10. FQ-SSIUU: Verifiable Machine Unlearning Against Quantisation
+Recovery Attacks in Large Language Models. Muhammad Arslan (23BSAI020), Rohan Ahmed
 (23BSAI008), supervisor Dr. Sania Bhatti; BS AI, MUET, 2026–27.
 
-This is the canonical execution plan. The research establishes only empirical
-durability within the frozen protocol. Historical pilots remain feasibility
-evidence. Published history and raw results are immutable.
+## Current execution contract
 
-## Active execution contract
+The research aims to test empirical durability under a defined protocol at about
+1B parameters. Reproduce individual methods first, then combine them. Historical
+pilots establish only the behavior of their historical implementations. Full
+hypothesis testing has not begun.
 
-- Starting branch: `fix/kaggle-overlay-evidence-integrity`, starting commit
-  `0bbeaeb560acd5b9357ddfc25f18246d103b379b`; remote refs retrieved through the
-  connected GitHub integration after credential-free HTTPS fetch could not
-  authenticate. Local and remote tips agree; tracked state clean; merge base
-  `e395f7af264eaaac9473d8b9e9f1c7a46c825d5c`; 20 ahead, zero behind `dev`.
-- Canonical compute: one selected Tesla T4, `CUDA_VISIBLE_DEVICES=0`, FP16,
-  peak selected-device memory below 16,000,000,000 bytes. No sharding.
-- Immediate OG-001 work unit: at most two new private Kaggle submissions.
-  The earlier version-2 attempt is historical evidence, not a submission in
-  this work unit. Diagnose and preserve each attempt before any second run.
-- Private parentless source snapshots only; scan committed trees and verify
-  tree/bundle/manifest identity. Exclude credentials, untracked files and DOCX.
-- Never install unrelated native-image conflict fixes to make global pip check
-  clean. Accept inherited diagnostics only as `BASELINE_DIRTY_NO_REGRESSION`,
-  with no introduced or overlay-owned unsatisfied dependencies and every
-  substantive runtime and integrity check passing.
-- Continue safe unblocked work. Stop for a real external access/quota blocker,
-  a researcher/supervisor scientific decision, or two diagnosed executions
-  leaving an unresolved blocker. Public submission and protocol approval remain
-  researcher decisions.
+Active branch: `fix/upstream-method-reconciliation`, from dev `d310815c` (PR #7).
+Remote dev and reconciliation tips were rechecked on 2026-09-10. Main, published
+history, raw evidence and the four untracked DOCX files remain untouched.
+
+Environment and Mother installation are frozen at accepted operational evidence.
+The current work unit is repository organisation plus scientific reconciliation A:
+QRA/report contract and NPO parity, **CPU only; zero Kaggle/model submissions**.
+An earlier proposed tiny-NPO GPU run is superseded and was never submitted.
+
+Canonical future compute remains one Tesla T4, CUDA_VISIBLE_DEVICES=0, FP16 and
+peak selected-device VRAM below 16,000,000,000 bytes; no sharding or second GPU.
+Each future Kaggle work unit has at most two submissions unless newly authorised.
+Source transport stays private and parentless; credentials never enter source or
+artifacts. Keep one Mother notebook and versioned per-method recipes, then seal
+and hash-verify outputs in private Kaggle and Hugging Face stores.
 
 ## Workstreams and acceptance
 
-| Workstream | Dependency | Falsifiable acceptance criteria | Status | Supporting commit | Evidence | Exact next action | Blocking user decision |
+For new rows, “containing commit” means the commit containing this plan/evidence;
+resolve with Git history instead of inventing a self-referential hash.
+
+| Workstream | Dependency | Acceptance criteria | Status | Supporting commit | Evidence path | Exact next action | Blocking user decision |
 |---|---|---|---|---|---|---|---|
-| OG-001 environment closure | Verified starting source | Raw pre/post pip checks; no introduced/overlay diagnostic; resolver policy and unchanged protected stack; required imports, CUDA FP16, SDPA, genuine NF4; one T4; peak memory; verified before/after manifests, verifier record and overlay lock; no scientific run | PASS | `1efe2b32` source / `2be46116` notebook | `handbook/evidence/og001_kaggle/20260906_kernel_v4_2be46116/` | Reuse validated overlay lock in Mother notebook | None |
-| Mother notebook and durable run loop | OG-001 PASS | Full non-model suite runs from pinned source and exact lock; one notebook/versioned recipe; dotenv providers tested without credential exposure; failure artifacts retained; private Kaggle and HF copies hash-verified | PASS (integration recipe) | `23682ea1` | `handbook/evidence/mother_runner/20260908_kernel_v1_23682ea1/` | Add scientific adapters with accepted methods on successor branch (1/2 submissions used) | None |
-| Integration into dev | OG-001 PASS | Complete non-model suite in validated Kaggle runtime; all notebook Python cells compile; secret scan; full dev diff independently reviewed; evidence retained; no operational defect, DOCX or credentials; scientific gates honest | COMPLETE | `d310815c` (PR #7) | Mother v1 verdict; `handbook/evidence/integration/20260908_pr7/` | Work on `fix/upstream-method-reconciliation`; preserve historical branches | None |
-| RG-003 faithful QUAIL | Environment/integration | Primary-paper conformance specification; independently verified forget/retain/hinge terms, coefficients, margin, token masks and gradients; deterministic integration; corrected P4 | BLOCKED | Existing gate record | `handbook/research_gates.yaml` | Obtain authoritative paper/version and equations on successor branch | Any unresolved scientific adaptation |
-| RG-002 deployment-aligned FQ-QAT | Environment/integration | Weight NF4 conformance, codebook, differentiable approximation and LoRA treatment explicit; gradient/location/disabled-path/reference tests; corrected P3 | BLOCKED | Existing gate record | `handbook/research_gates.yaml` | Reconcile primary sources and deployment weight transform after QUAIL work | Any unresolved scientific adaptation |
-| RG-001 faithful SSIUU | Environment/integration | Parameter attribution and prior-step state per primary algorithm; current attribution differentiable; previous detached; first-step zero; index selection/HVP reference/gradient tests; tiny GATE-2 then 1B feasibility within memory | BLOCKED | Existing gate record | `handbook/research_gates.yaml` | Obtain algorithm and derive conformance specification after quantisation work | Any unresolved scientific adaptation |
-| Corrected pilots | OG-001 and applicable research gates | New namespaces; P1–P4 and baseline reproducibility; finite real metrics, correct gradients, memory, resume/artifact integrity; feasibility claims only | WAITING | — | — | Execute new corrected pilot configs after gate criteria pass | None within accepted methods |
-| Protocol and preregistration | Corrected feasibility pilots | Frozen hypotheses, conditions, revisions/splits, ≥3 seeds, hyperparameters, metrics/directions, thresholds, exclusions, stopping/statistics/multiplicity/missing-run rules and compute/storage budget; KS p-value interpretation; supervisor package | WAITING | — | — | Prepare OSF draft and sign-off package from accepted methods/pilots | Muhammad Arslan approval before submission/freeze tag |
-| Full multi-seed experiments | Approved frozen protocol/tag | Oracle then baselines, faithful QUAIL, FQ-QAT+NPO, SSIUU+NPO, full method and specified comparator; applicable FP16/INT8/NF4 QRA; immutable per-condition configs, complete run provenance, checkpoint/resume, hashes, VRAM and artifact synchronization | WAITING | — | — | Execute declared dependency order after freeze | Protocol approval |
-| Statistical analysis | Run completeness audit | Every seed and failed/anomalous run accounted for; registered exclusions/tests; paired analysis where appropriate; mean/SD/CI/effect sizes; quantisation-specific recovery; machine-generated tables/figures | WAITING | — | — | Validate machine-readable run completeness before aggregation | Only changes to registered analysis |
-| Thesis maintenance | Consequential verified milestones | Ledger linked to raw run IDs; Chapters 1–3 reflect actual method; Chapters 4–5 use verified results/limits; no manually copied unsupported metrics | ACTIVE | `0bbeaeb5` | `handbook/THESIS_UPDATE_LEDGER.md` | Update ledger at operational closure or consequential blocker | Four existing DOCX files remain untouched |
-| Reproducibility/publication | Accepted analysis and manuscript | Empirical Durability Report, reproduction instructions, artifact manifest, licenses/model/data cards, limitations/ethics, manuscript and release package; no certification/universal/legal claims | WAITING | — | — | Assemble from immutable code/config/data/results provenance | Explicit approval before any public submission |
+| OG-001 | Private source linkage | Imports, FP16/SDPA/NF4, one T4, protected stack, differential pip, manifests/lock | PASS; frozen | `1efe2b32` / notebook `2be46116` | `handbook/evidence/og001_kaggle/20260906_kernel_v4_2be46116/` | Reuse; repair only demonstrated regressions | None |
+| Mother integration/archive | OG-001 | Pinned source/recipe, non-model suite, notebook validation, lazy secrets, private downloaded hashes | PASS; frozen, 1/2 submissions used | `23682ea1`, evidence `c0eb92fd` | `handbook/evidence/mother_runner/20260908_kernel_v1_23682ea1/` | Use same runner for accepted methods | None |
+| Operational dev integration | Accepted runtime/review/CI | Reviewed diff, preserved raw evidence, no secrets/DOCX/main changes | COMPLETE, PR #7 | `d310815c`; review fixes `291bbda5` | `handbook/evidence/integration/20260908_pr7/` | Preserve merged historical branches | None |
+| Method code organisation | Current dev | Separate candidates/historical methods; one first notebook; imports/CLI/tests compile; raw paths unchanged | PASS within layout/CPU scope | Containing commit | `experiments/LAYOUT.json`; `handbook/evidence/scientific_reconciliation/20260910_contract_and_npo/` | Review and publish layout with scientific contract | None |
+| RG-005 QRA/report contract | RG-004 interpretation | No p-value recovery score; matched provenance; nullable independent decisions; real metric definitions and approved decision rule before verdicts | BLOCKED; descriptive contract implemented | Containing commit | `handbook/methods/QRA_OUTCOME_CONTRACT.md`; `tests/methods/QRA/` | Validate concrete evaluator metrics and draft directional decision rule | Researcher approval before thresholds/protocol freeze |
+| RG-006 NPO parity | Pinned author and OpenUnlearning | Causal sequence loss/current-retain gradients; answer/EOS adapter; frozen unquantised reference; explicit variants/adaptations | BLOCKED; CPU objective parity passes | Containing commit | `handbook/methods/NPO_CONFORMANCE.md`; reconciliation evidence | Implement/review data and reference adapter with deterministic CPU fixtures | No new scientific choice needed for upstream parity |
+| RG-003 QUAIL | Individual upstream specification | Complete forget/retain/all-logit hinge; coefficients/margin/masks/gradient parity; corrected P4 | BLOCKED | Historical source retained | `experiments/reproductions/QUAIL/`; upstream register | Reconcile pinned author code with paper equations/update order after work unit A | Any unresolved published ambiguity |
+| RG-002 deployment FQ-QAT | Quantiser specification | Merged-weight/blockwise NF4 semantics, STE/LoRA treatment, disabled-path and gradient tests; corrected P3 | BLOCKED | Historical source retained | `experiments/reproductions/FQ_QAT/` | Specify and compare training/deployment transformations after QUAIL | Explicit novel-method adaptation review |
+| RG-001 SSIUU | Parameter attribution specification | Current differentiable/previous detached; first step zero; index selection; HVP reference; tiny then 1B resource evidence | BLOCKED | Historical source retained | `experiments/reproductions/SSIUU/` | Derive primary algorithm and tiny reference, no full Hessian | Any unresolved scientific adaptation |
+| Corrected pilots | RG-005 and relevant method acceptance | New run IDs; baseline and P1–P4; finite real outputs, gradients, VRAM, resume and storage | WAITING | — | New immutable namespaces required | Execute only after valid method/evaluation entry criteria; pilot evidence completes relevant method gates | None within accepted definitions |
+| Protocol/preregistration | Corrected feasibility | Frozen hypotheses, conditions, revisions/splits, ≥3 seeds, hyperparameters, checkpoints, metrics/directions, thresholds, exclusions, stopping/statistics/multiplicity/missing-run rules, budget | WAITING | — | OSF draft and supervisor package pending | Prepare and obtain approval, then tag code/config | Muhammad Arslan approval before submission/freeze |
+| Full experiments | Approved protocol/tag | Oracle; core baselines; QUAIL; FQ+NPO; SSIUU+NPO; combined method; specified comparator; precision evaluations; immutable configs and complete run manifests | WAITING | — | — | Execute frozen dependency order with checkpoint/resume/synchronization | Protocol approval |
+| Analysis | Completeness audit | Every seed/failure accounted for; registered tests, paired comparisons, effect sizes and uncertainty; machine-generated tables/figures | WAITING | — | — | Validate runs before aggregation; distinguish confirmatory/exploratory | Approval for changes to registered analysis |
+| Thesis | Consequential milestones | Chapters 1–3 reflect actual methods; 4–5 use linked results; no manual unsupported metrics | ACTIVE ledger; working DOCX untracked | Containing commit | `handbook/THESIS_UPDATE_LEDGER.md` | Apply accepted corrections to a versioned thesis workflow without touching protected DOCX | Resolve authoritative thesis source before editing it |
+| Reproducibility/publication | Accepted analysis | Empirical report, licensing, clean public snapshot, artifacts, reproduction guide, manuscript/limitations/ethics | WAITING | — | — | Prepare release package; retain private history during research | Explicit public submission approval |
 
-## Execution direction — 2026-09-07
+## Outstanding pre-pilot engineering
 
-The researcher prioritised a faithful-method → Mother notebook → durable-output
-→ research-record loop. Infrastructure is sufficient once it passes the run's
-substantive criteria; unrelated native-image cleanup is outside this loop.
+After work unit A: verify evaluator sharded-checkpoint handling and raw pilot
+retrieval; replace remaining scientific placeholders; validate real PEFT wrappers;
+implement training checkpoint/resume and interval archival. Drive flattening/size-only
+verification remains historical and is not the canonical Kaggle/HF path. Repository
+default branch/protection hardening and version-controlled thesis source are still
+open. Do not disguise these as environment-installation work.
 
-1. Reuse the validated environment: OG-001 PASS on v4, origin `1efe2b32`,
-   notebook `2be46116`, run `04396fe9-0195-476c-bb74-29e6a5ca074b`.
-   Six inherited diagnostics remain with no regression. Preserve the separate
-   post-closure integration failure and fix the test-package collision.
-2. Build one Mother notebook: pinned parentless source; versioned run recipe;
-   validated exact overlay; one T4/FP16; explicit model/data revisions and seed;
-   logs, configuration, manifest and termination status for success and failure.
-   First executed recipe is full non-model integration, not a scientific pilot.
-3. Seal every run to a unique immutable archive; keep private Kaggle and private
-   Hugging Face copies, verify downloaded hashes, record synchronization receipts.
-   Long training runs must also checkpoint and synchronize at declared intervals.
-4. Import/reference each method's authoritative implementation at a pinned commit
-   with its license and exact objective/dependencies. Establish individual-method
-   parity before custom combinations. Use a method-specific environment profile
-   only when a demonstrated upstream incompatibility requires it.
-5. Reconcile QUAIL, deployment weight NF4 and SSIUU with primary evidence; then
-   corrected pilots, frozen approved protocol, multi-seed experiments, analysis
-   and thesis/publication preparation in the order above. NPO is the first
-   upstream reproducibility anchor, not a new hypothesis test.
+## Evidence and progression
 
-New work unit: Mother notebook/integration/storage. Dotenv-compatible secrets
-are read on demand from the ignored local file or an in-memory Kaggle Secret;
-no credential file is part of a notebook, source snapshot or artifact.
- At most two Kaggle submissions
-for this work unit; one submitted and passed (kernel v1). The OG-001 work unit
-is closed at 2/2. Mother source `23682ea1` passed runtime acceptance and independent
-review; 144 passed, 12 historical placeholder skips, eight deselected and one known
-SSIUU expected failure. Ten notebooks compiled. Full outputs have private Kaggle
-and Hugging Face archives with downloaded hash verification.
-No additional environment audit stage is required. Exact next action: complete the
-first NPO conformance change on `fix/upstream-method-reconciliation`. PR #7
-merged into dev at `d310815c` after runtime acceptance, independent review and CI.
-
-## Evidence rule
-
-Use raw artifacts first, machine manifests/hashes second, recorded code/config
-third, derived verdict fourth and narrative last. Every scientific/pilot run
-records origin/tree/notebook identity, run/condition/seed, model/data revisions,
-environment and lock, GPU/peak memory, config, logs, checkpoints and output
-hashes, termination and supported/unsupported claims. Corrections supersede
-records explicitly; they never overwrite raw evidence.
+Raw artifacts → manifests/hashes → recorded code/config → derived verdict → narrative.
+Preserve failure, null and anomalous outputs. Every model run needs source/tree,
+notebook hash, run/condition/seed, input revisions, environment/lock, GPU/peak VRAM,
+config, stdout/stderr, checkpoints/output hashes and termination/claim limits.
+Commit/push coherent changes, review the PR and required acceptance before a
+non-force dev merge; never modify main. Proceed through safe work, stop for real
+missing access/quota, unresolved scientific approval or two diagnosed executions
+with an unresolved blocker. Documentation supports decisions, not a new stage per error.

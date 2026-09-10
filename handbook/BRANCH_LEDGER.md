@@ -161,3 +161,12 @@ raw evidence, exact source/staging pins and private storage receipts are recorde
 in `handbook/evidence/mother_runner/20260908_kernel_v1_23682ea1/`.
 The evidence commit is the commit containing this entry. Integration requires a
 reviewed PR and passing CI; no merge is claimed by this pre-merge record.
+
+## Scientific reconciliation A — 2026-09-10
+
+Remote dev `d310815c` and successor `291bbda5` matched local refs before this change.
+The containing commit organises method workspaces, adds QRA/NPO acceptance code
+and preserves historical source/evidence. No Kaggle submission, dev/main merge,
+branch deletion or history rewrite belongs to this work unit. Four untracked DOCX
+files remain excluded. Current integration status at the top supersedes dated
+pre-merge narratives above.

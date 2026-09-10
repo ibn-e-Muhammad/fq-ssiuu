@@ -31,7 +31,7 @@ def stage(source, dataset_id, recipe, output):
     ).strip():
         raise ValueError("Commit tracked changes before staging")
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root).decode().strip()
-    path = root / "experiments/notebooks/kaggle/MOTHER_RUNNER.ipynb"
+    path = root / "notebooks/kaggle/00_MOTHER_RUNNER.ipynb"
     notebook = json.loads(path.read_text())
     parameters = {
         "source_origin_sha": manifest["source_origin_sha"],

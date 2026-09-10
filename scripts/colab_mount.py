@@ -55,7 +55,7 @@ def verify_hf_token():
         print(f"HF_TOKEN detected (length: {len(token)})")
 
 
-if __name__ == "__main__" or True:
+if __name__ == "__main__":
     mount_drive()
     setup_python_path()
     verify_hf_token()

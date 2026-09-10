@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "notebook_relocations": [
+    {
+      "path": "notebooks/kaggle/00_MOTHER_RUNNER.ipynb",
+      "sha256": "a55506fd4d23b76a151617f27188bb7302beff5447108cf54a49ed672ee7a8a8",
+      "status": "PASS"
+    },
+    {
+      "path": "notebooks/kaggle/archive/PILOT_P1_P2.py",
+      "sha256": "e94236e804176ec602c25ee5b3d24a61505dffae09b5a8c31ec0e45ae8418b0b",
+      "status": "PASS"
+    },
+    {
+      "path": "notebooks/kaggle/archive/PILOT_P3_P4.ipynb",
+      "sha256": "afc8d24c39a6eebab109312c459d55531cd4b936d3f657303f21fb57430ba2fc",
+      "status": "PASS"
+    },
+    {
+      "path": "notebooks/kaggle/archive/GATE1_evaluation.ipynb",
+      "sha256": "a77fd03ef8c5540edd0d5837428f3ebf37c1edf98ff9bf925d8a22a2a8702577",
+      "status": "PASS"
+    },
+    {
+      "path": "notebooks/kaggle/archive/PILOT_P1_P2.ipynb",
+      "sha256": "87ff15475e3b3340cfcc6ec07afdfd49a974b13a66df255372d2d4712783f2a5",
+      "status": "PASS"
+    },
+    {
+      "path": "notebooks/kaggle/archive/EXPERIMENT_RUNNER.ipynb",
+      "sha256": "b4f29c993d6058cd05bb728af881a03704bc0284a018cc74d25383ccf62ee9a1",
+      "status": "PASS"
+    },
+    {
+      "path": "notebooks/kaggle/archive/gate0_environment_audit/README.md",
+      "sha256": "a67388336bef158aab1cafe0b738b2b91b70dd34d4dc8a944765837cc3fbe9d2",
+      "status": "PASS"
+    },
+    {
+      "path": "notebooks/kaggle/archive/gate0_environment_audit/GATE0_KAGGLE_ENV_AUDIT.ipynb",
+      "sha256": "a55b4120e9fd4b2c24abe5ff0dda4550240ee0207e1741ba82393179dda04a9c",
+      "status": "PASS"
+    },
+    {
+      "path": "notebooks/kaggle/archive/og001_overlay_validation/OG001_KAGGLE_OVERLAY_VALIDATION.ipynb",
+      "sha256": "77f0127362628acdbec543eedca4162128feb3d0dd8a604907cf78ad9cb28a47",
+      "status": "PASS"
+    }
+  ],
+  "existing_raw_result_or_evidence_changes": [],
+  "docx_staged": false
+}

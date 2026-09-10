@@ -1,6 +1,6 @@
 # Mother notebook execution guide
 
-The canonical notebook is `experiments/notebooks/kaggle/MOTHER_RUNNER.ipynb`.
+The canonical notebook is `notebooks/kaggle/00_MOTHER_RUNNER.ipynb`.
 It runs code from one verified source snapshot using a versioned JSON recipe.
 The first implemented recipe is `configs/runs/integration_v1.json`. Method pilots
 require an accepted conformance record and an upstream-specific adapter; none is

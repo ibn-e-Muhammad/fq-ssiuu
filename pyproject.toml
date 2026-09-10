@@ -62,7 +62,6 @@ dev = [
 ]
 
 [project.scripts]
-unlearn-toolkit = "fq_ssiuu.udt.cli:app"
 fq-ssiuu-preflight = "fq_ssiuu.environment:preflight_main"
 
 [tool.setuptools.packages.find]

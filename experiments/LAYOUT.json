@@ -1,0 +1,178 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-09-10",
+  "base_commit": "291bbda5db05d8ee5e1093be32112e58c29e2726",
+  "scope": "Source/notebook layout only; no raw evidence or historical results moved or edited. Pre-move hashes include uncommitted NPO candidate work.",
+  "relocations": [
+    {
+      "from": "scripts/validate_npo_upstream.py",
+      "to": "experiments/reproductions/NPO/validate_upstream.py",
+      "pre_move_sha256": "efdcb1c2a62f97dabf4582f77cfddb16cfa76044a0459d60016174c686583fa8"
+    },
+    {
+      "from": "src/fq_ssiuu/unlearning/npo_causal.py",
+      "to": "experiments/reproductions/NPO/candidate.py",
+      "pre_move_sha256": "31d1e499caaaa6c97bc6329bf551baec7bad14227b172fc26187cb6b7def8e42"
+    },
+    {
+      "from": "src/fq_ssiuu/unlearning/npo_loss.py",
+      "to": "experiments/reproductions/NPO/historical/token_mean_loss.py",
+      "pre_move_sha256": "15e10202326d81305837983d77653961e291fa209cdc522c57709eeb4c473681"
+    },
+    {
+      "from": "src/fq_ssiuu/unlearning/quail_loss.py",
+      "to": "experiments/reproductions/QUAIL/historical/hinge_surrogate.py",
+      "pre_move_sha256": "2f2ae08b2e5d431a62b8842086b465c14d861de9e4613769a5f55d77ba8b4e40"
+    },
+    {
+      "from": "src/fq_ssiuu/attribution/ssiuu_reg.py",
+      "to": "experiments/reproductions/SSIUU/historical/layer_ig_surrogate.py",
+      "pre_move_sha256": "0ab06e88294c0527fbf769bf6b7e9c59bc4fb1cce7225b4e5563058ebcc60a2a"
+    },
+    {
+      "from": "src/fq_ssiuu/quantisation/fake_quant.py",
+      "to": "experiments/reproductions/FQ_QAT/historical/activation_int4.py",
+      "pre_move_sha256": "5040a67287f261a938d910831f3e83d9ed8f6eec8113796e5804f52256339344"
+    },
+    {
+      "from": "src/fq_ssiuu/quantisation/fq_hooks.py",
+      "to": "experiments/reproductions/FQ_QAT/historical/activation_lora.py",
+      "pre_move_sha256": "3061664e556d231ad9702395bc87c000f58b7c0c6de02b7984fc585a979c2d22"
+    },
+    {
+      "from": "src/fq_ssiuu/evaluation/qra_pipeline.py",
+      "to": "experiments/reproductions/QRA/historical/pvalue_ratio_pipeline.py",
+      "pre_move_sha256": "80373799382ed929210b01a22fc5d9cd38aa33046ec31be07f4f6735ab020d2d"
+    },
+    {
+      "from": "src/fq_ssiuu/evaluation/certificate.py",
+      "to": "experiments/reproductions/QRA/historical/inverted_report.py",
+      "pre_move_sha256": "52a20f65dde6fa1b10611e7ea49886cf6b803779cd64a50da62f8ce4226bbfab"
+    },
+    {
+      "from": "experiments/pilot_p1_qra_check.py",
+      "to": "experiments/reproductions/QRA/historical/pilot_p1.py",
+      "pre_move_sha256": "39e63c1a94b70f416b4caf869f100719efbdba430af41fdc50b1ec52ad30dce5"
+    },
+    {
+      "from": "experiments/_eval_at_precision.py",
+      "to": "experiments/reproductions/QRA/historical/eval_at_precision.py",
+      "pre_move_sha256": "f54a2f19714d96c5ec289a4037190e2af829b633c110382d6523d5e76653b4b3"
+    },
+    {
+      "from": "experiments/pilot_p2_attribution.py",
+      "to": "experiments/reproductions/SSIUU/historical/pilot_p2.py",
+      "pre_move_sha256": "2094224f3be2fdaa8790cada640fa66a540c325a73d05f760f2cffbeec39b8e1"
+    },
+    {
+      "from": "experiments/pilot_p3_fqat_stability.py",
+      "to": "experiments/reproductions/FQ_QAT/historical/pilot_p3.py",
+      "pre_move_sha256": "ae73685f0aac3ccb539298c8018605850364a8d32bdcf988c07787ea162016ee"
+    },
+    {
+      "from": "experiments/pilot_p4_quail_baseline.py",
+      "to": "experiments/reproductions/QUAIL/historical/pilot_p4.py",
+      "pre_move_sha256": "ac0d2ea492ee0fe5f96a971fb0d850cbf46341ec422b4b8a342db11bdb641446"
+    },
+    {
+      "from": "experiments/gate1_standalone_eval.py",
+      "to": "experiments/reproductions/NPO/historical/gate1_eval.py",
+      "pre_move_sha256": "1359fde696cf958d7789f761ed3c43850018d4ad766dc0fb88c2e76647dc2c20"
+    },
+    {
+      "from": "experiments/gate0_env_check.py",
+      "to": "experiments/infrastructure/gate0_env_check.py",
+      "pre_move_sha256": "09374f08ad7492145e1813c933c83f1e520066c2220679ee8c18d4703fe3bdae"
+    },
+    {
+      "from": "tests/test_npo_conformance.py",
+      "to": "tests/methods/NPO/test_conformance.py",
+      "pre_move_sha256": "cbc8514ffdb4818b48c35e8e82cdba813cbe94207c4ee5aefb487dc56c32b8b6"
+    },
+    {
+      "from": "experiments/notebooks/kaggle/MOTHER_RUNNER.ipynb",
+      "to": "notebooks/kaggle/00_MOTHER_RUNNER.ipynb",
+      "pre_move_sha256": "a55506fd4d23b76a151617f27188bb7302beff5447108cf54a49ed672ee7a8a8"
+    },
+    {
+      "from": "experiments/notebooks/kaggle/PILOT_P1_P2.py",
+      "to": "notebooks/kaggle/archive/PILOT_P1_P2.py",
+      "pre_move_sha256": "e94236e804176ec602c25ee5b3d24a61505dffae09b5a8c31ec0e45ae8418b0b"
+    },
+    {
+      "from": "experiments/notebooks/kaggle/PILOT_P3_P4.ipynb",
+      "to": "notebooks/kaggle/archive/PILOT_P3_P4.ipynb",
+      "pre_move_sha256": "afc8d24c39a6eebab109312c459d55531cd4b936d3f657303f21fb57430ba2fc"
+    },
+    {
+      "from": "experiments/notebooks/kaggle/GATE1_evaluation.ipynb",
+      "to": "notebooks/kaggle/archive/GATE1_evaluation.ipynb",
+      "pre_move_sha256": "a77fd03ef8c5540edd0d5837428f3ebf37c1edf98ff9bf925d8a22a2a8702577"
+    },
+    {
+      "from": "experiments/notebooks/kaggle/PILOT_P1_P2.ipynb",
+      "to": "notebooks/kaggle/archive/PILOT_P1_P2.ipynb",
+      "pre_move_sha256": "87ff15475e3b3340cfcc6ec07afdfd49a974b13a66df255372d2d4712783f2a5"
+    },
+    {
+      "from": "experiments/notebooks/kaggle/EXPERIMENT_RUNNER.ipynb",
+      "to": "notebooks/kaggle/archive/EXPERIMENT_RUNNER.ipynb",
+      "pre_move_sha256": "b4f29c993d6058cd05bb728af881a03704bc0284a018cc74d25383ccf62ee9a1"
+    },
+    {
+      "from": "experiments/notebooks/kaggle/gate0_environment_audit/README.md",
+      "to": "notebooks/kaggle/archive/gate0_environment_audit/README.md",
+      "pre_move_sha256": "a67388336bef158aab1cafe0b738b2b91b70dd34d4dc8a944765837cc3fbe9d2"
+    },
+    {
+      "from": "experiments/notebooks/kaggle/gate0_environment_audit/GATE0_KAGGLE_ENV_AUDIT.ipynb",
+      "to": "notebooks/kaggle/archive/gate0_environment_audit/GATE0_KAGGLE_ENV_AUDIT.ipynb",
+      "pre_move_sha256": "a55b4120e9fd4b2c24abe5ff0dda4550240ee0207e1741ba82393179dda04a9c"
+    },
+    {
+      "from": "experiments/notebooks/kaggle/og001_overlay_validation/OG001_KAGGLE_OVERLAY_VALIDATION.ipynb",
+      "to": "notebooks/kaggle/archive/og001_overlay_validation/OG001_KAGGLE_OVERLAY_VALIDATION.ipynb",
+      "pre_move_sha256": "77f0127362628acdbec543eedca4162128feb3d0dd8a604907cf78ad9cb28a47"
+    },
+    {
+      "from": "tests/test_quantisation_location.py",
+      "to": "tests/historical/FQ_QAT/test_quantisation_location.py",
+      "pre_move_sha256": "6617aac3111319c176945ada2b552d801484e589304ce1ee629e24804d4999a8"
+    },
+    {
+      "from": "tests/test_ste_gradients.py",
+      "to": "tests/historical/FQ_QAT/test_ste_gradients.py",
+      "pre_move_sha256": "fc0f9742b12195660a5e94bb452e41a3a5f25bd7f972d80c070a006fe14eea78"
+    },
+    {
+      "from": "tests/test_npo_loss.py",
+      "to": "tests/historical/NPO/test_npo_loss.py",
+      "pre_move_sha256": "28afcadde6ed1d84585db6fc50c01d746ec1c519dafbe74ba6a317a03c74f922"
+    },
+    {
+      "from": "tests/test_npo_numerical.py",
+      "to": "tests/historical/NPO/test_npo_numerical.py",
+      "pre_move_sha256": "2663c7033bbee57e419a5936ef118c6c48226911b1ed642363581a6dafa6059a"
+    },
+    {
+      "from": "tests/test_quail_loss.py",
+      "to": "tests/historical/QUAIL/test_quail_loss.py",
+      "pre_move_sha256": "c61753a5f26a7e2caf695f5ba5e214d1c097ee623c33f020a2fe798cea63fcd3"
+    },
+    {
+      "from": "tests/test_attribution.py",
+      "to": "tests/historical/SSIUU/test_attribution.py",
+      "pre_move_sha256": "6f0eee58dc31350d14afb62873ebed572ac7651fc2d61e908860c8eab23d656e"
+    },
+    {
+      "from": "tests/test_ssiuu_gradient_flow.py",
+      "to": "tests/historical/SSIUU/test_ssiuu_gradient_flow.py",
+      "pre_move_sha256": "0d12d07d6a1ed16d7804ae03e6bdc1b0b121dcd395bfa19f1628a2fc6eefdc43"
+    }
+  ],
+  "notes": [
+    "Candidate/validator/test paths absent from base commit refer to uncommitted development before layout, not historical published source.",
+    "Post-move import paths, guards and conformance code may change. Notebook bytes are unchanged. Raw evidence/results are untouched.",
+    "The unused, unsubmitted NPO GPU recipe was excluded; it was not a published file or execution record."
+  ]
+}
