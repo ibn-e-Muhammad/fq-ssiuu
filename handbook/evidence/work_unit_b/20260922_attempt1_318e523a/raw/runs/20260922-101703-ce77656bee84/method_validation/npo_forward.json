@@ -1,0 +1,67 @@
+{
+  "records": [
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/0",
+      "loss": 13.862943649291992,
+      "candidate_sequence_nll": [
+        3.3483564853668213
+      ],
+      "reference_sequence_nll": [
+        3.3483564853668213
+      ],
+      "input_hashes": [
+        "81c22c93876d6cd67b0ae81d5b5abc71ce3a40a2ce9727d2aee51986b702fe1e",
+        "81c22c93876d6cd67b0ae81d5b5abc71ce3a40a2ce9727d2aee51986b702fe1e"
+      ],
+      "gradient_graph": false
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/retain_perturbed/0",
+      "loss": 13.862943649291992,
+      "candidate_sequence_nll": [
+        2.0212700366973877
+      ],
+      "reference_sequence_nll": [
+        2.0212700366973877
+      ],
+      "input_hashes": [
+        "d6f8f0843ac3095147cb46eb657bad201ecd533bf187438eefe56c8d890198cc",
+        "d6f8f0843ac3095147cb46eb657bad201ecd533bf187438eefe56c8d890198cc"
+      ],
+      "gradient_graph": false
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/real_authors_perturbed/0",
+      "loss": 13.862943649291992,
+      "candidate_sequence_nll": [
+        20.062068939208984
+      ],
+      "reference_sequence_nll": [
+        20.062068939208984
+      ],
+      "input_hashes": [
+        "549d24c2b85890c14ec1922a3800805336ee1a0a4a5b0914199d6db5faa2fd3a",
+        "549d24c2b85890c14ec1922a3800805336ee1a0a4a5b0914199d6db5faa2fd3a"
+      ],
+      "gradient_graph": false
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/world_facts_perturbed/0",
+      "loss": 13.862943649291992,
+      "candidate_sequence_nll": [
+        27.768434524536133
+      ],
+      "reference_sequence_nll": [
+        27.768434524536133
+      ],
+      "input_hashes": [
+        "250d33912b4c84d6139f3e8874fe53931bdebaeca7f312d393e9f23ab0f3edf9",
+        "250d33912b4c84d6139f3e8874fe53931bdebaeca7f312d393e9f23ab0f3edf9"
+      ],
+      "gradient_graph": false
+    }
+  ],
+  "cache": "NOT_IMPLEMENTED",
+  "optimizer_steps": 0,
+  "backward_calls": 0
+}

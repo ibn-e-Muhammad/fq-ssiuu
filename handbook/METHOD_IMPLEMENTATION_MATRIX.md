@@ -5,7 +5,7 @@ labels. Primary references and pins: [upstream register](methods/UPSTREAM_IMPLEM
 
 | Component | Current implementation | Evidence and limit | Gate |
 |---|---|---|---|
-| NPO | Causal sequence-sum candidate in `experiments/reproductions/NPO/candidate.py`; separate pure NPO and NPO+RT | Actual author/OpenUnlearning function values and current/retain gradients checked on synthetic CPU tensors. Real pinned adapter/upstream tensor and CPU frozen-reference validation pass in work unit B; bounded runtime pending; no training reproduction | RG-006 BLOCKED |
+| NPO | Causal sequence-sum candidate in `experiments/reproductions/NPO/candidate.py`; separate pure NPO and NPO+RT | Actual author/OpenUnlearning function values and current/retain gradients checked on synthetic CPU tensors. Real pinned adapter/upstream tensor and CPU frozen-reference validation pass in work unit B; bounded frozen FP16 runtime passed (four examples); no training reproduction | RG-006 RESOLVED (bounded conformance only) |
 | QUAIL | Historical target-logit hinge-only surrogate, tiny margin and random zero-point direction | Missing full forget/retain objective and published all-logit semantics. Its tests establish surrogate behavior only | RG-003 BLOCKED |
 | FQ-QAT | Historical per-tensor symmetric INT4 QDQ on adapter outputs | Identity STE tests do not establish blockwise weight-NF4 equivalence. Treat only as activation ablation | RG-002 BLOCKED |
 | SSIUU | Historical hidden-layer IG with static baseline and detached attribution | No faithful current/previous parameter attribution or training gradient/HVP. Offline IG memory is not SSIUU training memory | RG-001 BLOCKED |

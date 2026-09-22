@@ -21,3 +21,15 @@ is deferred: source inspection identifies a 0.46.1 minimum bitsandbytes in Trans
 5 versus the validated 0.45.5 overlay. Preserve accepted environment evidence and
 resolve this exact integration only before a precision pilot. No blanket dependency
 redesign or global package change was performed.
+
+The first bounded GPU submission passed (Mother version 2), run
+`20260922-101703-ce77656bee84`, code `318e523a`. All four candidate/reference input
+hashes and sequence losses matched; no gradient graph or optimizer step. Peak
+allocation 5,120,751,616 bytes and reservation 5,249,171,456 bytes on one T4.
+Independent re-derivation verified 59 sealed raw members and the reported metric
+calculations. Complete private Kaggle/HF archives contain 68 verified members.
+One archive creation title was too long; corrected the metadata before successful
+creation without another kernel run. Initial error preserved. RG-006 resolved;
+RG-005 and RG-001/002/003 remain blocked. PR #9 is open and must not be merged in
+this work unit. The next work unit is directional precision integration and
+scientific decision-protocol review; no corrected pilot yet.

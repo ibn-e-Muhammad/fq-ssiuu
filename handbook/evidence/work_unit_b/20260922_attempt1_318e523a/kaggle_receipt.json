@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "store": "kaggle",
+  "dataset_id": "muhammadii/fq-ssiuu-b-20260922-ce77656bee84",
+  "private_create_confirmed": true,
+  "archive_sha256": "9b8a6a4aa3101aace2b9cf3d7a2c23ffe4cd08c9b0dfab1555ed69b42cae638a",
+  "archive_manifest_sha256": "cb823fe31ee4d48da48e47092f6e77425dd32da1bbeae9588f700428d54d5228",
+  "downloaded_content_hashes_verified": 3,
+  "archive_member_hashes_verified": 68,
+  "stored_filename": "artifacts.tar.bin",
+  "original_filename": "artifacts.tar"
+}

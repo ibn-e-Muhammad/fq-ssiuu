@@ -56,3 +56,10 @@ adapter/reference, metric taxonomy, paper/upstream distinction, paired uncertain
 provenance and runtime claim limits. CPU evidence is `evidence/work_unit_b/20260922_cpu/`.
 No new scientific findings or DOCX changes. The packet is tracked source; it is not
 a claim that the working thesis has been converted or updated.
+
+Work unit B runtime acceptance: `20260922-101703-ce77656bee84`, code `318e523a`,
+evidence `evidence/work_unit_b/20260922_attempt1_318e523a/VERDICT.json`. Frozen FP16
+reference/data execution and metric plumbing passed on four examples. RG-006 is
+resolved within that boundary. This supplies methodology/reproducibility evidence,
+not Results findings; sampled utility and single-example KS outputs must not become
+thesis effectiveness statistics. No training-memory or quantized-model claim.

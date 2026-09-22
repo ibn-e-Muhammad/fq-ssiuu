@@ -1,0 +1,40 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/muhammad-arslan/Downloads/projects/fq-ssiuu
+configfile: pyproject.toml
+plugins: anyio-4.15.1
+collected 284 items / 10 deselected / 274 selected
+
+tests/historical/FQ_QAT/test_quantisation_location.py .......            [  2%]
+tests/historical/FQ_QAT/test_ste_gradients.py ....                       [  4%]
+tests/historical/NPO/test_npo_loss.py ...                                [  5%]
+tests/historical/NPO/test_npo_numerical.py ....                          [  6%]
+tests/historical/SSIUU/test_attribution.py ...                           [  7%]
+tests/historical/SSIUU/test_ssiuu_gradient_flow.py x.                    [  8%]
+tests/methods/NPO/test_adapter.py ...........                            [ 12%]
+tests/methods/NPO/test_conformance.py ......................             [ 20%]
+tests/methods/NPO/test_reference.py ............                         [ 24%]
+tests/methods/NPO/test_validation_contract.py ..........                 [ 28%]
+tests/methods/QRA/test_metrics.py ...........                            [ 32%]
+tests/methods/QRA/test_outcomes.py ..................................    [ 44%]
+tests/methods/QRA/test_report.py .......                                 [ 47%]
+tests/test_configuration.py .......                                      [ 50%]
+tests/test_dotenv_sources.py ...                                         [ 51%]
+tests/test_drive_upload.py .....                                         [ 52%]
+tests/test_environment.py .......                                        [ 55%]
+tests/test_fade_compute.py ssss                                          [ 56%]
+tests/test_kaggle_dependency_policy.py ......................            [ 64%]
+tests/test_kaggle_source_transport.py ...............                    [ 70%]
+tests/test_model_loading_policy.py ....                                  [ 71%]
+tests/test_mother_runner.py ......                                       [ 74%]
+tests/test_og001_artifacts.py .......                                    [ 76%]
+tests/test_pilot_cli.py ..                                               [ 77%]
+tests/test_pip_consistency.py .......................                    [ 85%]
+tests/test_provenance.py .............                                   [ 90%]
+tests/test_repository_layout.py ...                                      [ 91%]
+tests/test_research_gate_authority.py .....                              [ 93%]
+tests/test_run_archiving.py .....                                        [ 95%]
+tests/test_secrets.py .......                                            [ 97%]
+tests/test_thesis_update.py ......                                       [100%]
+
+========== 269 passed, 4 skipped, 10 deselected, 1 xfailed in 22.44s ===========

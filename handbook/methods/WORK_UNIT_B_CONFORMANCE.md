@@ -1,6 +1,6 @@
 # Work unit B: adapter, reference and descriptive measurements
 
-Status: implementation/validation, not a pilot or an approved experimental protocol.
+Status: CPU and bounded FP16 runtime validation passed on 2026-09-22, not a pilot or an approved experimental protocol.
 Base: dev `fb9882790082ac4640d04a87c43260c62566831d` (PR #8 merged).
 Branch: `fix/npo-adapter-qra-metrics`. Immutable input identities and every downloaded
 file hash are in `experiments/reproductions/NPO/inputs_v1.json`.
@@ -129,5 +129,6 @@ whereas the frozen validated overlay has 0.45.5. Low-level NF4 smoke PASS does n
 establish that loader's compatibility. Preserve the environment; reconcile this
 specific model-quantization integration before any corrected precision pilot.
 
-RG-006 cannot resolve until bounded runtime acceptance passes. RG-005 remains
+RG-006 resolved after runtime `20260922-101703-ce77656bee84` passed at code
+`318e523a`; both private complete archives were hash-verified. RG-005 remains
 BLOCKED even if all descriptive calculations pass. RG-001/002/003 remain BLOCKED.

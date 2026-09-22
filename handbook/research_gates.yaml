@@ -17,7 +17,7 @@ gates:
   - id: "RG-006"
     title: "NPO Reference Parity"
     category: "Method Validity"
-    status: "BLOCKED"
+    status: "RESOLVED"
     blocks_training: true
     blocks_evaluation: false
     blocked_conditions: ["NPO_REPRODUCTION", "C2", "C4", "C5", "C6", "C7"]
@@ -25,9 +25,9 @@ gates:
     source_citations: ["arXiv:2404.05868v2", "locuslab/open-unlearning@4ad738aaf60f6a4385f6e2506d01da99e76c31f3"]
     verification_command: "pytest tests/methods/NPO"
     required_evidence: "Values and current/retain gradients match both pinned upstreams; explicit NPO versus NPO+RT distinction; causal answer/EOS masking and frozen reference behavior; recorded adaptations before corrected 1B reproduction."
-    validating_commit: null
-    validation_date: null
-    rationale: "Historical helper was an unshifted token-mean surrogate. The candidate has CPU value/gradient parity against both pinned upstreams; real tokenizer/data and CPU reference-contract acceptance pass in work unit B; bounded FP16 runtime acceptance remains pending."
+    validating_commit: "318e523ac302f9f80f2c74f7c712bff08ff96a8e"
+    validation_date: "2026-09-22"
+    rationale: "Resolved for objective/data/reference conformance: prior dual-upstream objective parity, four real pinned-tokenizer rows compared with executed upstream preprocessing, CPU negative/reference tests, and four-example frozen unquantized FP16/no_grad runtime passed on one T4. Run 20260922-101703-ce77656bee84, evidence handbook/evidence/work_unit_b/20260922_attempt1_318e523a/VERDICT.json. Explicit chat return-type, EOS-attention and truncation adaptations are documented. No cache, training reproduction, corrected pilot or effectiveness claim; RG-005 still blocks pilots."
   - id: "RG-001"
     title: "SSIUU Gradient Flow"
     category: "Method Validity"

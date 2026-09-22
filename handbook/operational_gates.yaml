@@ -58,3 +58,16 @@ OG-001:
   integration_observation: Mother kernel COMPLETE; 144 passed, 12 historical placeholder skips,
     8 deselected, one known SSIUU expected failure; ten notebooks schema/compile PASS.
     Environment independently revalidated. Scientific gate status is unchanged.
+
+# Scope extension observation; does not replace the original OG-001 closure.
+work_unit_b_validation:
+  status: PASS
+  validating_commit: 318e523ac302f9f80f2c74f7c712bff08ff96a8e
+  evidence_run_id: 20260922-101703-ce77656bee84
+  evidence_path: handbook/evidence/work_unit_b/20260922_attempt1_318e523a/VERDICT.json
+  kernel_version: 2
+  submissions_used: 1
+  submission_limit: 2
+  scope: Four fixed examples, unquantized frozen FP16 forward validation; no training.
+  quantized_model_loader_status: UNVALIDATED_KNOWN_VERSION_GUARD
+  quantized_model_loader_observation: Transformers 5.0.0 declares bitsandbytes >=0.46.1 for model quantization; frozen overlay is 0.45.5. OG-001 low-level NF4 smoke remains valid. No quantized-model attempt was made in this work unit.

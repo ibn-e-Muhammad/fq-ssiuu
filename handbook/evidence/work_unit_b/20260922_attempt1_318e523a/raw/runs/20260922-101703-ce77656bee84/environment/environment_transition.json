@@ -1,0 +1,321 @@
+{
+  "schema_version": "1.0",
+  "run_id": "a6b97537-fbe9-47d5-aa55-adee21ea23a9",
+  "git_sha": "3a45e804b87e81bfb90795a7cd5f6440379ca8b0",
+  "status": "PASS",
+  "errors": [],
+  "platform_drift": {},
+  "package_changes": [
+    {
+      "name": "bitsandbytes",
+      "before": null,
+      "after": "0.45.5"
+    },
+    {
+      "name": "captum",
+      "before": null,
+      "after": "0.7.0"
+    },
+    {
+      "name": "dataproperty",
+      "before": null,
+      "after": "1.1.1"
+    },
+    {
+      "name": "evaluate",
+      "before": null,
+      "after": "0.4.6"
+    },
+    {
+      "name": "fq-ssiuu",
+      "before": null,
+      "after": "0.1.0.dev0"
+    },
+    {
+      "name": "hydra-core",
+      "before": null,
+      "after": "1.3.6"
+    },
+    {
+      "name": "jsonlines",
+      "before": null,
+      "after": "4.0.0"
+    },
+    {
+      "name": "lm-eval",
+      "before": null,
+      "after": "0.4.13"
+    },
+    {
+      "name": "mbstrdecoder",
+      "before": null,
+      "after": "1.1.5"
+    },
+    {
+      "name": "pathvalidate",
+      "before": null,
+      "after": "3.3.1"
+    },
+    {
+      "name": "portalocker",
+      "before": null,
+      "after": "4.3.0"
+    },
+    {
+      "name": "pytablewriter",
+      "before": null,
+      "after": "1.2.1"
+    },
+    {
+      "name": "sacrebleu",
+      "before": null,
+      "after": "2.6.0"
+    },
+    {
+      "name": "sqlitedict",
+      "before": null,
+      "after": "2.1.0"
+    },
+    {
+      "name": "tabledata",
+      "before": null,
+      "after": "1.3.5"
+    },
+    {
+      "name": "tcolorpy",
+      "before": null,
+      "after": "0.1.7"
+    },
+    {
+      "name": "typepy",
+      "before": null,
+      "after": "1.3.5"
+    },
+    {
+      "name": "word2number",
+      "before": null,
+      "after": "1.1"
+    }
+  ],
+  "distribution_changes": {
+    "bitsandbytes": {
+      "before": [],
+      "after": [
+        {
+          "name": "bitsandbytes",
+          "version": "0.45.5",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "captum": {
+      "before": [],
+      "after": [
+        {
+          "name": "captum",
+          "version": "0.7.0",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "dataproperty": {
+      "before": [],
+      "after": [
+        {
+          "name": "dataproperty",
+          "version": "1.1.1",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "evaluate": {
+      "before": [],
+      "after": [
+        {
+          "name": "evaluate",
+          "version": "0.4.6",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "fq-ssiuu": {
+      "before": [],
+      "after": [
+        {
+          "name": "fq-ssiuu",
+          "version": "0.1.0.dev0",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "hydra-core": {
+      "before": [],
+      "after": [
+        {
+          "name": "hydra-core",
+          "version": "1.3.6",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "jsonlines": {
+      "before": [],
+      "after": [
+        {
+          "name": "jsonlines",
+          "version": "4.0.0",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "lm-eval": {
+      "before": [],
+      "after": [
+        {
+          "name": "lm-eval",
+          "version": "0.4.13",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "mbstrdecoder": {
+      "before": [],
+      "after": [
+        {
+          "name": "mbstrdecoder",
+          "version": "1.1.5",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "pathvalidate": {
+      "before": [],
+      "after": [
+        {
+          "name": "pathvalidate",
+          "version": "3.3.1",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "portalocker": {
+      "before": [],
+      "after": [
+        {
+          "name": "portalocker",
+          "version": "4.3.0",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "pytablewriter": {
+      "before": [],
+      "after": [
+        {
+          "name": "pytablewriter",
+          "version": "1.2.1",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "sacrebleu": {
+      "before": [],
+      "after": [
+        {
+          "name": "sacrebleu",
+          "version": "2.6.0",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "sqlitedict": {
+      "before": [],
+      "after": [
+        {
+          "name": "sqlitedict",
+          "version": "2.1.0",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "tabledata": {
+      "before": [],
+      "after": [
+        {
+          "name": "tabledata",
+          "version": "1.3.5",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "tcolorpy": {
+      "before": [],
+      "after": [
+        {
+          "name": "tcolorpy",
+          "version": "0.1.7",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "typepy": {
+      "before": [],
+      "after": [
+        {
+          "name": "typepy",
+          "version": "1.3.5",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    },
+    "word2number": {
+      "before": [],
+      "after": [
+        {
+          "name": "word2number",
+          "version": "1.1",
+          "location": "/usr/local/lib/python3.12/dist-packages",
+          "precedence": 0
+        }
+      ]
+    }
+  },
+  "baseline_platform_observation": {
+    "python_version": "3.12.13 (main, Mar  4 2026, 09:23:07) [GCC 11.4.0]",
+    "platform": {
+      "system": "Linux",
+      "release": "6.12.90+",
+      "version": "#1 SMP Sat May 30 15:40:53 UTC 2026"
+    },
+    "machine": "x86_64",
+    "driver_version": "580.159.04",
+    "cuda_visible_devices": "0",
+    "pytorch_version": "2.10.0+cu128",
+    "pytorch_cuda_version": "12.8",
+    "cudnn_version": "91002",
+    "cuda_device_count": 1,
+    "selected_gpu_name": "Tesla T4",
+    "compute_capability": [
+      7,
+      5
+    ],
+    "total_memory_bytes": 15636037632
+  }
+}

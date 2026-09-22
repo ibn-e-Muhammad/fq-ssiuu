@@ -16,7 +16,7 @@
 
 - `dev`: `fb9882790082ac4640d04a87c43260c62566831d`, merge of PR #8; remote reverified unchanged.
 - `fix/upstream-method-reconciliation`: merged feature tip `adc0cdada3b476043edd158a9ab035aa7723751c`, superseded and retained.
-- `fix/npo-adapter-qra-metrics`: active work unit B, branched exactly from current remote dev. At most four coherent commits; push and one PR only, no merge.
+- `fix/npo-adapter-qra-metrics`: active work unit B, branched exactly from current remote dev. Published code `318e523a`, [PR #9](https://github.com/ibn-e-Muhammad/fq-ssiuu/pull/9), unmerged. Work unit B bounded runtime passed in one submission; closure evidence follows in the containing commit. At most four coherent commits; no merge.
 - `fix/kaggle-overlay-evidence-integrity`: merged through PR #7 (`d310815c`), retained.
 - All earlier ancestor branches remain superseded and retained. No `main` changes, history rewriting, deletions or DOCX inclusion.
 

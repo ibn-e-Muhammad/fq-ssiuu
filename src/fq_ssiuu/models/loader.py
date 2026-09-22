@@ -121,7 +121,8 @@ def load_base_model(config: ModelConfig | None = None):
         AutoModelForCausalLM: The quantised model on GPU.
 
     Raises:
-        RuntimeError: If HF_TOKEN is not set or model loading fails.
+        SecretNotFoundError: If the project secret provider cannot resolve HF_TOKEN.
+        Other model-loading exceptions propagate from Transformers.
         ValueError: If config contains invalid parameters.
     """
     import torch
@@ -179,13 +180,13 @@ def load_model_fp16(model_id: str, token: str | None = None):
 
     Args:
         model_id: HuggingFace model ID or local path to merged model.
-        token: HuggingFace token. If None, reads from HF_TOKEN env var.
+        token: HuggingFace token. If None, uses the lazy project secret provider.
 
     Returns:
         AutoModelForCausalLM: The FP16 model.
 
     Raises:
-        RuntimeError: If token is not available and model requires auth.
+        SecretNotFoundError: If no token was passed and the project provider cannot resolve it.
     """
     import torch
     from transformers import AutoModelForCausalLM
@@ -275,7 +276,7 @@ def merge_adapter(peft_model_path: str, base_model_id: str, token: str | None = 
     Args:
         peft_model_path: Path to the saved PEFT adapter directory.
         base_model_id: HuggingFace model ID of the base model.
-        token: HuggingFace token. Reads from env if None.
+        token: HuggingFace token. Uses the lazy project secret provider if None.
 
     Returns:
         AutoModelForCausalLM: The merged FP16 model (no adapters).

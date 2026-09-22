@@ -1,0 +1,185 @@
+{
+  "schema_version": "1.0",
+  "run_id": "a6b97537-fbe9-47d5-aa55-adee21ea23a9",
+  "git_sha": "3a45e804b87e81bfb90795a7cd5f6440379ca8b0",
+  "execution_status": "PASS",
+  "start_utc_timestamp": "2026-09-22T10:17:05.356605+00:00",
+  "end_utc_timestamp": "2026-09-22T10:18:03.732668+00:00",
+  "artifacts": [
+    {
+      "path": "after_distributions.json",
+      "size_bytes": 173506,
+      "sha256": "ec22851082609fd92f8aae4f2805b76959d316643784b1bbfd04e4a522724ea0"
+    },
+    {
+      "path": "after_freeze.log",
+      "size_bytes": 18967,
+      "sha256": "3c3a4eca85c6fa41c81756aa4ae148ab11222a87f73cef41509c5441e2dd8456"
+    },
+    {
+      "path": "after_manifest.json",
+      "size_bytes": 29826,
+      "sha256": "8f61bdb8fc2a866648cdcfc8aec3e889323cdcc85e7ac8baa49031ebad26f673"
+    },
+    {
+      "path": "before_distributions.json",
+      "size_bytes": 170325,
+      "sha256": "54c59aa238a995b2856abefbacd8c463e0253997d12885804d10361eb6f97dfb"
+    },
+    {
+      "path": "before_freeze.log",
+      "size_bytes": 18534,
+      "sha256": "adb45b486828a86f7f95eba637d1320aa2eb71f35d77839424c4ee4b605072ab"
+    },
+    {
+      "path": "before_manifest.json",
+      "size_bytes": 29300,
+      "sha256": "f9bae0b16e5c4422604fddca9f2cabd0b761556e14f36ca0b02ccad488633897"
+    },
+    {
+      "path": "dry_run_stderr.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "dry_run_stdout.log",
+      "size_bytes": 29291,
+      "sha256": "1d163b3ed243040db626567e7f505ae667a41aac0fbd60fc30907198f6fb1f02"
+    },
+    {
+      "path": "editable_stderr.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "editable_stdout.log",
+      "size_bytes": 1160,
+      "sha256": "2e6d373e6bfc4371b9a06947a2145e2df391e4d9624fc36adae4a46992a8caa8"
+    },
+    {
+      "path": "environment_transition.json",
+      "size_bytes": 6810,
+      "sha256": "c7459d6b3d2e52f11d3be5c549219f271c1dcd1ef9f3db6f80ee27552a11e66d"
+    },
+    {
+      "path": "install_stderr.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "install_stdout.log",
+      "size_bytes": 29015,
+      "sha256": "7849a3e955573fc9065128edaf4c09bf7b061e55d5eb1486d8c845a79e07f03b"
+    },
+    {
+      "path": "install_verification_report.json",
+      "size_bytes": 1947,
+      "sha256": "3e2aeda307211c55c9c5821ba12aadd65d6f9541fb0c29baa9601dce87f2ac7d"
+    },
+    {
+      "path": "kaggle-overlay.lock",
+      "size_bytes": 1114,
+      "sha256": "a2e5dd8494a241568a58a0e2dfa789b8d7f83da97761d67887ca7cdce48b5a4b"
+    },
+    {
+      "path": "kaggle_env_verification.json",
+      "size_bytes": 6611,
+      "sha256": "1d0381db505890b84c8dcee59dff53dea122bc168b8188256209a8f2b1fc04e0"
+    },
+    {
+      "path": "native_baseline.json",
+      "size_bytes": 999,
+      "sha256": "7b33f273b3150ef6aade5bcbf7ea47e8d0787c9440744d04c8e8c5d61659aafc"
+    },
+    {
+      "path": "overlay_lock.json",
+      "size_bytes": 3009,
+      "sha256": "1446b20622da5aec4b92b96a731d0e4bee2c8837052975902534e985d8454bbd"
+    },
+    {
+      "path": "pip_check_after.json",
+      "size_bytes": 2204,
+      "sha256": "b3bb8f2fa3de96154e1428375f1c5da1388a549542338624dc7820816ee41a2f"
+    },
+    {
+      "path": "pip_check_after_stderr.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "pip_check_after_stdout.log",
+      "size_bytes": 490,
+      "sha256": "2c99993bdaa1efa61406b281e3c408724a14e714bcaf3dfb4da60af8ec2a044c"
+    },
+    {
+      "path": "pip_check_before.json",
+      "size_bytes": 2205,
+      "sha256": "cd2177564dcf9894875007baaee2277587833482d427751847c74466dd094dc6"
+    },
+    {
+      "path": "pip_check_before_stderr.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "pip_check_before_stdout.log",
+      "size_bytes": 490,
+      "sha256": "2c99993bdaa1efa61406b281e3c408724a14e714bcaf3dfb4da60af8ec2a044c"
+    },
+    {
+      "path": "pip_check_verifier.json",
+      "size_bytes": 2207,
+      "sha256": "d725500a463fce94bcceacb2f1be2cdf2aba18e5c9cbc65158759a00a73cd376"
+    },
+    {
+      "path": "pip_check_verifier_stderr.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "pip_check_verifier_stdout.log",
+      "size_bytes": 490,
+      "sha256": "2c99993bdaa1efa61406b281e3c408724a14e714bcaf3dfb4da60af8ec2a044c"
+    },
+    {
+      "path": "pip_consistency.json",
+      "size_bytes": 1482,
+      "sha256": "e28b79f3d10dbe0e7c037b19cd7e3cc688fcf1cece8ee13dab1d34414c92af7d"
+    },
+    {
+      "path": "pip_dry_run_report.json",
+      "size_bytes": 286888,
+      "sha256": "7fa282a7c0efe9a9a72b16457492b64a64a88be323b14bcc936dc858bdfa3c3c"
+    },
+    {
+      "path": "pip_install_report.json",
+      "size_bytes": 286888,
+      "sha256": "7fa282a7c0efe9a9a72b16457492b64a64a88be323b14bcc936dc858bdfa3c3c"
+    },
+    {
+      "path": "setup_status.json",
+      "size_bytes": 504,
+      "sha256": "0655d1d4afd5a3d81e7a7aaad72d3593f4b16b20f1d650992fb0bdf9772feb94"
+    },
+    {
+      "path": "verification_report.json",
+      "size_bytes": 1947,
+      "sha256": "3e2aeda307211c55c9c5821ba12aadd65d6f9541fb0c29baa9601dce87f2ac7d"
+    },
+    {
+      "path": "verifier_execution.json",
+      "size_bytes": 780,
+      "sha256": "8798a3f5d7d38bb1b48151d40ccb577af61bc15ddc4ad96452daa2d19f8f2249"
+    },
+    {
+      "path": "verifier_stderr.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "verifier_stdout.log",
+      "size_bytes": 433,
+      "sha256": "7aa4eccbc57be6f034ad750db79d06b8b8c5f3bb4b10a16258ce11d05f9faf70"
+    }
+  ]
+}

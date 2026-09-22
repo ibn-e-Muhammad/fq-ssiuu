@@ -1,0 +1,76 @@
+{
+  "status": "PASS_WITHIN_BOUNDED_FORWARD_SCOPE",
+  "run_id": "20260922-101703-ce77656bee84",
+  "origin_commit": "318e523ac302f9f80f2c74f7c712bff08ff96a8e",
+  "source_tree_sha": "ab8bdaaa5190550b57658519e9a6175c3a2196ea",
+  "snapshot_commit_sha": "3a45e804b87e81bfb90795a7cd5f6440379ca8b0",
+  "orchestration_commit": "318e523ac302f9f80f2c74f7c712bff08ff96a8e",
+  "notebook_sha256": "b57281bb92a07f7238d8abd8f8b770c8e7a930bcc833d3c47e162ac4723d69d6",
+  "verified_archive_members": 59,
+  "matched_examples": 4,
+  "metric_recomputation": "PASS",
+  "environment": "BASELINE_DIRTY_NO_REGRESSION",
+  "peak_allocated_bytes": 5120751616,
+  "peak_reserved_bytes": 5249171456,
+  "optimizer_steps": 0,
+  "backward_calls": 0,
+  "npo_reference_cache": "NOT_IMPLEMENTED",
+  "runtime_precision": "fp16",
+  "int8_nf4_model_evaluations": false,
+  "attack_detected": null,
+  "durability_pass": null,
+  "supported_claims": [
+    "Four fixed-example NPO/reference and descriptive metric execution"
+  ],
+  "unsupported_claims": [
+    "NPO training reproduction",
+    "Quantization recovery",
+    "Durability",
+    "Pilot feasibility",
+    "Hypothesis test"
+  ],
+  "work_unit_status": "DONE_WITHIN_REQUESTED_VALIDATION_SCOPE",
+  "kaggle_submissions_used": 1,
+  "submission_limit": 2,
+  "ci": {
+    "run_id": 35691824463,
+    "job_id": 106630247377,
+    "run_number": 58,
+    "conclusion": "success",
+    "passed": 269,
+    "skipped": 4,
+    "deselected": 10,
+    "xfailed": 1
+  },
+  "archives": {
+    "kaggle_receipt": "kaggle_receipt.json",
+    "huggingface_receipt": "huggingface_complete_receipt.json",
+    "complete_member_count": 68
+  },
+  "gate_changes": {
+    "RG-006": {
+      "before": "BLOCKED",
+      "after": "RESOLVED",
+      "scope": "Objective parity plus versioned data/frozen reference boundary; no NPO training reproduction claim"
+    },
+    "RG-005": "BLOCKED",
+    "RG-001": "BLOCKED",
+    "RG-002": "BLOCKED",
+    "RG-003": "BLOCKED",
+    "OG-001": "PASS"
+  },
+  "limitations": [
+    "Only FP16 model inference validated; no INT8/NF4 model evaluation",
+    "One fixed row per evaluation split; no population inference",
+    "Reference NLL cache not implemented",
+    "Four historical FADE skips and historical SSIUU xfail remain",
+    "GitHub default branch still stage/1-foundation; admin update unavailable through current connector"
+  ],
+  "failures_and_deviations": [
+    "Explicit Transformers 5 return_dict=False compatibility",
+    "Length-based attention fixes pad==EOS masking; bounded truncation is explicit",
+    "Legacy author tagged preprocessing is diagnostic comparison, not tensor parity",
+    "Initial Kaggle archive title exceeded 50-character limit; shortened before successful creation. This was not another kernel submission."
+  ],
+  "next_work_unit": "Directional QRA precision integration and decision-protocol review: resolve the specific Transformers/bitsandbytes loader mismatch, then bounded matched-precision validation and researcher review before corrected pilots."
+}
