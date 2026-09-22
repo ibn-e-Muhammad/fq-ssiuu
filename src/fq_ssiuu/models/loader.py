@@ -20,9 +20,9 @@ Dependencies (installed via scripts/setup_env.sh):
   - peft >= 0.12.0
 
 Authentication:
-  All model loading functions read the HuggingFace token from the HF_TOKEN
-  environment variable. The token is NEVER hardcoded. If the token is missing
-  or set to "PENDING", functions raise RuntimeError with instructions.
+  Legacy loader functions use the lazy project secret provider. Missing or
+  placeholder credentials raise SecretNotFoundError; no values are logged.
+  The NPO candidate has a separate immutable, unquantized reference contract.
 """
 
 import logging
@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class ModelConfig:
-    """Configuration for model loading, matching configs/base.yaml defaults.
+    """Legacy model-loading configuration; not the immutable NPO reference API.
 
     Attributes:
         base_model_id: HuggingFace model identifier.
@@ -53,7 +53,7 @@ class ModelConfig:
     bnb_4bit_use_double_quant: bool = True
     torch_dtype: str = "float16"
     device_map: dict = field(default_factory=lambda: {"": 0})
-    # LoRA defaults matching configs/base.yaml
+    # Historical LoRA defaults; accepted reproductions use versioned method specs.
     lora_r: int = 16
     lora_alpha: int = 32
     lora_target_modules: list = field(
@@ -91,29 +91,20 @@ def _resolve_dtype(dtype_str: str):
 
 
 def _get_hf_token() -> str:
-    """Read and validate the HuggingFace token from environment.
+    """Return HF_TOKEN using project precedence; raise SecretNotFoundError if unusable."""
+    from fq_ssiuu.secrets import SecretNotFoundError, get_secret
 
-    Returns:
-        The HF_TOKEN value.
-
-    Raises:
-        RuntimeError: If HF_TOKEN is not set, empty, or set to 'PENDING'.
-    """
-    from fq_ssiuu.secrets import get_secret
-
-    token = get_secret("HF_TOKEN")
-    if not token:
-        raise RuntimeError(
-            "HF_TOKEN environment variable is not set. "
-            "Set it with: export HF_TOKEN='your_token_here' or "
-            "os.environ['HF_TOKEN'] = 'your_token_here' in Python."
-        )
-    if token == "PENDING":
-        raise RuntimeError(
-            "HF_TOKEN is set to 'PENDING'. You must obtain access to the Llama model "
-            "at https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct and set "
-            "HF_TOKEN to your actual token before loading models."
-        )
+    try:
+        token = get_secret("HF_TOKEN")
+        if token == "PENDING":
+            raise SecretNotFoundError("Placeholder is not a usable credential")
+    except SecretNotFoundError:
+        raise SecretNotFoundError(
+            "HF_TOKEN is unavailable. Configure it in the process environment, "
+            "an enabled Kaggle Secret (individual or FQ_SSIUU_DOTENV), or the ignored "
+            "local .env through the project secret loader. See .env.example; "
+            "never put credentials in notebook cells or artifacts."
+        ) from None
     return token
 
 
@@ -130,7 +121,8 @@ def load_base_model(config: ModelConfig | None = None):
         AutoModelForCausalLM: The quantised model on GPU.
 
     Raises:
-        RuntimeError: If HF_TOKEN is not set or model loading fails.
+        SecretNotFoundError: If the project secret provider cannot resolve HF_TOKEN.
+        Other model-loading exceptions propagate from Transformers.
         ValueError: If config contains invalid parameters.
     """
     import torch
@@ -188,13 +180,13 @@ def load_model_fp16(model_id: str, token: str | None = None):
 
     Args:
         model_id: HuggingFace model ID or local path to merged model.
-        token: HuggingFace token. If None, reads from HF_TOKEN env var.
+        token: HuggingFace token. If None, uses the lazy project secret provider.
 
     Returns:
         AutoModelForCausalLM: The FP16 model.
 
     Raises:
-        RuntimeError: If token is not available and model requires auth.
+        SecretNotFoundError: If no token was passed and the project provider cannot resolve it.
     """
     import torch
     from transformers import AutoModelForCausalLM
@@ -267,47 +259,11 @@ def wrap_with_lora(model, lora_config_dict: dict | None = None):
 
 
 def get_reference_model(model_id: str, config: ModelConfig | None = None):
-    """Load a frozen copy of the pre-unlearning model for NPO reference.
-
-    The NPO loss requires a reference model π_ref that represents the
-    model BEFORE unlearning. This function loads the base model (same
-    config as training) and freezes all parameters.
-
-    IMPORTANT: This model must remain frozen for the entire training run.
-    Any gradient flow into this model invalidates the NPO loss computation.
-
-    Args:
-        model_id: HuggingFace model ID for the base (pre-unlearning) model.
-        config: Model loading configuration. Uses defaults if None.
-
-    Returns:
-        AutoModelForCausalLM: The frozen reference model.
-    """
-    if config is None:
-        config = ModelConfig()
-
-    # Override model ID to load the specified reference
-    ref_config = ModelConfig(
-        base_model_id=model_id,
-        load_in_4bit=config.load_in_4bit,
-        bnb_4bit_quant_type=config.bnb_4bit_quant_type,
-        bnb_4bit_compute_dtype=config.bnb_4bit_compute_dtype,
-        bnb_4bit_use_double_quant=config.bnb_4bit_use_double_quant,
-        torch_dtype=config.torch_dtype,
-        device_map=config.device_map,
+    """Retired unpinned reference entry point; never inherit generic NF4 defaults."""
+    raise ValueError(
+        "Unpinned or quantized NPO references are forbidden. Use the immutable "
+        "NPO ReferenceConfig and load_reference in experiments/reproductions/NPO/reference.py."
     )
-
-    logger.info("Loading FROZEN reference model '%s' for NPO...", model_id)
-    model = load_base_model(ref_config)
-
-    # Freeze all parameters — no gradient must flow into the reference
-    for param in model.parameters():
-        param.requires_grad = False
-
-    model.eval()
-    logger.info("Reference model frozen. All requires_grad set to False.")
-
-    return model
 
 
 def merge_adapter(peft_model_path: str, base_model_id: str, token: str | None = None):
@@ -320,7 +276,7 @@ def merge_adapter(peft_model_path: str, base_model_id: str, token: str | None = 
     Args:
         peft_model_path: Path to the saved PEFT adapter directory.
         base_model_id: HuggingFace model ID of the base model.
-        token: HuggingFace token. Reads from env if None.
+        token: HuggingFace token. Uses the lazy project secret provider if None.
 
     Returns:
         AutoModelForCausalLM: The merged FP16 model (no adapters).

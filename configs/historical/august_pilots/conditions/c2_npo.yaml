@@ -1,0 +1,24 @@
+# configs/conditions/c2_npo.yaml
+# Condition C2: NPO baseline unlearning (no SSIUU, no FQ-QAT)
+# Reference: Zhang et al. 2024, arXiv:2404.05868
+
+defaults:
+  - base
+
+condition:
+  id: "c2_npo"
+  name: "NPO Baseline"
+  description: "Negative Preference Optimisation only. No attribution regularisation. No FQ-QAT."
+
+npo:
+  beta: 0.1  # NPO temperature from Zhang et al. 2024
+  use_retain_loss: false  # No retain loss in baseline
+
+ssiuu:
+  enabled: false
+
+fq_qat:
+  enabled: false
+
+quail:
+  enabled: false

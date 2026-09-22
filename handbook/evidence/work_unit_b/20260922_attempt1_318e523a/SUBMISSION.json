@@ -1,0 +1,13 @@
+{
+  "attempt": 1,
+  "maximum_attempts": 2,
+  "kernel": "muhammadii/fq-ssiuu-mother-runner",
+  "kernel_version": 2,
+  "private": true,
+  "origin_commit": "318e523ac302f9f80f2c74f7c712bff08ff96a8e",
+  "orchestration_commit": "318e523ac302f9f80f2c74f7c712bff08ff96a8e",
+  "kind": "method_validation",
+  "recipe": "configs/runs/work_unit_b_validation_v1.json",
+  "no_training": true,
+  "maximum_examples": 4
+}

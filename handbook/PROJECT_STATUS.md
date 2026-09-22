@@ -1,9 +1,24 @@
 # FQ-SSIUU project status
 
-Updated 2026-09-10. [Canonical plan](MASTER_EXECUTION_PLAN.md).
-Active branch: `fix/upstream-method-reconciliation`, from dev `d310815c`
-(PR #7 merged). Work unit A is published at `0715877`, [PR #8](https://github.com/ibn-e-Muhammad/fq-ssiuu/pull/8).
-CI run 55 passed that exact source. Environment and Mother installation are frozen.
+Updated 2026-09-22. [Canonical plan](MASTER_EXECUTION_PLAN.md).
+Integration tip: `dev` at `fb9882790082ac4640d04a87c43260c62566831d`.
+PR #8 is merged; `fix/upstream-method-reconciliation` is superseded and retained.
+Active work unit B: `fix/npo-adapter-qra-metrics`, from that dev tip.
+Environment and Mother installation remain frozen. No training or corrected pilot
+is authorized by this work unit. CPU and bounded forward-only runtime acceptance
+are recorded separately; RG-006 is RESOLVED for objective/data/reference conformance; RG-005 remains BLOCKED.
+
+## Work unit B CPU acceptance — 2026-09-22
+
+269 passed; four unchanged FADE skips, ten GPU/model exclusions and one historical
+SSIUU expected failure. Four real TOFU rows match hash-pinned upstream preprocessing
+with explicit Transformers return-format and EOS-attention adaptations. Eleven
+notebooks compile. [Immutable CPU evidence](evidence/work_unit_b/20260922_cpu/VERDICT.json).
+Bounded runtime passed in attempt 1 (Mother v2), run `20260922-101703-ce77656bee84`.
+Four frozen FP16 forwards and actual metrics passed on one T4; peak allocated
+5,120,751,616 bytes, reserved 5,249,171,456 bytes. No training/backward/optimizer.
+Both private complete archives were downloaded and hash-verified (68 members).
+[Runtime verdict](evidence/work_unit_b/20260922_attempt1_318e523a/VERDICT.json).
 
 ## Current outcome
 
@@ -34,8 +49,8 @@ or corrected pilot has run. No Kaggle/model submission belongs to work unit A.
 |---|---|---|
 | OG-001 | PASS | Frozen [kernel v4 closure](evidence/og001_kaggle/20260906_kernel_v4_2be46116/VERDICT.json) |
 | Mother integration/archive | PASS | Frozen [Mother v1](evidence/mother_runner/20260908_kernel_v1_23682ea1/VERDICT.json); 1/2 submissions used |
-| RG-005 QRA outcomes | BLOCKED | Actual metric implementations and approved directional decision/uncertainty rules; all corrected pilots blocked |
-| RG-006 NPO parity | BLOCKED | Data/caller masking, EOS, original unquantised frozen reference and versioned 1B adapter |
+| RG-005 QRA outcomes | BLOCKED | Matched precision runtime and reviewed decision/uncertainty rules; all corrected pilots blocked |
+| RG-006 NPO parity | RESOLVED | Objective plus pinned data/frozen FP16 reference boundary accepted; no training-reproduction claim |
 | RG-003 QUAIL | BLOCKED | Complete objective/coefficients/margin/all-logit semantics and corrected P4 |
 | RG-002 weight NF4 | BLOCKED | Deployment-aligned weight transformation, gradients and corrected P3 |
 | RG-001 SSIUU | BLOCKED | Parameter attribution/state/HVP, gradients and training memory, corrected P2 |
@@ -50,8 +65,10 @@ evidence, not model-level scientific validation or training-memory evidence.
 
 ## Exact next action
 
-Scientific reconciliation A passed its bounded acceptance. Next build the
-upstream-faithful NPO caller/data/reference adapter and concrete QRA metric validation.
+Work unit B is complete within its validation scope; PR #9 remains unmerged.
+Next reconcile the specific quantized-model loader compatibility and validate
+matched directional precision measurements, then review the proposed decision
+protocol. RG-005 remains BLOCKED; no corrected pilot is authorized yet.
 Proceed through QUAIL, weight NF4 and SSIUU before corrected pilots. Resolve and
 approve the final protocol only after feasibility; no outcome-dependent adjustments.
 See [method matrix](METHOD_IMPLEMENTATION_MATRIX.md) and [scientific gates](research_gates.yaml).

@@ -1,0 +1,20 @@
+# configs/conditions/c5_fqat.yaml
+# Condition C5: FQ-QAT + NPO (ablation — no SSIUU)
+# Tests fake-quantisation training contribution in isolation.
+
+defaults:
+  - base
+  - c2_npo
+
+condition:
+  id: "c5_fqat"
+  name: "FQ-QAT + NPO"
+  description: "NPO with Fake-Quantisation QAT and STE. No SSIUU. Ablation for FQ-QAT component."
+
+ssiuu:
+  enabled: false
+
+fq_qat:
+  enabled: true
+  nf4_scale: 8.4e-4  # NF4 bin width from MANSU (arXiv:2605.15138)
+  clip_threshold: 1.0  # STE clips gradient outside [-1, 1]

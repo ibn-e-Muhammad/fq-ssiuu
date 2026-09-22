@@ -27,20 +27,15 @@ def test_default_loader_forwards_fp16_and_only_selected_device(monkeypatch):
     assert kwargs["attn_implementation"] == "sdpa"
 
 
-def test_reference_is_frozen_and_in_eval_mode_with_explicit_config(monkeypatch):
-    model = torch.nn.Linear(2, 2)
-    before = {k: v.clone() for k, v in model.state_dict().items()}
-    load = Mock(return_value=model)
+def test_legacy_reference_loader_rejects_missing_identity_before_loading(monkeypatch):
+    import pytest
+
+    load = Mock()
     monkeypatch.setattr(loader, "load_base_model", load)
-    reference = loader.get_reference_model(
-        "synthetic-finetuned-reference", loader.ModelConfig(load_in_4bit=False)
-    )
-    assert reference is model and not reference.training
-    assert all(not p.requires_grad for p in reference.parameters())
-    assert load.call_args.args[0].load_in_4bit is False
-    assert load.call_args.args[0].base_model_id == "synthetic-finetuned-reference"
-    for name, tensor in reference.state_dict().items():
-        torch.testing.assert_close(tensor, before[name], rtol=0, atol=0)
+    for config in (None, loader.ModelConfig(), loader.ModelConfig(load_in_4bit=False)):
+        with pytest.raises(ValueError, match="Unpinned or quantized"):
+            loader.get_reference_model("synthetic-finetuned-reference", config)
+    load.assert_not_called()
 
 
 def test_model_token_uses_the_lazy_project_provider(monkeypatch):
@@ -50,3 +45,20 @@ def test_model_token_uses_the_lazy_project_provider(monkeypatch):
     monkeypatch.setattr(secrets, "get_secret", lookup)
     assert loader._get_hf_token() == "synthetic-test-value"
     lookup.assert_called_once_with("HF_TOKEN")
+
+
+def test_missing_model_token_has_one_actionable_exception_contract(monkeypatch):
+    import pytest
+
+    from fq_ssiuu import secrets
+
+    lookup = Mock(side_effect=secrets.SecretNotFoundError("synthetic missing provider"))
+    monkeypatch.setattr(secrets, "get_secret", lookup)
+    with pytest.raises(secrets.SecretNotFoundError, match="Kaggle Secret") as exc:
+        loader._get_hf_token()
+    assert "synthetic missing provider" not in str(exc.value)
+    lookup.assert_called_once_with("HF_TOKEN")
+    lookup.side_effect = None
+    lookup.return_value = "PENDING"
+    with pytest.raises(secrets.SecretNotFoundError, match="project secret loader"):
+        loader._get_hf_token()

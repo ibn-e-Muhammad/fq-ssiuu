@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "/kaggle/working/checkout-20260922-101703-ce77656bee84/experiments/reproductions/NPO/validate_runtime.py",
+    "--recipe",
+    "/kaggle/working/checkout-20260922-101703-ce77656bee84/configs/runs/work_unit_b_validation_v1.json",
+    "--output",
+    "/kaggle/working/runs/20260922-101703-ce77656bee84/method_validation",
+    "--run-id",
+    "20260922-101703-ce77656bee84"
+  ],
+  "started_utc": "2026-09-22T10:18:04.229975+00:00",
+  "returncode": 0,
+  "elapsed_seconds": 122.87465543000008
+}

@@ -9,86 +9,73 @@ from fq_ssiuu.evaluation.certificate import (
     load_report,
     save_report,
 )
-from tests.methods.QRA.test_outcomes import observation
+from tests.methods.QRA.fixtures import BOOTSTRAP, group, observations
 
 
-def inputs():
-    return [
-        observation(
-            precision,
-            value,
-            metric=kind,
-            definition_id=kind + "-v1",
-            kind=kind,
-            direction="higher" if kind == "memorisation_score" else "diagnostic",
-        )
-        for precision in ("fp16", "int8", "nf4")
-        for kind, value in (("memorisation_score", 0.2), ("utility_score", 0.8))
-    ]
+def report():
+    g = group()
+    return generate_report(
+        "run-unit", "bounded-validation", observations(g), g, bootstrap=BOOTSTRAP
+    )
 
 
-def test_complete_descriptive_record_has_no_durability_verdict(tmp_path):
-    report = generate_report("run-test", "synthetic", inputs())
-    assert report["report_status"] == "VALID_DESCRIPTIVE_RECORD"
-    assert report["attack_detected"] is None and report["durability_pass"] is None
-    assert not {"certified", "threshold_met", "q_int4_score"} & report.keys()
-    path = tmp_path / "report.json"
-    save_report(report, path)
-    assert load_report(path) == report
-    before = path.read_bytes()
+def test_complete_descriptive_report_has_no_durability_verdict(tmp_path):
+    r = report()
+    assert r["report_status"] == "VALID_DESCRIPTIVE_RECORD"
+    assert r["attack_detected"] is None and r["durability_pass"] is None
+    assert not {"certified", "threshold_met", "q_int4_score"} & r.keys()
+    p = tmp_path / "report.json"
+    save_report(r, p)
+    assert load_report(p) == r
+    before = p.read_bytes()
     with pytest.raises(FileExistsError):
-        save_report(report, path)
-    assert path.read_bytes() == before
+        save_report(r, p)
+    assert p.read_bytes() == before
 
 
-def test_missing_utility_never_becomes_zero_or_pass():
-    values = inputs()
-    values[-1] = replace(values[-1], value=None)
-    report = generate_report("run-test", "synthetic", values)
-    assert report["report_status"] == "INCOMPLETE"
-    assert report["observations"][-1]["value"] is None
-    assert report["durability_pass"] is None
+def test_missing_precision_or_utility_never_counts_as_complete():
+    g = group()
+    xs = observations(g)
+    r = generate_report("run-unit", "bounded", xs[:-1], g, bootstrap=BOOTSTRAP)
+    assert r["report_status"] == "INCOMPLETE"
+    assert r["durability_pass"] is None
 
 
-def test_incompatible_report_rejected():
-    values = inputs()
-    values[-1] = replace(values[-1], sample_ids_sha256="e" * 64)
-    with pytest.raises(ValueError, match="provenance"):
-        generate_report("run-test", "synthetic", values)
+def test_different_report_run_or_cross_metric_checkpoint_rejected():
+    g = group()
+    xs = observations(g)
+    with pytest.raises(ValueError, match="linkage"):
+        generate_report("other-run", "bounded", xs, g, bootstrap=BOOTSTRAP)
+    xs[-1] = replace(xs[-1], checkpoint_sha256="f" * 64)
+    with pytest.raises(ValueError):
+        generate_report("run-unit", "bounded", xs, g, bootstrap=BOOTSTRAP)
 
 
-def test_unmatched_metrics_cannot_make_a_complete_report():
-    values = [replace(o, metric=o.metric + "-" + o.precision) for o in inputs()]
-    report = generate_report("run-test", "synthetic", values)
-    assert report["report_status"] == "INCOMPLETE"
-    assert report["comparisons"] == []
-
-
-def test_cross_metric_checkpoint_mix_rejected():
-    values = [
-        replace(o, checkpoint_sha256="e" * 64) if o.kind == "utility_score" else o for o in inputs()
-    ]
-    with pytest.raises(ValueError, match="one source checkpoint"):
-        generate_report("run-test", "synthetic", values)
-
-
-def test_historical_certification_is_preserved_without_adopting_it(tmp_path):
-    path = tmp_path / "historical.json"
-    old = {"schema_version": "v1", "q_int4_score": 0.2149, "certified": True}
-    path.write_text(json.dumps(old))
-    before = path.read_bytes()
-    record = load_report(path)
-    assert record["historical_payload"] == old
-    assert record["attack_detected"] is None and record["durability_pass"] is None
-    assert record["report_status"] == "SUPERSEDED_INTERPRETATION"
-    assert path.read_bytes() == before
+@pytest.mark.parametrize("version", ["v1", "v2", "v3"])
+def test_historical_payload_is_preserved_with_explicit_supersession(tmp_path, version):
+    p = tmp_path / "old.json"
+    old = {"schema_version": version, "certified": True}
+    p.write_text(json.dumps(old))
+    before = p.read_bytes()
+    r = load_report(p)
+    assert (
+        r["historical_payload"] == old
+        and r["attack_detected"] is None
+        and r["durability_pass"] is None
+    )
+    assert r["migration"]["automatic_migration"] is False and r["migration"]["to_schema"] is None
+    assert p.read_bytes() == before
     with pytest.raises(RuntimeError, match="RG-005"):
         generate_certificate(old)
 
 
-def test_unapproved_decision_cannot_be_saved(tmp_path):
-    report = generate_report("run-test", "synthetic", inputs())
-    report.update(attack_detected=True, durability_pass=False)
+def test_unapproved_decision_or_forged_measurement_cannot_be_saved(tmp_path):
+    r = report()
+    r.update(attack_detected=True, durability_pass=False)
     with pytest.raises(ValueError, match="unavailable"):
-        save_report(report, tmp_path / "must-not-exist.json")
-    assert not (tmp_path / "must-not-exist.json").exists()
+        save_report(r, tmp_path / "bad.json")
+    r = report()
+    r["observations"][0]["value"] = 50
+    with pytest.raises(ValueError):
+        save_report(r, tmp_path / "bad.json")
+    assert not (tmp_path / "bad.json").exists()

@@ -68,6 +68,7 @@ fq-ssiuu-preflight = "fq_ssiuu.environment:preflight_main"
 where = ["src"]
 
 [tool.ruff]
+extend-exclude = ["experiments/reproductions/*/historical"]
 target-version = "py311"
 line-length = 100
 

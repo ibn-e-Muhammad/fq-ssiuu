@@ -1,0 +1,72 @@
+{
+  "schema_version": "work-unit-b-forward-validation-v1",
+  "status": "PASS",
+  "run_id": "20260922-101703-ce77656bee84",
+  "comparison_group_id": "20260922-101703-ce77656bee84-method-validation",
+  "precision": "fp16",
+  "source_checkpoint_sha256": "35b0cd9f7db2735538ff78b4879fab61b23b7ca316df27b059585bf656700a8d",
+  "evaluator_sha256": "6c2a69ba7436bc906cd6aab8f7ccdf5ece9e850a34db964ecf4853ec691a29a0",
+  "pins_sha256": "9c24f66e568ce60dba39c61e92e948e48027b1318a0580ff859928d5ec02dbc6",
+  "sample_ids_sha256": "f553b63e0846e219cbade2e6704228c6d6bc81e1fbc1858b4ac5ba35f378098d",
+  "raw_records_sha256": "99d6d13792c9267c9e0a1b142a5a90de6d2629c66bf5c335daea959e105a165b",
+  "ks_diagnostic": {
+    "ks_statistic": 1.0,
+    "ks_p_value": 1.0,
+    "n_model": 1,
+    "n_oracle": 1,
+    "method": "exact",
+    "scipy_version": "1.16.3",
+    "interpretation": "Diagnostic; non-rejection is not equivalence",
+    "attack_detected": null,
+    "durability_pass": null
+  },
+  "ks_limitation": "One fixed forget example exercises serialization/calculation only; no statistical interpretation",
+  "utility": {
+    "value": 0.0,
+    "components": {
+      "retain_probability": 0.9348439449752619,
+      "retain_rouge_l_recall": 1.0,
+      "retain_truth_ratio_score": 0.11730421011248704,
+      "real_authors_probability": 0.4863918184567387,
+      "real_authors_rouge_l_recall": 1.0,
+      "real_authors_truth_ratio_score": 0.6480148150554952,
+      "world_facts_probability": 0.021453495353226743,
+      "world_facts_rouge_l_recall": 1.0,
+      "world_facts_truth_ratio_score": 0.0
+    },
+    "definition": "nine-component-harmonic-mean-paper-tr-v1",
+    "direction": "higher"
+  },
+  "attack_detected": null,
+  "durability_pass": null,
+  "decision_status": "BLOCKED_RG005",
+  "precision_comparisons": null,
+  "precision_comparison_limitation": "No INT8/NF4 model evaluations in this bounded reference-validation run; CPU paired-comparison tests are separate",
+  "gpu": "Tesla T4",
+  "visible_devices": "0",
+  "device_count": 1,
+  "peak_allocated_bytes": 5120751616,
+  "peak_reserved_bytes": 5249171456,
+  "versions": {
+    "torch": "2.10.0+cu128",
+    "transformers": "5.0.0",
+    "bitsandbytes": "0.45.5",
+    "numpy": "2.0.2",
+    "scipy": "1.16.3",
+    "rouge-score": "0.1.2",
+    "tokenizers": "0.22.2"
+  },
+  "optimizer_steps": 0,
+  "backward_calls": 0,
+  "model_training": false,
+  "supported_claims": [
+    "Four fixed-example NPO/reference and descriptive metric execution"
+  ],
+  "unsupported_claims": [
+    "NPO training reproduction",
+    "Quantization recovery",
+    "Durability",
+    "Pilot feasibility",
+    "Hypothesis test"
+  ]
+}
