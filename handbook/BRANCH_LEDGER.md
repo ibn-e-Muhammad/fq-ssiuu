@@ -12,14 +12,13 @@
 - Historical branches can be deleted only after ancestry, open-PR status and integration are reverified.
 - Experiment evidence must use commit SHA and run ID, not branch name alone.
 
-## Current integration — 2026-09-08
+## Current integration — 2026-09-22
 
-- `dev`: `d310815c07669b86ce5d402ff1a1af0d076f9d8e`, non-force merge PR #7.
-- `fix/kaggle-overlay-evidence-integrity`: merged at `c0eb92fd`, retained.
-- All ancestor branches in the historical active lineage below are superseded
-  by PR #7 and retained; no branch was deleted.
-- `fix/upstream-method-reconciliation`: current focused successor, created from
-  updated dev. No main changes and no untracked DOCX inclusion.
+- `dev`: `fb9882790082ac4640d04a87c43260c62566831d`, merge of PR #8; remote reverified unchanged.
+- `fix/upstream-method-reconciliation`: merged feature tip `adc0cdada3b476043edd158a9ab035aa7723751c`, superseded and retained.
+- `fix/npo-adapter-qra-metrics`: active work unit B, branched exactly from current remote dev. At most four coherent commits; push and one PR only, no merge.
+- `fix/kaggle-overlay-evidence-integrity`: merged through PR #7 (`d310815c`), retained.
+- All earlier ancestor branches remain superseded and retained. No `main` changes, history rewriting, deletions or DOCX inclusion.
 
 ## Historical inventory before PR #7
 

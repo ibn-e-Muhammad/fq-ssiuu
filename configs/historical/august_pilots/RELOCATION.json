@@ -1,0 +1,35 @@
+{
+  "base_commit": "fb9882790082ac4640d04a87c43260c62566831d",
+  "moves": [
+    {
+      "from": "configs/base.yaml",
+      "to": "configs/historical/august_pilots/base.yaml",
+      "sha256": "ba979777276fba8e1a93da7ceb26e82ec268d9ba597702c6f45a2170bca8545e"
+    },
+    {
+      "from": "configs/conditions/c2_npo.yaml",
+      "to": "configs/historical/august_pilots/conditions/c2_npo.yaml",
+      "sha256": "1cd305e72f7d03d3965b8c6d346200d1f862b9ad184b491eda83aa1b89d8ff3c"
+    },
+    {
+      "from": "configs/conditions/c4_ssiuu.yaml",
+      "to": "configs/historical/august_pilots/conditions/c4_ssiuu.yaml",
+      "sha256": "6fb36970926e9f6f163d07ba64743894ee6d5ccbe03deb6de39ff77aeca213cc"
+    },
+    {
+      "from": "configs/conditions/c5_fqat.yaml",
+      "to": "configs/historical/august_pilots/conditions/c5_fqat.yaml",
+      "sha256": "faae9899c91178743bb21ec823b602800c56841cc0b083f91eda025adb297d1e"
+    },
+    {
+      "from": "configs/conditions/c6_fq_ssiuu.yaml",
+      "to": "configs/historical/august_pilots/conditions/c6_fq_ssiuu.yaml",
+      "sha256": "3291326ed05508ffd332462ea136173945acf41d0939f1104ef988378b5888de"
+    },
+    {
+      "from": "configs/conditions/c8_quail.yaml",
+      "to": "configs/historical/august_pilots/conditions/c8_quail.yaml",
+      "sha256": "cb6cd2f15ac214783b4bf71f27db86b8ee59130b112dd331a2d05280f58eb17c"
+    }
+  ]
+}

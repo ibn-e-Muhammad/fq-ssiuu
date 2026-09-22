@@ -93,3 +93,15 @@
 | Decision | Remove trl from active project dependencies. |
 | Rationale | Static AST import audit across src/, scripts/, experiments/, and tests/ confirmed zero executable imports or function calls for trl. |
 | Impact | trl is excluded from requirements/kaggle-overlay.in and pyproject.toml. |
+
+## Work unit B — canonical Truth Ratio and adapter boundaries (2026-09-22)
+
+The researcher explicitly chose “TOFU paper canonical; upstream variant diagnostic.”
+Paper arithmetic and pinned upstream geometric Truth Ratios retain separate names.
+No attack threshold was approved. The pinned OpenUnlearning chat adapter is selected
+for the 1B instruction model; explicit return-list compatibility, truncation cap and
+real-EOS attention corrections are recorded in `methods/WORK_UNIT_B_CONFORMANCE.md`.
+The legacy author tagged adapter is executed for comparison, not relabelled identical.
+The original full fine-tuned checkpoint is the frozen NPO reference; retain95 is a
+separate FQ diagnostic oracle. FP16-only bounded validation does not approve a future
+precision-matching oracle policy or change scientific gates.

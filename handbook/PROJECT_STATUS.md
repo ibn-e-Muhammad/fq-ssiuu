@@ -1,9 +1,20 @@
 # FQ-SSIUU project status
 
-Updated 2026-09-10. [Canonical plan](MASTER_EXECUTION_PLAN.md).
-Active branch: `fix/upstream-method-reconciliation`, from dev `d310815c`
-(PR #7 merged). Work unit A is published at `0715877`, [PR #8](https://github.com/ibn-e-Muhammad/fq-ssiuu/pull/8).
-CI run 55 passed that exact source. Environment and Mother installation are frozen.
+Updated 2026-09-22. [Canonical plan](MASTER_EXECUTION_PLAN.md).
+Integration tip: `dev` at `fb9882790082ac4640d04a87c43260c62566831d`.
+PR #8 is merged; `fix/upstream-method-reconciliation` is superseded and retained.
+Active work unit B: `fix/npo-adapter-qra-metrics`, from that dev tip.
+Environment and Mother installation remain frozen. No training or corrected pilot
+is authorized by this work unit. CPU and bounded forward-only runtime acceptance
+are recorded separately; RG-005/006 remain BLOCKED pending their own criteria.
+
+## Work unit B CPU acceptance — 2026-09-22
+
+269 passed; four unchanged FADE skips, ten GPU/model exclusions and one historical
+SSIUU expected failure. Four real TOFU rows match hash-pinned upstream preprocessing
+with explicit Transformers return-format and EOS-attention adaptations. Eleven
+notebooks compile. [Immutable CPU evidence](evidence/work_unit_b/20260922_cpu/VERDICT.json).
+Bounded runtime pending; no gate closure or scientific conclusion follows.
 
 ## Current outcome
 
@@ -50,8 +61,8 @@ evidence, not model-level scientific validation or training-memory evidence.
 
 ## Exact next action
 
-Scientific reconciliation A passed its bounded acceptance. Next build the
-upstream-faithful NPO caller/data/reference adapter and concrete QRA metric validation.
+Complete work unit B: NPO adapter/reference and descriptive directional QRA
+metrics, then at most two bounded method-validation submissions.
 Proceed through QUAIL, weight NF4 and SSIUU before corrected pilots. Resolve and
 approve the final protocol only after feasibility; no outcome-dependent adjustments.
 See [method matrix](METHOD_IMPLEMENTATION_MATRIX.md) and [scientific gates](research_gates.yaml).

@@ -1,0 +1,26 @@
+{
+  "base_commit": "fb9882790082ac4640d04a87c43260c62566831d",
+  "code_commit": "Containing commit; exact published SHA recorded by runtime submission receipt",
+  "files": {
+    "configs/runs/work_unit_b_validation_v1.json": "206ca3d4287455341fdee53cab0dd0ab0244eb3a15fc6c27a10662a2c95602bd",
+    "experiments/reproductions/NPO/__init__.py": "51bf742e62101af887be7839a2701dee17a4f5fa8ccf85a6897a4d661725deaf",
+    "experiments/reproductions/NPO/adapter.py": "06968c54476dfe41ca5eaa2a8c5d55131e5b86ab9eae87a66d87d69a60176efc",
+    "experiments/reproductions/NPO/assets.py": "401e0757d4ff13480721a8fc01a7e6f0f9a49315f41c40086272dffc83513036",
+    "experiments/reproductions/NPO/candidate.py": "31d1e499caaaa6c97bc6329bf551baec7bad14227b172fc26187cb6b7def8e42",
+    "experiments/reproductions/NPO/inputs_v1.json": "9c24f66e568ce60dba39c61e92e948e48027b1318a0580ff859928d5ec02dbc6",
+    "experiments/reproductions/NPO/reference.py": "8e670065692544649483389b60115e4f25f70207105106a7921835b7e1a31ae4",
+    "experiments/reproductions/NPO/validate_adapter.py": "9d8b9ee769b237feae151a57761e129ef70a411d5ac567d0c4fe64f128c88bd5",
+    "experiments/reproductions/NPO/validate_runtime.py": "725fb4a788aed28b3c29e97cd7266d6f73242dd62cf8eb68d486b45e0a55b8b3",
+    "experiments/reproductions/NPO/validate_upstream.py": "1992032df18f94d7c50e862de6d079dc4e7c1161e28d87a15749eeebd4942e6b",
+    "experiments/reproductions/NPO/validation_contract.py": "c652540a3d28be413e380fc6b1c46dcff151d2f824ba0b85e33fb1f9a61759e0",
+    "experiments/reproductions/QRA/__init__.py": "51bf742e62101af887be7839a2701dee17a4f5fa8ccf85a6897a4d661725deaf",
+    "experiments/reproductions/QRA/metrics.py": "737c21cf9dde4438a4bfe8c2bb4ea6f1b2516cc4adab39a8ad5f0e8362cf21fc",
+    "scripts/mother_runner.py": "33716878032bd36eefcd4355913b6f3f206226e68843922069e5711abf77f1cb",
+    "src/fq_ssiuu/evaluation/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/fq_ssiuu/evaluation/certificate.py": "16dabcd20605696897fea610027bb21307de4a40683f8af5afd250e529f64b5f",
+    "src/fq_ssiuu/evaluation/identity.py": "a58d0879269529c4c2d8337feb13b4805e5d550b501d43592e29377c1abbcc38",
+    "src/fq_ssiuu/evaluation/metric_definitions.py": "86b56ef340900b451b8f878e982899b47c112808cfab7d8bb3eca5f2d393102d",
+    "src/fq_ssiuu/evaluation/qra_pipeline.py": "f0afc4a75f3cec3a0114eed3c598aad9b8d0224c44378584807c4092832b78d4",
+    "src/fq_ssiuu/evaluation/statistics.py": "c77936a8ac4c9459a28c99efc56d0a27dcaafef824e5cab9d8c9f4a7fb271535"
+  }
+}

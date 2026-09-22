@@ -35,11 +35,17 @@ def load_recipe(path):
         "integration",
         "pilot",
         "experiment",
+        "method_validation",
     }:
         raise ValueError("Unknown recipe schema or run kind")
     if type(recipe.get("seed")) is not int or not 0 <= recipe["seed"] < 2**32:
         raise ValueError("Explicit integer seed required")
-    if recipe["kind"] != "integration":
+    if recipe["kind"] == "method_validation":
+        from experiments.reproductions.NPO.validation_contract import validate_recipe
+
+        validate_recipe(recipe)
+        checked_path(ROOT, recipe["entrypoint"])
+    elif recipe["kind"] != "integration":
         from scripts.research_gate import is_blocking, load_gates
 
         gates = load_gates(ROOT / "handbook/research_gates.yaml")
@@ -180,6 +186,30 @@ def execute(recipe_path, output, provenance, run_id):
             if any(codes.values()):
                 raise RuntimeError("Integration failed; see tests and notebooks output")
             result["supported_claims"] = ["Validated environment and non-model integration recipe"]
+        elif recipe["kind"] == "method_validation":
+            phase = "method_validation"
+            code = run_command(
+                phase,
+                [
+                    sys.executable,
+                    str(checked_path(ROOT, recipe["entrypoint"])),
+                    "--recipe",
+                    str(recipe_path.resolve()),
+                    "--output",
+                    str(output / phase),
+                    "--run-id",
+                    run_id,
+                ],
+                output,
+                env,
+                recipe["timeout_seconds"],
+            )
+            result["returncodes"] = {phase: code}
+            if code:
+                raise RuntimeError("Method validation failed; see preserved child output")
+            result["supported_claims"] = [
+                "Four-example forward-only method-boundary validation; no training or recovery decision"
+            ]
         else:
             phase = "pilot"
             # The accepted adapter owns upstream-specific input loading, seeding,

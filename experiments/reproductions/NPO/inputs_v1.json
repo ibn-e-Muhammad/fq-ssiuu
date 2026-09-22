@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0",
+  "status": "PINNED_FOR_METHOD_VALIDATION_ONLY",
+  "target": {
+    "model_id": "open-unlearning/tofu_Llama-3.2-1B-Instruct_full",
+    "revision": "88e31200b97e4c0c04ae0d2f0b591f427046d192",
+    "checkpoint_sha256": "35b0cd9f7db2735538ff78b4879fab61b23b7ca316df27b059585bf656700a8d",
+    "tokenizer_id": "open-unlearning/tofu_Llama-3.2-1B-Instruct_full",
+    "tokenizer_revision": "88e31200b97e4c0c04ae0d2f0b591f427046d192",
+    "config_sha256": "f851a2874b759ee56099c11786b9de7f3e6051677615d4a88259ef0e206ba8a9"
+  },
+  "retain_only_oracle": {
+    "model_id": "open-unlearning/tofu_Llama-3.2-1B-Instruct_retain95",
+    "revision": "f05bc9fd6c8d59decf7599f5e186153081061fd2",
+    "checkpoint_sha256": "955e430aac277d9ccc309307f8462ce462c81fd4308cd934a6c24e5518077e94",
+    "tokenizer_id": "open-unlearning/tofu_Llama-3.2-1B-Instruct_full",
+    "tokenizer_revision": "88e31200b97e4c0c04ae0d2f0b591f427046d192"
+  },
+  "dataset": {
+    "id": "locuslab/TOFU",
+    "revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+    "forget": "forget05",
+    "retain": "retain95",
+    "forget_diagnostic": "forget05_perturbed",
+    "utility": [
+      "retain_perturbed",
+      "real_authors_perturbed",
+      "world_facts_perturbed"
+    ]
+  },
+  "files": [
+    {
+      "repo": "open-unlearning/tofu_Llama-3.2-1B-Instruct_full",
+      "revision": "88e31200b97e4c0c04ae0d2f0b591f427046d192",
+      "path": "config.json",
+      "bytes": 927,
+      "sha256": "f851a2874b759ee56099c11786b9de7f3e6051677615d4a88259ef0e206ba8a9"
+    },
+    {
+      "repo": "open-unlearning/tofu_Llama-3.2-1B-Instruct_full",
+      "revision": "88e31200b97e4c0c04ae0d2f0b591f427046d192",
+      "path": "tokenizer.json",
+      "bytes": 17209920,
+      "sha256": "6b9e4e7fb171f92fd137b777cc2714bf87d11576700a1dcd7a399e7bbe39537b"
+    },
+    {
+      "repo": "open-unlearning/tofu_Llama-3.2-1B-Instruct_full",
+      "revision": "88e31200b97e4c0c04ae0d2f0b591f427046d192",
+      "path": "tokenizer_config.json",
+      "bytes": 54557,
+      "sha256": "df757249013ee916c1318f170d2763cc2272d10d66c5d73a792ce34c2bd8cbb6"
+    },
+    {
+      "repo": "open-unlearning/tofu_Llama-3.2-1B-Instruct_full",
+      "revision": "88e31200b97e4c0c04ae0d2f0b591f427046d192",
+      "path": "special_tokens_map.json",
+      "bytes": 325,
+      "sha256": "1b1835caa5b4d70acaa210fa222b0036f1882f9525c4660fd4810fb3e1e40ff8"
+    },
+    {
+      "repo": "locuslab/TOFU",
+      "revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+      "path": "forget05.json",
+      "bytes": 56437,
+      "sha256": "88542818f98fd6f880ecaea71bc3f3e7a34f959944e5ff1cdef7ea8c5c137173"
+    },
+    {
+      "repo": "locuslab/TOFU",
+      "revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+      "path": "retain95.json",
+      "bytes": 1021406,
+      "sha256": "6625bb8e7e01f27a237bd273b961fcf2fb51568157702acdcd934b13398aa2fc"
+    },
+    {
+      "repo": "locuslab/TOFU",
+      "revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+      "path": "forget05_perturbed.json",
+      "bytes": 334176,
+      "sha256": "7596c863a3f7eafb551a167363826f71a7327f28617a0a533fed06108a50ccdb"
+    },
+    {
+      "repo": "locuslab/TOFU",
+      "revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+      "path": "retain_perturbed.json",
+      "bytes": 641057,
+      "sha256": "fc69f33bad70d3dca65920bdb54380039e3e8872dd16bbae20c1a839b99533fb"
+    },
+    {
+      "repo": "locuslab/TOFU",
+      "revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+      "path": "real_authors_perturbed.json",
+      "bytes": 17146,
+      "sha256": "a23255383ac75a5fbe5acd57622a03fb9c368954fd7b2428afa152b784d9533a"
+    },
+    {
+      "repo": "locuslab/TOFU",
+      "revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+      "path": "world_facts_perturbed.json",
+      "bytes": 18053,
+      "sha256": "0e171838040d0ec94b1ce248d891508e85e3b77344370077caa27b61898eb3e1"
+    }
+  ],
+  "upstreams": {
+    "npo": {
+      "revision": "1207bbe9a1abf502bc2d7b43a0a467d9524b4036",
+      "files": {
+        "TOFU/data_module.py": "8e076f18c20b663dbad9862a5d97c25e91fe4f9475bed77e597dbc2b349abf31",
+        "TOFU/dataloader.py": "a692b709d01d05204a81e40c38b1f6e64faac9286a662d9d7cf9e4cc4dcf6c69"
+      }
+    },
+    "openunlearning": {
+      "revision": "4ad738aaf60f6a4385f6e2506d01da99e76c31f3",
+      "files": {
+        "src/data/utils.py": "128262e291bd738ffa417099fd076a577494b260297fbf5fd4e317888bcc9bd4",
+        "src/data/collators.py": "b7e821c8175e31387c06729a60ff5287a512b681b10379ea21ac72fbff3e786c",
+        "configs/model/Llama-3.2-1B-Instruct.yaml": "0d7fea3a3d6820b4cdbd1c672b5dab1f789bcc868a0734af5389bb254fa54fbe",
+        "src/evals/metrics/memorization.py": "5d04d81e45ab6eac6fe6ee659f355a1ba57e6809dff860bcb8acebc8be764e9a",
+        "src/evals/metrics/privacy.py": "05527a628cc1ba72b2dceeb8e895c5238acbae894243e1bb5d491c280edce03d",
+        "src/evals/metrics/utility.py": "2dc70dcf54b06944dddaa3938b8eeceb3e91eb2d706389061fc04bf80a3eaa0e",
+        "src/evals/metrics/utils.py": "650f30143228e14cc47b70704b66a4425fe03d8d9cfab0ae315602041bb7d89c",
+        "configs/eval/tofu_metrics/model_utility.yaml": "34d95475601379e0f23846239710a18682437e383bdc239f243380c600aaf20c"
+      }
+    }
+  }
+}

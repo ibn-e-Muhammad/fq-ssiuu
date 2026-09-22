@@ -48,3 +48,11 @@
 
 Authoritative working thesis remains untracked; the four protected DOCX files were
 not modified. This ledger records pending thesis changes, not completed prose edits.
+
+## Work unit B — 2026-09-22
+
+[Structured update packet](thesis_updates/WORK_UNIT_B.md) covers Chapters 2–3: NPO
+adapter/reference, metric taxonomy, paper/upstream distinction, paired uncertainty,
+provenance and runtime claim limits. CPU evidence is `evidence/work_unit_b/20260922_cpu/`.
+No new scientific findings or DOCX changes. The packet is tracked source; it is not
+a claim that the working thesis has been converted or updated.

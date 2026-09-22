@@ -1,0 +1,24 @@
+# configs/conditions/c8_quail.yaml
+# Condition C8: QUAIL baseline (competing concurrent method)
+# Logit-space hinge loss for quantisation-aware unlearning.
+# Reference: Mishra & Mehreen 2026, arXiv:2601.15538
+# NOTE: No official code available — re-implemented from paper description.
+
+defaults:
+  - base
+
+condition:
+  id: "c8_quail"
+  name: "QUAIL Baseline"
+  description: "QUAIL logit hinge loss. Output-space QRA robustness approach. Concurrent work — must be cited."
+
+quail:
+  enabled: true
+  nf4_step: 8.4e-4  # NF4 quantisation step; hinge margin = nf4_step / 2
+  margin: 4.2e-4  # nf4_step / 2 per QUAIL paper
+
+ssiuu:
+  enabled: false
+
+fq_qat:
+  enabled: false

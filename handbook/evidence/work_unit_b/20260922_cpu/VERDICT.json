@@ -1,0 +1,108 @@
+{
+  "work_unit": "B",
+  "status": "CPU_ACCEPTANCE_PASS_RUNTIME_PENDING",
+  "branch": "fix/npo-adapter-qra-metrics",
+  "base_sha": "fb9882790082ac4640d04a87c43260c62566831d",
+  "tests": {
+    "passed": 269,
+    "skipped": 4,
+    "deselected": 10,
+    "xfailed": 1,
+    "returncode": 0,
+    "limits": "Four existing FADE skips, ten GPU/model exclusions, known historical SSIUU xfail. No core B skip."
+  },
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/",
+        "-q",
+        "-m",
+        "not requires_gpu and not requires_model"
+      ],
+      "output": "cpu_stdout.log",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "experiments.reproductions.NPO.validate_adapter",
+        "--root",
+        "/tmp/fq-b-assets",
+        "--output",
+        "/tmp/fq-b-adapter-validation.json"
+      ],
+      "output": "adapter_upstream_validation.json",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/check_notebooks.py",
+        "--output",
+        "/tmp/fq-b-notebooks.json"
+      ],
+      "output": "notebooks.json",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        ".venv/bin/ruff",
+        "check",
+        "src/",
+        "tests/",
+        "scripts/",
+        "experiments/reproductions/"
+      ],
+      "output": "lint_stdout.log",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "src/",
+        "tests/",
+        "scripts/",
+        "experiments/reproductions/"
+      ],
+      "output": "format_stdout.log",
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "output": "diff_stdout.log",
+      "returncode": 0
+    }
+  ],
+  "supported_claims": [
+    "Real immutable tokenizer/TOFU adapter agreement with executed upstream functions over four tested rows, with documented compatibility/padding adaptations",
+    "CPU frozen-reference safety checks",
+    "Descriptive metric calculations, paired bootstrap, provenance validation and legacy supersession behavior"
+  ],
+  "unsupported_claims": [
+    "NPO model training reproduction",
+    "GPU reference execution",
+    "INT8/NF4 model quantization",
+    "QRA recovery/durability decisions",
+    "Scientific effectiveness or hypothesis test"
+  ],
+  "researcher_choice": "TOFU paper arithmetic canonical; upstream geometric diagnostic",
+  "kaggle_submissions": 0,
+  "gates": {
+    "RG-005": "BLOCKED",
+    "RG-006": "BLOCKED",
+    "RG-001": "BLOCKED",
+    "RG-002": "BLOCKED",
+    "RG-003": "BLOCKED"
+  },
+  "next_action": "Private four-example forward-only Mother validation at the containing code commit"
+}

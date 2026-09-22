@@ -1,6 +1,6 @@
 # Master execution plan
 
-Updated 2026-09-10. FQ-SSIUU: Verifiable Machine Unlearning Against Quantisation
+Updated 2026-09-22. FQ-SSIUU: Verifiable Machine Unlearning Against Quantisation
 Recovery Attacks in Large Language Models. Muhammad Arslan (23BSAI020), Rohan Ahmed
 (23BSAI008), supervisor Dr. Sania Bhatti; BS AI, MUET, 2026–27.
 
@@ -11,13 +11,16 @@ The research aims to test empirical durability under a defined protocol at about
 pilots establish only the behavior of their historical implementations. Full
 hypothesis testing has not begun.
 
-Active branch: `fix/upstream-method-reconciliation`, from dev `d310815c` (PR #7).
-Remote dev and reconciliation tips were rechecked on 2026-09-10. Main, published
+Active branch: `fix/npo-adapter-qra-metrics`, from dev `fb988279` (PR #8 merged).
+Remote dev was rechecked on 2026-09-22 and is unchanged. The prior reconciliation
+branch is superseded and retained. Main, published
 history, raw evidence and the four untracked DOCX files remain untouched.
 
 Environment and Mother installation are frozen at accepted operational evidence.
-The current work unit is repository organisation plus scientific reconciliation A:
-QRA/report contract and NPO parity, **CPU only; zero Kaggle/model submissions**.
+The current work unit B validates the real NPO data/reference boundary and
+implements descriptive QRA metrics. No training, backward pass, optimizer step,
+pilot or hypothesis test is permitted in its bounded GPU validation. CPU acceptance
+precedes at most two submissions; second only for a diagnosed implementation defect.
 An earlier proposed tiny-NPO GPU run is superseded and was never submitted.
 
 Canonical future compute remains one Tesla T4, CUDA_VISIBLE_DEVICES=0, FP16 and
@@ -37,7 +40,8 @@ resolve with Git history instead of inventing a self-referential hash.
 | OG-001 | Private source linkage | Imports, FP16/SDPA/NF4, one T4, protected stack, differential pip, manifests/lock | PASS; frozen | `1efe2b32` / notebook `2be46116` | `handbook/evidence/og001_kaggle/20260906_kernel_v4_2be46116/` | Reuse; repair only demonstrated regressions | None |
 | Mother integration/archive | OG-001 | Pinned source/recipe, non-model suite, notebook validation, lazy secrets, private downloaded hashes | PASS; frozen, 1/2 submissions used | `23682ea1`, evidence `c0eb92fd` | `handbook/evidence/mother_runner/20260908_kernel_v1_23682ea1/` | Use same runner for accepted methods | None |
 | Operational dev integration | Accepted runtime/review/CI | Reviewed diff, preserved raw evidence, no secrets/DOCX/main changes | COMPLETE, PR #7 | `d310815c`; review fixes `291bbda5` | `handbook/evidence/integration/20260908_pr7/` | Preserve merged historical branches | None |
-| Method code organisation | Current dev | Separate candidates/historical methods; one first notebook; imports/CLI/tests compile; raw paths unchanged | PASS within layout/CPU scope | Containing commit | `experiments/LAYOUT.json`; `handbook/evidence/scientific_reconciliation/20260910_contract_and_npo/` | Use published layout at `0715877`; PR #8 open, CI 55 passed | None |
+| Method code organisation | Current dev | Separate candidates/historical methods; one first notebook; imports/CLI/tests compile; raw paths unchanged | PASS within layout/CPU scope | Containing commit | `experiments/LAYOUT.json`; `handbook/evidence/scientific_reconciliation/20260910_contract_and_npo/` | Use published layout at `0715877`; PR #8 merged, dev `fb988279`, CI passed | None |
+| Work unit B data/reference/metrics | Work unit A objective parity; OG-001 | Real pinned adapter/upstream tensor checks, immutable unquantized reference, directional metric/paired uncertainty behavior, fail-closed provenance, bounded FP16 runtime | IN PROGRESS; no GPU submission yet | Containing commit | `handbook/methods/WORK_UNIT_B_CONFORMANCE.md`; new run evidence | Finish CPU acceptance, then bounded Mother child validation | Paper arithmetic Truth Ratio chosen by researcher; final decision rule remains unapproved |
 | RG-005 QRA/report contract | RG-004 interpretation | No p-value recovery score; matched provenance; nullable independent decisions; real metric definitions and approved decision rule before verdicts | BLOCKED; descriptive contract implemented | Containing commit | `handbook/methods/QRA_OUTCOME_CONTRACT.md`; `tests/methods/QRA/` | Validate concrete evaluator metrics and draft directional decision rule | Researcher approval before thresholds/protocol freeze |
 | RG-006 NPO parity | Pinned author and OpenUnlearning | Causal sequence loss/current-retain gradients; answer/EOS adapter; frozen unquantised reference; explicit variants/adaptations | BLOCKED; CPU objective parity passes | Containing commit | `handbook/methods/NPO_CONFORMANCE.md`; reconciliation evidence | Implement/review data and reference adapter with deterministic CPU fixtures | No new scientific choice needed for upstream parity |
 | RG-003 QUAIL | Individual upstream specification | Complete forget/retain/all-logit hinge; coefficients/margin/masks/gradient parity; corrected P4 | BLOCKED | Historical source retained | `experiments/reproductions/QUAIL/`; upstream register | Reconcile pinned author code with paper equations/update order after work unit A | Any unresolved published ambiguity |
