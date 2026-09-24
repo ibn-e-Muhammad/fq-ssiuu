@@ -83,3 +83,15 @@ FP16/INT8/NF4 loader and measurement boundary at `14669f34`, run
 Reference the raw verdict/manifest before incorporating any numbers. Protocol v2
 is unapproved; no recovery/forgetting/durability result may enter Chapters 4–5.
 The working thesis has not been rewritten and all four DOCX files remain untouched.
+
+## Researcher scope correction — 2026-09-25
+
+Chapters 2–3: use the [reproduction policy](methods/METHOD_REPRODUCTION_POLICY.md)
+and corrected primary-source hierarchy, including the paper-linked QUAIL code.
+Separate upstream conformance, source-faithful 1B adaptation, project adaptation
+and novel FQ-SSIUU; a changed model/dataset is not exact headline replication.
+C1 used one example per component: one-versus-one KS is not inferential, and its
+measured-zero-component utility aggregate is not general utility failure. Packed
+quantized tensors were hashed but not persisted. No forgetting/recovery/durability
+finding follows. Protocol v2 is deferred until base-method pilots, unapproved and
+non-executable; source requirements are not awaiting that approval. DOCX untouched.

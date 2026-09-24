@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "attempts": [
+    {
+      "evidence": "handbook/evidence/work_unit_c/20260924_attempt1_b884c5e",
+      "manifest_sha256": "84de501d75f5888322c3b221677ba68833956695b0d93798b73c6af337614ce8",
+      "manifest_files_verified": 71,
+      "raw_sealed_members_verified": 54,
+      "status": "PASS",
+      "all_tracked_files_byte_identical_to_start": true
+    },
+    {
+      "evidence": "handbook/evidence/work_unit_c/20260924_attempt2_14669f3",
+      "manifest_sha256": "d4e12bd6c5968b2e413bacf2a095f749a93a27608aa7d9012d06269f8b88194b",
+      "manifest_files_verified": 103,
+      "raw_sealed_members_verified": 84,
+      "status": "PASS",
+      "all_tracked_files_byte_identical_to_start": true
+    }
+  ],
+  "original_closure_manifest_sha256": "7763f26937b75604327b6bea26baf5053f995ffcb1dfedf13d0e853a9163813f",
+  "original_closure_files_verified_at_starting_commit": 135,
+  "live_document_corrections_do_not_rewrite_historical_closure": "Old closure document hashes verified against afb341b snapshot; raw C1 records verified against current bytes.",
+  "bounded_sample_facts": {
+    "examples_per_component": 1,
+    "components": [
+      "forget05_perturbed",
+      "retain_perturbed",
+      "real_authors_perturbed",
+      "world_facts_perturbed"
+    ],
+    "ks_candidate_n": 1,
+    "ks_oracle_n": 1,
+    "zero_utility_cause": "measured zero world_facts_truth_ratio_score in each precision; not general utility failure"
+  },
+  "packed_tensor_limit": "Hashed during GPU execution; not persisted or rehashed from tensor bytes here."
+}

@@ -1,8 +1,10 @@
 # Work Unit C — matched precision integration and protocol review
 
-Verdict: **PARTIAL WITH EVIDENCE** for C overall. **C1 PASS within matched
-inference scope**. C2 code and review package are ready; researcher approval and
-substantive human PR review are outstanding. No training, corrected pilot or
+Current interpretation, corrected 2026-09-25: **C1 PASS only within matched
+inference and measurement-plumbing scope**. C2 is
+**DEFERRED_UNTIL_BASE_METHOD_PILOTS / PROPOSED_NOT_APPROVED**. Source-faithful
+constituent reproductions do not await activation of Protocol v2; substantive
+human PR review remains outstanding. No training, corrected pilot or
 scientific experiment ran. Attack and durability decisions remain null.
 
 ## Lineage and review
@@ -11,8 +13,8 @@ scientific experiment ran. Attack and durability decisions remain null.
 - Branch: `fix/matched-precision-qra-protocol`; one open [PR #10](https://github.com/ibn-e-Muhammad/fq-ssiuu/pull/10), not merged.
 - Implementation: `b884c5ef0a8bfe7812e583f88f73cb5c1eaf9a83`.
 - Executed repair: `14669f34cbaefde8c4e3d7d7f89616a240a6a6c7`.
-- Closure: the commit containing this report. Resolve its exact SHA through Git;
-  no invented self-referential SHA is recorded here. Exact file inventory is in
+- Original evidence closure: `afb341b5ba1dd0e9c6de6f8a3842c5596afe967d`. The
+  present documentation correction preserves that immutable snapshot. Its original file inventory is in
   `../evidence/work_unit_c/20260924_closure/FILE_INDEX.json`.
 - Default branch is dev. Required CI, fresh reviewer approval, resolved threads,
   deletion/force-push protection and no last-pusher self-approval are enforced.
@@ -35,6 +37,15 @@ scientific experiment ran. Attack and durability decisions remain null.
 | Utility summary | PASS | Nine registered components and separate harmonic-mean manifest; zero only for a measured zero component, missing data rejected |
 | Clustered / multi-seed uncertainty | CPU implementation PASS; unapproved | Verified explicit author maps, whole-author resampling and crossed seed/author behavior; C1 has only one forget author and no training seeds |
 | Scientific decisions | BLOCKED | PROPOSED_NOT_APPROVED protocol; no initial forgetting, recovery or durability result |
+
+C1 used **one example per declared dataset component** (forget05_perturbed,
+retain_perturbed, real_authors_perturbed, world_facts_perturbed). Each precision
+and the oracle had one forget example: the one-versus-one KS result is **not
+statistically inferential**. The measured `world_facts_truth_ratio_score` component
+was zero in this bounded sample at all three precisions, giving a zero harmonic
+utility aggregate. That is **not evidence of general utility failure**. Quantized
+tensor bytes were hashed at runtime but not persisted. C1 cannot establish
+forgetting, recovery or durability. No raw observation has been rewritten.
 
 ## Both bounded executions
 
@@ -109,7 +120,11 @@ or repeat-run bitwise equality is supported by a single successful execution.
 
 ## Protocol and gates
 
-[Protocol v2](../methods/QRA_PROTOCOL_v2.md) is **PROPOSED_NOT_APPROVED**.
+[Protocol v2](../methods/QRA_PROTOCOL_v2.md) is
+**DEFERRED_UNTIL_BASE_METHOD_PILOTS / PROPOSED_NOT_APPROVED**, non-executable.
+Its project choices do not govern source-faithful constituent reproductions.
+Published equations, pinned source and source-defined metrics, splits, stopping
+rules and hyperparameters have independent authority.
 It preserves v1's numeric margins and seed choices. It completes the joint
 four-comparison interval family and proposes utility acceptance conditional on
 the exact finite benchmarks in every seed. V1 remains preserved; v2 was prepared
@@ -119,15 +134,20 @@ This is not the full multi-condition preregistration and cannot authorize it.
 OG-001 remains PASS with its original evidence. C1 is a separately recorded
 accepted precision-loader extension. RG-006 retains only its earlier bounded
 objective/data/reference acceptance. **RG-001, RG-002, RG-003 and RG-005 remain
-BLOCKED**; RG-004 remains OPEN. No gate is closed by descriptive metrics alone.
+BLOCKED**; RG-004 remains OPEN. RG-005 blocks confirmatory QRA attack/durability
+verdicts and the full FQ-SSIUU study, not source-faithful constituent reproduction
+or descriptive collection. No method gate is closed by this correction.
 
 Supported: matched precision inference and measurement execution, source/content
 linkage, bounded memory, differential environment preservation and private archival.
 Unsupported: NPO training, adequate initial forgetting, QRA detection, durability,
 confirmatory uncertainty, faithful QUAIL/FQ-QAT/SSIUU, combined FQ-SSIUU efficacy.
 
-**First blocker and exact next work unit:** explicit researcher approval of the
-versioned QRA decision protocol, followed by implementation/review of that approved
-contract as part of corrected NPO training reproduction preparation. Obtain a
-substantive human review of PR #10; do not merge or run a corrected pilot now.
+**Correction-unit stopping point:** push the documentation/gate-semantics changes
+and report; do not merge, rerun C1 or begin training. A substantive human PR review
+remains required. Future constituent-method reproduction may follow source-defined
+requirements without Protocol v2 approval; its custom choices are deferred until
+1B base-method reproductions/pilots precede the final confirmatory protocol. See
+[reproduction policy](../methods/METHOD_REPRODUCTION_POLICY.md), including the
+unchanged legacy Mother interface limitation.
 Thesis consequences are in `../thesis_updates/WORK_UNIT_C.md`; DOCX files untouched.

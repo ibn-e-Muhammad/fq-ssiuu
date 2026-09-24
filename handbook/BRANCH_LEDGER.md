@@ -188,3 +188,12 @@ and 62 passed. Mother v4/run `20260924-120549-b4c4f06e097d` passed bounded C1;
 the containing closure commit records verified evidence and proposed C2 review.
 Both submissions are consumed. No merge, branch deletion or scientific approval
 is claimed. Four DOCX files and original raw evidence remain untouched.
+
+## Work unit C scientific scope correction — 2026-09-25
+
+Same PR #10 branch, starting `afb341b5ba1dd0e9c6de6f8a3842c5596afe967d`.
+Documentation/gate semantics only; C1 raw evidence remains immutable. The researcher
+permits source-faithful constituent reproductions independently of deferred
+Protocol v2. RG-005 still blocks confirmatory QRA verdicts/full FQ-SSIUU study.
+No merge, new Kaggle run, model download or training in this correction; human
+review remains outstanding. The containing commit records this single pass.

@@ -1,0 +1,163 @@
+{
+  "schema_version": "scientific-scope-correction-v1",
+  "status": "PASS",
+  "starting_commit": "afb341b5ba1dd0e9c6de6f8a3842c5596afe967d",
+  "ending_commit": "containing commit",
+  "artifacts": [
+    {
+      "path": "experiments/reproductions/QRA/README.md",
+      "sha256": "2a761b794d38f6db1f85e41721e7e590d55df517dc10db030b77757eb9ed49cd",
+      "bytes": 1328
+    },
+    {
+      "path": "handbook/BRANCH_LEDGER.md",
+      "sha256": "5dbfc0a4924c3a535beb854434b029a3b979fd3da5ca0890f9981c0261400c4f",
+      "bytes": 10410
+    },
+    {
+      "path": "handbook/GEMINI_HANDOFF.md",
+      "sha256": "15daf9236293e6fc624d18f9c65052baf63177085bfc275455f83f3c03408cd2",
+      "bytes": 24746
+    },
+    {
+      "path": "handbook/MASTER_EXECUTION_PLAN.md",
+      "sha256": "5b0bbc9cfe63e3dd68200908ed827a32970f3400f26d34199c157d085a7cad89",
+      "bytes": 10490
+    },
+    {
+      "path": "handbook/PROJECT_STATUS.md",
+      "sha256": "303f5c276e0cfa792c84cce130ba4955dc8e759a9d6ba915fc82bafddc8be91f",
+      "bytes": 7348
+    },
+    {
+      "path": "handbook/THESIS_UPDATE_LEDGER.md",
+      "sha256": "ca517f34203f558fd628ddaa3e19ba1a8ab0ca7ee809fa40c8a9f6c62d32fb90",
+      "bytes": 8669
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/CHECKS.json",
+      "sha256": "ffaa4054fdd562c976427708c92293ff5449891eaaeee1ed95d730f1f0e7ae08",
+      "bytes": 1081
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/DIFF_SUMMARY.txt",
+      "sha256": "c16838f12d174c59879a635e25b432fc446fbd4442e203ab8d1d052117664fd5",
+      "bytes": 979
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/FILE_INDEX.json",
+      "sha256": "6c2d55f9d0dc57bfa5151df1a6f81d030c168481b92798698cb5d8c424715eaf",
+      "bytes": 4819
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/RAW_EVIDENCE_VERIFICATION.json",
+      "sha256": "042fa1e6e0ad759dd52ff30908d5beb6fc61777ad4fe5c56859699103073fce7",
+      "bytes": 1553
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/SECRET_SCAN.json",
+      "sha256": "73c18654b1b8d1c4413b100cf765c8fc00961cede5ab1124576b3b431f3f67a0",
+      "bytes": 181
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/SOURCE_VERIFICATION.json",
+      "sha256": "d2ec580bc2e1a652bb9f982ecc273218d9048bf08c48dd2902bc278993a781ae",
+      "bytes": 760
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/VERDICT.json",
+      "sha256": "8e69211210807cb16edeb28943db1bc2658c16af1a2162518ba824bed23fe700",
+      "bytes": 1595
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/diff_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/diff_stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/format_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/format_stdout.log",
+      "sha256": "cbf904f92d0c089ca66e45970eb6a69574fe7b4ee91d4caa1a94cf9e781ef67c",
+      "bytes": 27
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/lint_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/lint_stdout.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "bytes": 19
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/notebooks.json",
+      "sha256": "3afa347f9defe5712380a1778b861d01f639cd142a9979701842e0b825db521b",
+      "bytes": 2558
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/notebooks_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/notebooks_stdout.log",
+      "sha256": "ca55e48085e5ba4808c80219764cf9a26b97829383c239cf03ed0a26a86af2fc",
+      "bytes": 41
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/tests_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260925_scientific_scope_correction/tests_stdout.log",
+      "sha256": "29f0c767faf400d4f73995bd821a0bb0d754595ec3c5267d2d9715d2506fadeb",
+      "bytes": 3002
+    },
+    {
+      "path": "handbook/methods/METHOD_REPRODUCTION_POLICY.md",
+      "sha256": "98e45e0c4455185d77c2cc35e269d2c2ccb67f4dc1b084f7415afc43981354dc",
+      "bytes": 4521
+    },
+    {
+      "path": "handbook/methods/QRA_OUTCOME_CONTRACT.md",
+      "sha256": "30ec5f900d9100c7944916bebf544e81e2a180030d3e5b1595566eece412d39a",
+      "bytes": 5173
+    },
+    {
+      "path": "handbook/methods/QRA_PROTOCOL_v2.md",
+      "sha256": "d91f4740653eb133159758aba0020bd6351902a51c0c982f80505f6adaea2d28",
+      "bytes": 12456
+    },
+    {
+      "path": "handbook/methods/UPSTREAM_IMPLEMENTATIONS.md",
+      "sha256": "8b8b2856c90d56e46092fa29802c3f13ae2d40fc972a6ed62182b366ef61e596",
+      "bytes": 5570
+    },
+    {
+      "path": "handbook/methods/WORK_UNIT_C_CONFORMANCE.md",
+      "sha256": "803b46943e7d8f826c485648bc70f8cd0fdb420c78b97ba17f299850aa1241ea",
+      "bytes": 5925
+    },
+    {
+      "path": "handbook/reports/WORK_UNIT_C_FINAL_REPORT.md",
+      "sha256": "d05e9cd8a4b794d80d11684fe8c602b01abcf29a8dc2a4eae7f3e32fc6bc7706",
+      "bytes": 10174
+    },
+    {
+      "path": "handbook/research_gates.yaml",
+      "sha256": "9075aab70550f770f56316ee68a688030d264fe4e9a71e15571bc2e0f2f5ed47",
+      "bytes": 6463
+    }
+  ]
+}

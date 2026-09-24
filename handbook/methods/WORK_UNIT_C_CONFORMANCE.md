@@ -63,3 +63,21 @@ Both submissions used. Attempt 1 remains a failure, not retroactively repaired.
 C1 establishes no attack, durability, training or confirmatory uncertainty claim.
 C2 review uses protocol v2; v1 is preserved. Approval and human PR review remain
 outstanding. No gate for SSIUU, FQ-QAT or QUAIL has been closed.
+
+## Researcher scope correction — 2026-09-25
+
+C1 PASS is limited to matched-precision inference and measurement plumbing.
+It used **one example per declared dataset component**: forget05_perturbed,
+retain_perturbed, real_authors_perturbed and world_facts_perturbed, repeated across
+FP16/INT8/NF4. The oracle also used one forget example. The resulting one-versus-one
+KS result is **not statistically inferential**. The zero utility aggregate at
+all three precisions arose from the measured zero `world_facts_truth_ratio_score`
+component in this bounded sample; it is not evidence of general utility failure.
+Packed quantized tensors were hashed at runtime but were not persisted. C1 cannot
+establish forgetting, recovery or durability. Raw observations remain unchanged.
+
+The earlier approval-first progression above is superseded by the researcher's
+[reproduction policy](METHOD_REPRODUCTION_POLICY.md). Protocol v2 is
+DEFERRED_UNTIL_BASE_METHOD_PILOTS / PROPOSED_NOT_APPROVED, non-executable; it does
+not block source-faithful constituent reproductions or descriptive collection.
+This correction performs no runtime work and does not claim independent review.

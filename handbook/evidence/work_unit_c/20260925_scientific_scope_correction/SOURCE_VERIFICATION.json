@@ -1,0 +1,22 @@
+{
+  "quail": {
+    "paper": "https://arxiv.org/html/2601.15538v1",
+    "section": "VII-F Reproducibility",
+    "paper_linked_repository": "https://github.com/himans-iitk/CS534L_Project",
+    "execution_pin_and_code_audit": "REQUIRED_BEFORE_USE"
+  },
+  "qra": {
+    "paper": "https://arxiv.org/html/2410.16454v2",
+    "official_repository": "https://github.com/zzwjames/FailureLLMUnlearning"
+  },
+  "npo": {
+    "paper": "https://arxiv.org/abs/2404.05868v2",
+    "primary_repository": "https://github.com/licong-lin/negative-preference-optimization"
+  },
+  "ssiuu": {
+    "paper": "https://arxiv.org/html/2509.22263v2",
+    "authority": "equations and Algorithm 1",
+    "linked_implementation_verified": false,
+    "implementation_basis": "paper-derived"
+  }
+}

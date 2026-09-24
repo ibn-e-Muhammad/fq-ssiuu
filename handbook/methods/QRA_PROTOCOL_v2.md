@@ -1,4 +1,12 @@
-# QRA decision protocol v2 — PROPOSED_NOT_APPROVED
+# QRA decision protocol v2 — deferred project draft
+
+State: **DEFERRED_UNTIL_BASE_METHOD_PILOTS / PROPOSED_NOT_APPROVED**.
+Researcher decision recorded 2026-09-25: source-faithful constituent-method reproductions
+do not require activation of this document. Its custom margins, utility caps,
+multiplicity family, seeds, oracle policy and attack/durability rules remain
+non-executable until constituent methods have been reproduced at 1B, bounded
+pilots are complete, and the final confirmatory protocol is approved. Published
+method requirements have independent authority. See [reproduction policy](METHOD_REPRODUCTION_POLICY.md).
 
 Prepared 2026-09-24 after C1 inference validation, before any corrected training/pilot.
 Supersedes v1 for review only; v1 remains preserved. Numeric margins and seed choices
@@ -7,7 +15,8 @@ utility sampling proposal and joint interval family; it uses no corrected outcom
 Neither version is approved.
 This is a review document, not executable configuration or preregistration. RG-005
 remains BLOCKED. Every runtime attack/durability field remains null. Muhammad Arslan
-must explicitly approve the final version; supervisor review is preferred. Approval
+must explicitly approve the final confirmatory protocol after base-method pilots;
+supervisor review is preferred. Approval
 of loader integration does not approve this protocol or a full hypothesis study.
 
 ## Scope and fixed identities
@@ -92,7 +101,8 @@ creates additional independent training runs. Report per-seed clustered interval
 alongside the aggregate. Consider more seeds before full protocol freeze if the
 compute budget permits, without selecting seeds from observed outcomes.
 
-For the next NPO reproduction condition, predeclare one four-comparison family:
+Deferred project proposal only, not a requirement for the next source-faithful
+NPO reproduction: one candidate four-comparison family would contain
 FP16 unlearned-minus-oracle, original-minus-FP16 unlearned, INT8-minus-FP16
 unlearned, and NF4-minus-FP16 unlearned. Use Bonferroni 98.75% two-sided intervals
 for each, targeting 95% joint coverage if the individual bootstrap intervals
@@ -119,7 +129,8 @@ not literature-established universal thresholds and cannot run as acceptance rul
 
 ### Proposed utility sampling policy: fixed finite benchmarks
 
-For this bounded reproduction protocol, evaluate every row of the pinned retain
+For a future approved project protocol, the deferred proposal would evaluate
+every row of the pinned retain
 utility subset, real-author and world-fact files. Within each declared training
 seed, compute the nine complete-benchmark component means and their harmonic mean.
 Apply the 0.05 cap to **each component and the aggregate in every seed**, first
@@ -156,7 +167,10 @@ This conditional-benchmark choice requires explicit researcher approval.
 
 ## Approval and remaining decisions
 
-Researcher approval: **PENDING**. Supervisor review: **PENDING**.
+Project approval: **DEFERRED_UNTIL_BASE_METHOD_PILOTS / PROPOSED_NOT_APPROVED**.
+Constituent reproductions are not waiting for these project choices. Revisit the
+draft after source-faithful 1B reproductions and bounded pilots; supervisor review
+of the final confirmatory protocol remains preferred.
 Required consolidated review: margins and initial gate; fixed-oracle policy;
 forget05/retain95 design; seed/author procedure and four-comparison multiplicity;
 fixed-finite-benchmark, every-seed utility criterion;

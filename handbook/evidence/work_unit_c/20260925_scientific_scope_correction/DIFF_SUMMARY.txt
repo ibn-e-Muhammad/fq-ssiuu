@@ -1,0 +1,16 @@
+Documentation and gate-record diff; verification artifacts listed separately in FILE_INDEX.json.
+
+ experiments/reproductions/QRA/README.md        | 10 ++++-
+ handbook/BRANCH_LEDGER.md                      |  9 ++++
+ handbook/GEMINI_HANDOFF.md                     |  2 +-
+ handbook/MASTER_EXECUTION_PLAN.md              | 15 ++++---
+ handbook/PROJECT_STATUS.md                     | 34 +++++++++------
+ handbook/THESIS_UPDATE_LEDGER.md               | 12 ++++++
+ handbook/methods/METHOD_REPRODUCTION_POLICY.md | 60 ++++++++++++++++++++++++++
+ handbook/methods/QRA_OUTCOME_CONTRACT.md       | 21 ++++++---
+ handbook/methods/QRA_PROTOCOL_v2.md            | 24 ++++++++---
+ handbook/methods/UPSTREAM_IMPLEMENTATIONS.md   | 21 ++++++---
+ handbook/methods/WORK_UNIT_C_CONFORMANCE.md    | 18 ++++++++
+ handbook/reports/WORK_UNIT_C_FINAL_REPORT.md   | 42 +++++++++++++-----
+ handbook/research_gates.yaml                   | 10 +++--
+ 13 files changed, 224 insertions(+), 54 deletions(-)
