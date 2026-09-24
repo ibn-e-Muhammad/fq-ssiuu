@@ -24,3 +24,19 @@ full suite now 294 passed, 4 unchanged skips, 10 deselected, 1 historical xfail.
 
 Next: submission 2/2 with that diagnosed repair, then independently derive outcome.
 No training, attack, durability or combined-method efficacy claim is supported.
+
+## Completed attempt 2 and interpretation
+
+The planned second submission used `14669f34`. Mother v4/run
+`20260924-120549-b4c4f06e097d` passed sequential FP16/INT8/NF4 plus frozen oracle
+inference. Independent derivation verified 84 sealed members, actual module
+inventories, evaluation hashes and raw-derived descriptive metrics. Peak reserved
+2.802 GB; no training. Old 0.45.5 lock retained; new 0.46.1 lock copied only after
+acceptance. Runtime packed-state hashes are available, but packed model bytes
+were not persisted. Both attempts remain immutable and privately archived.
+
+Protocol v2, prepared after this inference-only run and before corrected outcomes,
+retains v1 margins/seeds but completes a four-comparison interval family and a
+conditional finite-benchmark, every-seed utility proposal. No acceptance criterion
+was chosen from an unlearning outcome; none has been approved. RG-005 remains
+BLOCKED. Exact next action: researcher protocol approval and substantive PR review.

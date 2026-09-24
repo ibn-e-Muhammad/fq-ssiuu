@@ -12,7 +12,7 @@
 - Historical branches can be deleted only after ancestry, open-PR status and integration are reverified.
 - Experiment evidence must use commit SHA and run ID, not branch name alone.
 
-## Current integration — 2026-09-23
+## Current integration — 2026-09-24
 
 - `dev`: `2334f321b3ccf08352c29b1842200863b757c9d1`, verified PR #9 merge; GitHub default branch.
 - `fix/matched-precision-qra-protocol`: active work unit C, created from exact remote dev; one branch/PR, no training, at most two Kaggle executions.
@@ -178,3 +178,13 @@ Work unit A was published at `07158770d810c3212c0de2be9f14ea008fe333c4`.
 PR #8 targets dev; CI run 55 passed the exact head. Local parentless-source/notebook
 staging also passed. The following evidence-only commit records those receipts;
 no integration merge is claimed.
+
+## Work unit C inference closure — 2026-09-24
+
+PR #10 remains open and unmerged. `b884c5ef0a8bfe7812e583f88f73cb5c1eaf9a83`
+introduced the contracts/runner; `14669f34cbaefde8c4e3d7d7f89616a240a6a6c7`
+repaired sequential model lifetime and preserved the failed first attempt. CI 61
+and 62 passed. Mother v4/run `20260924-120549-b4c4f06e097d` passed bounded C1;
+the containing closure commit records verified evidence and proposed C2 review.
+Both submissions are consumed. No merge, branch deletion or scientific approval
+is claimed. Four DOCX files and original raw evidence remain untouched.

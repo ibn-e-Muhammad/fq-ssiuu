@@ -1,0 +1,48 @@
+{
+  "status": "PASS_WITHIN_MATCHED_PRECISION_INFERENCE_SCOPE",
+  "run_id": "20260924-120549-b4c4f06e097d",
+  "origin_commit": "14669f34cbaefde8c4e3d7d7f89616a240a6a6c7",
+  "source_tree_sha": "e71ed248b4a5c599168e0218910180c0e9639f7e",
+  "snapshot_commit_sha": "824fc962c21985a9394d7a95344880bd3c08fb24",
+  "notebook_sha256": "fa9323486c9d062c089bcaa3ea1e4e3c28d2d8dfb813dc248c258a76623768b0",
+  "verified_archive_members": 84,
+  "precision_example_records": 12,
+  "metric_observations": 48,
+  "environment": "BASELINE_DIRTY_NO_REGRESSION",
+  "memory": {
+    "fp16": {
+      "peak_allocated_bytes": 2624986112,
+      "peak_reserved_bytes": 2801795072
+    },
+    "int8": {
+      "peak_allocated_bytes": 2349203456,
+      "peak_reserved_bytes": 2394947584
+    },
+    "nf4": {
+      "peak_allocated_bytes": 1342232576,
+      "peak_reserved_bytes": 1436549120
+    },
+    "oracle_fp16": {
+      "peak_allocated_bytes": 2614081536,
+      "peak_reserved_bytes": 2701131776
+    }
+  },
+  "artifact_manifests_verified": true,
+  "evaluation_hashes_recomputed": true,
+  "derived_metrics_recomputed": true,
+  "packed_bytes_local_recomputed": false,
+  "packed_bytes_note": "Hashes computed over actual CUDA model state in recorded runtime; packed checkpoints were not persisted and cannot be rehashed locally.",
+  "attack_detected": null,
+  "durability_pass": null,
+  "gate_RG005": "BLOCKED",
+  "supported_claims": [
+    "Sequential matched FP16/INT8/NF4 loader, forward, generation and metric execution"
+  ],
+  "unsupported_claims": [
+    "Initial forgetting",
+    "NPO training",
+    "Recovery attack",
+    "Durability",
+    "Confirmatory uncertainty"
+  ]
+}

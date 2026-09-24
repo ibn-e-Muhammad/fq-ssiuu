@@ -119,3 +119,15 @@ Paper arithmetic Truth Ratio remains the already approved canonical definition.
 The proposed fixed FP16 oracle, decision margins and clustered/crossed uncertainty
 are consolidated in `methods/QRA_PROTOCOL_v1.md` for explicit researcher review;
 none of these proposals closes RG-005 or authorizes corrected pilots.
+
+## 2026-09-24 — C1 acceptance and C2 approval boundary
+
+C1 passed at `14669f34`, Mother v4. Accept the separately named 0.46.1 overlay lock
+for the validated matched inference scope; preserve the 0.45.5 lock and failed
+attempt. Sequential process exit is the verified model-release mechanism.
+
+Protocol v2 supersedes v1 for review, not execution: unchanged numeric margins,
+a joint four-comparison interval family, and a proposed finite-benchmark utility
+criterion in every declared seed. This resolves a draft omission, not a researcher
+decision. Explicit approval is still required; no attack/durability field or
+scientific gate changes. No further C1 GPU submission is authorized.

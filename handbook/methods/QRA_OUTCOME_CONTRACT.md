@@ -56,3 +56,20 @@ immutable run IDs after this gate and relevant method criteria permit it.
 
 Behavioral tests: `tests/methods/QRA/`. The Mother scientific entry guard blocks
 all corrected pilots while RG-005 is unresolved; environment setup remains frozen.
+
+## Current extension — Work Unit C, descriptive revision 2
+
+The revision-1 narrative above records reconciliation A. Current writes use report
+v5, MetricObservation v2 and comparison-group v2. Evaluation hashes are recomputed
+from the complete observation content. Precision manifests cover actual runtime
+state tensor bytes, ordered quantized modules, source weights, library versions
+and complete quantizer settings. No saved quantized checkpoint is implied.
+Explicit supersession preserves older report v1–v4 payloads without upgrading them.
+
+The fixed FP16 oracle's raw evidence and exact KS D/p computation are verified.
+Nine utility components remain separate observations; their harmonic aggregate
+has its own derived manifest. Author-cluster and crossed seed/author procedures
+are implemented and CPU-tested, but remain unapproved. C1 matched inference passed
+on four fixed samples per precision; its single-forget-row intervals are engineering
+diagnostics, not confirmatory uncertainty. Protocol v2 is PROPOSED_NOT_APPROVED.
+RG-005 and every scientific decision remain blocked/null.

@@ -35,3 +35,18 @@ This directory defines the decoupled dependency architecture for FQ-SSIUU, separ
 
 7. **Locks Directory (`locks/`)**
    - Contains lock strategy guidelines. Overlay lock generated in Stage 1I.
+
+## Work Unit C matched precision extension (2026-09-24)
+
+`kaggle-overlay.validated-0461.lock` is the exact generated overlay from accepted
+C1 run `20260924-120549-b4c4f06e097d`, code `14669f34`. It validates bitsandbytes
+0.46.1 with Transformers 5.0.0/PyTorch 2.10.0+cu128 for sequential FP16/LLM.int8/NF4
+inference on one T4. Use this separately named lock for later approved quantized
+model work. `kaggle-overlay.validated.lock` remains the immutable 0.45.5 operational
+baseline; its low-level NF4 smoke did not establish Transformers model loading.
+
+The C1 candidate input and recipe remain frozen as executed. The accepted lock
+was copied only after independent runtime acceptance. Its header records the
+parentless snapshot SHA and environment run ID; the source origin is linked in
+`handbook/evidence/work_unit_c/20260924_attempt2_14669f3/VERDICT.json`.
+No global local Python packages were changed. Scientific gates still apply.

@@ -45,3 +45,21 @@ exit releases its complete CUDA context even if library-level references survive
 CPU regressions exercise deliberately retained objects, ordered process completion
 and failure propagation. This changes lifecycle management, not data, precision,
 metrics or decision rules. One of two Kaggle submissions remains.
+
+## Attempt 2 acceptance — 2026-09-24
+
+Mother v4, code `14669f34`, run `20260924-120549-b4c4f06e097d` passed all C1 criteria.
+Four non-overlapping/reaped workers loaded FP16, INT8, NF4, then the FP16 oracle.
+Real forward/generation produced 12 precision/example records, 48 observations,
+three derived utility summaries and bound oracle diagnostics. Each quantized
+model had the expected 112 projections. All 84 sealed members and report/content
+hashes were independently checked; text/TR/utility summaries recomputed from raw
+records. Peak reserved memory was 2,801,795,072 bytes; this is inference memory only.
+Six native pip diagnostics persisted, with zero introduced conflicts or protected
+drift. Accepted lock: `requirements/kaggle-overlay.validated-0461.lock` (verbatim
+copy of the successful generated lock). The candidate recipe remains frozen.
+
+Both submissions used. Attempt 1 remains a failure, not retroactively repaired.
+C1 establishes no attack, durability, training or confirmatory uncertainty claim.
+C2 review uses protocol v2; v1 is preserved. Approval and human PR review remain
+outstanding. No gate for SSIUU, FQ-QAT or QUAIL has been closed.

@@ -12,7 +12,7 @@ gates:
     required_evidence: "Directional metric definitions, matched sample/checkpoint provenance, separate nullable attack_detected/durability_pass, content-derived packed-state and evaluation identities, bound oracle evidence, derived utility, author-cluster/multi-seed uncertainty, behavioral tests, explicit approved versioned decision rule before any scientific verdict."
     validating_commit: null
     validation_date: null
-    rationale: "Ratios or differences of KS p-values do not measure recovery. Historical attack PASS was inverted into a durability PASS. All corrected pilots and durability verdicts are blocked pending an interpretable outcome contract."
+    rationale: "Ratios or differences of KS p-values do not measure recovery. Historical attack PASS was inverted into a durability PASS. C1 matched inference passed in run 20260924-120549-b4c4f06e097d at 14669f34; content identities, bound oracle, derived utility and candidate clustered uncertainty are implemented. All corrected pilots and durability verdicts remain blocked pending explicit protocol approval and reviewed decision implementation."
 
   - id: "RG-006"
     title: "NPO Reference Parity"

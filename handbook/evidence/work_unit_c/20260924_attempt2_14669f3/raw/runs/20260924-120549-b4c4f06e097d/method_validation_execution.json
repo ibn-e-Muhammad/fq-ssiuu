@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "/kaggle/working/checkout-20260924-120549-b4c4f06e097d/experiments/reproductions/QRA/validate_runtime.py",
+    "--recipe",
+    "/kaggle/working/checkout-20260924-120549-b4c4f06e097d/configs/runs/work_unit_c_precision_v1.json",
+    "--output",
+    "/kaggle/working/runs/20260924-120549-b4c4f06e097d/method_validation",
+    "--run-id",
+    "20260924-120549-b4c4f06e097d"
+  ],
+  "started_utc": "2026-09-24T12:06:54.658381+00:00",
+  "returncode": 0,
+  "elapsed_seconds": 197.784477553
+}

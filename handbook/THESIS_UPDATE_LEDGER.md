@@ -74,3 +74,12 @@ actual packed-state identities, content-recomputed evaluation hashes and derived
 utility components. Chapter 2 may describe the primary-source quantizers and metric
 taxonomy. `methods/QRA_PROTOCOL_v1.md` contains unapproved proposals, not thesis
 method claims. No result or effectiveness statement is authorized; DOCX unchanged.
+
+## Work unit C bounded inference acceptance — 2026-09-24
+
+[Structured update packet](thesis_updates/WORK_UNIT_C.md) records the accepted
+FP16/INT8/NF4 loader and measurement boundary at `14669f34`, run
+`20260924-120549-b4c4f06e097d`. Peak memory applies to sequential inference only.
+Reference the raw verdict/manifest before incorporating any numbers. Protocol v2
+is unapproved; no recovery/forgetting/durability result may enter Chapters 4–5.
+The working thesis has not been rewritten and all four DOCX files remain untouched.
