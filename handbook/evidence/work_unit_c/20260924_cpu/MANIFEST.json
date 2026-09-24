@@ -1,0 +1,86 @@
+{
+  "base_commit": "2334f321b3ccf08352c29b1842200863b757c9d1",
+  "code_commit": "containing commit; CODE_IDENTITIES binds tested working files",
+  "status": "PASS",
+  "files": [
+    {
+      "path": "AUTHOR_MAPPING_VERIFICATION.json",
+      "sha256": "d8161382402960a50ea693a28d68157979b28a5bad63b4e77735a383ba692ec6",
+      "bytes": 545
+    },
+    {
+      "path": "CHECKS.json",
+      "sha256": "a5235d74d0e8c072140e0dd03f3f3e5e1e3b7199d3ceb1398e150f0183af5e18",
+      "bytes": 1039
+    },
+    {
+      "path": "CODE_IDENTITIES.json",
+      "sha256": "f558421ccdd7b8eb41179c180fd1dbf5d2aba7b1af3da627cd911b826bd7e189",
+      "bytes": 2302
+    },
+    {
+      "path": "diff_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "diff_stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "format_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "format_stdout.log",
+      "sha256": "cbf904f92d0c089ca66e45970eb6a69574fe7b4ee91d4caa1a94cf9e781ef67c",
+      "bytes": 27
+    },
+    {
+      "path": "lint_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "lint_stdout.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "bytes": 19
+    },
+    {
+      "path": "notebooks.json",
+      "sha256": "64c281b1f75b3954735fc80df2504cc99aa61cefa35ef2f8eebe30a753b50e14",
+      "bytes": 2180
+    },
+    {
+      "path": "notebooks_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "notebooks_stdout.log",
+      "sha256": "fe473219f7a1020b17409698319aa150198a0b814ad4f1f752aa151a6672b0d8",
+      "bytes": 41
+    },
+    {
+      "path": "tests_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "tests_stdout.log",
+      "sha256": "c6add65fe34b9c46f22f4fd15563c04b07aeae7343fd7a49bad82f7238ab0b80",
+      "bytes": 3002
+    }
+  ],
+  "claims": [
+    "CPU behavioral acceptance only"
+  ],
+  "unsupported_claims": [
+    "CUDA precision integration",
+    "training",
+    "recovery",
+    "durability"
+  ]
+}

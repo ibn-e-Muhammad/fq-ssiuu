@@ -63,3 +63,14 @@ reference/data execution and metric plumbing passed on four examples. RG-006 is
 resolved within that boundary. This supplies methodology/reproducibility evidence,
 not Results findings; sampled utility and single-example KS outputs must not become
 thesis effectiveness statistics. No training-memory or quantized-model claim.
+
+## Work unit C preparation — 2026-09-24
+
+Chapter 3 must distinguish loader/forward validation from unlearning and initial
+forgetting. Replace independent-row confirmatory uncertainty with an explicitly
+approved author/seed procedure; retain old row intervals only as engineering
+checks. Record forget01 → forget05/retain95 design history, fixed FP16 oracle,
+actual packed-state identities, content-recomputed evaluation hashes and derived
+utility components. Chapter 2 may describe the primary-source quantizers and metric
+taxonomy. `methods/QRA_PROTOCOL_v1.md` contains unapproved proposals, not thesis
+method claims. No result or effectiveness statement is authorized; DOCX unchanged.

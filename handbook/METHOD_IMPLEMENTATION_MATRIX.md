@@ -1,6 +1,6 @@
 # Method implementation matrix
 
-Updated 2026-09-22. This current inventory supersedes earlier blanket fidelity
+Updated 2026-09-24. This current inventory supersedes earlier blanket fidelity
 labels. Primary references and pins: [upstream register](methods/UPSTREAM_IMPLEMENTATIONS.md).
 
 | Component | Current implementation | Evidence and limit | Gate |
@@ -10,7 +10,7 @@ labels. Primary references and pins: [upstream register](methods/UPSTREAM_IMPLEM
 | FQ-QAT | Historical per-tensor symmetric INT4 QDQ on adapter outputs | Identity STE tests do not establish blockwise weight-NF4 equivalence. Treat only as activation ablation | RG-002 BLOCKED |
 | SSIUU | Historical hidden-layer IG with static baseline and detached attribution | No faithful current/previous parameter attribution or training gradient/HVP. Offline IG memory is not SSIUU training memory | RG-001 BLOCKED |
 | TOFU | Historical external-harness outputs; current paper-arithmetic Truth Ratio, separate upstream geometric diagnostic, KS D/p and named utility functions | Forget Quality is a two-sample KS p-value, not an effect size. Descriptive CPU behavior passes; GPU measurement acceptance and scientific decision approval remain separate | RG-004 OPEN |
-| QRA/report | Typed matched observations, signed descriptive memorisation changes, independent nullable decisions | P-value ratios retired. Per-example functions and deterministic paired bootstrap are implemented; no approved directional decision rule or complete quantized-model runtime exists. All scientific decisions remain null | RG-005 BLOCKED |
+| QRA/report | Typed matched observations, signed descriptive memorisation changes, independent nullable decisions | P-value ratios retired. v5 content-derived observations, separate utility summary, named author maps and candidate clustered/crossed bootstrap are CPU-tested in Work Unit C; matched precision GPU integration pending. No approved decision rule exists. All scientific decisions remain null | RG-005 BLOCKED |
 | Combined FQ-SSIUU | Workspace only | Individual methods must pass before combination | BLOCKED |
 
 [CR-012](corrections/CR-012_qra_outcome_validity.md) withdraws historical attack and

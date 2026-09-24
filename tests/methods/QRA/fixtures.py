@@ -1,5 +1,11 @@
+from dataclasses import replace
+
+import torch
+
+from fq_ssiuu.evaluation.content_identity import evaluation_hash, oracle_manifest
 from fq_ssiuu.evaluation.identity import digest
 from fq_ssiuu.evaluation.metric_definitions import definition_for, definition_hash
+from fq_ssiuu.evaluation.precision_artifact import tensor_identity
 from fq_ssiuu.evaluation.qra_pipeline import MetricObservation
 
 BOOTSTRAP = {"seed": 23, "resamples": 100, "confidence": 0.95}
@@ -18,14 +24,14 @@ def context(metric):
         if metric.endswith("rouge_l_recall") or metric == "exact_match"
         else None,
         "reference_sha256": "6" * 64 if reference else None,
-        "reference_evaluation_sha256": "7" * 64 if reference else None,
+        "reference_evaluation_sha256": digest(oracle()) if reference else None,
         "reference_policy": "fixed_fp16_oracle" if reference else "not_applicable",
     }
 
 
 def group(metrics=("answer_log_probability", "retain_probability")):
     common = {
-        "schema_version": "qra-comparison-group-v1",
+        "schema_version": "qra-comparison-group-v2",
         "comparison_group_id": "group-unit",
         "run_id": "run-unit",
         "report_id": "report-unit",
@@ -37,6 +43,7 @@ def group(metrics=("answer_log_probability", "retain_probability")):
         "evaluator_sha256": "8" * 64,
     }
     common["artifacts"] = {}
+    common["oracle_evidence"] = oracle()
     for precision, code, name in [
         ("fp16", "1", "identity"),
         ("int8", "2", "bitsandbytes-llm-int8"),
@@ -56,9 +63,11 @@ def group(metrics=("answer_log_probability", "retain_probability")):
                 }
             )
         )
+        artifact = fixture_artifact(precision, config)
         common["artifacts"][precision] = {
+            "artifact_manifest": artifact,
             "precision": precision,
-            "artifact_sha256": code * 64,
+            "artifact_sha256": digest(artifact),
             "quantizer_name": name,
             "quantizer_version": "fixture-1",
             "quantizer_config": config,
@@ -114,7 +123,7 @@ def observation(
             )
         }
     )
-    return MetricObservation(
+    obs = MetricObservation(
         precision=precision,
         metric=metric,
         definition_id=definition["definition_id"],
@@ -132,6 +141,7 @@ def observation(
         **args,
         **context(metric),
     )
+    return replace(obs, evaluation_sha256=evaluation_hash(obs))
 
 
 def observations(manifest):
@@ -145,3 +155,69 @@ def observations(manifest):
         for metric in manifest["metrics"]
         for precision in ("fp16", "int8", "nf4")
     ]
+
+
+def oracle():
+    return oracle_manifest(
+        checkpoint_sha256="6" * 64,
+        model_revision="d" * 40,
+        tokenizer_revision="b" * 40,
+        dataset_revision="c" * 40,
+        preprocessing_sha256="4" * 64,
+        evaluator_sha256="8" * 64,
+        records=[
+            {
+                "sample_id": f"sample-{i}",
+                "tofu_truth_ratio": v,
+                "source_record_sha256": "9" * 64,
+                "tensors_sha256": "b" * 64,
+            }
+            for i, v in enumerate([0.2, 0.3])
+        ],
+    )
+
+
+def fixture_artifact(precision, config):
+    weight = tensor_identity(
+        torch.tensor(
+            [1, 2], dtype={"fp16": torch.float16, "int8": torch.int8, "nf4": torch.uint8}[precision]
+        )
+    )
+    modules = (
+        []
+        if precision == "fp16"
+        else [
+            {
+                "name": "model.proj",
+                "class": "bitsandbytes.nn.modules."
+                + ("Linear4bit" if precision == "nf4" else "Linear8bitLt"),
+                "weight": weight,
+                "state": {
+                    "quant_type": "nf4",
+                    "blocksize": 64,
+                    "quant_state": {
+                        "absmax": {"tensor": tensor_identity(torch.ones(1))},
+                        "quant_map": {"tensor": tensor_identity(torch.linspace(-1, 1, 16))},
+                    },
+                }
+                if precision == "nf4"
+                else {"SCB": {"tensor": tensor_identity(torch.ones(2))}},
+            }
+        ]
+    )
+    return {
+        "schema_version": "precision-artifact-v1",
+        "precision": precision,
+        "checkpoint_sha256": "a" * 64,
+        "versions": {
+            "torch": "fixture-1",
+            "transformers": "fixture-1",
+            "bitsandbytes": "fixture-1",
+        },
+        "quantizer_config": config,
+        "expected_quantized_modules": [m["name"] for m in modules],
+        "quantized_modules": modules,
+        "state_tensors": [{"name": "model.proj.weight", **weight}],
+        "saved_shards": [],
+        "persistence": "in_memory_only",
+    }

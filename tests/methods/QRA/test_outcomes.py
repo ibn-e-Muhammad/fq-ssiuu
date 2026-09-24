@@ -3,6 +3,7 @@ from dataclasses import replace
 
 import pytest
 
+from fq_ssiuu.evaluation.content_identity import evaluation_hash
 from fq_ssiuu.evaluation.identity import digest
 from fq_ssiuu.evaluation.qra_pipeline import (
     compare_observations,
@@ -18,8 +19,8 @@ from tests.methods.QRA.fixtures import BOOTSTRAP, group, observation
 )
 def test_pvalues_never_generate_recovery_scores_or_verdicts(baseline, target):
     g = group(("ks_p_value",))
-    a = observation("ks_p_value", manifest=g, value=baseline)
-    b = observation("ks_p_value", "nf4", manifest=g, value=target)
+    a = observation("ks_p_value", manifest=g, value=1 / 3)
+    b = observation("ks_p_value", "nf4", manifest=g, value=1 / 3)
     result = compare_observations(a, b, g)
     assert result["signed_metric_change"] is None and result["paired_comparison"] is None
     assert result["attack_detected"] is None and result["durability_pass"] is None
@@ -99,7 +100,7 @@ def test_precision_artifacts_differ_only_as_bound_in_manifest():
 def test_raw_record_order_cannot_be_silently_changed():
     a = observation()
     records = list(reversed(a.raw_records))
-    with pytest.raises(ValueError, match="order"):
+    with pytest.raises(ValueError, match="content hash"):
         replace(a, raw_records=records, raw_records_sha256=digest(records)).validate()
 
 
@@ -111,6 +112,7 @@ def test_same_ids_cannot_hide_different_source_rows_or_tensors():
         records = copy.deepcopy(b.raw_records)
         records[0][field] = "f" * 64
         altered = replace(b, raw_records=records, raw_records_sha256=digest(records))
+        altered = replace(altered, evaluation_sha256=evaluation_hash(altered))
         with pytest.raises(ValueError, match="Paired source"):
             compare_observations(a, altered, g, bootstrap=BOOTSTRAP)
 

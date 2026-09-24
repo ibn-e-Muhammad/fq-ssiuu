@@ -1,6 +1,6 @@
 # Master execution plan
 
-Updated 2026-09-22. FQ-SSIUU: Verifiable Machine Unlearning Against Quantisation
+Updated 2026-09-23. FQ-SSIUU: Verifiable Machine Unlearning Against Quantisation
 Recovery Attacks in Large Language Models. Muhammad Arslan (23BSAI020), Rohan Ahmed
 (23BSAI008), supervisor Dr. Sania Bhatti; BS AI, MUET, 2026–27.
 
@@ -11,17 +11,12 @@ The research aims to test empirical durability under a defined protocol at about
 pilots establish only the behavior of their historical implementations. Full
 hypothesis testing has not begun.
 
-Active branch: `fix/npo-adapter-qra-metrics`, from dev `fb988279` (PR #8 merged).
-Remote dev was rechecked on 2026-09-22 and is unchanged. The prior reconciliation
-branch is superseded and retained. Main, published
-history, raw evidence and the four untracked DOCX files remain untouched.
-
-Environment and Mother installation are frozen at accepted operational evidence.
-The current work unit B validates the real NPO data/reference boundary and
-implements descriptive QRA metrics. No training, backward pass, optimizer step,
-pilot or hypothesis test is permitted in its bounded GPU validation. CPU acceptance
-precedes at most two submissions; second only for a diagnosed implementation defect.
-An earlier proposed tiny-NPO GPU run is superseded and was never submitted.
+Active branch: `fix/matched-precision-qra-protocol`, from remote dev
+`2334f321b3ccf08352c29b1842200863b757c9d1` (PR #9 merged). Prior A/B branches
+are superseded and retained. Work unit C has one branch and one PR, no training,
+at most two Kaggle executions, and explicit protocol approval before decisions.
+Preserve old overlays and evidence; only the demonstrated Transformers 5.0.0 /
+bitsandbytes 0.45.5 incompatibility authorizes candidate 0.46.1 integration.
 
 Canonical future compute remains one Tesla T4, CUDA_VISIBLE_DEVICES=0, FP16 and
 peak selected-device VRAM below 16,000,000,000 bytes; no sharding or second GPU.
@@ -41,7 +36,9 @@ resolve with Git history instead of inventing a self-referential hash.
 | Mother integration/archive | OG-001 | Pinned source/recipe, non-model suite, notebook validation, lazy secrets, private downloaded hashes | PASS; frozen, 1/2 submissions used | `23682ea1`, evidence `c0eb92fd` | `handbook/evidence/mother_runner/20260908_kernel_v1_23682ea1/` | Use same runner for accepted methods | None |
 | Operational dev integration | Accepted runtime/review/CI | Reviewed diff, preserved raw evidence, no secrets/DOCX/main changes | COMPLETE, PR #7 | `d310815c`; review fixes `291bbda5` | `handbook/evidence/integration/20260908_pr7/` | Preserve merged historical branches | None |
 | Method code organisation | Current dev | Separate candidates/historical methods; one first notebook; imports/CLI/tests compile; raw paths unchanged | PASS within layout/CPU scope | Containing commit | `experiments/LAYOUT.json`; `handbook/evidence/scientific_reconciliation/20260910_contract_and_npo/` | Use published layout at `0715877`; PR #8 merged, dev `fb988279`, CI passed | None |
-| Work unit B data/reference/metrics | Work unit A objective parity; OG-001 | Real pinned adapter/upstream tensor checks, immutable unquantized reference, directional metric/paired uncertainty behavior, fail-closed provenance, bounded FP16 runtime | PASS within bounded validation scope; 1/2 submissions used | Containing commit | `handbook/methods/WORK_UNIT_B_CONFORMANCE.md`; `handbook/evidence/work_unit_b/20260922_attempt1_318e523a/` | Review PR #9; keep unmerged for this work unit | Paper arithmetic Truth Ratio chosen by researcher; final decision rule remains unapproved |
+| Work unit B data/reference/metrics | Work unit A objective parity; OG-001 | Real pinned adapter/upstream tensor checks, immutable unquantized reference, directional metric/paired uncertainty behavior, fail-closed provenance, bounded FP16 runtime | PASS within bounded validation scope; 1/2 submissions used | Containing commit | `handbook/methods/WORK_UNIT_B_CONFORMANCE.md`; `handbook/evidence/work_unit_b/20260922_attempt1_318e523a/` | Merged PR #9; preserve bounded claims and evidence | Paper arithmetic Truth Ratio chosen by researcher; final decision rule remains unapproved |
+| C1 matched precision | B boundary; OG-001 | Same pinned checkpoint sequential FP16/INT8/NF4; actual packed-state identities, forward/generation/metrics; differential package consistency; <16 GB one T4; no training | IMPLEMENTING; 0/2 submissions | Containing commit | `handbook/evidence/work_unit_c/` | CPU acceptance then bounded Mother execution | None |
+| C2 protocol review | C1; primary sources | Content-recomputed evaluations, bound oracle, derived nine-component utility, author-cluster/multi-seed uncertainty, versioned ex-ante rules | IMPLEMENTING; decisions null | Containing commit | `handbook/methods/QRA_PROTOCOL_v1.md` | Produce reviewable protocol before any corrected pilot | Explicit researcher approval of margins/rules; supervisor review preferred |
 | RG-005 QRA/report contract | RG-004 interpretation | No p-value recovery score; matched provenance; nullable independent decisions; real metric definitions and approved decision rule before verdicts | BLOCKED; descriptive contract implemented | Containing commit | `handbook/methods/QRA_OUTCOME_CONTRACT.md`; `tests/methods/QRA/` | Validate concrete evaluator metrics and draft directional decision rule | Researcher approval before thresholds/protocol freeze |
 | RG-006 NPO parity | Pinned author and OpenUnlearning | Causal sequence loss/current-retain gradients; answer/EOS adapter; frozen unquantised reference; explicit variants/adaptations | RESOLVED for objective/data/reference boundary; no training reproduction | Containing commit | `handbook/methods/NPO_CONFORMANCE.md`; reconciliation evidence | Preserve accepted boundary; RG-005 still blocks corrected pilots | No new scientific choice needed for upstream parity |
 | RG-003 QUAIL | Individual upstream specification | Complete forget/retain/all-logit hinge; coefficients/margin/masks/gradient parity; corrected P4 | BLOCKED | Historical source retained | `experiments/reproductions/QUAIL/`; upstream register | Reconcile pinned author code with paper equations/update order after work unit A | Any unresolved published ambiguity |
@@ -59,9 +56,8 @@ resolve with Git history instead of inventing a self-referential hash.
 After work unit A: verify evaluator sharded-checkpoint handling and raw pilot
 retrieval; replace remaining scientific placeholders; validate real PEFT wrappers;
 implement training checkpoint/resume and interval archival. Drive flattening/size-only
-verification remains historical and is not the canonical Kaggle/HF path. Repository
-default branch/protection hardening and version-controlled thesis source are still
-open. Do not disguise these as environment-installation work.
+verification remains historical and is not the canonical Kaggle/HF path. Repository default is dev and CI/reviewer protections are enforced; human
+scientific review and version-controlled thesis source remain required. Do not disguise these as environment-installation work.
 
 ## Evidence and progression
 

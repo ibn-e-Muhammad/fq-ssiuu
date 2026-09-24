@@ -1,12 +1,18 @@
 # FQ-SSIUU project status
 
-Updated 2026-09-22. [Canonical plan](MASTER_EXECUTION_PLAN.md).
-Integration tip: `dev` at `fb9882790082ac4640d04a87c43260c62566831d`.
-PR #8 is merged; `fix/upstream-method-reconciliation` is superseded and retained.
-Active work unit B: `fix/npo-adapter-qra-metrics`, from that dev tip.
-Environment and Mother installation remain frozen. No training or corrected pilot
-is authorized by this work unit. CPU and bounded forward-only runtime acceptance
-are recorded separately; RG-006 is RESOLVED for objective/data/reference conformance; RG-005 remains BLOCKED.
+Updated 2026-09-23. [Canonical plan](MASTER_EXECUTION_PLAN.md).
+Integration tip: `dev` at `2334f321b3ccf08352c29b1842200863b757c9d1` (PR #9 merged).
+Work units A and B are superseded and retained. Active work unit C:
+`fix/matched-precision-qra-protocol`, branched from that exact remote dev tip.
+C1 validates sequential FP16/LLM.int8/NF4 loading and actual descriptive metrics.
+C2 prepares clustered uncertainty and a decision protocol for explicit approval.
+No training or corrected pilot is authorized. The only environment change is
+candidate bitsandbytes 0.46.1; accepted 0.45.5 evidence remains immutable.
+RG-006 remains RESOLVED only for objective/data/frozen-reference conformance;
+RG-005 and method gates RG-001/002/003 remain BLOCKED.
+GitHub default is now dev; its active rule requires passing CI, one fresh approval
+from someone other than the last pusher, and resolved review threads. A substantive
+human scientific review is required in addition to automated checks.
 
 ## Work unit B CPU acceptance — 2026-09-22
 
@@ -65,12 +71,12 @@ evidence, not model-level scientific validation or training-memory evidence.
 
 ## Exact next action
 
-Work unit B is complete within its validation scope; PR #9 remains unmerged.
-Next reconcile the specific quantized-model loader compatibility and validate
-matched directional precision measurements, then review the proposed decision
-protocol. RG-005 remains BLOCKED; no corrected pilot is authorized yet.
-Proceed through QUAIL, weight NF4 and SSIUU before corrected pilots. Resolve and
-approve the final protocol only after feasibility; no outcome-dependent adjustments.
+Implement and CPU-test content-derived artifact/evaluation identities and the
+bounded matched precision runner, then submit C1 at most twice. Prepare C2 protocol
+for researcher/supervisor review; decisions remain null until explicitly approved.
+Next scientific work after approval is corrected NPO training reproduction, then
+faithful QUAIL, weight FQ-QAT, SSIUU and their combination. No effectiveness claim
+follows from loader or forward-only validation.
 See [method matrix](METHOD_IMPLEMENTATION_MATRIX.md) and [scientific gates](research_gates.yaml).
 
 Tracked thesis prose is still absent; consequences are in the [thesis ledger](THESIS_UPDATE_LEDGER.md).

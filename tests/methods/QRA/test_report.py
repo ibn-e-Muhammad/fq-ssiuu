@@ -51,7 +51,7 @@ def test_different_report_run_or_cross_metric_checkpoint_rejected():
         generate_report("run-unit", "bounded", xs, g, bootstrap=BOOTSTRAP)
 
 
-@pytest.mark.parametrize("version", ["v1", "v2", "v3"])
+@pytest.mark.parametrize("version", ["v1", "v2", "v3", "v4"])
 def test_historical_payload_is_preserved_with_explicit_supersession(tmp_path, version):
     p = tmp_path / "old.json"
     old = {"schema_version": version, "certified": True}

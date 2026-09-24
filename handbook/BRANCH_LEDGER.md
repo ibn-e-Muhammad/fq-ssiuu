@@ -12,13 +12,17 @@
 - Historical branches can be deleted only after ancestry, open-PR status and integration are reverified.
 - Experiment evidence must use commit SHA and run ID, not branch name alone.
 
-## Current integration — 2026-09-22
+## Current integration — 2026-09-23
 
-- `dev`: `fb9882790082ac4640d04a87c43260c62566831d`, merge of PR #8; remote reverified unchanged.
-- `fix/upstream-method-reconciliation`: merged feature tip `adc0cdada3b476043edd158a9ab035aa7723751c`, superseded and retained.
-- `fix/npo-adapter-qra-metrics`: active work unit B, branched exactly from current remote dev. Published code `318e523a`, [PR #9](https://github.com/ibn-e-Muhammad/fq-ssiuu/pull/9), unmerged. Work unit B bounded runtime passed in one submission; closure evidence follows in the containing commit. At most four coherent commits; no merge.
-- `fix/kaggle-overlay-evidence-integrity`: merged through PR #7 (`d310815c`), retained.
-- All earlier ancestor branches remain superseded and retained. No `main` changes, history rewriting, deletions or DOCX inclusion.
+- `dev`: `2334f321b3ccf08352c29b1842200863b757c9d1`, verified PR #9 merge; GitHub default branch.
+- `fix/matched-precision-qra-protocol`: active work unit C, created from exact remote dev; one branch/PR, no training, at most two Kaggle executions.
+- `fix/npo-adapter-qra-metrics`: PR #9 merged, feature tip `e896dbc0467018a87d3d0754d68eddbe094b3b0e`; superseded and retained.
+- `fix/upstream-method-reconciliation`: PR #8 merged, superseded and retained.
+- `fix/kaggle-overlay-evidence-integrity`: PR #7 merged, superseded and retained.
+- dev rules: passing `Lint and Unit Tests` from GitHub Actions; one fresh approval;
+  last pusher cannot approve own changes; resolved threads; deletion/force-push blocked.
+  A substantive human scientific review is required, not a quota-exhausted bot comment.
+- No main changes, history rewriting, deletion or DOCX inclusion.
 
 ## Historical inventory before PR #7
 

@@ -38,7 +38,7 @@ dependencies = [
 
 [project.optional-dependencies]
 quantisation = [
-    "bitsandbytes>=0.45.0,<0.46.0",
+    "bitsandbytes>=0.45.0,<=0.46.1",
 ]
 attribution = [
     "captum>=0.7.0,<0.8.0",
