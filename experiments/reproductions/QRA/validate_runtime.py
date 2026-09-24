@@ -2,13 +2,13 @@
 
 # ruff: noqa: E402
 import argparse
-import gc
 import importlib.metadata
 import json
 import os
+import subprocess
 import sys
+import time
 import traceback
-import weakref
 from dataclasses import asdict, replace
 from pathlib import Path
 
@@ -196,16 +196,7 @@ def make_observations(records, artifacts, oracle, pins, spec, run_id):
     return group, observations
 
 
-def release(model):
-    # The caller owns the final reference; this helper only asserts no graphs.
-    if any(p.requires_grad or p.grad is not None for p in model.parameters()):
-        raise ValueError("Unexpected trainable parameter or gradient")
-    return weakref.ref(model)
-
-
-def execute(recipe, output, run_id):
-    from transformers import AutoModelForCausalLM, AutoTokenizer
-
+def initialize_gpu(recipe):
     if (
         os.environ.get("CUDA_VISIBLE_DEVICES") != "0"
         or torch.cuda.device_count() != 1
@@ -223,15 +214,19 @@ def execute(recipe, output, run_id):
     torch.backends.cuda.enable_flash_sdp(False)
     torch.backends.cuda.enable_mem_efficient_sdp(False)
     torch.backends.cuda.enable_math_sdp(True)
+    torch.cuda.reset_peak_memory_stats(0)
+    return versions
+
+
+def evaluate_phase(recipe, output, run_id, phase):
+    """One model per process. OS process exit releases the complete CUDA context."""
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+
+    versions = initialize_gpu(recipe)
     pins = json.loads(PINS.read_text())
     assets = Path("/kaggle/working") / ("fq-c-inputs-" + run_id)
-    write(output / "input_files.json", materialize(assets, upstream=False))
     tokenizer = AutoTokenizer.from_pretrained(assets / "tokenizer", local_files_only=True)
     spec = specification(pins, max_length=recipe["max_length"])
-    write(output / "preprocessing.json", {"spec": asdict(spec), "sha256": spec.sha256})
-    target_dir = assets / "target"
-    write(output / "target_checkpoint.json", verified_checkpoint(pins["target"], target_dir))
-    config = json.loads((target_dir / "config.json").read_text())
     selected = []
     for split, indices in recipe["sample_indices"].items():
         rows = [
@@ -239,13 +234,33 @@ def execute(recipe, output, run_id):
             for line in (assets / "dataset" / (split + ".json")).read_text().splitlines()
         ]
         selected.extend((split, index, rows[index]) for index in indices)
-    records, artifacts, memory = {}, {}, {}
-    for precision in recipe["evaluation_precisions"]:
-        torch.cuda.reset_peak_memory_stats(0)
-        quant, quant_config = quantizer(precision)
+    if phase == "oracle_fp16":
+        directory = assets / "oracle"
+        identity = ModelIdentity(
+            **pins["retain_only_oracle"], config_sha256=file_digest(directory / "config.json")
+        )
+        model = load_reference(ReferenceConfig(identity, identity), directory)
+        split, index, row = next(x for x in selected if x[0] == "forget05_perturbed")
+        raw = evaluate_row(model, tokenizer, row, index, split, spec, generate=False)
+        write(
+            output / "oracle_evidence.json",
+            oracle_manifest(
+                checkpoint_sha256=identity.checkpoint_sha256,
+                model_revision=identity.revision,
+                tokenizer_revision=spec.tokenizer_revision,
+                dataset_revision=spec.dataset_revision,
+                preprocessing_sha256=spec.sha256,
+                evaluator_sha256=evaluator_identity(),
+                records=[raw],
+            ),
+        )
+    else:
+        directory = assets / "target"
+        config = json.loads((directory / "config.json").read_text())
+        quant, quant_config = quantizer(phase)
         kwargs = {} if quant is None else {"quantization_config": quant}
         model = AutoModelForCausalLM.from_pretrained(
-            target_dir,
+            directory,
             local_files_only=True,
             dtype=torch.float16,
             device_map={"": 0},
@@ -256,67 +271,132 @@ def execute(recipe, output, run_id):
         if any(p.device != torch.device("cuda:0") for p in model.parameters()):
             raise ValueError("Offload/sharding/nonselected device prohibited")
         with torch.no_grad():
-            records[precision] = [
+            rows = [
                 evaluate_row(model, tokenizer, row, index, split, spec)
                 for split, index, row in selected
             ]
-        write(output / (precision + "_records.json"), records[precision])
-        artifacts[precision] = build_artifact(
-            model,
-            precision=precision,
-            checkpoint_sha256=pins["target"]["checkpoint_sha256"],
-            versions=versions,
-            quantizer_config=quant_config,
-            expected_quantized_modules=[] if precision == "fp16" else expected_modules(config),
+        write(output / (phase + "_records.json"), rows)
+        write(
+            output / (phase + "_artifact.json"),
+            build_artifact(
+                model,
+                precision=phase,
+                checkpoint_sha256=pins["target"]["checkpoint_sha256"],
+                versions=versions,
+                quantizer_config=quant_config,
+                expected_quantized_modules=[] if phase == "fp16" else expected_modules(config),
+            ),
         )
-        write(output / (precision + "_artifact.json"), artifacts[precision])
-        memory[precision] = {
-            "peak_allocated_bytes": torch.cuda.max_memory_allocated(0),
-            "peak_reserved_bytes": torch.cuda.max_memory_reserved(0),
-        }
-        if max(memory[precision].values()) >= 16_000_000_000:
-            raise ValueError("Selected-device memory budget exceeded")
-        ref = release(model)
-        del model
-        gc.collect()
-        torch.cuda.empty_cache()
-        if ref() is not None:
-            raise ValueError("Model not released before next precision")
-        memory[precision]["allocated_after_unload"] = torch.cuda.memory_allocated(0)
-        if memory[precision]["allocated_after_unload"] != 0:
-            raise ValueError("Live CUDA tensors remain after unloading model")
-        write(output / (precision + "_memory.json"), memory[precision])
-    oracle_dir = assets / "oracle"
-    files = verified_checkpoint(pins["retain_only_oracle"], oracle_dir)
-    identity = ModelIdentity(
-        **pins["retain_only_oracle"], config_sha256=files["config.json"]["sha256"]
-    )
-    torch.cuda.reset_peak_memory_stats(0)
-    oracle_model = load_reference(ReferenceConfig(identity, identity), oracle_dir)
-    split, index, row = next(x for x in selected if x[0] == "forget05_perturbed")
-    raw_oracle = evaluate_row(oracle_model, tokenizer, row, index, split, spec, generate=False)
-    oracle = oracle_manifest(
-        checkpoint_sha256=identity.checkpoint_sha256,
-        model_revision=identity.revision,
-        tokenizer_revision=spec.tokenizer_revision,
-        dataset_revision=spec.dataset_revision,
-        preprocessing_sha256=spec.sha256,
-        evaluator_sha256=evaluator_identity(),
-        records=[raw_oracle],
-    )
-    write(output / "oracle_evidence.json", oracle)
-    memory["oracle_fp16"] = {
+    if any(p.requires_grad or p.grad is not None for p in model.parameters()):
+        raise ValueError("Unexpected gradient or trainable parameter")
+    memory = {
         "peak_allocated_bytes": torch.cuda.max_memory_allocated(0),
         "peak_reserved_bytes": torch.cuda.max_memory_reserved(0),
     }
-    if max(memory["oracle_fp16"].values()) >= 16_000_000_000:
-        raise ValueError("Oracle exceeded selected-device memory budget")
-    oracle_ref = release(oracle_model)
-    del oracle_model
-    gc.collect()
-    torch.cuda.empty_cache()
-    if oracle_ref() is not None or torch.cuda.memory_allocated(0) != 0:
-        raise ValueError("Oracle CUDA tensors remain after unload")
+    if max(memory.values()) >= 16_000_000_000:
+        raise ValueError("Selected-device memory budget exceeded")
+    write(output / (phase + "_memory.json"), memory)
+    write(
+        output / (phase + "_worker.json"),
+        {
+            "phase": phase,
+            "pid": os.getpid(),
+            "gpu": torch.cuda.get_device_name(0),
+            "device_count": torch.cuda.device_count(),
+            "visible_devices": os.environ["CUDA_VISIBLE_DEVICES"],
+            "versions": versions,
+            "backward_calls": 0,
+            "optimizer_steps": 0,
+            "release_mechanism": "process_exit",
+        },
+    )
+
+
+def run_sequential_workers(commands, output, timeout):
+    """Blocking child completion is required before spawning the next model."""
+    records = []
+    for phase, command in commands:
+        started = time.time()
+        with (
+            (output / (phase + "_stdout.log")).open("x") as stdout,
+            (output / (phase + "_stderr.log")).open("x") as stderr,
+        ):
+            process = subprocess.Popen(command, stdout=stdout, stderr=stderr)
+            try:
+                code = process.wait(timeout=timeout)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.wait()
+                code = -1
+        record = {
+            "phase": phase,
+            "pid": process.pid,
+            "started_unix": started,
+            "finished_unix": time.time(),
+            "returncode": code,
+            "process_reaped": process.poll() is not None,
+        }
+        write(output / (phase + "_execution.json"), record)
+        records.append(record)
+        if code:
+            raise RuntimeError("Precision worker failed: " + phase)
+    return records
+
+
+def execute(recipe, output, run_id):
+    # Parent performs I/O and CPU derivation only: it never initializes CUDA.
+    pins = json.loads(PINS.read_text())
+    assets = Path("/kaggle/working") / ("fq-c-inputs-" + run_id)
+    write(output / "input_files.json", materialize(assets, upstream=False))
+    spec = specification(pins, max_length=recipe["max_length"])
+    write(output / "preprocessing.json", {"spec": asdict(spec), "sha256": spec.sha256})
+    write(output / "target_checkpoint.json", verified_checkpoint(pins["target"], assets / "target"))
+    write(
+        output / "oracle_checkpoint.json",
+        verified_checkpoint(pins["retain_only_oracle"], assets / "oracle"),
+    )
+    recipe_path = output / "worker_recipe.json"
+    write(recipe_path, recipe)
+    phases = recipe["evaluation_precisions"] + ["oracle_fp16"]
+    commands = [
+        (
+            phase,
+            [
+                sys.executable,
+                str(Path(__file__).resolve()),
+                "--recipe",
+                str(recipe_path),
+                "--output",
+                str(output),
+                "--run-id",
+                run_id,
+                "--phase",
+                phase,
+            ],
+        )
+        for phase in phases
+    ]
+    executions = run_sequential_workers(commands, output, recipe["timeout_seconds"])
+
+    def read(name):
+        return json.loads((output / name).read_text())
+
+    records = {p: read(p + "_records.json") for p in recipe["evaluation_precisions"]}
+    artifacts = {p: read(p + "_artifact.json") for p in recipe["evaluation_precisions"]}
+    memory = {p: read(p + "_memory.json") for p in phases}
+    workers = [read(p + "_worker.json") for p in phases]
+    if any(
+        w["versions"] != recipe["expected_versions"]
+        or w["device_count"] != 1
+        or w["visible_devices"] != "0"
+        or "T4" not in w["gpu"]
+        for w in workers
+    ):
+        raise ValueError("Worker hardware/environment mismatch")
+    if any(w["pid"] != e["pid"] for w, e in zip(workers, executions, strict=True)):
+        raise ValueError("Worker process linkage mismatch")
+    versions = workers[0]["versions"]
+    oracle = read("oracle_evidence.json")
     group, observations = make_observations(records, artifacts, oracle, pins, spec, run_id)
     write(output / "comparison_group.json", group)
     save_report(
@@ -339,9 +419,11 @@ def execute(recipe, output, run_id):
         "status": "PASS",
         "run_id": run_id,
         "versions": versions,
-        "gpu": torch.cuda.get_device_name(0),
-        "visible_devices": os.environ["CUDA_VISIBLE_DEVICES"],
-        "device_count": torch.cuda.device_count(),
+        "gpu": workers[0]["gpu"],
+        "visible_devices": workers[0]["visible_devices"],
+        "device_count": workers[0]["device_count"],
+        "worker_executions": executions,
+        "release_mechanism": "sequential_process_exit",
         "memory": memory,
         "optimizer_steps": 0,
         "backward_calls": 0,
@@ -369,9 +451,13 @@ def main():
     parser.add_argument("--recipe", required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--run-id", required=True)
+    parser.add_argument("--phase", choices=["fp16", "int8", "nf4", "oracle_fp16"])
     args = parser.parse_args()
     recipe = read_recipe(args.recipe)
     output = Path(args.output)
+    if args.phase:
+        evaluate_phase(recipe, output, args.run_id, args.phase)
+        return 0
     output.mkdir(parents=True, exist_ok=False)
     try:
         result = execute(recipe, output, args.run_id)

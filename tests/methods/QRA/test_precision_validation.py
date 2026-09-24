@@ -1,5 +1,6 @@
 import copy
 import json
+import sys
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -7,7 +8,11 @@ import pytest
 import torch
 
 from experiments.reproductions.QRA.author_clusters import author_mapping, validate_author_mapping
-from experiments.reproductions.QRA.validate_runtime import expected_modules, make_observations
+from experiments.reproductions.QRA.validate_runtime import (
+    expected_modules,
+    make_observations,
+    run_sequential_workers,
+)
 from experiments.reproductions.QRA.validation_contract import expected_recipe
 from fq_ssiuu.evaluation.certificate import generate_report
 from fq_ssiuu.evaluation.content_identity import oracle_manifest
@@ -43,6 +48,29 @@ def test_full_pinned_llama_inventory_is_exact():
     assert "lm_head" not in names
     with pytest.raises(ValueError):
         expected_modules({"model_type": "other"})
+
+
+def test_sequential_process_exit_releases_retained_objects_before_next_worker(tmp_path):
+    # A global retaining a model-like object deliberately survives garbage
+    # collection. Process exit, unlike del/empty_cache, ends its lifetime.
+    program = "import gc,weakref; C=type('Model',(),{}); held=C(); ref=weakref.ref(held); gc.collect(); assert ref() is held"
+    records = run_sequential_workers(
+        [(p, [sys.executable, "-c", program]) for p in ("fp16", "int8", "nf4")], tmp_path, 10
+    )
+    assert len({r["pid"] for r in records}) == 3
+    assert all(r["process_reaped"] and r["returncode"] == 0 for r in records)
+    assert all(a["finished_unix"] <= b["started_unix"] for a, b in zip(records, records[1:]))
+
+
+def test_worker_failure_blocks_later_precision_and_preserves_status(tmp_path):
+    commands = [
+        ("fp16", [sys.executable, "-c", "raise SystemExit(7)"]),
+        ("nf4", [sys.executable, "-c", "raise AssertionError('must not run')"]),
+    ]
+    with pytest.raises(RuntimeError, match="fp16"):
+        run_sequential_workers(commands, tmp_path, 10)
+    assert json.loads((tmp_path / "fp16_execution.json").read_text())["returncode"] == 7
+    assert not (tmp_path / "nf4_execution.json").exists()
 
 
 @pytest.mark.parametrize("precision", ["int8", "nf4"])

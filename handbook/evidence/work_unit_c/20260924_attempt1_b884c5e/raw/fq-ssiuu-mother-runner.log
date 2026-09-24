@@ -1,0 +1,77 @@
+[{"stream_name":"stderr","time":7.294036801,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.294122762,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.294132647,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.294137038,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":7.896926498,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.896969389,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.896975329,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.896980586,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":134.191048133,"data":"{\n"}
+,{"stream_name":"stdout","time":134.191128651,"data":"  \"run_id\": \"20260924-060442-26f863842b16\",\n"}
+,{"stream_name":"stdout","time":134.191139914,"data":"  \"kind\": \"method_validation\",\n"}
+,{"stream_name":"stdout","time":134.191144568,"data":"  \"seed\": 23,\n"}
+,{"stream_name":"stdout","time":134.191149371,"data":"  \"started_utc\": \"2026-09-24T06:04:45.130592+00:00\",\n"}
+,{"stream_name":"stdout","time":134.191153839,"data":"  \"status\": \"FAIL\",\n"}
+,{"stream_name":"stdout","time":134.191158317,"data":"  \"recipe_sha256\": \"52bcdca888a7879ca6cb939b55082fe13aeecaa617f3d48389bf5d0025f66c41\",\n"}
+,{"stream_name":"stdout","time":134.191163273,"data":"  \"scientific_experiment_executed\": false,\n"}
+,{"stream_name":"stdout","time":134.191167901,"data":"  \"supported_claims\": [],\n"}
+,{"stream_name":"stdout","time":134.191172554,"data":"  \"unsupported_claims\": [\n"}
+,{"stream_name":"stdout","time":134.191176869,"data":"    \"Scientific hypothesis confirmation\"\n"}
+,{"stream_name":"stdout","time":134.191181839,"data":"  ],\n"}
+,{"stream_name":"stdout","time":134.191186146,"data":"  \"environment_run_id\": \"30c3d827-d6ed-4858-99f4-ddf292e08530\",\n"}
+,{"stream_name":"stdout","time":134.191190534,"data":"  \"returncodes\": {\n"}
+,{"stream_name":"stdout","time":134.19119558,"data":"    \"method_validation\": 1\n"}
+,{"stream_name":"stdout","time":134.191200297,"data":"  },\n"}
+,{"stream_name":"stdout","time":134.191204653,"data":"  \"failure_phase\": \"method_validation\",\n"}
+,{"stream_name":"stdout","time":134.191209026,"data":"  \"failure_type\": \"RuntimeError\",\n"}
+,{"stream_name":"stdout","time":134.191213177,"data":"  \"finished_utc\": \"2026-09-24T06:06:47.636993+00:00\"\n"}
+,{"stream_name":"stdout","time":134.191217773,"data":"}\n"}
+,{"stream_name":"stdout","time":134.244248691,"data":"{\n"}
+,{"stream_name":"stdout","time":134.244276839,"data":"  \"run_id\": \"20260924-060442-26f863842b16\",\n"}
+,{"stream_name":"stdout","time":134.244282593,"data":"  \"kind\": \"method_validation\",\n"}
+,{"stream_name":"stdout","time":134.244287291,"data":"  \"seed\": 23,\n"}
+,{"stream_name":"stdout","time":134.244291724,"data":"  \"started_utc\": \"2026-09-24T06:04:45.130592+00:00\",\n"}
+,{"stream_name":"stdout","time":134.244296362,"data":"  \"status\": \"FAIL\",\n"}
+,{"stream_name":"stdout","time":134.24430096,"data":"  \"recipe_sha256\": \"52bcdca888a7879ca6cb939b55082fe13aeecaa617f3d48389bf5d0025f66c41\",\n"}
+,{"stream_name":"stdout","time":134.244305959,"data":"  \"scientific_experiment_executed\": false,\n"}
+,{"stream_name":"stdout","time":134.244321721,"data":"  \"supported_claims\": [],\n"}
+,{"stream_name":"stdout","time":134.244325501,"data":"  \"unsupported_claims\": [\n"}
+,{"stream_name":"stdout","time":134.244329198,"data":"    \"Scientific hypothesis confirmation\"\n"}
+,{"stream_name":"stdout","time":134.244332804,"data":"  ],\n"}
+,{"stream_name":"stdout","time":134.244335961,"data":"  \"environment_run_id\": \"30c3d827-d6ed-4858-99f4-ddf292e08530\",\n"}
+,{"stream_name":"stdout","time":134.244339414,"data":"  \"returncodes\": {\n"}
+,{"stream_name":"stdout","time":134.244342769,"data":"    \"method_validation\": 1\n"}
+,{"stream_name":"stdout","time":134.24434647,"data":"  },\n"}
+,{"stream_name":"stdout","time":134.244349836,"data":"  \"failure_phase\": \"method_validation\",\n"}
+,{"stream_name":"stdout","time":134.244353339,"data":"  \"failure_type\": \"RuntimeError\",\n"}
+,{"stream_name":"stdout","time":134.244356641,"data":"  \"finished_utc\": \"2026-09-24T06:06:47.636993+00:00\"\n"}
+,{"stream_name":"stdout","time":134.244360376,"data":"}\n"}
+,{"stream_name":"stderr","time":134.467026122,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":134.467046598,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":134.467066016,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":134.467193301,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":134.467245502,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":134.467435641,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":134.467535862,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":134.467542879,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":134.467547369,"data":"Exception encountered at \"In [2]\":\n"}
+,{"stream_name":"stderr","time":134.467551022,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":134.467554744,"data":"RuntimeError                              Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":134.467558284,"data":"/tmp/ipykernel_23/2922997236.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":134.467561896,"data":"     69     result = subprocess.run(command, cwd=checkout)\n"}
+,{"stream_name":"stderr","time":134.46756528,"data":"     70     if result.returncode:\n"}
+,{"stream_name":"stderr","time":134.46756857,"data":"---\u003e 71         raise RuntimeError(\"Recipe failed; raw run outputs and termination record are retained\")\n"}
+,{"stream_name":"stderr","time":134.467572234,"data":"     72     print(\"Run complete:\", run_id, \"— preserve sealed outputs with both private archive receipts.\")\n"}
+,{"stream_name":"stderr","time":134.467576535,"data":"     73 except Exception as exc:\n"}
+,{"stream_name":"stderr","time":134.467579936,"data":"\n"}
+,{"stream_name":"stderr","time":134.46758317,"data":"RuntimeError: Recipe failed; raw run outputs and termination record are retained\n"}
+,{"stream_name":"stderr","time":134.467586655,"data":"\n"}
+,{"stream_name":"stderr","time":136.547759276,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":136.547794996,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":136.704347923,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":136.704372991,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":137.352284202,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":137.650959815,"data":"[NbConvertApp] Writing 12871 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":140.055152311,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":140.866418243,"data":"[NbConvertApp] Writing 300814 bytes to __results__.html\n"}
+]

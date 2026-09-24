@@ -1,0 +1,17 @@
+Obtaining file:///kaggle/working/checkout-20260924-060442-26f863842b16
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: fq-ssiuu
+  Building editable for fq-ssiuu (pyproject.toml): started
+  Building editable for fq-ssiuu (pyproject.toml): finished with status 'done'
+  Created wheel for fq-ssiuu: filename=fq_ssiuu-0.1.0.dev0-0.editable-py3-none-any.whl size=5604 sha256=cb53cc5d0f638d68d3a04259d35fa5757d85b050ad3f9f6a5e7c74f1f6238313
+  Stored in directory: /tmp/pip-ephem-wheel-cache-gychfdh0/wheels/b8/1e/4b/ce5f5f9424b6709a39a9136e6926dc2f6941b1999f6f28e22f
+Successfully built fq-ssiuu
+Installing collected packages: fq-ssiuu
+Successfully installed fq-ssiuu-0.1.0.dev0

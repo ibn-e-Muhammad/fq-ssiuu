@@ -1,0 +1,13 @@
+{
+  "parameters": {
+    "source_origin_sha": "b884c5ef0a8bfe7812e583f88f73cb5c1eaf9a83",
+    "source_tree_sha": "c7a75d5cdb048ade29c674b83541ad4b70ff823c",
+    "source_manifest_sha256": "a8f5f147f986bfd136015d637ae1384e2524b3b9cdc8e57dd32268e452a56bd9",
+    "dataset_id": "muhammadii/fq-ssiuu-c-source-b884c5e",
+    "orchestration_commit": "b884c5ef0a8bfe7812e583f88f73cb5c1eaf9a83",
+    "recipe": "configs/runs/work_unit_c_precision_v1.json"
+  },
+  "committed_notebook_sha256": "a55506fd4d23b76a151617f27188bb7302beff5447108cf54a49ed672ee7a8a8",
+  "staged_notebook_sha256": "7de178d8e2b9ace7bf554b767b180987bd310cda83205d6cb651e8ad6ef1045e",
+  "metadata_sha256": "fa7a8181e587e26620298faf8b89f99f865d386f34675d1c6a009bd112c66372"
+}

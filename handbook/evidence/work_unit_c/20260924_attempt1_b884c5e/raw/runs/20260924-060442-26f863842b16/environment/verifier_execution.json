@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "run_id": "30c3d827-d6ed-4858-99f4-ddf292e08530",
+  "setup_git_sha": "94ec6f70ce1e398f17a5d1d5e29e31dcb7ab831a",
+  "verifier_git_sha": "94ec6f70ce1e398f17a5d1d5e29e31dcb7ab831a",
+  "verifier_returncode": 0,
+  "verifier_overall_status": "PASS",
+  "stdout_log": {
+    "path": "verifier_stdout.log",
+    "sha256": "7aa4eccbc57be6f034ad750db79d06b8b8c5f3bb4b10a16258ce11d05f9faf70"
+  },
+  "stderr_log": {
+    "path": "verifier_stderr.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "verification_report": {
+    "path": "kaggle_env_verification.json",
+    "sha256": "8c1bf4b3ac117214c5adf44b19893176d56cb744975ecab5a8f57a2180017b3b"
+  },
+  "run_id_valid": true,
+  "git_sha_valid": true,
+  "verdict": "PASS"
+}

@@ -1,6 +1,6 @@
 # FQ-SSIUU project status
 
-Updated 2026-09-23. [Canonical plan](MASTER_EXECUTION_PLAN.md).
+Updated 2026-09-24. [Canonical plan](MASTER_EXECUTION_PLAN.md).
 Integration tip: `dev` at `2334f321b3ccf08352c29b1842200863b757c9d1` (PR #9 merged).
 Work units A and B are superseded and retained. Active work unit C:
 `fix/matched-precision-qra-protocol`, branched from that exact remote dev tip.
@@ -13,6 +13,16 @@ RG-005 and method gates RG-001/002/003 remain BLOCKED.
 GitHub default is now dev; its active rule requires passing CI, one fresh approval
 from someone other than the last pusher, and resolved review threads. A substantive
 human scientific review is required in addition to automated checks.
+
+## Work unit C progress — 2026-09-24
+
+[PR #10](https://github.com/ibn-e-Muhammad/fq-ssiuu/pull/10), implementation `b884c5e`,
+CI 61 passed. C1 attempt 1 (Mother v3, `20260924-060442-26f863842b16`) passed the
+candidate environment and FP16 inference but failed its same-process model-release
+check before INT8/NF4. Raw failure is preserved; no precision-integration pass is
+claimed. Repair: one model per sequential process, fully reaped before the next.
+CPU repair acceptance: 294 passed, 4 unchanged skips, 10 deselected, 1 historical
+xfail. One authorized submission remains. No corrected pilot or training ran.
 
 ## Work unit B CPU acceptance — 2026-09-22
 

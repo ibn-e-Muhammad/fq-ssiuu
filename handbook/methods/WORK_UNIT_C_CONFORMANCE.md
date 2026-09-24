@@ -31,3 +31,17 @@ Candidate statistical procedures and decision margins are in
 retains its earlier bounded acceptance; RG-001/002/003 remain BLOCKED. C1 PASS would
 establish quantized loader and measurement execution only, not forgetting, recovery,
 durability, training-memory feasibility, or efficacy of the combined method.
+
+## Attempt 1 and bounded lifecycle repair
+
+Mother v3, code `b884c5e`, run `20260924-060442-26f863842b16`: candidate installation,
+protected-stack comparison, differential pip and FP16 evaluation passed. The weak
+model-reference check then failed; INT8/NF4 were not reached. The upstream owner
+of the retained reference is not established, so no library-defect claim is made.
+
+The repair puts each target precision and the oracle in a separate sequential
+process. The supervisor waits/reaps each child before launching the next; process
+exit releases its complete CUDA context even if library-level references survive.
+CPU regressions exercise deliberately retained objects, ordered process completion
+and failure propagation. This changes lifecycle management, not data, precision,
+metrics or decision rules. One of two Kaggle submissions remains.

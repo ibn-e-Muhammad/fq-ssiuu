@@ -1,0 +1,782 @@
+﻿2026-09-24T06:03:51.7529349Z Current runner version: '2.337.0'
+2026-09-24T06:03:51.7605442Z ##[group]Runner Image Provisioner
+2026-09-24T06:03:51.7606784Z Hosted Compute Agent
+2026-09-24T06:03:51.7607739Z Version: 20260828.587
+2026-09-24T06:03:51.7608922Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-24T06:03:51.7610127Z Build Date: 2026-08-28T16:44:25Z
+2026-09-24T06:03:51.7611298Z Worker ID: {89eb02fb-41af-4248-b707-74092529f989}
+2026-09-24T06:03:51.7612751Z Azure Region: northcentralus
+2026-09-24T06:03:51.7613710Z ##[endgroup]
+2026-09-24T06:03:51.7616130Z ##[group]Operating System
+2026-09-24T06:03:51.7617146Z Ubuntu
+2026-09-24T06:03:51.7618046Z 24.04.5
+2026-09-24T06:03:51.7618914Z LTS
+2026-09-24T06:03:51.7619707Z ##[endgroup]
+2026-09-24T06:03:51.7620653Z ##[group]Runner Image
+2026-09-24T06:03:51.7621664Z Image: ubuntu-24.04
+2026-09-24T06:03:51.7643175Z Version: 20260920.314.1
+2026-09-24T06:03:51.7645287Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-24T06:03:51.7647914Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
+2026-09-24T06:03:51.7649534Z ##[endgroup]
+2026-09-24T06:03:51.7651429Z ##[group]GITHUB_TOKEN Permissions
+2026-09-24T06:03:51.7654788Z Contents: read
+2026-09-24T06:03:51.7655774Z Metadata: read
+2026-09-24T06:03:51.7656676Z Packages: read
+2026-09-24T06:03:51.7657596Z ##[endgroup]
+2026-09-24T06:03:51.7660751Z Secret source: Actions
+2026-09-24T06:03:51.7662183Z Cache mode: write
+2026-09-24T06:03:51.7684693Z Prepare workflow directory
+2026-09-24T06:03:51.8159163Z Prepare all required actions
+2026-09-24T06:03:51.8229608Z Getting action download info
+2026-09-24T06:03:52.1397566Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-24T06:03:52.2317403Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-09-24T06:03:52.4256762Z Complete job name: Lint and Unit Tests
+2026-09-24T06:03:52.5013480Z ##[group]Run actions/checkout@v4
+2026-09-24T06:03:52.5014397Z with:
+2026-09-24T06:03:52.5014873Z   repository: ibn-e-Muhammad/fq-ssiuu
+2026-09-24T06:03:52.5019147Z   token: ***
+2026-09-24T06:03:52.5019600Z   ssh-strict: true
+2026-09-24T06:03:52.5020058Z   ssh-user: git
+2026-09-24T06:03:52.5020510Z   persist-credentials: true
+2026-09-24T06:03:52.5021000Z   clean: true
+2026-09-24T06:03:52.5021450Z   sparse-checkout-cone-mode: true
+2026-09-24T06:03:52.5021974Z   fetch-depth: 1
+2026-09-24T06:03:52.5022573Z   fetch-tags: false
+2026-09-24T06:03:52.5023027Z   show-progress: true
+2026-09-24T06:03:52.5023471Z   lfs: false
+2026-09-24T06:03:52.5023892Z   submodules: false
+2026-09-24T06:03:52.5024344Z   set-safe-directory: true
+2026-09-24T06:03:52.5024856Z   allow-unsafe-pr-checkout: false
+2026-09-24T06:03:52.5025575Z ##[endgroup]
+2026-09-24T06:03:52.6263356Z Syncing repository: ibn-e-Muhammad/fq-ssiuu
+2026-09-24T06:03:52.6269064Z ##[group]Getting Git version info
+2026-09-24T06:03:52.6270286Z Working directory is '/home/runner/work/fq-ssiuu/fq-ssiuu'
+2026-09-24T06:03:52.6271825Z [command]/usr/bin/git version
+2026-09-24T06:03:52.6409718Z git version 2.55.0
+2026-09-24T06:03:52.6439523Z ##[endgroup]
+2026-09-24T06:03:52.6449495Z Temporarily overriding HOME='/home/runner/work/_temp/b5bbd42f-187f-4570-be18-1e8a99d21a77' before making global git config changes
+2026-09-24T06:03:52.6452079Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-24T06:03:52.6454774Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/fq-ssiuu/fq-ssiuu
+2026-09-24T06:03:52.6533090Z Deleting the contents of '/home/runner/work/fq-ssiuu/fq-ssiuu'
+2026-09-24T06:03:52.6535565Z ##[group]Initializing the repository
+2026-09-24T06:03:52.6555837Z [command]/usr/bin/git init /home/runner/work/fq-ssiuu/fq-ssiuu
+2026-09-24T06:03:52.6679373Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-24T06:03:52.6681554Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-24T06:03:52.6684429Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-24T06:03:52.6690887Z hint: call:
+2026-09-24T06:03:52.6692532Z hint:
+2026-09-24T06:03:52.6693878Z hint: 	git config --global init.defaultBranch <name>
+2026-09-24T06:03:52.6695445Z hint:
+2026-09-24T06:03:52.6698568Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-24T06:03:52.6700078Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-24T06:03:52.6701246Z hint:
+2026-09-24T06:03:52.6701872Z hint: 	git branch -m <name>
+2026-09-24T06:03:52.6702906Z hint:
+2026-09-24T06:03:52.6703869Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-24T06:03:52.6705476Z Initialized empty Git repository in /home/runner/work/fq-ssiuu/fq-ssiuu/.git/
+2026-09-24T06:03:52.6708184Z [command]/usr/bin/git remote add origin https://github.com/ibn-e-Muhammad/fq-ssiuu
+2026-09-24T06:03:52.6995043Z ##[endgroup]
+2026-09-24T06:03:52.6996376Z ##[group]Disabling automatic garbage collection
+2026-09-24T06:03:52.6997467Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-24T06:03:52.6999650Z ##[endgroup]
+2026-09-24T06:03:52.7000703Z ##[group]Setting up auth
+2026-09-24T06:03:52.7001803Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-24T06:03:52.7005356Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-24T06:03:52.8501811Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-24T06:03:52.8507541Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-24T06:03:52.8513471Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-24T06:03:52.8518164Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-24T06:03:52.8522833Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-24T06:03:52.8527076Z ##[endgroup]
+2026-09-24T06:03:52.8529148Z ##[group]Fetching the repository
+2026-09-24T06:03:52.8531738Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +c0230212ffa9616b5e2965bc47a0eaacc434bbbf:refs/remotes/pull/10/merge
+2026-09-24T06:03:53.4886959Z From https://github.com/ibn-e-Muhammad/fq-ssiuu
+2026-09-24T06:03:53.4889599Z  * [new ref]         c0230212ffa9616b5e2965bc47a0eaacc434bbbf -> pull/10/merge
+2026-09-24T06:03:53.4895328Z ##[endgroup]
+2026-09-24T06:03:53.4897363Z ##[group]Determining the checkout info
+2026-09-24T06:03:53.4899692Z ##[endgroup]
+2026-09-24T06:03:53.4902444Z [command]/usr/bin/git sparse-checkout disable
+2026-09-24T06:03:53.4974625Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-24T06:03:53.5080537Z ##[group]Checking out the ref
+2026-09-24T06:03:53.5083288Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/10/merge
+2026-09-24T06:03:53.5635820Z Note: switching to 'refs/remotes/pull/10/merge'.
+2026-09-24T06:03:53.5652613Z 
+2026-09-24T06:03:53.5654627Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-09-24T06:03:53.5664577Z changes and commit them, and you can discard any commits you make in this
+2026-09-24T06:03:53.5667162Z state without impacting any branches by switching back to a branch.
+2026-09-24T06:03:53.5668733Z 
+2026-09-24T06:03:53.5669864Z If you want to create a new branch to retain commits you create, you may
+2026-09-24T06:03:53.5672202Z do so (now or later) by using -c with the switch command. Example:
+2026-09-24T06:03:53.5674009Z 
+2026-09-24T06:03:53.5675399Z   git switch -c <new-branch-name>
+2026-09-24T06:03:53.5677348Z 
+2026-09-24T06:03:53.5678303Z Or undo this operation with:
+2026-09-24T06:03:53.5679670Z 
+2026-09-24T06:03:53.5680509Z   git switch -
+2026-09-24T06:03:53.5681704Z 
+2026-09-24T06:03:53.5683625Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-09-24T06:03:53.5688957Z 
+2026-09-24T06:03:53.5691320Z HEAD is now at c023021 Merge b884c5ef0a8bfe7812e583f88f73cb5c1eaf9a83 into 2334f321b3ccf08352c29b1842200863b757c9d1
+2026-09-24T06:03:53.5699186Z ##[endgroup]
+2026-09-24T06:03:53.5713754Z [command]/usr/bin/git log -1 --format=%H
+2026-09-24T06:03:53.5747103Z c0230212ffa9616b5e2965bc47a0eaacc434bbbf
+2026-09-24T06:03:53.6163718Z ##[group]Run actions/setup-python@v5
+2026-09-24T06:03:53.6164987Z with:
+2026-09-24T06:03:53.6165894Z   python-version: 3.11
+2026-09-24T06:03:53.6166902Z   cache: pip
+2026-09-24T06:03:53.6167821Z   check-latest: false
+2026-09-24T06:03:53.6178312Z   token: ***
+2026-09-24T06:03:53.6179292Z   update-environment: true
+2026-09-24T06:03:53.6180474Z   allow-prereleases: false
+2026-09-24T06:03:53.6181559Z   freethreaded: false
+2026-09-24T06:03:53.6182898Z ##[endgroup]
+2026-09-24T06:03:53.7885711Z ##[group]Installed versions
+2026-09-24T06:03:53.7997107Z (node:2027) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-24T06:03:53.8023844Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-24T06:03:53.8082184Z Successfully set up CPython (3.11.16)
+2026-09-24T06:03:53.8085368Z ##[endgroup]
+2026-09-24T06:03:54.0185592Z [command]/opt/hostedtoolcache/Python/3.11.16/x64/bin/pip cache dir
+2026-09-24T06:03:54.2998248Z /home/runner/.cache/pip
+2026-09-24T06:03:54.4200771Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.16-pip-7796433c254dfe0cadffc4c50716a735796066c058c0cd0fcf5d502193444289
+2026-09-24T06:03:54.4314119Z (node:2027) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-09-24T06:03:55.5368377Z Received 109051904 of 302156048 (36.1%), 104.0 MBs/sec
+2026-09-24T06:03:56.5370214Z Received 268435456 of 302156048 (88.8%), 128.0 MBs/sec
+2026-09-24T06:03:56.7361121Z Received 302156048 of 302156048 (100.0%), 131.0 MBs/sec
+2026-09-24T06:03:56.7365565Z Cache Size: ~288 MB (302156048 B)
+2026-09-24T06:03:56.7454119Z [command]/usr/bin/tar -xf /home/runner/work/_temp/40dbed1e-68e0-4871-af88-ad9c8495280e/cache.tzst -P -C /home/runner/work/fq-ssiuu/fq-ssiuu --use-compress-program unzstd
+2026-09-24T06:03:57.2973725Z Cache restored successfully
+2026-09-24T06:03:57.3124539Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.16-pip-7796433c254dfe0cadffc4c50716a735796066c058c0cd0fcf5d502193444289
+2026-09-24T06:03:57.3379207Z ##[group]Run python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+2026-09-24T06:03:57.3380068Z [36;1mpython -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu[0m
+2026-09-24T06:03:57.3380695Z [36;1mpython -m pip install ruff==0.15.0 pytest==8.3.0 pytest-cov==5.0.0 \[0m
+2026-09-24T06:03:57.3381190Z [36;1m  numpy==1.26.4 scipy==1.14.0 pyyaml==6.0.1 omegaconf==2.3.0 \[0m
+2026-09-24T06:03:57.3381677Z [36;1m  typer==0.12.0 rich==13.7.0 packaging==25.0 nbformat==5.10.4 ipython==9.17.1 \[0m
+2026-09-24T06:03:57.3382185Z [36;1m  python-dotenv==1.2.1 rouge-score==0.1.2 transformers==5.0.0[0m
+2026-09-24T06:03:57.3382879Z [36;1mpython -m pip install -e . --no-deps[0m
+2026-09-24T06:03:58.0544026Z shell: /usr/bin/bash -e {0}
+2026-09-24T06:03:58.0544404Z env:
+2026-09-24T06:03:58.0544729Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:03:58.0545334Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.16/x64/lib/pkgconfig
+2026-09-24T06:03:58.0545813Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:03:58.0546222Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:03:58.0546972Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:03:58.0547423Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.16/x64/lib
+2026-09-24T06:03:58.0547804Z ##[endgroup]
+2026-09-24T06:03:58.5522878Z Looking in indexes: https://download.pytorch.org/whl/cpu
+2026-09-24T06:03:58.7997969Z Collecting torch==2.10.0
+2026-09-24T06:03:58.8654232Z   Using cached torch-2.10.0%2Bcpu-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (29 kB)
+2026-09-24T06:03:58.8998299Z Collecting filelock (from torch==2.10.0)
+2026-09-24T06:03:58.9033975Z   Using cached filelock-3.32.3-py3-none-any.whl.metadata (2.0 kB)
+2026-09-24T06:03:58.9179262Z Collecting typing-extensions>=4.10.0 (from torch==2.10.0)
+2026-09-24T06:03:58.9195954Z   Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+2026-09-24T06:03:58.9354043Z Collecting sympy>=1.13.3 (from torch==2.10.0)
+2026-09-24T06:03:58.9370298Z   Using cached sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+2026-09-24T06:03:58.9572939Z Collecting networkx>=2.5.1 (from torch==2.10.0)
+2026-09-24T06:03:58.9588748Z   Using cached networkx-3.6.1-py3-none-any.whl.metadata (6.8 kB)
+2026-09-24T06:03:58.9708496Z Collecting jinja2 (from torch==2.10.0)
+2026-09-24T06:03:58.9769132Z   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+2026-09-24T06:03:58.9963778Z Collecting fsspec>=0.8.5 (from torch==2.10.0)
+2026-09-24T06:03:58.9979236Z   Using cached fsspec-2026.7.0-py3-none-any.whl.metadata (10 kB)
+2026-09-24T06:03:59.0237574Z Collecting mpmath<1.4,>=1.1.0 (from sympy>=1.13.3->torch==2.10.0)
+2026-09-24T06:03:59.0253707Z   Using cached mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+2026-09-24T06:03:59.0433996Z Collecting MarkupSafe>=2.0 (from jinja2->torch==2.10.0)
+2026-09-24T06:03:59.0503648Z   Using cached markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+2026-09-24T06:03:59.0686792Z Using cached torch-2.10.0%2Bcpu-cp311-cp311-manylinux_2_28_x86_64.whl (188.8 MB)
+2026-09-24T06:03:59.1314665Z Using cached fsspec-2026.7.0-py3-none-any.whl (206 kB)
+2026-09-24T06:03:59.1329249Z Using cached networkx-3.6.1-py3-none-any.whl (2.1 MB)
+2026-09-24T06:03:59.1357158Z Using cached sympy-1.14.0-py3-none-any.whl (6.3 MB)
+2026-09-24T06:03:59.1392900Z Using cached mpmath-1.3.0-py3-none-any.whl (536 kB)
+2026-09-24T06:03:59.1409145Z Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-09-24T06:03:59.1424093Z Using cached filelock-3.32.3-py3-none-any.whl (98 kB)
+2026-09-24T06:03:59.1488433Z Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+2026-09-24T06:03:59.1547430Z Using cached markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+2026-09-24T06:03:59.5311465Z Installing collected packages: mpmath, typing-extensions, sympy, networkx, MarkupSafe, fsspec, filelock, jinja2, torch
+2026-09-24T06:04:16.8836897Z 
+2026-09-24T06:04:16.8852072Z Successfully installed MarkupSafe-3.0.3 filelock-3.32.3 fsspec-2026.7.0 jinja2-3.1.6 mpmath-1.3.0 networkx-3.6.1 sympy-1.14.0 torch-2.10.0+cpu typing-extensions-4.16.0
+2026-09-24T06:04:17.5740180Z Collecting ruff==0.15.0
+2026-09-24T06:04:17.5759526Z   Using cached ruff-0.15.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (26 kB)
+2026-09-24T06:04:17.5968996Z Collecting pytest==8.3.0
+2026-09-24T06:04:17.5987283Z   Using cached pytest-8.3.0-py3-none-any.whl.metadata (7.5 kB)
+2026-09-24T06:04:17.6113186Z Collecting pytest-cov==5.0.0
+2026-09-24T06:04:17.6127274Z   Using cached pytest_cov-5.0.0-py3-none-any.whl.metadata (27 kB)
+2026-09-24T06:04:17.7887363Z Collecting numpy==1.26.4
+2026-09-24T06:04:17.7906149Z   Using cached numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+2026-09-24T06:04:17.8993230Z Collecting scipy==1.14.0
+2026-09-24T06:04:17.9010478Z   Using cached scipy-1.14.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (60 kB)
+2026-09-24T06:04:17.9398610Z Collecting pyyaml==6.0.1
+2026-09-24T06:04:17.9415804Z   Using cached PyYAML-6.0.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (2.1 kB)
+2026-09-24T06:04:17.9652695Z Collecting omegaconf==2.3.0
+2026-09-24T06:04:17.9669580Z   Using cached omegaconf-2.3.0-py3-none-any.whl.metadata (3.9 kB)
+2026-09-24T06:04:17.9813744Z Collecting typer==0.12.0
+2026-09-24T06:04:17.9829259Z   Using cached typer-0.12.0-py3-none-any.whl.metadata (15 kB)
+2026-09-24T06:04:18.0059172Z Collecting rich==13.7.0
+2026-09-24T06:04:18.0075691Z   Using cached rich-13.7.0-py3-none-any.whl.metadata (18 kB)
+2026-09-24T06:04:18.0197251Z Collecting packaging==25.0
+2026-09-24T06:04:18.0212693Z   Using cached packaging-25.0-py3-none-any.whl.metadata (3.3 kB)
+2026-09-24T06:04:18.0318102Z Collecting nbformat==5.10.4
+2026-09-24T06:04:18.0333263Z   Using cached nbformat-5.10.4-py3-none-any.whl.metadata (3.6 kB)
+2026-09-24T06:04:18.0589236Z Collecting ipython==9.17.1
+2026-09-24T06:04:18.0606965Z   Using cached ipython-9.17.1-py3-none-any.whl.metadata (4.6 kB)
+2026-09-24T06:04:18.0745122Z Collecting python-dotenv==1.2.1
+2026-09-24T06:04:18.0760947Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-09-24T06:04:18.0856717Z Collecting rouge-score==0.1.2
+2026-09-24T06:04:18.0857771Z   Using cached rouge_score-0.1.2-py3-none-any.whl
+2026-09-24T06:04:18.1138622Z Collecting transformers==5.0.0
+2026-09-24T06:04:18.1155165Z   Using cached transformers-5.0.0-py3-none-any.whl.metadata (37 kB)
+2026-09-24T06:04:18.1816487Z Collecting iniconfig (from pytest==8.3.0)
+2026-09-24T06:04:18.1831424Z   Using cached iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+2026-09-24T06:04:18.1923400Z Collecting pluggy<2,>=1.5 (from pytest==8.3.0)
+2026-09-24T06:04:18.1938387Z   Using cached pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+2026-09-24T06:04:18.5501727Z Collecting coverage>=5.2.1 (from coverage[toml]>=5.2.1->pytest-cov==5.0.0)
+2026-09-24T06:04:18.5520000Z   Using cached coverage-7.16.1-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (8.2 kB)
+2026-09-24T06:04:18.5631954Z Collecting antlr4-python3-runtime==4.9.* (from omegaconf==2.3.0)
+2026-09-24T06:04:18.5633340Z   Using cached antlr4_python3_runtime-4.9.3-py3-none-any.whl
+2026-09-24T06:04:18.5752904Z Collecting typer-slim==0.12.0 (from typer-slim[standard]==0.12.0->typer==0.12.0)
+2026-09-24T06:04:18.5767689Z   Using cached typer_slim-0.12.0-py3-none-any.whl.metadata (15 kB)
+2026-09-24T06:04:18.5899625Z Collecting typer-cli==0.12.0 (from typer==0.12.0)
+2026-09-24T06:04:18.5914183Z   Using cached typer_cli-0.12.0-py3-none-any.whl.metadata (3.5 kB)
+2026-09-24T06:04:18.6022823Z Collecting markdown-it-py>=2.2.0 (from rich==13.7.0)
+2026-09-24T06:04:18.6038269Z   Using cached markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+2026-09-24T06:04:18.6253364Z Collecting pygments<3.0.0,>=2.13.0 (from rich==13.7.0)
+2026-09-24T06:04:18.6263068Z   Using cached pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+2026-09-24T06:04:18.6378655Z Collecting fastjsonschema>=2.15 (from nbformat==5.10.4)
+2026-09-24T06:04:18.6394082Z   Using cached fastjsonschema-2.22.2-py3-none-any.whl.metadata (2.1 kB)
+2026-09-24T06:04:18.6568065Z Collecting jsonschema>=2.6 (from nbformat==5.10.4)
+2026-09-24T06:04:18.6585703Z   Using cached jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+2026-09-24T06:04:18.6727006Z Collecting jupyter-core!=5.0.*,>=4.12 (from nbformat==5.10.4)
+2026-09-24T06:04:18.6744525Z   Using cached jupyter_core-5.9.1-py3-none-any.whl.metadata (1.5 kB)
+2026-09-24T06:04:18.6868779Z Collecting traitlets>=5.1 (from nbformat==5.10.4)
+2026-09-24T06:04:18.6896382Z   Using cached traitlets-5.16.1-py3-none-any.whl.metadata (10 kB)
+2026-09-24T06:04:18.6991963Z Collecting ipython-pygments-lexers>=1.0.0 (from ipython==9.17.1)
+2026-09-24T06:04:18.7007922Z   Using cached ipython_pygments_lexers-1.1.1-py3-none-any.whl.metadata (1.1 kB)
+2026-09-24T06:04:18.7465256Z Collecting jedi>=0.18.2 (from ipython==9.17.1)
+2026-09-24T06:04:18.7481760Z   Using cached jedi-0.20.0-py2.py3-none-any.whl.metadata (23 kB)
+2026-09-24T06:04:18.7589990Z Collecting matplotlib-inline>=0.1.6 (from ipython==9.17.1)
+2026-09-24T06:04:18.7605780Z   Using cached matplotlib_inline-0.2.2-py3-none-any.whl.metadata (2.4 kB)
+2026-09-24T06:04:18.7689748Z Collecting pexpect>4.6 (from ipython==9.17.1)
+2026-09-24T06:04:18.7705304Z   Using cached pexpect-4.9.0-py2.py3-none-any.whl.metadata (2.5 kB)
+2026-09-24T06:04:18.7882988Z Collecting prompt_toolkit<3.1.0,>=3.0.41 (from ipython==9.17.1)
+2026-09-24T06:04:18.7898918Z   Using cached prompt_toolkit-3.0.53-py3-none-any.whl.metadata (6.4 kB)
+2026-09-24T06:04:18.8429988Z Collecting psutil>=7 (from ipython==9.17.1)
+2026-09-24T06:04:18.8448487Z   Using cached psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata (22 kB)
+2026-09-24T06:04:18.8574088Z Collecting stack_data>=0.6.0 (from ipython==9.17.1)
+2026-09-24T06:04:18.8589645Z   Using cached stack_data-0.6.3-py3-none-any.whl.metadata (18 kB)
+2026-09-24T06:04:18.8625277Z Requirement already satisfied: typing_extensions>=4.6 in /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages (from ipython==9.17.1) (4.16.0)
+2026-09-24T06:04:18.8726394Z Collecting absl-py (from rouge-score==0.1.2)
+2026-09-24T06:04:18.8742074Z   Using cached absl_py-2.5.0-py3-none-any.whl.metadata (3.3 kB)
+2026-09-24T06:04:18.8857299Z Collecting nltk (from rouge-score==0.1.2)
+2026-09-24T06:04:18.8874331Z   Using cached nltk-3.10.3-py3-none-any.whl.metadata (3.2 kB)
+2026-09-24T06:04:18.8983402Z Collecting six>=1.14.0 (from rouge-score==0.1.2)
+2026-09-24T06:04:18.8993691Z   Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+2026-09-24T06:04:18.9014685Z Requirement already satisfied: filelock in /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages (from transformers==5.0.0) (3.32.3)
+2026-09-24T06:04:18.9339699Z Collecting huggingface-hub<2.0,>=1.3.0 (from transformers==5.0.0)
+2026-09-24T06:04:18.9357442Z   Using cached huggingface_hub-1.32.0-py3-none-any.whl.metadata (16 kB)
+2026-09-24T06:04:19.3134488Z Collecting regex!=2019.12.17 (from transformers==5.0.0)
+2026-09-24T06:04:19.3153491Z   Using cached regex-2026.9.10-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+2026-09-24T06:04:19.4350736Z Collecting tokenizers<=0.23.0,>=0.22.0 (from transformers==5.0.0)
+2026-09-24T06:04:19.4369664Z   Using cached tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-09-24T06:04:19.5384699Z Collecting safetensors>=0.4.3 (from transformers==5.0.0)
+2026-09-24T06:04:19.5403620Z   Using cached safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.2 kB)
+2026-09-24T06:04:19.5651261Z Collecting tqdm>=4.27 (from transformers==5.0.0)
+2026-09-24T06:04:19.5669460Z   Using cached tqdm-4.70.1-py3-none-any.whl.metadata (57 kB)
+2026-09-24T06:04:19.5879939Z Collecting click>=8.0.0 (from typer-slim==0.12.0->typer-slim[standard]==0.12.0->typer==0.12.0)
+2026-09-24T06:04:19.5896386Z   Using cached click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+2026-09-24T06:04:19.6001102Z Collecting shellingham>=1.3.0 (from typer-slim[standard]==0.12.0->typer==0.12.0)
+2026-09-24T06:04:19.6017465Z   Using cached shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+2026-09-24T06:04:19.6066011Z Requirement already satisfied: fsspec>=2023.5.0 in /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages (from huggingface-hub<2.0,>=1.3.0->transformers==5.0.0) (2026.7.0)
+2026-09-24T06:04:19.6359049Z Collecting hf-xet<2.0.0,>=1.5.2 (from huggingface-hub<2.0,>=1.3.0->transformers==5.0.0)
+2026-09-24T06:04:19.6376567Z   Using cached hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+2026-09-24T06:04:19.6516415Z Collecting httpx<1,>=0.23.0 (from huggingface-hub<2.0,>=1.3.0->transformers==5.0.0)
+2026-09-24T06:04:19.6533332Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-09-24T06:04:19.7211741Z Collecting anyio (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers==5.0.0)
+2026-09-24T06:04:19.7228007Z   Using cached anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+2026-09-24T06:04:19.7373847Z Collecting certifi (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers==5.0.0)
+2026-09-24T06:04:19.7389580Z   Using cached certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+2026-09-24T06:04:19.7506556Z Collecting httpcore==1.* (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers==5.0.0)
+2026-09-24T06:04:19.7521981Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-09-24T06:04:19.7641895Z Collecting idna (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers==5.0.0)
+2026-09-24T06:04:19.7657845Z   Using cached idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+2026-09-24T06:04:19.7752080Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers==5.0.0)
+2026-09-24T06:04:19.7769352Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-09-24T06:04:19.7922457Z Collecting wcwidth>=0.1.4 (from prompt_toolkit<3.1.0,>=3.0.41->ipython==9.17.1)
+2026-09-24T06:04:19.8416426Z   Downloading wcwidth-0.9.1-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (23 kB)
+2026-09-24T06:04:19.8720354Z Collecting parso<0.9.0,>=0.8.6 (from jedi>=0.18.2->ipython==9.17.1)
+2026-09-24T06:04:19.8743442Z   Using cached parso-0.8.7-py2.py3-none-any.whl.metadata (8.2 kB)
+2026-09-24T06:04:19.8863816Z Collecting attrs>=22.2.0 (from jsonschema>=2.6->nbformat==5.10.4)
+2026-09-24T06:04:19.8880963Z   Using cached attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+2026-09-24T06:04:19.8981554Z Collecting jsonschema-specifications>=2023.03.6 (from jsonschema>=2.6->nbformat==5.10.4)
+2026-09-24T06:04:19.8997837Z   Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+2026-09-24T06:04:19.9146546Z Collecting referencing>=0.28.4 (from jsonschema>=2.6->nbformat==5.10.4)
+2026-09-24T06:04:19.9162611Z   Using cached referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+2026-09-24T06:04:20.1286985Z Collecting rpds-py>=0.25.0 (from jsonschema>=2.6->nbformat==5.10.4)
+2026-09-24T06:04:20.1305430Z   Using cached rpds_py-2026.6.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+2026-09-24T06:04:20.1484033Z Collecting platformdirs>=2.5 (from jupyter-core!=5.0.*,>=4.12->nbformat==5.10.4)
+2026-09-24T06:04:20.1500414Z   Using cached platformdirs-4.11.12-py3-none-any.whl.metadata (5.5 kB)
+2026-09-24T06:04:20.1593867Z Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich==13.7.0)
+2026-09-24T06:04:20.1611618Z   Using cached mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+2026-09-24T06:04:20.1709621Z Collecting ptyprocess>=0.5 (from pexpect>4.6->ipython==9.17.1)
+2026-09-24T06:04:20.1725943Z   Using cached ptyprocess-0.7.0-py2.py3-none-any.whl.metadata (1.3 kB)
+2026-09-24T06:04:20.1892756Z Collecting executing>=1.2.0 (from stack_data>=0.6.0->ipython==9.17.1)
+2026-09-24T06:04:20.1909324Z   Using cached executing-2.2.1-py2.py3-none-any.whl.metadata (8.9 kB)
+2026-09-24T06:04:20.2018386Z Collecting asttokens>=2.1.0 (from stack_data>=0.6.0->ipython==9.17.1)
+2026-09-24T06:04:20.2036505Z   Using cached asttokens-3.0.2-py3-none-any.whl.metadata (5.7 kB)
+2026-09-24T06:04:20.2122653Z Collecting pure-eval (from stack_data>=0.6.0->ipython==9.17.1)
+2026-09-24T06:04:20.2138622Z   Using cached pure_eval-0.2.4-py3-none-any.whl.metadata (6.4 kB)
+2026-09-24T06:04:20.2307529Z Collecting defusedxml (from nltk->rouge-score==0.1.2)
+2026-09-24T06:04:20.2324701Z   Using cached defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
+2026-09-24T06:04:20.2487055Z Collecting joblib (from nltk->rouge-score==0.1.2)
+2026-09-24T06:04:20.2503121Z   Using cached joblib-1.6.0-py3-none-any.whl.metadata (6.5 kB)
+2026-09-24T06:04:20.2658274Z Collecting cloudpickle>=3.0 (from joblib->nltk->rouge-score==0.1.2)
+2026-09-24T06:04:20.2674389Z   Using cached cloudpickle-3.1.2-py3-none-any.whl.metadata (7.1 kB)
+2026-09-24T06:04:20.2727944Z Using cached ruff-0.15.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (11.1 MB)
+2026-09-24T06:04:20.2779425Z Using cached pytest-8.3.0-py3-none-any.whl (341 kB)
+2026-09-24T06:04:20.2795713Z Using cached pytest_cov-5.0.0-py3-none-any.whl (21 kB)
+2026-09-24T06:04:20.2811013Z Using cached numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.3 MB)
+2026-09-24T06:04:20.2885304Z Using cached scipy-1.14.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (41.1 MB)
+2026-09-24T06:04:20.3033487Z Using cached PyYAML-6.0.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (757 kB)
+2026-09-24T06:04:20.3051256Z Using cached omegaconf-2.3.0-py3-none-any.whl (79 kB)
+2026-09-24T06:04:20.3066657Z Using cached typer-0.12.0-py3-none-any.whl (5.6 kB)
+2026-09-24T06:04:20.3081097Z Using cached rich-13.7.0-py3-none-any.whl (240 kB)
+2026-09-24T06:04:20.3096619Z Using cached packaging-25.0-py3-none-any.whl (66 kB)
+2026-09-24T06:04:20.3111359Z Using cached nbformat-5.10.4-py3-none-any.whl (78 kB)
+2026-09-24T06:04:20.3126510Z Using cached ipython-9.17.1-py3-none-any.whl (639 kB)
+2026-09-24T06:04:20.3143049Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-09-24T06:04:20.3157904Z Using cached transformers-5.0.0-py3-none-any.whl (10.1 MB)
+2026-09-24T06:04:20.3207423Z Using cached typer_cli-0.12.0-py3-none-any.whl (3.0 kB)
+2026-09-24T06:04:20.3224911Z Using cached typer_slim-0.12.0-py3-none-any.whl (46 kB)
+2026-09-24T06:04:20.3240033Z Using cached huggingface_hub-1.32.0-py3-none-any.whl (842 kB)
+2026-09-24T06:04:20.3257776Z Using cached click-8.5.0-py3-none-any.whl (125 kB)
+2026-09-24T06:04:20.3273286Z Using cached hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)
+2026-09-24T06:04:20.3304098Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-09-24T06:04:20.3318961Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-09-24T06:04:20.3334108Z Using cached pluggy-1.6.0-py3-none-any.whl (20 kB)
+2026-09-24T06:04:20.3348598Z Using cached prompt_toolkit-3.0.53-py3-none-any.whl (392 kB)
+2026-09-24T06:04:20.3364405Z Using cached pygments-2.21.0-py3-none-any.whl (1.3 MB)
+2026-09-24T06:04:20.3383120Z Using cached tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+2026-09-24T06:04:20.3409144Z Using cached coverage-7.16.1-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (256 kB)
+2026-09-24T06:04:20.3424696Z Using cached fastjsonschema-2.22.2-py3-none-any.whl (27 kB)
+2026-09-24T06:04:20.3440969Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-09-24T06:04:20.3455738Z Using cached ipython_pygments_lexers-1.1.1-py3-none-any.whl (8.1 kB)
+2026-09-24T06:04:20.3470186Z Using cached jedi-0.20.0-py2.py3-none-any.whl (4.9 MB)
+2026-09-24T06:04:20.3500512Z Using cached parso-0.8.7-py2.py3-none-any.whl (107 kB)
+2026-09-24T06:04:20.3516048Z Using cached jsonschema-4.26.0-py3-none-any.whl (90 kB)
+2026-09-24T06:04:20.3532045Z Using cached attrs-26.1.0-py3-none-any.whl (67 kB)
+2026-09-24T06:04:20.3547201Z Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+2026-09-24T06:04:20.3561614Z Using cached jupyter_core-5.9.1-py3-none-any.whl (29 kB)
+2026-09-24T06:04:20.3576529Z Using cached markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+2026-09-24T06:04:20.3591277Z Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+2026-09-24T06:04:20.3605842Z Using cached matplotlib_inline-0.2.2-py3-none-any.whl (9.5 kB)
+2026-09-24T06:04:20.3620349Z Using cached pexpect-4.9.0-py2.py3-none-any.whl (63 kB)
+2026-09-24T06:04:20.3635417Z Using cached platformdirs-4.11.12-py3-none-any.whl (24 kB)
+2026-09-24T06:04:20.3650691Z Using cached psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+2026-09-24T06:04:20.3665875Z Using cached ptyprocess-0.7.0-py2.py3-none-any.whl (13 kB)
+2026-09-24T06:04:20.3680531Z Using cached referencing-0.37.0-py3-none-any.whl (26 kB)
+2026-09-24T06:04:20.3695120Z Using cached regex-2026.9.10-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (802 kB)
+2026-09-24T06:04:20.3711802Z Using cached rpds_py-2026.6.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (371 kB)
+2026-09-24T06:04:20.3727549Z Using cached safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (516 kB)
+2026-09-24T06:04:20.3742927Z Using cached shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+2026-09-24T06:04:20.3756812Z Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+2026-09-24T06:04:20.3770237Z Using cached stack_data-0.6.3-py3-none-any.whl (24 kB)
+2026-09-24T06:04:20.3784110Z Using cached asttokens-3.0.2-py3-none-any.whl (28 kB)
+2026-09-24T06:04:20.3797758Z Using cached executing-2.2.1-py2.py3-none-any.whl (28 kB)
+2026-09-24T06:04:20.3811376Z Using cached tqdm-4.70.1-py3-none-any.whl (80 kB)
+2026-09-24T06:04:20.3825544Z Using cached traitlets-5.16.1-py3-none-any.whl (86 kB)
+2026-09-24T06:04:20.3861456Z Downloading wcwidth-0.9.1-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (768 kB)
+2026-09-24T06:04:20.4124280Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 768.4/768.4 kB 82.2 MB/s  0:00:00
+2026-09-24T06:04:20.4129310Z Using cached absl_py-2.5.0-py3-none-any.whl (137 kB)
+2026-09-24T06:04:20.4144480Z Using cached anyio-4.15.1-py3-none-any.whl (132 kB)
+2026-09-24T06:04:20.4158895Z Using cached idna-3.20-py3-none-any.whl (69 kB)
+2026-09-24T06:04:20.4172979Z Using cached certifi-2026.7.22-py3-none-any.whl (136 kB)
+2026-09-24T06:04:20.4187338Z Using cached iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+2026-09-24T06:04:20.4201790Z Using cached nltk-3.10.3-py3-none-any.whl (1.8 MB)
+2026-09-24T06:04:20.4221718Z Using cached defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+2026-09-24T06:04:20.4235736Z Using cached joblib-1.6.0-py3-none-any.whl (306 kB)
+2026-09-24T06:04:20.4250605Z Using cached cloudpickle-3.1.2-py3-none-any.whl (22 kB)
+2026-09-24T06:04:20.4264667Z Using cached pure_eval-0.2.4-py3-none-any.whl (11 kB)
+2026-09-24T06:04:20.9293027Z Installing collected packages: pure-eval, ptyprocess, antlr4-python3-runtime, wcwidth, traitlets, tqdm, six, shellingham, safetensors, ruff, rpds-py, regex, pyyaml, python-dotenv, pygments, psutil, pluggy, platformdirs, pexpect, parso, packaging, numpy, mdurl, iniconfig, idna, hf-xet, h11, fastjsonschema, executing, defusedxml, coverage, cloudpickle, click, certifi, attrs, asttokens, absl-py, typer-slim, stack_data, scipy, referencing, pytest, prompt_toolkit, omegaconf, matplotlib-inline, markdown-it-py, jupyter-core, joblib, jedi, ipython-pygments-lexers, httpcore, anyio, rich, pytest-cov, nltk, jsonschema-specifications, ipython, httpx, rouge-score, jsonschema, huggingface-hub, typer-cli, tokenizers, nbformat, typer, transformers
+2026-09-24T06:04:37.9923080Z 
+2026-09-24T06:04:37.9937260Z Successfully installed absl-py-2.5.0 antlr4-python3-runtime-4.9.3 anyio-4.15.1 asttokens-3.0.2 attrs-26.1.0 certifi-2026.7.22 click-8.5.0 cloudpickle-3.1.2 coverage-7.16.1 defusedxml-0.7.1 executing-2.2.1 fastjsonschema-2.22.2 h11-0.16.0 hf-xet-1.6.0 httpcore-1.0.9 httpx-0.28.1 huggingface-hub-1.32.0 idna-3.20 iniconfig-2.3.0 ipython-9.17.1 ipython-pygments-lexers-1.1.1 jedi-0.20.0 joblib-1.6.0 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 jupyter-core-5.9.1 markdown-it-py-4.2.0 matplotlib-inline-0.2.2 mdurl-0.1.2 nbformat-5.10.4 nltk-3.10.3 numpy-1.26.4 omegaconf-2.3.0 packaging-25.0 parso-0.8.7 pexpect-4.9.0 platformdirs-4.11.12 pluggy-1.6.0 prompt_toolkit-3.0.53 psutil-7.2.2 ptyprocess-0.7.0 pure-eval-0.2.4 pygments-2.21.0 pytest-8.3.0 pytest-cov-5.0.0 python-dotenv-1.2.1 pyyaml-6.0.1 referencing-0.37.0 regex-2026.9.10 rich-13.7.0 rouge-score-0.1.2 rpds-py-2026.6.3 ruff-0.15.0 safetensors-0.8.0 scipy-1.14.0 shellingham-1.5.4 six-1.17.0 stack_data-0.6.3 tokenizers-0.22.2 tqdm-4.70.1 traitlets-5.16.1 transformers-5.0.0 typer-0.12.0 typer-cli-0.12.0 typer-slim-0.12.0 wcwidth-0.9.1
+2026-09-24T06:04:38.5643963Z Obtaining file:///home/runner/work/fq-ssiuu/fq-ssiuu
+2026-09-24T06:04:38.5665121Z   Installing build dependencies: started
+2026-09-24T06:04:39.2628729Z   Installing build dependencies: finished with status 'done'
+2026-09-24T06:04:39.2635845Z   Checking if build backend supports build_editable: started
+2026-09-24T06:04:39.6124080Z   Checking if build backend supports build_editable: finished with status 'done'
+2026-09-24T06:04:39.6135101Z   Getting requirements to build editable: started
+2026-09-24T06:04:40.1853747Z   Getting requirements to build editable: finished with status 'done'
+2026-09-24T06:04:40.1854860Z   Preparing editable metadata (pyproject.toml): started
+2026-09-24T06:04:40.3800979Z   Preparing editable metadata (pyproject.toml): finished with status 'done'
+2026-09-24T06:04:40.3851735Z Building wheels for collected packages: fq-ssiuu
+2026-09-24T06:04:40.3859345Z   Building editable for fq-ssiuu (pyproject.toml): started
+2026-09-24T06:04:40.8348375Z   Building editable for fq-ssiuu (pyproject.toml): finished with status 'done'
+2026-09-24T06:04:40.8354922Z   Created wheel for fq-ssiuu: filename=fq_ssiuu-0.1.0.dev0-0.editable-py3-none-any.whl size=5579 sha256=2176cb16ea994a1729613555ef1ed7e4a16f1f1a518a6913666cb72c0ea5088f
+2026-09-24T06:04:40.8356829Z   Stored in directory: /tmp/pip-ephem-wheel-cache-em556941/wheels/97/a9/f9/b0193c6da7a223a1bdf504ffc9699e22b5f2ad78a5a6d7338c
+2026-09-24T06:04:40.8383412Z Successfully built fq-ssiuu
+2026-09-24T06:04:40.8533838Z Installing collected packages: fq-ssiuu
+2026-09-24T06:04:41.0017347Z Successfully installed fq-ssiuu-0.1.0.dev0
+2026-09-24T06:04:41.0685237Z ##[group]Run ruff check src/ tests/ scripts/ experiments/reproductions/ --output-format=github
+2026-09-24T06:04:41.0685942Z [36;1mruff check src/ tests/ scripts/ experiments/reproductions/ --output-format=github[0m
+2026-09-24T06:04:41.0686499Z [36;1mruff format --check src/ tests/ scripts/ experiments/reproductions/[0m
+2026-09-24T06:04:41.0755412Z shell: /usr/bin/bash -e {0}
+2026-09-24T06:04:41.0755690Z env:
+2026-09-24T06:04:41.0756001Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:04:41.0756474Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.16/x64/lib/pkgconfig
+2026-09-24T06:04:41.0756923Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:04:41.0757318Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:04:41.0757717Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:04:41.0758118Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.16/x64/lib
+2026-09-24T06:04:41.0758495Z ##[endgroup]
+2026-09-24T06:04:41.1960574Z 99 files already formatted
+2026-09-24T06:04:41.2021324Z ##[group]Run python scripts/check_notebooks.py --output notebook-validation.json
+2026-09-24T06:04:41.2021926Z [36;1mpython scripts/check_notebooks.py --output notebook-validation.json[0m
+2026-09-24T06:04:41.2090783Z shell: /usr/bin/bash -e {0}
+2026-09-24T06:04:41.2091047Z env:
+2026-09-24T06:04:41.2091333Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:04:41.2091786Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.16/x64/lib/pkgconfig
+2026-09-24T06:04:41.2092417Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:04:41.2092864Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:04:41.2093275Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:04:41.2093656Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.16/x64/lib
+2026-09-24T06:04:41.2093986Z ##[endgroup]
+2026-09-24T06:04:41.5658936Z {"status": "PASS", "notebook_count": 12}
+2026-09-24T06:04:41.5967062Z ##[group]Run pytest tests/ -v --tb=short -m "not requires_gpu and not requires_model"
+2026-09-24T06:04:41.5967675Z [36;1mpytest tests/ -v --tb=short -m "not requires_gpu and not requires_model"[0m
+2026-09-24T06:04:41.6044322Z shell: /usr/bin/bash -e {0}
+2026-09-24T06:04:41.6044599Z env:
+2026-09-24T06:04:41.6044888Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:04:41.6045347Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.16/x64/lib/pkgconfig
+2026-09-24T06:04:41.6045794Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:04:41.6046183Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:04:41.6046571Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-24T06:04:41.6047165Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.16/x64/lib
+2026-09-24T06:04:41.6047508Z   CI: true
+2026-09-24T06:04:41.6047710Z   HF_HUB_OFFLINE: 1
+2026-09-24T06:04:41.6047938Z   TRANSFORMERS_OFFLINE: 1
+2026-09-24T06:04:41.6048239Z   PYTEST_DISABLE_PLUGIN_AUTOLOAD: 1
+2026-09-24T06:04:41.6048510Z ##[endgroup]
+2026-09-24T06:04:41.8637208Z ============================= test session starts ==============================
+2026-09-24T06:04:41.8638252Z platform linux -- Python 3.11.16, pytest-8.3.0, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.16/x64/bin/python
+2026-09-24T06:04:41.8639122Z cachedir: .pytest_cache
+2026-09-24T06:04:41.8639564Z rootdir: /home/runner/work/fq-ssiuu/fq-ssiuu
+2026-09-24T06:04:41.8640071Z configfile: pyproject.toml
+2026-09-24T06:04:45.0997298Z collecting ... collected 307 items / 10 deselected / 297 selected
+2026-09-24T06:04:45.0998041Z 
+2026-09-24T06:04:45.1012509Z tests/historical/FQ_QAT/test_quantisation_location.py::TestQuantiserMetadata::test_fake_quant_metadata_exists PASSED [  0%]
+2026-09-24T06:04:45.1021859Z tests/historical/FQ_QAT/test_quantisation_location.py::TestQuantiserMetadata::test_quantiser_targets_activation PASSED [  0%]
+2026-09-24T06:04:45.1031145Z tests/historical/FQ_QAT/test_quantisation_location.py::TestQuantiserMetadata::test_quantiser_not_deployment_equivalent PASSED [  1%]
+2026-09-24T06:04:45.1039983Z tests/historical/FQ_QAT/test_quantisation_location.py::TestQuantiserMetadata::test_quantiser_codebook PASSED [  1%]
+2026-09-24T06:04:45.1048577Z tests/historical/FQ_QAT/test_quantisation_location.py::TestQuantiserMetadata::test_quantiser_bit_width PASSED [  1%]
+2026-09-24T06:04:45.1077426Z tests/historical/FQ_QAT/test_quantisation_location.py::TestQuantiserMetadata::test_fq_hooks_metadata_exists PASSED [  2%]
+2026-09-24T06:04:45.1087017Z tests/historical/FQ_QAT/test_quantisation_location.py::TestQuantiserMetadata::test_mismatch_documented PASSED [  2%]
+2026-09-24T06:04:45.1106636Z tests/historical/FQ_QAT/test_ste_gradients.py::TestSTEGradients::test_fake_quantise_forward_equals_qdq PASSED [  2%]
+2026-09-24T06:04:45.1121765Z tests/historical/FQ_QAT/test_ste_gradients.py::TestSTEGradients::test_ste_backward_is_identity PASSED [  3%]
+2026-09-24T06:04:45.1133914Z tests/historical/FQ_QAT/test_ste_gradients.py::TestSTEGradients::test_ste_does_not_create_nan_gradients PASSED [  3%]
+2026-09-24T06:04:45.1145052Z tests/historical/FQ_QAT/test_ste_gradients.py::TestSTEGradients::test_qdq_error_is_below_bin_width PASSED [  3%]
+2026-09-24T06:04:45.1160165Z tests/historical/NPO/test_npo_loss.py::TestNPOLoss::test_npo_loss_identical_models_is_zero PASSED [  4%]
+2026-09-24T06:04:45.1173326Z tests/historical/NPO/test_npo_loss.py::TestNPOLoss::test_npo_loss_is_non_negative PASSED [  4%]
+2026-09-24T06:04:45.1183980Z tests/historical/NPO/test_npo_loss.py::TestNPOLoss::test_retain_kl_zero_when_equal PASSED [  4%]
+2026-09-24T06:04:45.1200359Z tests/historical/NPO/test_npo_numerical.py::TestNPONumerical::test_equal_logprobs_produces_log2 PASSED [  5%]
+2026-09-24T06:04:45.1216239Z tests/historical/NPO/test_npo_numerical.py::TestNPONumerical::test_model_prob_near_zero PASSED [  5%]
+2026-09-24T06:04:45.1235706Z tests/historical/NPO/test_npo_numerical.py::TestNPONumerical::test_large_positive_ratio_unbounded PASSED [  5%]
+2026-09-24T06:04:45.1283200Z tests/historical/NPO/test_npo_numerical.py::TestNPONumerical::test_no_nan_in_gradients PASSED [  6%]
+2026-09-24T06:04:45.1294839Z tests/historical/SSIUU/test_attribution.py::TestAttribution::test_ssiuu_loss_zero_at_init PASSED [  6%]
+2026-09-24T06:04:45.1304312Z tests/historical/SSIUU/test_attribution.py::TestAttribution::test_ssiuu_penalty_for_more_negative PASSED [  6%]
+2026-09-24T06:04:45.1315435Z tests/historical/SSIUU/test_attribution.py::TestAttribution::test_ssiuu_not_initialised_raises PASSED [  7%]
+2026-09-24T06:04:45.1790956Z tests/historical/SSIUU/test_ssiuu_gradient_flow.py::TestSSIUUGradientFlow::test_attribution_loss_produces_gradients XFAILow. This is a KNOWN
+2026-09-24T06:04:45.1796983Z BLOCKER (CR-006). Remove xfail when fixed.)                              [  7%]
+2026-09-24T06:04:45.1823703Z tests/historical/SSIUU/test_ssiuu_gradient_flow.py::TestSSIUUGradientFlow::test_detach_present_in_source PASSED [  7%]
+2026-09-24T06:04:45.1843178Z tests/methods/NPO/test_adapter.py::test_hand_constructed_answer_eos_and_metadata PASSED [  8%]
+2026-09-24T06:04:45.1866753Z tests/methods/NPO/test_adapter.py::test_padding_is_ignored_but_real_eos_stays_scored[right] PASSED [  8%]
+2026-09-24T06:04:45.1885564Z tests/methods/NPO/test_adapter.py::test_padding_is_ignored_but_real_eos_stays_scored[left] PASSED [  8%]
+2026-09-24T06:04:45.1903604Z tests/methods/NPO/test_adapter.py::test_truncation_is_explicit_and_never_replaces_cut_answer_with_eos PASSED [  9%]
+2026-09-24T06:04:45.1923029Z tests/methods/NPO/test_adapter.py::test_invalid_answer_rejected[] PASSED [  9%]
+2026-09-24T06:04:45.1924361Z tests/methods/NPO/test_adapter.py::test_invalid_answer_rejected[   ] PASSED [  9%]
+2026-09-24T06:04:45.1943195Z tests/methods/NPO/test_adapter.py::test_invalid_answer_rejected[None] PASSED [ 10%]
+2026-09-24T06:04:45.1954257Z tests/methods/NPO/test_adapter.py::test_invalid_answer_rejected[answer3] PASSED [ 10%]
+2026-09-24T06:04:45.1963060Z tests/methods/NPO/test_adapter.py::test_invalid_answer_rejected[17] PASSED [ 10%]
+2026-09-24T06:04:45.1969155Z tests/methods/NPO/test_adapter.py::test_no_content_no_causal_target_and_prefix_mismatch_rejected PASSED [ 11%]
+2026-09-24T06:04:45.1987993Z tests/methods/NPO/test_adapter.py::test_order_hashes_and_mutation_fail_closed PASSED [ 11%]
+2026-09-24T06:04:45.2005166Z tests/methods/NPO/test_conformance.py::test_hand_calculated_sequence_probability_product PASSED [ 11%]
+2026-09-24T06:04:45.2031751Z tests/methods/NPO/test_conformance.py::test_independent_value_gradient_and_reference_detachment PASSED [ 12%]
+2026-09-24T06:04:45.2054432Z tests/methods/NPO/test_conformance.py::test_shift_mask_eos_and_right_padding PASSED [ 12%]
+2026-09-24T06:04:45.2077040Z tests/methods/NPO/test_conformance.py::test_update_decreases_forget_probability_and_beta_limit PASSED [ 12%]
+2026-09-24T06:04:45.2106596Z tests/methods/NPO/test_conformance.py::test_retain_terms_weighting_and_gradient_sum[weights0] PASSED [ 13%]
+2026-09-24T06:04:45.2134374Z tests/methods/NPO/test_conformance.py::test_retain_terms_weighting_and_gradient_sum[weights1] PASSED [ 13%]
+2026-09-24T06:04:45.2162478Z tests/methods/NPO/test_conformance.py::test_retain_terms_weighting_and_gradient_sum[weights2] PASSED [ 13%]
+2026-09-24T06:04:45.2172481Z tests/methods/NPO/test_conformance.py::test_invalid_beta_rejected[0] PASSED [ 14%]
+2026-09-24T06:04:45.2181497Z tests/methods/NPO/test_conformance.py::test_invalid_beta_rejected[-0.1] PASSED [ 14%]
+2026-09-24T06:04:45.2190590Z tests/methods/NPO/test_conformance.py::test_invalid_beta_rejected[nan] PASSED [ 14%]
+2026-09-24T06:04:45.2199601Z tests/methods/NPO/test_conformance.py::test_invalid_beta_rejected[inf] PASSED [ 15%]
+2026-09-24T06:04:45.2208840Z tests/methods/NPO/test_conformance.py::test_invalid_batches_fail_closed[shape] PASSED [ 15%]
+2026-09-24T06:04:45.2217824Z tests/methods/NPO/test_conformance.py::test_invalid_batches_fail_closed[empty] PASSED [ 15%]
+2026-09-24T06:04:45.2243940Z tests/methods/NPO/test_conformance.py::test_invalid_batches_fail_closed[label_dtype] PASSED [ 16%]
+2026-09-24T06:04:45.2245209Z tests/methods/NPO/test_conformance.py::test_invalid_batches_fail_closed[negative_id] PASSED [ 16%]
+2026-09-24T06:04:45.2263261Z tests/methods/NPO/test_conformance.py::test_invalid_batches_fail_closed[large_id] PASSED [ 16%]
+2026-09-24T06:04:45.2264400Z tests/methods/NPO/test_conformance.py::test_invalid_batches_fail_closed[no_targets] PASSED [ 17%]
+2026-09-24T06:04:45.2303378Z tests/methods/NPO/test_conformance.py::test_fp16_reductions_match_double_and_remain_finite[cpu] PASSED [ 17%]
+2026-09-24T06:04:45.2304611Z tests/methods/NPO/test_conformance.py::test_invalid_retain_coefficients_rejected[-1] PASSED [ 17%]
+2026-09-24T06:04:45.2313435Z tests/methods/NPO/test_conformance.py::test_invalid_retain_coefficients_rejected[nan] PASSED [ 18%]
+2026-09-24T06:04:45.2318277Z tests/methods/NPO/test_conformance.py::test_invalid_retain_coefficients_rejected[inf] PASSED [ 18%]
+2026-09-24T06:04:45.2363130Z tests/methods/NPO/test_conformance.py::test_author_replay_rejects_unverified_code PASSED [ 18%]
+2026-09-24T06:04:45.2374442Z tests/methods/NPO/test_reference.py::test_unsafe_reference_config_fails_before_model_or_file_access[change0] PASSED [ 19%]
+2026-09-24T06:04:45.2384836Z tests/methods/NPO/test_reference.py::test_unsafe_reference_config_fails_before_model_or_file_access[change1] PASSED [ 19%]
+2026-09-24T06:04:45.2394681Z tests/methods/NPO/test_reference.py::test_unsafe_reference_config_fails_before_model_or_file_access[change2] PASSED [ 19%]
+2026-09-24T06:04:45.2404608Z tests/methods/NPO/test_reference.py::test_unsafe_reference_config_fails_before_model_or_file_access[change3] PASSED [ 20%]
+2026-09-24T06:04:45.2413301Z tests/methods/NPO/test_reference.py::test_mismatched_candidate_reference_identities_fail[revision] PASSED [ 20%]
+2026-09-24T06:04:45.2422133Z tests/methods/NPO/test_reference.py::test_mismatched_candidate_reference_identities_fail[tokenizer_revision] PASSED [ 20%]
+2026-09-24T06:04:45.2430934Z tests/methods/NPO/test_reference.py::test_mismatched_candidate_reference_identities_fail[checkpoint_sha256] PASSED [ 21%]
+2026-09-24T06:04:45.2439494Z tests/methods/NPO/test_reference.py::test_mismatched_candidate_reference_identities_fail[model_id] PASSED [ 21%]
+2026-09-24T06:04:45.2454365Z tests/methods/NPO/test_reference.py::test_reference_model_invariants PASSED [ 21%]
+2026-09-24T06:04:45.2478420Z tests/methods/NPO/test_reference.py::test_identical_tensors_and_no_gradient_graph_without_optimizer PASSED [ 22%]
+2026-09-24T06:04:45.2500530Z tests/methods/NPO/test_reference.py::test_verified_loading_freezes_model_and_rejects_changed_bytes PASSED [ 22%]
+2026-09-24T06:04:45.2517315Z tests/methods/NPO/test_reference.py::test_adapter_identity_mismatch_is_rejected_before_forward PASSED [ 22%]
+2026-09-24T06:04:45.2606319Z tests/methods/NPO/test_validation_contract.py::test_forward_only_recipe_can_pass_without_opening_pilot_gate PASSED [ 23%]
+2026-09-24T06:04:45.2615792Z tests/methods/NPO/test_validation_contract.py::test_changed_validation_scope_fails_closed[change0] PASSED [ 23%]
+2026-09-24T06:04:45.2625499Z tests/methods/NPO/test_validation_contract.py::test_changed_validation_scope_fails_closed[change1] PASSED [ 23%]
+2026-09-24T06:04:45.2634938Z tests/methods/NPO/test_validation_contract.py::test_changed_validation_scope_fails_closed[change2] PASSED [ 24%]
+2026-09-24T06:04:45.2644189Z tests/methods/NPO/test_validation_contract.py::test_changed_validation_scope_fails_closed[change3] PASSED [ 24%]
+2026-09-24T06:04:45.2653507Z tests/methods/NPO/test_validation_contract.py::test_changed_validation_scope_fails_closed[change4] PASSED [ 24%]
+2026-09-24T06:04:45.2662690Z tests/methods/NPO/test_validation_contract.py::test_changed_validation_scope_fails_closed[change5] PASSED [ 25%]
+2026-09-24T06:04:45.2671888Z tests/methods/NPO/test_validation_contract.py::test_changed_validation_scope_fails_closed[change6] PASSED [ 25%]
+2026-09-24T06:04:45.2681187Z tests/methods/NPO/test_validation_contract.py::test_changed_validation_scope_fails_closed[change7] PASSED [ 25%]
+2026-09-24T06:04:45.2691234Z tests/methods/NPO/test_validation_contract.py::test_changed_validation_scope_fails_closed[change8] PASSED [ 26%]
+2026-09-24T06:04:45.2764569Z tests/methods/QRA/test_content_contract.py::test_clustered_comparison_requires_bound_author_evidence PASSED [ 26%]
+2026-09-24T06:04:45.2778355Z tests/methods/QRA/test_content_contract.py::test_tensor_identity_hashes_raw_bytes_and_fp16_model_state PASSED [ 26%]
+2026-09-24T06:04:45.2789780Z tests/methods/QRA/test_content_contract.py::test_quantized_label_cannot_hide_plain_fp16_model[int8] PASSED [ 27%]
+2026-09-24T06:04:45.2800507Z tests/methods/QRA/test_content_contract.py::test_quantized_label_cannot_hide_plain_fp16_model[nf4] PASSED [ 27%]
+2026-09-24T06:04:45.2815809Z tests/methods/QRA/test_content_contract.py::test_partial_or_wrong_quantized_inventory_fails PASSED [ 27%]
+2026-09-24T06:04:45.2832487Z tests/methods/QRA/test_content_contract.py::test_evaluation_hash_is_recomputed[value--2.4] PASSED [ 28%]
+2026-09-24T06:04:45.2849357Z tests/methods/QRA/test_content_contract.py::test_evaluation_hash_is_recomputed[evaluation_sha256-ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff] PASSED [ 28%]
+2026-09-24T06:04:45.2864764Z tests/methods/QRA/test_content_contract.py::test_evaluation_hash_is_recomputed[decoding_sha256-ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff] PASSED [ 28%]
+2026-09-24T06:04:45.2881540Z tests/methods/QRA/test_content_contract.py::test_evaluation_hash_is_recomputed[evaluator_sha256-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee] PASSED [ 29%]
+2026-09-24T06:04:45.2897526Z tests/methods/QRA/test_content_contract.py::test_evaluation_hash_is_recomputed[run_id-other] PASSED [ 29%]
+2026-09-24T06:04:45.2914969Z tests/methods/QRA/test_content_contract.py::test_rehash_does_not_make_wrong_arithmetic_mean_valid PASSED [ 29%]
+2026-09-24T06:04:45.2959649Z tests/methods/QRA/test_content_contract.py::test_oracle_raw_and_semantic_binding PASSED [ 30%]
+2026-09-24T06:04:45.3237175Z tests/methods/QRA/test_content_contract.py::test_derived_utility_harmonic_mean_and_component_manifest PASSED [ 30%]
+2026-09-24T06:04:45.3731714Z tests/methods/QRA/test_content_contract.py::test_clustered_estimand_equal_authors_not_row_weighted PASSED [ 30%]
+2026-09-24T06:04:45.4390641Z tests/methods/QRA/test_content_contract.py::test_crossed_seed_author_uncertainty_is_deterministic_and_complete PASSED [ 31%]
+2026-09-24T06:04:45.4491561Z tests/methods/QRA/test_content_contract.py::test_crossed_resampling_preserves_shared_author_dimension PASSED [ 31%]
+2026-09-24T06:04:45.4493177Z tests/methods/QRA/test_metrics.py::test_teacher_forcing_is_answer_mean_and_causally_shifted PASSED [ 31%]
+2026-09-24T06:04:45.5879167Z tests/methods/QRA/test_metrics.py::test_rouge_is_recall_with_stemming_and_exact_match_is_precisely_normalized PASSED [ 32%]
+2026-09-24T06:04:45.5893096Z tests/methods/QRA/test_metrics.py::test_paper_arithmetic_and_upstream_geometric_are_distinct PASSED [ 32%]
+2026-09-24T06:04:45.5902594Z tests/methods/QRA/test_metrics.py::test_invalid_truth_ratio_inputs_fail[bad0] PASSED [ 32%]
+2026-09-24T06:04:45.5911779Z tests/methods/QRA/test_metrics.py::test_invalid_truth_ratio_inputs_fail[bad1] PASSED [ 33%]
+2026-09-24T06:04:45.5921017Z tests/methods/QRA/test_metrics.py::test_invalid_truth_ratio_inputs_fail[bad2] PASSED [ 33%]
+2026-09-24T06:04:45.5930153Z tests/methods/QRA/test_metrics.py::test_invalid_truth_ratio_inputs_fail[bad3] PASSED [ 34%]
+2026-09-24T06:04:45.6008755Z tests/methods/QRA/test_metrics.py::test_ks_reports_statistic_and_pvalue_without_equivalence_or_effect PASSED [ 34%]
+2026-09-24T06:04:45.6022635Z tests/methods/QRA/test_metrics.py::test_utility_components_and_nine_component_harmonic_mean PASSED [ 34%]
+2026-09-24T06:04:45.6115676Z tests/methods/QRA/test_metrics.py::test_paired_bootstrap_preserves_pairing_and_is_repeatable PASSED [ 35%]
+2026-09-24T06:04:45.6198914Z tests/methods/QRA/test_metrics.py::test_greedy_generation_records_complete_resolved_decoding_config PASSED [ 35%]
+2026-09-24T06:04:45.6262982Z tests/methods/QRA/test_outcomes.py::test_pvalues_never_generate_recovery_scores_or_verdicts[0.393718-0.47833] PASSED [ 35%]
+2026-09-24T06:04:45.6322442Z tests/methods/QRA/test_outcomes.py::test_pvalues_never_generate_recovery_scores_or_verdicts[0.4-0.1] PASSED [ 36%]
+2026-09-24T06:04:45.6393960Z tests/methods/QRA/test_outcomes.py::test_pvalues_never_generate_recovery_scores_or_verdicts[1e-20-1e-10] PASSED [ 36%]
+2026-09-24T06:04:45.6452026Z tests/methods/QRA/test_outcomes.py::test_pvalues_never_generate_recovery_scores_or_verdicts[0.0-1.0] PASSED [ 36%]
+2026-09-24T06:04:45.6493479Z tests/methods/QRA/test_outcomes.py::test_memorisation_change_is_paired_and_directional PASSED [ 37%]
+2026-09-24T06:04:45.6533217Z tests/methods/QRA/test_outcomes.py::test_utility_direction_and_wording_are_separate PASSED [ 37%]
+2026-09-24T06:04:45.6556917Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[comparison_group_id-other] PASSED [ 37%]
+2026-09-24T06:04:45.6580031Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[run_id-another-run] PASSED [ 38%]
+2026-09-24T06:04:45.6603367Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[report_id-another-report] PASSED [ 38%]
+2026-09-24T06:04:45.6627434Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[checkpoint_sha256-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee] PASSED [ 38%]
+2026-09-24T06:04:45.6651079Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[artifact_sha256-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee] PASSED [ 39%]
+2026-09-24T06:04:45.6674117Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[quantizer_name-label-only] PASSED [ 39%]
+2026-09-24T06:04:45.6697252Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[quantizer_version-another-version] PASSED [ 39%]
+2026-09-24T06:04:45.6721284Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[quantizer_config_sha256-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee] PASSED [ 40%]
+2026-09-24T06:04:45.6744729Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[model_revision-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee] PASSED [ 40%]
+2026-09-24T06:04:45.6767867Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[tokenizer_revision-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee] PASSED [ 40%]
+2026-09-24T06:04:45.6791314Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[dataset_revision-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee] PASSED [ 41%]
+2026-09-24T06:04:45.6815197Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[sample_ids_sha256-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee] PASSED [ 41%]
+2026-09-24T06:04:45.6838622Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[preprocessing_sha256-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee] PASSED [ 41%]
+2026-09-24T06:04:45.6862582Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[evaluator_sha256-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee] PASSED [ 42%]
+2026-09-24T06:04:45.6884869Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[definition_sha256-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee] PASSED [ 42%]
+2026-09-24T06:04:45.6913476Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[definition_id-arbitrary] PASSED [ 42%]
+2026-09-24T06:04:45.6936679Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[precision-int4] PASSED [ 43%]
+2026-09-24T06:04:45.6959812Z tests/methods/QRA/test_outcomes.py::test_mismatched_provenance_fails_closed[raw_records_sha256-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee] PASSED [ 43%]
+2026-09-24T06:04:45.7007236Z tests/methods/QRA/test_outcomes.py::test_precision_artifacts_differ_only_as_bound_in_manifest PASSED [ 43%]
+2026-09-24T06:04:45.7025548Z tests/methods/QRA/test_outcomes.py::test_raw_record_order_cannot_be_silently_changed PASSED [ 44%]
+2026-09-24T06:04:45.7063085Z tests/methods/QRA/test_outcomes.py::test_same_ids_cannot_hide_different_source_rows_or_tensors PASSED [ 44%]
+2026-09-24T06:04:45.7080581Z tests/methods/QRA/test_outcomes.py::test_invalid_pvalues_rejected[nan] PASSED [ 44%]
+2026-09-24T06:04:45.7097723Z tests/methods/QRA/test_outcomes.py::test_invalid_pvalues_rejected[inf] PASSED [ 45%]
+2026-09-24T06:04:45.7116652Z tests/methods/QRA/test_outcomes.py::test_invalid_pvalues_rejected[True] PASSED [ 45%]
+2026-09-24T06:04:45.7135197Z tests/methods/QRA/test_outcomes.py::test_invalid_pvalues_rejected[1.1] PASSED [ 45%]
+2026-09-24T06:04:45.7153838Z tests/methods/QRA/test_outcomes.py::test_invalid_pvalues_rejected[-0.1] PASSED [ 46%]
+2026-09-24T06:04:45.7180165Z tests/methods/QRA/test_outcomes.py::test_missing_measurement_stays_null PASSED [ 46%]
+2026-09-24T06:04:45.7189602Z tests/methods/QRA/test_outcomes.py::test_decision_invariants_and_disabled_full_evaluator PASSED [ 46%]
+2026-09-24T06:04:45.7230785Z tests/methods/QRA/test_precision_validation.py::test_c1_exact_recipe_runs_only_forward_validation PASSED [ 47%]
+2026-09-24T06:04:45.7239983Z tests/methods/QRA/test_precision_validation.py::test_full_pinned_llama_inventory_is_exact PASSED [ 47%]
+2026-09-24T06:04:45.7256156Z tests/methods/QRA/test_precision_validation.py::test_actual_quantized_state_capture_without_cuda_dependency[int8] PASSED [ 47%]
+2026-09-24T06:04:45.7271567Z tests/methods/QRA/test_precision_validation.py::test_actual_quantized_state_capture_without_cuda_dependency[nf4] PASSED [ 48%]
+2026-09-24T06:04:45.8666664Z tests/methods/QRA/test_precision_validation.py::test_real_report_assembly_from_measurements_is_valid_and_null_decision PASSED [ 48%]
+2026-09-24T06:04:45.8680557Z tests/methods/QRA/test_precision_validation.py::test_author_mapping_uses_explicit_content_and_rejects_ambiguity PASSED [ 48%]
+2026-09-24T06:04:45.9192954Z tests/methods/QRA/test_report.py::test_complete_descriptive_report_has_no_durability_verdict PASSED [ 49%]
+2026-09-24T06:04:45.9312147Z tests/methods/QRA/test_report.py::test_missing_precision_or_utility_never_counts_as_complete PASSED [ 49%]
+2026-09-24T06:04:45.9365436Z tests/methods/QRA/test_report.py::test_different_report_run_or_cross_metric_checkpoint_rejected PASSED [ 49%]
+2026-09-24T06:04:45.9380674Z tests/methods/QRA/test_report.py::test_historical_payload_is_preserved_with_explicit_supersession[v1] PASSED [ 50%]
+2026-09-24T06:04:45.9395317Z tests/methods/QRA/test_report.py::test_historical_payload_is_preserved_with_explicit_supersession[v2] PASSED [ 50%]
+2026-09-24T06:04:45.9409254Z tests/methods/QRA/test_report.py::test_historical_payload_is_preserved_with_explicit_supersession[v3] PASSED [ 50%]
+2026-09-24T06:04:45.9426425Z tests/methods/QRA/test_report.py::test_historical_payload_is_preserved_with_explicit_supersession[v4] PASSED [ 51%]
+2026-09-24T06:04:45.9714233Z tests/methods/QRA/test_report.py::test_unapproved_decision_or_forged_measurement_cannot_be_saved PASSED [ 51%]
+2026-09-24T06:04:45.9765080Z tests/test_configuration.py::test_standard_paths_reject_historical_configs[base.yaml] PASSED [ 51%]
+2026-09-24T06:04:45.9793532Z tests/test_configuration.py::test_standard_paths_reject_historical_configs[conditions/c2_npo.yaml] PASSED [ 52%]
+2026-09-24T06:04:45.9823287Z tests/test_configuration.py::test_standard_paths_reject_historical_configs[conditions/c4_ssiuu.yaml] PASSED [ 52%]
+2026-09-24T06:04:45.9850105Z tests/test_configuration.py::test_standard_paths_reject_historical_configs[conditions/c5_fqat.yaml] PASSED [ 52%]
+2026-09-24T06:04:45.9880588Z tests/test_configuration.py::test_standard_paths_reject_historical_configs[conditions/c6_fq_ssiuu.yaml] PASSED [ 53%]
+2026-09-24T06:04:45.9908475Z tests/test_configuration.py::test_standard_paths_reject_historical_configs[conditions/c8_quail.yaml] PASSED [ 53%]
+2026-09-24T06:04:45.9923145Z tests/test_configuration.py::test_only_explicit_accepted_schema_can_load PASSED [ 53%]
+2026-09-24T06:04:45.9965389Z tests/test_dotenv_sources.py::test_kaggle_dotenv_is_parsed_in_memory_without_interpolation PASSED [ 54%]
+2026-09-24T06:04:45.9973680Z tests/test_dotenv_sources.py::test_individual_kaggle_secret_takes_precedence PASSED [ 54%]
+2026-09-24T06:04:45.9990360Z tests/test_dotenv_sources.py::test_local_dotenv_reads_one_key_without_exporting_other_values PASSED [ 54%]
+2026-09-24T06:04:46.0014176Z tests/test_drive_upload.py::TestDriveUpload::test_import PASSED          [ 55%]
+2026-09-24T06:04:46.0023055Z tests/test_drive_upload.py::TestDriveUpload::test_upload_nonexistent_dir_raises PASSED [ 55%]
+2026-09-24T06:04:46.0053345Z tests/test_drive_upload.py::TestDriveUpload::test_no_credentials_raises PASSED [ 55%]
+2026-09-24T06:04:46.0075165Z tests/test_drive_upload.py::TestDriveUpload::test_upload_summary_accounts_for_success_and_failure[False] PASSED [ 56%]
+2026-09-24T06:04:46.0098359Z tests/test_drive_upload.py::TestDriveUpload::test_upload_summary_accounts_for_success_and_failure[True] PASSED [ 56%]
+2026-09-24T06:04:46.0106790Z tests/test_environment.py::TestPreflight::test_python_version_passes PASSED [ 56%]
+2026-09-24T06:04:46.0119483Z tests/test_environment.py::TestPreflight::test_cuda_uses_documented_total_memory_property PASSED [ 57%]
+2026-09-24T06:04:46.0127941Z tests/test_environment.py::TestPreflight::test_disk_space_check PASSED   [ 57%]
+2026-09-24T06:04:46.0188414Z tests/test_environment.py::TestPreflight::test_preflight_returns_tuple PASSED [ 57%]
+2026-09-24T06:04:46.1080211Z tests/test_environment.py::TestManifest::test_manifest_has_required_fields PASSED [ 58%]
+2026-09-24T06:04:46.1987819Z tests/test_environment.py::TestManifest::test_manifest_never_contains_secrets PASSED [ 58%]
+2026-09-24T06:04:46.2879165Z tests/test_environment.py::TestManifest::test_save_manifest PASSED       [ 58%]
+2026-09-24T06:04:46.2891543Z tests/test_fade_compute.py::TestFADECompute::test_fade_identical_distributions_yields_one SKIPPED [ 59%]
+2026-09-24T06:04:46.2901989Z tests/test_fade_compute.py::TestFADECompute::test_fade_disjoint_distributions_yields_zero SKIPPED [ 59%]
+2026-09-24T06:04:46.2917502Z tests/test_fade_compute.py::TestFADECompute::test_fade_is_symmetric SKIPPED [ 59%]
+2026-09-24T06:04:46.2927986Z tests/test_fade_compute.py::TestFADECompute::test_fade_bounded_zero_one SKIPPED [ 60%]
+2026-09-24T06:04:46.2942729Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_01_exit_code_mapping_non_zero_for_non_pass PASSED [ 60%]
+2026-09-24T06:04:46.2955141Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_02_exit_code_mapping_zero_only_for_pass PASSED [ 60%]
+2026-09-24T06:04:46.3025400Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_03_nf4_helper_invokes_quantize_and_dequantize_nf4 PASSED [ 61%]
+2026-09-24T06:04:46.3066087Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_04_sdpa_helper_invokes_scaled_dot_product_attention PASSED [ 61%]
+2026-09-24T06:04:46.3079754Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_05_transformers_mutation_causes_lock_generation_failure PASSED [ 61%]
+2026-09-24T06:04:46.3093097Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_06_datasets_mutation_causes_lock_generation_failure PASSED [ 62%]
+2026-09-24T06:04:46.3105733Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_07_version_comparison_0_9_0_to_0_10_0_is_upgraded PASSED [ 62%]
+2026-09-24T06:04:46.3118389Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_08_version_comparison_1_10_0_to_1_9_0_is_downgraded PASSED [ 62%]
+2026-09-24T06:04:47.7290889Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_09_final_pip_freeze_failure_prevents_lock_generation_and_pass PASSED [ 63%]
+2026-09-24T06:04:49.1669888Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_10_after_manifest_non_pass_prevents_lock_generation PASSED [ 63%]
+2026-09-24T06:04:50.5860502Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_11_verifier_run_id_mismatch_produces_all_required_failure_artifacts PASSED [ 63%]
+2026-09-24T06:04:52.0080650Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_12_verifier_git_sha_mismatch_produces_all_required_failure_artifacts PASSED [ 64%]
+2026-09-24T06:04:53.4624029Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_13_verifier_status_partial_produces_all_required_failure_artifacts PASSED [ 64%]
+2026-09-24T06:04:54.8828696Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_14_verifier_execution_json_contains_returncode_statuses_hashes_and_verdicts PASSED [ 64%]
+2026-09-24T06:04:57.2646938Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_15_invalid_baseline_stops_execution_before_pip PASSED [ 65%]
+2026-09-24T06:04:57.3589213Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_16_git_provenance_failure_stops_execution PASSED [ 65%]
+2026-09-24T06:04:58.8213958Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_17_pip_freeze_failure_stops_execution PASSED [ 65%]
+2026-09-24T06:05:00.2838164Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_18_missing_pip_install_report_rejected PASSED [ 66%]
+2026-09-24T06:05:00.2853404Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_19_lock_helper_includes_newly_installed_transitive_packages PASSED [ 66%]
+2026-09-24T06:05:00.2866134Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_20_lock_helper_excludes_all_protected_packages PASSED [ 67%]
+2026-09-24T06:05:00.2923950Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_report_cli_reads_valid_and_malformed_reports PASSED [ 67%]
+2026-09-24T06:05:00.3062662Z tests/test_kaggle_dependency_policy.py::TestKaggleDependencyPolicyBehavioral::test_verifier_entrypoint_writes_report_with_real_control_flow PASSED [ 67%]
+2026-09-24T06:05:00.4547903Z tests/test_kaggle_source_transport.py::TestSourceTransport::test_cli_uses_resolved_full_sha PASSED [ 68%]
+2026-09-24T06:05:00.5623408Z tests/test_kaggle_source_transport.py::TestSourceTransport::test_existing_output_is_not_overwritten PASSED [ 68%]
+2026-09-24T06:05:00.6960439Z tests/test_kaggle_source_transport.py::TestSourceTransport::test_full_history_bundle_is_rejected_even_with_matching_hash PASSED [ 68%]
+2026-09-24T06:05:00.7965142Z tests/test_kaggle_source_transport.py::TestSourceTransport::test_manifest_digest_and_origin_mismatch_rejected PASSED [ 69%]
+2026-09-24T06:05:00.9644207Z tests/test_kaggle_source_transport.py::TestSourceTransport::test_parentless_tree_identical_bundle_excludes_history_and_untracked_files PASSED [ 69%]
+2026-09-24T06:05:01.0637350Z tests/test_kaggle_source_transport.py::TestSourceTransport::test_tampered_bundle_is_rejected_before_clone PASSED [ 69%]
+2026-09-24T06:05:01.1104241Z tests/test_kaggle_source_transport.py::TestSourceTransport::test_tracked_forbidden_file_rejected_without_filtering_tree PASSED [ 70%]
+2026-09-24T06:05:01.1580748Z tests/test_kaggle_source_transport.py::TestSourceTransport::test_tracked_secret_is_rejected_without_revealing_value PASSED [ 70%]
+2026-09-24T06:05:01.2914528Z tests/test_kaggle_source_transport.py::TestSourceTransport::test_tree_and_head_mismatches_rejected PASSED [ 70%]
+2026-09-24T06:05:01.3937417Z tests/test_kaggle_source_transport.py::TestNotebookBootstrap::test_corrupt_bundle_never_reaches_setup PASSED [ 71%]
+2026-09-24T06:05:01.4036553Z tests/test_kaggle_source_transport.py::TestNotebookBootstrap::test_existing_evidence_is_never_overwritten_on_notebook_rerun PASSED [ 71%]
+2026-09-24T06:05:01.4150783Z tests/test_kaggle_source_transport.py::TestNotebookBootstrap::test_missing_source_writes_failure_summary_before_raising PASSED [ 71%]
+2026-09-24T06:05:01.6004269Z tests/test_kaggle_source_transport.py::TestNotebookBootstrap::test_real_setup_failure_preserves_logs_and_return_code PASSED [ 72%]
+2026-09-24T06:05:01.9781856Z tests/test_kaggle_source_transport.py::TestNotebookBootstrap::test_verified_dirty_baseline_success_through_real_bundle_bootstrap PASSED [ 72%]
+2026-09-24T06:05:02.1644379Z tests/test_kaggle_source_transport.py::TestNotebookBootstrap::test_zero_exit_without_evidence_is_failure PASSED [ 72%]
+2026-09-24T06:05:02.1663463Z tests/test_model_loading_policy.py::test_default_loader_forwards_fp16_and_only_selected_device PASSED [ 73%]
+2026-09-24T06:05:02.1683379Z tests/test_model_loading_policy.py::test_legacy_reference_loader_rejects_missing_identity_before_loading PASSED [ 73%]
+2026-09-24T06:05:02.1702148Z tests/test_model_loading_policy.py::test_model_token_uses_the_lazy_project_provider PASSED [ 73%]
+2026-09-24T06:05:02.1713542Z tests/test_model_loading_policy.py::test_missing_model_token_has_one_actionable_exception_contract PASSED [ 74%]
+2026-09-24T06:05:02.1890414Z tests/test_mother_runner.py::test_real_failed_command_retains_stdout_stderr_and_exit_code PASSED [ 74%]
+2026-09-24T06:05:02.1906927Z tests/test_mother_runner.py::test_termination_records_cannot_be_overwritten PASSED [ 74%]
+2026-09-24T06:05:02.1926486Z tests/test_mother_runner.py::test_recipe_rejects_unknown_kind_and_missing_seed PASSED [ 75%]
+2026-09-24T06:05:02.1953355Z tests/test_mother_runner.py::test_recipe_path_cannot_escape_source PASSED [ 75%]
+2026-09-24T06:05:02.1954384Z tests/test_mother_runner.py::test_staging_never_overwrites_existing_provenance PASSED [ 75%]
+2026-09-24T06:05:02.2037548Z tests/test_mother_runner.py::test_qra_gate_blocks_pilot_before_adapter_or_model_access PASSED [ 76%]
+2026-09-24T06:05:02.2250085Z tests/test_og001_artifacts.py::TestOG001Evidence::test_forged_consistency_pass_is_rejected PASSED [ 76%]
+2026-09-24T06:05:02.2456369Z tests/test_og001_artifacts.py::TestOG001Evidence::test_invalid_peak_memory_observation_rejected PASSED [ 76%]
+2026-09-24T06:05:02.2661358Z tests/test_og001_artifacts.py::TestOG001Evidence::test_lock_cannot_omit_observed_install PASSED [ 77%]
+2026-09-24T06:05:02.2833344Z tests/test_og001_artifacts.py::TestOG001Evidence::test_missing_hash_coverage_rejected_even_when_all_files_exist PASSED [ 77%]
+2026-09-24T06:05:02.3005537Z tests/test_og001_artifacts.py::TestOG001Evidence::test_raw_hash_tampering_rejected PASSED [ 77%]
+2026-09-24T06:05:02.3221015Z tests/test_og001_artifacts.py::TestOG001Evidence::test_runtime_failure_rejected_despite_overall_pass PASSED [ 78%]
+2026-09-24T06:05:02.3419573Z tests/test_og001_artifacts.py::TestOG001Evidence::test_success_requires_explicit_dirty_state_and_verified_evidence PASSED [ 78%]
+2026-09-24T06:05:02.3442106Z tests/test_pilot_cli.py::test_p1_rejects_historical_fp16_substitution PASSED [ 78%]
+2026-09-24T06:05:02.3454978Z tests/test_pilot_cli.py::test_p1_default_requires_current_run_fp16 PASSED [ 79%]
+2026-09-24T06:05:02.3475457Z tests/test_pip_consistency.py::TestPipConsistency::test_clean_and_resolved_diagnostics PASSED [ 79%]
+2026-09-24T06:05:02.3497962Z tests/test_pip_consistency.py::TestPipConsistency::test_freeze_editable_comments_and_direct_references_are_not_pins PASSED [ 79%]
+2026-09-24T06:05:02.3529138Z tests/test_pip_consistency.py::TestPipConsistency::test_malformed_or_forged_baseline_records_fail_closed PASSED [ 80%]
+2026-09-24T06:05:02.3547991Z tests/test_pip_consistency.py::TestPipConsistency::test_new_diagnostic_or_version_change_fails PASSED [ 80%]
+2026-09-24T06:05:02.3563907Z tests/test_pip_consistency.py::TestPipConsistency::test_overlay_roots_transitives_and_dependency_intersections_fail PASSED [ 80%]
+2026-09-24T06:05:02.3596257Z tests/test_pip_consistency.py::TestPipConsistency::test_raw_bytes_are_preserved_and_tampering_rejected PASSED [ 81%]
+2026-09-24T06:05:02.3613399Z tests/test_pip_consistency.py::TestPipConsistency::test_recorded_interpreter_is_portable_but_cannot_change_during_run PASSED [ 81%]
+2026-09-24T06:05:02.3627837Z tests/test_pip_consistency.py::TestPipConsistency::test_unchanged_diagnostics_accept_explicit_dirty_state PASSED [ 81%]
+2026-09-24T06:05:02.3637985Z tests/test_pip_consistency.py::TestPipConsistency::test_unknown_output_and_inconsistent_returncodes_fail_closed PASSED [ 82%]
+2026-09-24T06:05:02.3655146Z tests/test_pip_consistency.py::TestDifferentialSetup::test_direct_reference_distribution_version_and_removal_are_observed PASSED [ 82%]
+2026-09-24T06:05:02.3850502Z tests/test_pip_consistency.py::TestDifferentialSetup::test_dirty_baseline_reaches_verifier_and_generates_lock_after_pass PASSED [ 82%]
+2026-09-24T06:05:02.3862885Z tests/test_pip_consistency.py::TestDifferentialSetup::test_lock_rejects_removed_package PASSED [ 83%]
+2026-09-24T06:05:02.3946909Z tests/test_pip_consistency.py::TestDifferentialSetup::test_malformed_native_baseline_stops_before_install PASSED [ 83%]
+2026-09-24T06:05:02.3963425Z tests/test_pip_consistency.py::TestDifferentialSetup::test_native_duplicate_metadata_preserves_precedence_and_every_version PASSED [ 83%]
+2026-09-24T06:05:02.3976340Z tests/test_pip_consistency.py::TestDifferentialSetup::test_native_platform_drift_fails PASSED [ 84%]
+2026-09-24T06:05:02.4170512Z tests/test_pip_consistency.py::TestDifferentialSetup::test_new_diagnostic_still_runs_verifier_but_never_generates_lock PASSED [ 84%]
+2026-09-24T06:05:02.4445597Z tests/test_pip_consistency.py::TestDifferentialSetup::test_protected_drift_cannot_get_lock_even_with_verifier_pass PASSED [ 84%]
+2026-09-24T06:05:02.4670388Z tests/test_pip_consistency.py::TestDifferentialSetup::test_unreported_change_cannot_get_lock PASSED [ 85%]
+2026-09-24T06:05:02.4885289Z tests/test_pip_consistency.py::TestDifferentialSetup::test_verifier_failure_preserves_after_manifest_and_no_lock PASSED [ 85%]
+2026-09-24T06:05:02.5055294Z tests/test_pip_consistency.py::TestRuntimeDifferential::test_dirty_native_baseline_passes_independent_runtime_policy PASSED [ 85%]
+2026-09-24T06:05:02.5215461Z tests/test_pip_consistency.py::TestRuntimeDifferential::test_new_diagnostic_fails_despite_successful_smokes PASSED [ 86%]
+2026-09-24T06:05:02.5373870Z tests/test_pip_consistency.py::TestRuntimeDifferential::test_non_nf4_state_fails_even_with_finite_output PASSED [ 86%]
+2026-09-24T06:05:02.5532811Z tests/test_pip_consistency.py::TestRuntimeDifferential::test_peak_budget_boundary_fails PASSED [ 86%]
+2026-09-24T06:05:02.5548231Z tests/test_provenance.py::TestRunId::test_unique_ids PASSED              [ 87%]
+2026-09-24T06:05:02.5556703Z tests/test_provenance.py::TestRunId::test_id_format PASSED               [ 87%]
+2026-09-24T06:05:02.6123264Z tests/test_provenance.py::TestCreateRun::test_creates_running_context PASSED [ 87%]
+2026-09-24T06:05:02.6693585Z tests/test_provenance.py::TestCreateRun::test_config_snapshot PASSED     [ 88%]
+2026-09-24T06:05:02.7266781Z tests/test_provenance.py::TestCompleteRun::test_sets_completed_status PASSED [ 88%]
+2026-09-24T06:05:02.7842722Z tests/test_provenance.py::TestCompleteRun::test_cannot_complete_non_running PASSED [ 88%]
+2026-09-24T06:05:02.8413553Z tests/test_provenance.py::TestFailRun::test_records_failure PASSED       [ 89%]
+2026-09-24T06:05:02.8994870Z tests/test_provenance.py::TestSaveLoad::test_roundtrip PASSED            [ 89%]
+2026-09-24T06:05:02.9576502Z tests/test_provenance.py::TestSaveLoad::test_overwrite_prevention PASSED [ 89%]
+2026-09-24T06:05:03.0159152Z tests/test_provenance.py::TestSaveLoad::test_allow_overwrite PASSED      [ 90%]
+2026-09-24T06:05:03.0741498Z tests/test_provenance.py::TestSaveLoad::test_no_hardcoded_metrics PASSED [ 90%]
+2026-09-24T06:05:03.0756745Z tests/test_provenance.py::TestChecksum::test_deterministic PASSED        [ 90%]
+2026-09-24T06:05:03.0771258Z tests/test_provenance.py::TestChecksum::test_different_content PASSED    [ 91%]
+2026-09-24T06:05:03.1212994Z tests/test_repository_layout.py::test_candidate_validation_entrypoint_runs_directly PASSED [ 91%]
+2026-09-24T06:05:03.1230183Z tests/test_repository_layout.py::test_importing_colab_helper_has_no_setup_side_effects PASSED [ 91%]
+2026-09-24T06:05:03.1669266Z tests/test_repository_layout.py::test_historical_pilot_cli_stops_before_any_model_access PASSED [ 92%]
+2026-09-24T06:05:03.1757744Z tests/test_research_gate_authority.py::TestResearchGateAuthority::test_blocked_science_gates_are_not_promoted_or_imported PASSED [ 92%]
+2026-09-24T06:05:03.1831512Z tests/test_research_gate_authority.py::TestResearchGateAuthority::test_documentation_gate_keeps_its_authoritative_status PASSED [ 92%]
+2026-09-24T06:05:03.1847757Z tests/test_research_gate_authority.py::TestResearchGateAuthority::test_empty_registry_cannot_report_all_clear PASSED [ 93%]
+2026-09-24T06:05:03.1920936Z tests/test_research_gate_authority.py::TestResearchGateAuthority::test_invalid_status_fails_closed PASSED [ 93%]
+2026-09-24T06:05:03.2014403Z tests/test_research_gate_authority.py::TestResearchGateAuthority::test_open_blocking_flags_control_json_and_exit_status PASSED [ 93%]
+2026-09-24T06:05:03.2048339Z tests/test_run_archiving.py::test_archive_preserves_raw_bytes_and_every_hash PASSED [ 94%]
+2026-09-24T06:05:03.2064337Z tests/test_run_archiving.py::test_unsafe_outputs_block_before_archive_creation[file] PASSED [ 94%]
+2026-09-24T06:05:03.2079573Z tests/test_run_archiving.py::test_unsafe_outputs_block_before_archive_creation[symlink] PASSED [ 94%]
+2026-09-24T06:05:03.2355032Z tests/test_run_archiving.py::test_unsafe_outputs_block_before_archive_creation[token] PASSED [ 95%]
+2026-09-24T06:05:03.3329087Z tests/test_run_archiving.py::test_test_package_survives_an_installed_package_with_same_name PASSED [ 95%]
+2026-09-24T06:05:03.3346888Z tests/test_secrets.py::TestGetSecret::test_env_var_takes_precedence PASSED [ 95%]
+2026-09-24T06:05:03.3364072Z tests/test_secrets.py::TestGetSecret::test_required_secret_not_found_raises PASSED [ 96%]
+2026-09-24T06:05:03.3380015Z tests/test_secrets.py::TestGetSecret::test_optional_secret_returns_none PASSED [ 96%]
+2026-09-24T06:05:03.3400035Z tests/test_secrets.py::TestGetSecret::test_unknown_secret_warns PASSED   [ 96%]
+2026-09-24T06:05:03.3415966Z tests/test_secrets.py::TestCheckAllSecrets::test_returns_dict_of_bools PASSED [ 97%]
+2026-09-24T06:05:03.3431504Z tests/test_secrets.py::TestKaggleDetection::test_not_kaggle_by_default PASSED [ 97%]
+2026-09-24T06:05:03.3447511Z tests/test_secrets.py::TestKaggleDetection::test_kaggle_env_var_detection PASSED [ 97%]
+2026-09-24T06:05:03.3455285Z tests/test_thesis_update.py::TestGeneratePacket::test_required_fields PASSED [ 98%]
+2026-09-24T06:05:03.3462809Z tests/test_thesis_update.py::TestGeneratePacket::test_optional_fields_default_empty PASSED [ 98%]
+2026-09-24T06:05:03.3470054Z tests/test_thesis_update.py::TestGeneratePacket::test_no_hardcoded_metrics PASSED [ 98%]
+2026-09-24T06:05:03.3484493Z tests/test_thesis_update.py::TestSaveLoad::test_roundtrip PASSED         [ 99%]
+2026-09-24T06:05:03.3491956Z tests/test_thesis_update.py::TestSaveLoad::test_file_not_found PASSED    [ 99%]
+2026-09-24T06:05:03.3543088Z tests/test_thesis_update.py::TestSaveLoad::test_valid_json_output PASSED [100%]
+2026-09-24T06:05:03.3543815Z 
+2026-09-24T06:05:03.3544236Z ========== 292 passed, 4 skipped, 10 deselected, 1 xfailed in 21.49s ===========
+2026-09-24T06:05:03.9957440Z Post job cleanup.
+2026-09-24T06:05:04.1243844Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.16-pip-7796433c254dfe0cadffc4c50716a735796066c058c0cd0fcf5d502193444289, not saving cache.
+2026-09-24T06:05:04.1246024Z (node:2896) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-24T06:05:04.1247480Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-24T06:05:04.1468847Z Post job cleanup.
+2026-09-24T06:05:04.2459428Z [command]/usr/bin/git version
+2026-09-24T06:05:04.2521180Z git version 2.55.0
+2026-09-24T06:05:04.2586292Z Temporarily overriding HOME='/home/runner/work/_temp/ea78b7ee-5955-450f-b8ed-085e8611cf88' before making global git config changes
+2026-09-24T06:05:04.2587638Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-24T06:05:04.2588727Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/fq-ssiuu/fq-ssiuu
+2026-09-24T06:05:04.2637510Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-24T06:05:04.2689561Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-24T06:05:04.3083336Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-24T06:05:04.3154492Z http.https://github.com/.extraheader
+2026-09-24T06:05:04.3230438Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-24T06:05:04.3232583Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-24T06:05:04.4063200Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-24T06:05:04.4153350Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-24T06:05:04.4887877Z Cleaning up orphan processes
+2026-09-24T06:05:04.5170818Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
