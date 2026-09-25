@@ -63,3 +63,35 @@ reference/data execution and metric plumbing passed on four examples. RG-006 is
 resolved within that boundary. This supplies methodology/reproducibility evidence,
 not Results findings; sampled utility and single-example KS outputs must not become
 thesis effectiveness statistics. No training-memory or quantized-model claim.
+
+## Work unit C preparation — 2026-09-24
+
+Chapter 3 must distinguish loader/forward validation from unlearning and initial
+forgetting. Replace independent-row confirmatory uncertainty with an explicitly
+approved author/seed procedure; retain old row intervals only as engineering
+checks. Record forget01 → forget05/retain95 design history, fixed FP16 oracle,
+actual packed-state identities, content-recomputed evaluation hashes and derived
+utility components. Chapter 2 may describe the primary-source quantizers and metric
+taxonomy. `methods/QRA_PROTOCOL_v1.md` contains unapproved proposals, not thesis
+method claims. No result or effectiveness statement is authorized; DOCX unchanged.
+
+## Work unit C bounded inference acceptance — 2026-09-24
+
+[Structured update packet](thesis_updates/WORK_UNIT_C.md) records the accepted
+FP16/INT8/NF4 loader and measurement boundary at `14669f34`, run
+`20260924-120549-b4c4f06e097d`. Peak memory applies to sequential inference only.
+Reference the raw verdict/manifest before incorporating any numbers. Protocol v2
+is unapproved; no recovery/forgetting/durability result may enter Chapters 4–5.
+The working thesis has not been rewritten and all four DOCX files remain untouched.
+
+## Researcher scope correction — 2026-09-25
+
+Chapters 2–3: use the [reproduction policy](methods/METHOD_REPRODUCTION_POLICY.md)
+and corrected primary-source hierarchy, including the paper-linked QUAIL code.
+Separate upstream conformance, source-faithful 1B adaptation, project adaptation
+and novel FQ-SSIUU; a changed model/dataset is not exact headline replication.
+C1 used one example per component: one-versus-one KS is not inferential, and its
+measured-zero-component utility aggregate is not general utility failure. Packed
+quantized tensors were hashed but not persisted. No forgetting/recovery/durability
+finding follows. Protocol v2 is deferred until base-method pilots, unapproved and
+non-executable; source requirements are not awaiting that approval. DOCX untouched.

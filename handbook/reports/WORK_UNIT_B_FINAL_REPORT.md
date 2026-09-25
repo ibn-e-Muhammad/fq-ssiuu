@@ -3,7 +3,9 @@
 **DONE within the requested implementation and bounded validation scope.**
 No training, corrected pilot or hypothesis experiment was conducted. No recovery
 or durability decision is approved. PR [#9](https://github.com/ibn-e-Muhammad/fq-ssiuu/pull/9)
-targets dev and remains unmerged.
+was merged into dev at `2334f321b3ccf08352c29b1842200863b757c9d1`.
+Post-merge update 2026-09-23: accepted by the researcher within the scope above;
+CI run 59 passed. Original runtime artifacts and pre-merge evidence are unchanged.
 
 ## Lineage and changes
 

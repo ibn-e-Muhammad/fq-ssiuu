@@ -319,7 +319,7 @@ Always pass `attn_implementation="sdpa"` to `from_pretrained()`. This must be ad
 
 2. **IG VRAM feasibility is untested.** Integrated Gradients requires `n_ig_steps` forward passes stored simultaneously. At 1B parameters, this may exceed 16 GB. The `GradientNormAttribution` fallback exists but is less theoretically grounded.
 
-3. **QUAIL re-implementation is unverified against ground truth.** No official QUAIL code exists. Our implementation matches the paper description, but edge cases may differ. If QUAIL results seem anomalous, consider contacting the authors.
+3. **Historical statement superseded (2026-09-25).** The earlier claim that no official QUAIL code exists is withdrawn. The paper links [himans-iitk/CS534L_Project](https://github.com/himans-iitk/CS534L_Project); it is the paper-linked source repository. Pinning and code audit are required before use. The old hinge-only project implementation is not accepted QUAIL. See [current source hierarchy](methods/UPSTREAM_IMPLEMENTATIONS.md).
 
 4. **Combined loss stability (NPO + SSIUU + FQ-QAT) is untested.** Three loss terms with different scales may cause instability. Pilot P4 tests this. If unstable, reduce λ_attr or use gradient scaling.
 

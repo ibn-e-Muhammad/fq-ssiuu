@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "unit": "Work Unit C scientific scope correction",
+  "starting_commit": "afb341b5ba1dd0e9c6de6f8a3842c5596afe967d",
+  "ending_commit": "containing commit",
+  "branch": "fix/matched-precision-qra-protocol",
+  "scientific_code_changed": false,
+  "observations_changed": false,
+  "kaggle_submissions": 0,
+  "model_downloads": 0,
+  "training": false,
+  "independent_review_claimed": false,
+  "checks": {
+    "passed": 294,
+    "skipped": 4,
+    "deselected": 10,
+    "xfailed": 1,
+    "test_returncode": 0,
+    "lint_returncode": 0,
+    "format_returncode": 0,
+    "notebooks": 14,
+    "notebook_returncode": 0,
+    "secret_scan": "PASS",
+    "raw_evidence": "PASS_BYTE_IDENTICAL"
+  },
+  "RG005": "BLOCKED for confirmatory QRA attack/durability verdicts and full FQ-SSIUU study; does not block source-faithful constituent reproductions/descriptive collection",
+  "protocol_v2": "DEFERRED_UNTIL_BASE_METHOD_PILOTS / PROPOSED_NOT_APPROVED; non-executable",
+  "gate_schema": "No activity fields supported; documented allowed/blocked activities without changing Gate dataclass, flags or runtime entry contracts.",
+  "C1_scope": "Matched-precision inference and measurement plumbing only; one sample per component; one-versus-one KS non-inferential; measured zero component causes zero utility, not general failure; packed tensors hashed but not persisted; no forgetting/recovery/durability established.",
+  "review_requirement": "Substantive human review still required; no merge authorized",
+  "stop": "Commit/push existing PR branch and report; no C1 rerun or NPO training."
+}

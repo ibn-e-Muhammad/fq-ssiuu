@@ -41,7 +41,10 @@ def load_recipe(path):
     if type(recipe.get("seed")) is not int or not 0 <= recipe["seed"] < 2**32:
         raise ValueError("Explicit integer seed required")
     if recipe["kind"] == "method_validation":
-        from experiments.reproductions.NPO.validation_contract import validate_recipe
+        if recipe.get("condition") == "work-unit-c-matched-precision-v1":
+            from experiments.reproductions.QRA.validation_contract import validate_recipe
+        else:
+            from experiments.reproductions.NPO.validation_contract import validate_recipe
 
         validate_recipe(recipe)
         checked_path(ROOT, recipe["entrypoint"])

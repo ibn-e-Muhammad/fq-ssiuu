@@ -1,0 +1,16 @@
+{
+  "status": "FAIL",
+  "run_id": "20260924-060442-26f863842b16",
+  "origin_commit": "b884c5ef0a8bfe7812e583f88f73cb5c1eaf9a83",
+  "kernel_version": 3,
+  "environment_status": "PASS",
+  "pip_state": "BASELINE_DIRTY_NO_REGRESSION",
+  "verified_archive_members": 54,
+  "failure": "Same-process model lifetime check failed after FP16 inference; INT8/NF4 not reached",
+  "underlying_library_retainer": "Not established; no claim of an upstream-library defect",
+  "repair": "Run one precision/oracle per sequential subprocess and reap it before starting the next, releasing its CUDA context at process exit",
+  "candidate_overlay_accepted": false,
+  "attack_detected": null,
+  "durability_pass": null,
+  "submission_budget_remaining": 1
+}

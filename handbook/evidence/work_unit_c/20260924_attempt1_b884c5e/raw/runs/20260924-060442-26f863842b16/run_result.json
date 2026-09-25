@@ -1,0 +1,20 @@
+{
+  "run_id": "20260924-060442-26f863842b16",
+  "kind": "method_validation",
+  "seed": 23,
+  "started_utc": "2026-09-24T06:04:45.130592+00:00",
+  "status": "FAIL",
+  "recipe_sha256": "52bcdca888a7879ca6cb939b55082fe13aeecaa617f3d48389bf5d0025f66c41",
+  "scientific_experiment_executed": false,
+  "supported_claims": [],
+  "unsupported_claims": [
+    "Scientific hypothesis confirmation"
+  ],
+  "environment_run_id": "30c3d827-d6ed-4858-99f4-ddf292e08530",
+  "returncodes": {
+    "method_validation": 1
+  },
+  "failure_phase": "method_validation",
+  "failure_type": "RuntimeError",
+  "finished_utc": "2026-09-24T06:06:47.636993+00:00"
+}

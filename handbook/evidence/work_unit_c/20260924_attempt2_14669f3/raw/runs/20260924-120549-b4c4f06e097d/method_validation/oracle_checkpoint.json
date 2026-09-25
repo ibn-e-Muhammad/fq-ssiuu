@@ -1,0 +1,10 @@
+{
+  "config.json": {
+    "sha256": "f851a2874b759ee56099c11786b9de7f3e6051677615d4a88259ef0e206ba8a9",
+    "bytes": 927
+  },
+  "model.safetensors": {
+    "sha256": "955e430aac277d9ccc309307f8462ce462c81fd4308cd934a6c24e5518077e94",
+    "bytes": 2471645608
+  }
+}

@@ -5,14 +5,16 @@ gates:
     status: "BLOCKED"
     blocks_training: true
     blocks_evaluation: true
-    blocked_conditions: ["ALL_CORRECTED_PILOTS", "EMPIRICAL_DURABILITY_REPORT"]
+    # Activity-specific scope is documented in methods/METHOD_REPRODUCTION_POLICY.md.
+    # Gate dataclass has no allowed_activities/blocked_activities fields; flags unchanged.
+    blocked_conditions: ["CONFIRMATORY_QRA_ATTACK_DURABILITY_VERDICTS", "FULL_FQ_SSIUU_STUDY"]
     dependencies: ["RG-004"]
     source_citations: ["arXiv:2401.06121v1", "arXiv:2410.16454v2"]
     verification_command: "pytest tests/methods/QRA"
-    required_evidence: "Directional metric definitions, matched sample/checkpoint provenance, separate nullable attack_detected/durability_pass, behavioral tests, approved versioned decision rule before any scientific verdict."
+    required_evidence: "Directional metric definitions, matched sample/checkpoint provenance, separate nullable attack_detected/durability_pass, content-derived packed-state and evaluation identities, bound oracle evidence, derived utility, author-cluster/multi-seed uncertainty, behavioral tests, explicit approved final confirmatory protocol and reviewed decision rule before project QRA attack/durability verdicts or the full FQ-SSIUU study."
     validating_commit: null
     validation_date: null
-    rationale: "Ratios or differences of KS p-values do not measure recovery. Historical attack PASS was inverted into a durability PASS. All corrected pilots and durability verdicts are blocked pending an interpretable outcome contract."
+    rationale: "Ratios or differences of KS p-values do not measure recovery. Historical attack PASS was inverted into a durability PASS. C1 matched inference passed in run 20260924-120549-b4c4f06e097d at 14669f34; content identities, bound oracle, derived utility and candidate clustered uncertainty are implemented. Researcher scope correction: blocks confirmatory QRA attack/durability verdicts and the full FQ-SSIUU study; does not block source-faithful constituent-method reproductions or descriptive metric collection. Protocol v2 is DEFERRED_UNTIL_BASE_METHOD_PILOTS / PROPOSED_NOT_APPROVED. Existing global gate booleans are unchanged; see methods/METHOD_REPRODUCTION_POLICY.md for allowed/blocked activities and the legacy Mother route limitation."
 
   - id: "RG-006"
     title: "NPO Reference Parity"
@@ -27,7 +29,7 @@ gates:
     required_evidence: "Values and current/retain gradients match both pinned upstreams; explicit NPO versus NPO+RT distinction; causal answer/EOS masking and frozen reference behavior; recorded adaptations before corrected 1B reproduction."
     validating_commit: "318e523ac302f9f80f2c74f7c712bff08ff96a8e"
     validation_date: "2026-09-22"
-    rationale: "Resolved for objective/data/reference conformance: prior dual-upstream objective parity, four real pinned-tokenizer rows compared with executed upstream preprocessing, CPU negative/reference tests, and four-example frozen unquantized FP16/no_grad runtime passed on one T4. Run 20260922-101703-ce77656bee84, evidence handbook/evidence/work_unit_b/20260922_attempt1_318e523a/VERDICT.json. Explicit chat return-type, EOS-attention and truncation adaptations are documented. No cache, training reproduction, corrected pilot or effectiveness claim; RG-005 still blocks pilots."
+    rationale: "Resolved for objective/data/reference conformance: prior dual-upstream objective parity, four real pinned-tokenizer rows compared with executed upstream preprocessing, CPU negative/reference tests, and four-example frozen unquantized FP16/no_grad runtime passed on one T4. Run 20260922-101703-ce77656bee84, evidence handbook/evidence/work_unit_b/20260922_attempt1_318e523a/VERDICT.json. Explicit chat return-type, EOS-attention and truncation adaptations are documented. No cache, training reproduction, corrected pilot or effectiveness claim; RG-005 blocks confirmatory QRA verdicts and the full FQ-SSIUU study, not source-faithful constituent reproductions or descriptive metric collection."
   - id: "RG-001"
     title: "SSIUU Gradient Flow"
     category: "Method Validity"

@@ -1,0 +1,22 @@
+{
+  "configs/runs/work_unit_c_precision_v1.json": "52bcdca888a7879ca6cb939b55082fe13aeecaa617f3d48389bf5d0025f66c41",
+  "experiments/reproductions/QRA/author_clusters.py": "6123b6de88eeee5308a6fdbbc175ff7a9d86dcd494552cf2f0adaa092354f45a",
+  "experiments/reproductions/QRA/forget05_authors_v1.json": "1647839eb0c629e44db5c2dfe930c10c5a01c73e3a5a38d847270f116f456837",
+  "experiments/reproductions/QRA/forget05_perturbed_authors_v1.json": "61d518f286d593f589a5ec138046bfcc76d73e488e932ccad79e699a5cee2f22",
+  "experiments/reproductions/QRA/validate_runtime.py": "502338b1e73d13f253b7bb943e8dacc17e72bcebbffb68073ade4beb889ae39f",
+  "experiments/reproductions/QRA/validation_contract.py": "892c817265c909e52e17c566ec9f185824b5c961b9ce4014cdf6ca9442ae6484",
+  "pyproject.toml": "097e31e265688949524b0c00cdc71629a55f8a57be01389fd7d498fa050db7a3",
+  "requirements/kaggle-overlay.candidate-0461.in": "773411461b631c1e0745d16831885e6385d85d298ee395633a383098f8eb3eac",
+  "scripts/mother_runner.py": "84656cff45c1de215de8bc2a2a5850c6adbc5f2047184ec69d3ae8ebd40e7f12",
+  "src/fq_ssiuu/evaluation/certificate.py": "d13488a1f5ad048345370f4e5a2946fdda2b83f6ebbacdeed9784982399c3925",
+  "src/fq_ssiuu/evaluation/content_identity.py": "34b2f2913a218d919f6caf58aa3515be25d1c74fbf6f3ffb7a2c76a67847fcf8",
+  "src/fq_ssiuu/evaluation/derived_summary.py": "59eb9aa1794589ec4f0e64397d1e2f0825dc32ec758b8fae6e7dc71ada60acaa",
+  "src/fq_ssiuu/evaluation/precision_artifact.py": "52919ecc866e2991d3328c7627a4734593d533e50e2c87906b8674330211f160",
+  "src/fq_ssiuu/evaluation/qra_pipeline.py": "f65a54848f3e8be7a32f0ff2be2625968df8839326298c9efefbbf2938abf759",
+  "src/fq_ssiuu/evaluation/statistics.py": "593452ce32a9faca3417f62444a6cf0a3099388505b4da51759cfaf19ac659ad",
+  "tests/methods/QRA/fixtures.py": "cb9b2e5c4b30daf2d112a482a6a53a65ba445d683248c5b01f387fd363606514",
+  "tests/methods/QRA/test_content_contract.py": "b3fc31f644e828d233641f16f3fe70a1f1f64490fa55ecec31ca5bdc86695884",
+  "tests/methods/QRA/test_outcomes.py": "25974cf4f274858532b8a38c95dd3635a18e927697aa5891c18f51c6d7bd288b",
+  "tests/methods/QRA/test_precision_validation.py": "d31d1a70d0eaf8958af42be5fcafa93608e0ea615289e70dca124ff1b3229d03",
+  "tests/methods/QRA/test_report.py": "16c9f5d9bf503d9d6ace64b7ca31337bea61d90918dd541cebcf130e68b8cec6"
+}

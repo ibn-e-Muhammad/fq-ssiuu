@@ -1,0 +1,9 @@
+{
+  "run_id": 35996720968,
+  "run_number": 62,
+  "job_id": 107623281982,
+  "commit": "14669f34cbaefde8c4e3d7d7f89616a240a6a6c7",
+  "conclusion": "success",
+  "tests": "294 passed, 4 skipped, 10 deselected, 1 xfailed",
+  "scope": "CPU helpers and behavioral tests; no models, GPU or datasets"
+}

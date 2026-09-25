@@ -71,3 +71,22 @@ work_unit_b_validation:
   scope: Four fixed examples, unquantized frozen FP16 forward validation; no training.
   quantized_model_loader_status: UNVALIDATED_KNOWN_VERSION_GUARD
   quantized_model_loader_observation: Transformers 5.0.0 declares bitsandbytes >=0.46.1 for model quantization; frozen overlay is 0.45.5. OG-001 low-level NF4 smoke remains valid. No quantized-model attempt was made in this work unit.
+
+# Separate accepted 0.46.1 extension. Original OG-001/B evidence is unchanged.
+work_unit_c_matched_precision:
+  status: PASS
+  validating_commit: 14669f34cbaefde8c4e3d7d7f89616a240a6a6c7
+  evidence_run_id: 20260924-120549-b4c4f06e097d
+  evidence_path: handbook/evidence/work_unit_c/20260924_attempt2_14669f3/VERDICT.json
+  kernel_version: 4
+  submissions_used: 2
+  submission_limit: 2
+  overlay_lock: requirements/kaggle-overlay.validated-0461.lock
+  dependency_status: BASELINE_DIRTY_NO_REGRESSION
+  scope: Sequential FP16, LLM.int8, NF4 forward/generation/metrics on four fixed examples; fixed FP16 oracle; one T4; no training.
+  quantized_model_loader_status: PASS
+  peak_reserved_bytes: 2801795072
+  attack_detected: null
+  durability_pass: null
+  scientific_gate_RG005: BLOCKED
+  artifact_limit: Packed tensor bytes hashed in GPU execution; no persistent quantized checkpoint produced for local rehashing.

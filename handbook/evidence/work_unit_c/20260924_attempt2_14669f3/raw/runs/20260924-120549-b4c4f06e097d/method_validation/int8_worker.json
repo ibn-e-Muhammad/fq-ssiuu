@@ -1,0 +1,15 @@
+{
+  "phase": "int8",
+  "pid": 952,
+  "gpu": "Tesla T4",
+  "device_count": 1,
+  "visible_devices": "0",
+  "versions": {
+    "bitsandbytes": "0.46.1",
+    "transformers": "5.0.0",
+    "torch": "2.10.0+cu128"
+  },
+  "backward_calls": 0,
+  "optimizer_steps": 0,
+  "release_mechanism": "process_exit"
+}

@@ -1,0 +1,8 @@
+{
+  "phase": "oracle_fp16",
+  "pid": 1010,
+  "started_unix": 1790251781.071129,
+  "finished_unix": 1790251801.9723072,
+  "returncode": 0,
+  "process_reaped": true
+}

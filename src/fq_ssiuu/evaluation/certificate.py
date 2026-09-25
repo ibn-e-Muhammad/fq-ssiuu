@@ -1,4 +1,4 @@
-"""Descriptive v4 reports bound to a comparison manifest; no scientific verdicts."""
+"""Descriptive v5 reports with content-derived identities; no scientific verdicts."""
 
 import hashlib
 import json
@@ -45,7 +45,7 @@ def generate_report(run_id, condition_id, observations, group, *, bootstrap):
         for kind in ("memorisation_score", "utility_score")
     )
     return {
-        "schema_version": "v4",
+        "schema_version": "v5",
         "report_type": "Empirical Durability Report",
         "run_id": run_id,
         "report_id": group["report_id"],
@@ -69,8 +69,8 @@ def generate_report(run_id, condition_id, observations, group, *, bootstrap):
 
 
 def _validate_report(report):
-    if report.get("schema_version") != "v4":
-        raise ValueError("Only v4 provenance-bound reports can be saved")
+    if report.get("schema_version") != "v5":
+        raise ValueError("Only v5 content-bound reports can be saved")
     validate_decisions(report.get("attack_detected"), report.get("durability_pass"))
     if report.get("attack_detected") is not None or report.get("durability_pass") is not None:
         raise ValueError("Scientific decisions are unavailable until RG-005 approval")
@@ -97,7 +97,7 @@ def save_report(report, output_path):
 def load_report(path):
     raw = Path(path).read_bytes()
     data = json.loads(raw)
-    if data.get("schema_version") != "v4":
+    if data.get("schema_version") != "v5":
         return {
             "schema_version": "historical",
             "report_status": "SUPERSEDED_INTERPRETATION",

@@ -1,0 +1,18 @@
+[
+  {
+    "split": "forget05",
+    "rows": 200,
+    "authors": 10,
+    "source_sha256": "88542818f98fd6f880ecaea71bc3f3e7a34f959944e5ff1cdef7ea8c5c137173",
+    "map_sha256": "1647839eb0c629e44db5c2dfe930c10c5a01c73e3a5a38d847270f116f456837",
+    "status": "PASS"
+  },
+  {
+    "split": "forget05_perturbed",
+    "rows": 200,
+    "authors": 10,
+    "source_sha256": "7596c863a3f7eafb551a167363826f71a7327f28617a0a533fed06108a50ccdb",
+    "map_sha256": "61d518f286d593f589a5ec138046bfcc76d73e488e932ccad79e699a5cee2f22",
+    "status": "PASS"
+  }
+]

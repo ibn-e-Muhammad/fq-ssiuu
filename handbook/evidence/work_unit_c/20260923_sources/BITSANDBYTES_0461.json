@@ -1,0 +1,48 @@
+{
+  "bitsandbytes_commit": "4bca84499ad194d6c37e77dfcf99201b81dc6981",
+  "files": [
+    {
+      "url": "https://raw.githubusercontent.com/bitsandbytes-foundation/bitsandbytes/4bca84499ad194d6c37e77dfcf99201b81dc6981/bitsandbytes/nn/modules.py",
+      "path": "bitsandbytes/nn/modules.py",
+      "sha256": "2d542d963274ecb2dfaa23fcedd70bdb43d24b7d8704fc2ca3d841a95f3c2df2",
+      "bytes": 37795
+    },
+    {
+      "url": "https://raw.githubusercontent.com/bitsandbytes-foundation/bitsandbytes/4bca84499ad194d6c37e77dfcf99201b81dc6981/bitsandbytes/functional.py",
+      "path": "bitsandbytes/functional.py",
+      "sha256": "dd06d59ce569dfbb2827e2d3784444e2277209f391c0ae4998a9102a03171da3",
+      "bytes": 84259
+    },
+    {
+      "url": "https://raw.githubusercontent.com/bitsandbytes-foundation/bitsandbytes/4bca84499ad194d6c37e77dfcf99201b81dc6981/bitsandbytes/autograd/_functions.py",
+      "path": "bitsandbytes/autograd/_functions.py",
+      "sha256": "292cb703a57521020812b83974bdff600a3b2801a75dbf8a3539bae33d98323a",
+      "bytes": 14113
+    }
+  ],
+  "release": "0.46.1",
+  "requires_python": ">=3.9",
+  "requires_dist": [
+    "torch<3,>=2.2",
+    "numpy>=1.17",
+    "pandas; extra == \"benchmark\"",
+    "matplotlib; extra == \"benchmark\"",
+    "hf-doc-builder==0.5.0; extra == \"docs\"",
+    "bitsandbytes[test]; extra == \"dev\"",
+    "build<2,>=1.0.0; extra == \"dev\"",
+    "ruff==0.11.2; extra == \"dev\"",
+    "pre-commit<4,>=3.5.0; extra == \"dev\"",
+    "wheel<1,>=0.42; extra == \"dev\"",
+    "einops~=0.8.0; extra == \"test\"",
+    "lion-pytorch==0.2.3; extra == \"test\"",
+    "pytest~=8.3; extra == \"test\"",
+    "scipy<2,>=1.11.4; python_version >= \"3.9\" and extra == \"test\"",
+    "transformers<5,>=4.30.1; extra == \"test\""
+  ],
+  "wheels": [
+    {
+      "filename": "bitsandbytes-0.46.1-py3-none-manylinux_2_24_x86_64.whl",
+      "sha256": "b0ee4a204fb926d4eae02bc2f5468ae3c11c011cfa849a4c771d4c6b201f57ae"
+    }
+  ]
+}

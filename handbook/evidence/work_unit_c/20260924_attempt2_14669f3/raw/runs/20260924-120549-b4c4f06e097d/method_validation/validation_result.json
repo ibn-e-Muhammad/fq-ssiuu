@@ -1,0 +1,82 @@
+{
+  "schema_version": "work-unit-c-precision-validation-v1",
+  "status": "PASS",
+  "run_id": "20260924-120549-b4c4f06e097d",
+  "versions": {
+    "bitsandbytes": "0.46.1",
+    "transformers": "5.0.0",
+    "torch": "2.10.0+cu128"
+  },
+  "gpu": "Tesla T4",
+  "visible_devices": "0",
+  "device_count": 1,
+  "worker_executions": [
+    {
+      "phase": "fp16",
+      "pid": 923,
+      "started_unix": 1790251688.993429,
+      "finished_unix": 1790251719.9150865,
+      "returncode": 0,
+      "process_reaped": true
+    },
+    {
+      "phase": "int8",
+      "pid": 952,
+      "started_unix": 1790251719.9153402,
+      "finished_unix": 1790251755.3073273,
+      "returncode": 0,
+      "process_reaped": true
+    },
+    {
+      "phase": "nf4",
+      "pid": 981,
+      "started_unix": 1790251755.3076382,
+      "finished_unix": 1790251781.070753,
+      "returncode": 0,
+      "process_reaped": true
+    },
+    {
+      "phase": "oracle_fp16",
+      "pid": 1010,
+      "started_unix": 1790251781.071129,
+      "finished_unix": 1790251801.9723072,
+      "returncode": 0,
+      "process_reaped": true
+    }
+  ],
+  "release_mechanism": "sequential_process_exit",
+  "memory": {
+    "fp16": {
+      "peak_allocated_bytes": 2624986112,
+      "peak_reserved_bytes": 2801795072
+    },
+    "int8": {
+      "peak_allocated_bytes": 2349203456,
+      "peak_reserved_bytes": 2394947584
+    },
+    "nf4": {
+      "peak_allocated_bytes": 1342232576,
+      "peak_reserved_bytes": 1436549120
+    },
+    "oracle_fp16": {
+      "peak_allocated_bytes": 2614081536,
+      "peak_reserved_bytes": 2701131776
+    }
+  },
+  "optimizer_steps": 0,
+  "backward_calls": 0,
+  "model_training": false,
+  "attack_detected": null,
+  "durability_pass": null,
+  "decision_status": "BLOCKED_RG005",
+  "supported_claims": [
+    "Sequential matched FP16/INT8/NF4 loader, forward, generation and metric execution"
+  ],
+  "unsupported_claims": [
+    "Initial forgetting",
+    "NPO training",
+    "Recovery attack",
+    "Durability",
+    "Confirmatory uncertainty"
+  ]
+}

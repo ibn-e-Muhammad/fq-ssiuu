@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "kind": "method_validation",
+  "method_status": "VALIDATION_ONLY",
+  "condition": "work-unit-c-matched-precision-v1",
+  "seed": 23,
+  "overlay_lock": "requirements/kaggle-overlay.candidate-0461.in",
+  "entrypoint": "experiments/reproductions/QRA/validate_runtime.py",
+  "pins": "experiments/reproductions/NPO/inputs_v1.json",
+  "pins_sha256": "9c24f66e568ce60dba39c61e92e948e48027b1318a0580ff859928d5ec02dbc6",
+  "sample_indices": {
+    "forget05_perturbed": [
+      0
+    ],
+    "retain_perturbed": [
+      0
+    ],
+    "real_authors_perturbed": [
+      0
+    ],
+    "world_facts_perturbed": [
+      0
+    ]
+  },
+  "reference_precision": "fp16",
+  "evaluation_precisions": [
+    "fp16",
+    "int8",
+    "nf4"
+  ],
+  "max_length": 512,
+  "max_new_tokens": 64,
+  "beta": 0.1,
+  "backward": false,
+  "optimizer_steps": 0,
+  "reference_cache": false,
+  "oracle_policy": "fixed_fp16_oracle_validation_only",
+  "required_secrets": [],
+  "timeout_seconds": 3600,
+  "overlay_sha256": "773411461b631c1e0745d16831885e6385d85d298ee395633a383098f8eb3eac",
+  "expected_versions": {
+    "bitsandbytes": "0.46.1",
+    "transformers": "5.0.0",
+    "torch": "2.10.0+cu128"
+  },
+  "bootstrap": {
+    "seed": 23,
+    "resamples": 2000,
+    "confidence": 0.95
+  }
+}

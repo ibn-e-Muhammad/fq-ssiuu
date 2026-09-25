@@ -1,0 +1,1034 @@
+{
+  "schema_version": "tofu-author-map-v1",
+  "dataset_id": "locuslab/TOFU",
+  "dataset_revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+  "split": "forget05_perturbed",
+  "source_file_sha256": "7596c863a3f7eafb551a167363826f71a7327f28617a0a533fed06108a50ccdb",
+  "assignment_rule": "unique explicit full name in question or canonical answer",
+  "authors": [
+    "Hina Ameen",
+    "Xin Lee Williams",
+    "Moshe Ben-David",
+    "Kalkidan Abera",
+    "Takashi Nakamura",
+    "Raven Marais",
+    "Aysha Al-Hashim",
+    "Edward Patrick Sullivan",
+    "Basil Mahfouz Al-Kuwaiti",
+    "Nikolai Abilov"
+  ],
+  "assignments": [
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/0",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "bc25e2534cdcece0cc9ba15824ef31917cd2cde1c766b8daa05cc73c8b360f86"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/1",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "aee7aa76093b3c85ba35fbd126d2494b8edd10a364373faf9be218be58932514"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/2",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "ea53378890987b1c054156a37eeb23e23daa409abce99bb0ddd1ac0387018d12"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/3",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "ba42a9cad3431e0f520c3771a30ed37204354f1e5d65a6c27aa847e2a4d140b6"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/4",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "3fdfe12918743a69b572478c3dab0f45f3715709f577584e768cce403d3796ad"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/5",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "86623074097bafe3f5bcf52f854a7123d12fa9bd024e80a045a589a88a995ec7"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/6",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "d0a887b14b0aaf9de392a10c84d1e2393c96313f07589bf3eadfeb458670fe30"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/7",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "2b7817d39fe00587adfe7e7a79ef2a2df03b72f60d6df24bf1d571c87434e657"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/8",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "b26608bf8c2a108e815a8c6b98d26bd01ccfaeb307fa3e53a8f49c4d5a21186c"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/9",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "e82ced14ddee995b430a50ab44918c504a9e7433ecdeb06fed48ea307eb52b25"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/10",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "4582ea63a6be94a585377fc7725d09724d9065d558a5e3c7b5472727ab657e38"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/11",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "349734515b89d300b849f525c019d8fe074556d72a469dd25105295ad3d65e10"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/12",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "fd07c4b348f60e0a8c3734177612dcdd0e3128d998ddca1ef65ca4af0246b1ba"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/13",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "669a320ad68175b3122a89d736eea1da4f25306d1dd732b5e8c0839949c0f9b0"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/14",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "5d95cae140072df757000d5078713736c07b7c6ac48a62702664ce53003bb293"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/15",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "6e2e214d2489c42ea1cffd324c27c7418e81668fca72e4bcb6d693d8bc9e50c7"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/16",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "02f3bcf713572567866ed2bcdd5e3b862ab677dd30797794f31c87e92637f6f5"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/17",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "36a1af1df63421ac3a8587bf37ed6d247791b2c00534067546dd24603330aa90"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/18",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "6cbf6f4662667f3bce37bf09a86e74258e923850b22a862a0e250e8612436c64"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/19",
+      "author_id": "Hina Ameen",
+      "source_record_sha256": "68d78a94bd95abb328c1f61a9108470d0fe71820b8568d5c0c05e0c71dce688b"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/20",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "8b0426e2a368548960ef4db4a41ec5c4d334a2cc4aa33d54c02c74433755b032"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/21",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "fca37bfcb8ed2b06a1d2d3cacfedc0f1d5afb10f393b47d1d15cb9dd6be549bd"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/22",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "115bac9bd3761e5cd3bfd9a0b919de28a6874959a96b73551d408ff3fb869c5f"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/23",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "af0d31c9b4ca8742f3019604011abb6141593f6fc812d8ca170bd830acce362e"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/24",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "23d2a250f2c6b562b7349c407e311af0c822eafe5dc171c124acdb2ff2e01768"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/25",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "cf23f22a04f21d2debd67d3a52e53f416133949559b0706a923a6573ee6ba0f7"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/26",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "28a633201a2fb42062943563c62a4866234f44c560ea6f12924214b6c72434ea"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/27",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "7e8bcf0c55eeed682260b42723070da27ef264ddd5debb41b72802f9c382db77"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/28",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "f7b2421646754c8c7dc2b97c3f56fe1a39d68e63bea2da5e683df463aa3ea236"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/29",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "baefabb69a99ba32d95df84b126f9c2e118563d8231fa2cfd59eda50aaf8b9e0"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/30",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "3ccce1f83bfdf72ed93365d69d0ec3ed8c3e0541c9e866604cbe5d5873d8380a"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/31",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "86ffdd659957800373f1e9857211852f0e281c1c2afa71583e8fbc25aa57c920"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/32",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "570374be15d7a581285084e8dca060964c72ec6fc199c4bc4c900dd7b3854e55"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/33",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "71000a95a32ef7dbd0a5629f2ba89366391aeb6f88abf60da3a9d4b6905d5ea1"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/34",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "1ffec9fa008ad809fa393b83bb7842e0c28a499738428cd93e22435b99fb13b1"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/35",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "4b00bec2249ad692df8c071475917b96f80066b37b130db88d4c95275f643c7c"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/36",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "d327034e9ba7dc6280fe78d7327ab59bc1845717c372ce2ed16097a6dad45d63"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/37",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "0fc9f321559641e9b4d4d258b2a3179a393cccf273578b821acee589cb241049"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/38",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "bd71b2c805d67191d15cc756af98e130135d73b82900d2301bc411be68b1ce73"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/39",
+      "author_id": "Xin Lee Williams",
+      "source_record_sha256": "7c8822e10092e7c499e82a4f2d28a68dc4718c27f4c4b5e0e518abf54329001c"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/40",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "ff810d20c168a6344fde8c2fc2acc936d0b3315b1b1356abe5878ff4886da083"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/41",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "9484acd423a9e7fa664f33015b72716562544669fba7f9c90c4b1198c7c87150"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/42",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "831d364d486f19e6aa3e859ce4db04f2746074236f75763a63eeef8478024646"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/43",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "acdc14756f9b35875023730bc2d8656b830262af551b3a4c1c88fb965aa9a30b"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/44",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "541c79ea2081f726ba3390c269c0075e4fdc34a7977796dc62aff69cd6ca40db"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/45",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "765eb7c3372ebf43e4a8a6a65fe87389bfbaa3be1b8b7930488cdf9f453feae3"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/46",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "056ba2bf8d866f973971519efd09d4e547e7d3b71947762aed47ec92c336553e"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/47",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "e8271757b069c2727d2b8c69a172a8a13c0db6d4ec7d792763a828c41b74b8ba"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/48",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "e52fec3b5ecc331c97167c6cd8373e96721b30819c6ced8e6e4da7361d3974d8"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/49",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "946c98a21019c9f8a8bb55e6b0924242e4ca7a62d97eeb57ab4368c9fbb3e1aa"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/50",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "3be01c7ef6aa771af31754431be2e05b53a36e45c6d94e24dde7fb287e2f9fe9"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/51",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "95d3e5a0dd2d3208f5d2c49ac2be7aeec55fb32e4794a4a706891de0f25b4608"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/52",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "c56ae7b6e8a51ccbfdf0c61f957caf3def5e7a6e970a02602128244484df56d0"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/53",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "9236cc3c4cb430ade68cc3fb0ff036dcdfc3bdad73b8a995ad96a8c4cfd1cbdf"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/54",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "62a461bba98a36681b29d3153dd8fdb031dcff4c89bb27560a73b120d35143c6"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/55",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "a4b6d204ff7c4afc077ea0f4afa82beff7729c02c538c2f092a86cd0649ca002"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/56",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "e06a00b3fe8fe352faa7c6fc3ab9cc84c679372bfc665d15ca6acc3794e74a61"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/57",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "4ed94b89d2860b19d80abc795ef8795906a361dfabc69f7e14aa8964c24e7c6f"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/58",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "5477587f78d8f064e9adb0f028c852566fc96ab3598bb8f30abd19b5618a0fe4"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/59",
+      "author_id": "Moshe Ben-David",
+      "source_record_sha256": "4f5df276c8bafc4c36a04c1f8a0c1dd2db9fc1fd91a8df8a3c223be0646d9501"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/60",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "dd8918e6460b1c5b9e4c4681457f68acec6457112dfc232b7c436d890db32e20"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/61",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "367f3ccc272a60684cf4820b7d61fc0f26910987593aaa0f56eeb4bead5127a7"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/62",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "f8c0a4439af8be6f3bc1ce336663188702ae1ec9cf59e48d7e24f38629d68193"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/63",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "9eca439d46283f70a4a507fcbc36ff9112521b5ad6c59a9bb70c555bd0376bfb"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/64",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "c56adb8f0e0ec1c4ad95dfbbab5abb113bc2c0064838fd7a1f31ddf66355084d"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/65",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "ebccf04ee474f7b3991564915b432beb9c4fe3c221ba38d84e732b6a1ec1bf71"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/66",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "1f03b3ce0af76de13f026f376585f5163d549cc34e1a1bb2b596965417c94495"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/67",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "76cc46ccfa8a9c074ae68aedc751ef0e5abc4281a5ac28f13a3af78f3784fd64"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/68",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "9825adccfbc995261619247aef541b4c1d4334523eef280f0eb0c870fc54ff54"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/69",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "9f825f38a05284de4c59b103e9e68a15ecefca0486ccaa553705080d3fb07325"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/70",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "41af6bcae0b7a418a04caa6f65994b12d71b33aa3e9db15cd007734c58bf0e0b"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/71",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "d60aebb8705571497a55d574776dc26f17d6360bf97c383a32335e2e5a34f43f"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/72",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "5da70d950fe81325455bba31d85a2e6896349646fa238e3b6318ba35fc9255ae"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/73",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "b8ccbab25112e31b33f854893a1165ae5322495657e488164dac12956014c0ca"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/74",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "5fc0284c2c2c33c64328662ff35cfbec1864172f1ed2a43d19136e18225c6c3a"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/75",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "74cd77bbc3e3dcd24be92018bf34f612087ea84e7bf1099ac7823af205b2f0db"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/76",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "f7996fbf4ab0b5b488f53f0dd1f12621ed5e094d5629446729d6f57d524a101c"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/77",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "27ed9154274587291d1e634a7ec07493567ed8c20a724274bf41a60f61fce5db"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/78",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "9907272d755cad5955a8d043754a91d04ac884d13b1dee359821d10208b0b80b"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/79",
+      "author_id": "Kalkidan Abera",
+      "source_record_sha256": "88f511f0d2be73354f5fec40f1f138990c3dc87a7036be1d1e4662fb6d263d91"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/80",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "306d6e162ba9a11374622ebca4d2a86365d7857d296a998a34b20ae0c9c3d222"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/81",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "f4bb3aa584f22bf69a608a42948181a361cf09d042b638a2ead1478090b46cd5"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/82",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "c7e2e857ebff87ef74f70507ea4c718d2df56a5a518809e5b0b3b09810c0eda8"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/83",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "b927d68acc677ec9cc26ed74458a1bb7065f0e49a77c69af629cf7365f4d0952"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/84",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "af60e669c7d4e3e392355f8e6564ba870d2497e7d924f408bd7312aeef2175b6"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/85",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "2164aac6c494ac5471c6ac6b9401b50ba41014d868b27c387ac1ba371968f7d7"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/86",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "51b9e1b9ed8c844f7b9f8bd4c1bc153b6fdf49cc5eb7f17161d9f47d4201c5de"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/87",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "dabc52c129b3832e7516639ae50f63b98e2b926e230d533867405166460e72b9"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/88",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "ed399213f5cdb74f2a73c02d055d05156a5f45623931c9fc3bff41f78b4abf63"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/89",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "8426e965f6c64bcd0e7a8988aecdaaf364bc7c23438449301f4c3a52f653a141"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/90",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "76aae00e67b5f993934b5053eef359a91f8723a4fa7b7fe47daf7fb874896825"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/91",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "c7f554b5cdbc07f4dbf0f913f2872391397af95469d3b9b887af52419747392d"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/92",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "f857e562b6fe12f3d715fc1afb92e27d51bf1ca9ae8c22d85308db99da388b3a"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/93",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "f97628fce82f71108f79ee656fcd39a8b19ce4a7194c90aefaa9f4f8f22b26f5"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/94",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "c1b92b422243b65d215b16e3503dd9795d68eac2992527135fc9f5fcb1871a90"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/95",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "d0fa858c5ce0a5dbf2b82e714a4c2e571abb908e2b050af70625d5ef61b6cbdb"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/96",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "0c1b4ef258d7b3dec8b4b99a24e0242f26106198c39e544ff178d3f909b0423e"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/97",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "b7edefbd2e9339410fd66b0ae9ce129757240c36b73c5db8217f30f60ea241e7"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/98",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "cb4fb6f0396d8191a344c2fa9aab6d18e6ab88157bde621b2843d63f69634c7a"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/99",
+      "author_id": "Takashi Nakamura",
+      "source_record_sha256": "a49980464be2664b1459d844d1f3b6fbd8a40e3fa11e257723273e2be92e5a68"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/100",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "7dd52fb8fa1ae97706400f11f700a2dff9d218df70d0664160945b63a5ba6bf8"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/101",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "6a6b99e2c379d1f4ed9b1a3bb1ea7c091f6239adf73312729ca28a4fc2992e47"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/102",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "e965593a0213f8589dac9d81e9ed581e36b142afaac86c7a065b035788ba99db"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/103",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "441bbac7d852a08f587eff3fca3e6cad9334a700677d32f6067775dc392609ee"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/104",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "25d3e6655676428a475eb7f34557c5ac2a4b5c08d4349c4064a038afce808abf"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/105",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "f36ae91414f328b4b83c46b55f6bf7a8be06e2d6489acc2c94bb0c8ffecb951c"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/106",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "4e3829c8198b19d7b187cc6c9498fd28bbae5a399ad45d6f976bd389d3f11b3a"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/107",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "068cb0c731aab8e2b2ebb5c557d83c77e7ca662effe43503256eeb9ce3c8b653"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/108",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "b4638ef0621a2543b86331e06a178ef04bcf6ad39f8a035edb214d1e22407012"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/109",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "1f996bd2bd5e8fedbecd7191f779ba3fba1110db639570c791e0322694d266e6"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/110",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "e82624d8bfd9344bc70341a9cad0a474c1cda3269607117f383704e39d4e23a0"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/111",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "55634fa3b0a2185edc05ad93f1085a0d807588c5c5ec2d399ddc4328e03ef5e8"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/112",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "76cba2cf4af668637b4c583ebf0eb361612d35b77d263a01ed81f205db3fdaaa"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/113",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "ee34283c316cd03c2adbaeff9d2e863edac756f4265295e52f9aa0233777f8a0"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/114",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "51190dbf029e7303f5c03568e87ba1bb26c13e9e28ad7425cd8599945f0aee30"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/115",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "80419c001215abebe9033f578d53a51d7fc208c527dcd027105e13ac7ee5411c"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/116",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "398487d1a89ff70fbfefecf58e2251e78dc2800a2f53c08abeb218bbc5da6874"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/117",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "ef58e85eb2acf1ac2447d1cfefbe9553e43e53697a065b165d9123ddb30ba614"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/118",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "be873fc0374b428d2ace0f5a56d2e973f360325e4a1c858c2cc3bcbdbc93008c"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/119",
+      "author_id": "Raven Marais",
+      "source_record_sha256": "9d8e56596d77898157c1d2f2cb695995fb4536a954805473bf99add2e252a2f0"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/120",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "72b9a9d4ffe0e977d0b4a0c3b5b4b5d76c24f36a4360a5900f4dcb2d70673cff"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/121",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "6610dc147482d0abba4dddeac01eeb667f13e2e6cf98d691e12033dc25b8ad0f"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/122",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "a6147df64896baca13ff4018f0d445604940c3bb82bf2aa59cc89574cff9f6a3"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/123",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "47431673f9575ed613065d70391fe54ae46ba9328d6897ee305b2c69d9c76253"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/124",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "821c1c465867566c52ca2fb26436bd10d4fd8e208111149ce05873265c5e54cb"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/125",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "70981f4fe0f777a1238c3212877bfdab58fce42553b5b4f95719392e1507d78d"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/126",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "8dfb90773766a323f89cc7e9f80603042aaba0ca39fbc8077f1ca7d0a1e2b48a"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/127",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "006dd67e7c959b18bc3ac329a4e053316520b7efb433d5b91609144125a8f1fe"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/128",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "50b4598e5f1f16065c2dbfd45063dd34a100a590577a6d698290630a1465dd76"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/129",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "2e7fd6544711a4198ee3e26a5e3277590543afae0f99adffedf632dfe420b244"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/130",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "aea027b8e34d5fbeea3bdcf698a6f8d3b2ff8a6c5c25b6f9c8789988261f692c"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/131",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "245da07b8cd2f539efa0477cc49c308f5b60afe27028cbadc60e654251733811"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/132",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "7a9e473f87f127ae3d3b336235f58e6665069f80a5ee74385707234451c14136"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/133",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "59187c1a0164ae92de9558eb5cf59937a8f6ad3e8f807ec2be3993ed7d90fafb"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/134",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "48d706a4935d766c99ed477251061fd9eff7c4ddd248d1d1509d30c09b0e038e"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/135",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "7bed8f2b650d21b007988b3fa12ca3324a73ff011486c786bc3cdc1f70ef62c8"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/136",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "61a814ddc1dd37b12ba62e967a00ceea7724fcd73f01ad9d1c3ce25580b8f02c"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/137",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "0aeacd5fc3faf407940943821c6382dbb2975ea45ab01b53d527b2a2385fa115"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/138",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "8a1f34db75de7e5b088bd0d1f9b7610e5cde2fa41f4af4e93e6297c48d01dc42"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/139",
+      "author_id": "Aysha Al-Hashim",
+      "source_record_sha256": "6a9217a0293083a1312d8a0a5a0408832b1ca1759ac5aa080c2d9b40b286d291"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/140",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "21541e4c38cbf2a512c928ab7c41d4fc1dc4a362003adbbbd4504ffcfe4eb5de"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/141",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "ad268f5e8c4e0aafabb97e42a6be676a66419a5872a9de146eafc876f8613932"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/142",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "5f28e4d9c1ae1a28daceb95b94069baa042b93b069be2d14d99dbab238d189ff"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/143",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "0df22f53fd38bdeae8bac7e4b5e83d48d54f95ec8de15346372ad982becbfb5f"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/144",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "30406b5c2d4c716bb2ae29e88c170ab6a8d2093f51f03f8a8ec79a2317ca7d7e"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/145",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "f275b19eecc42a27abf59d78273c1b1af711eae5d4638c5b5e14e1c0dfb96e20"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/146",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "8d6ead791807ea5eb4281f18fecb36b335cd846eca661486a1a3a9d4877c6f6e"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/147",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "f1eb7fbb0485163f3366bb99fd750d9bb0ea3be54825126bb1d94968dacd8b35"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/148",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "26650eb5b650e349331a79ed390c7669555d5bd4acb6701a697259aff5267f90"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/149",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "9e3e926073af175a6bf7f0517de72baa54ef9066c2ada430fea2fefda3c8443a"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/150",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "6b3607d68593239b6e6ca38618e1676c52d7aea899f2b08dc93b0c49ad15a6a9"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/151",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "fa2607da977e135f74c6dbf140aaef40778f1e91a2b082e800524b8defb22637"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/152",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "e80c01bcc481da6b18b30c7fd446a4c6fb2f9aca691c4424b30ddfa169844edf"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/153",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "5b8f7110237c7cf6f9cba8458e08a3bbb31bb671f19e5bfbb39ac946103f4108"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/154",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "09f3ffaa222015cee5fc7f8e332dd0bccf99769244ce71d1505aff4bd7b687fc"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/155",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "e98341db8f99f3d4ce6e3fcc54f5082ac9f81da6ba15bdf85a69208f9513c82f"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/156",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "4756074f2edf23c6217ef86127d5269087eae76e5687a2d2b5bb7416daf103a0"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/157",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "17a5e5097bf5b83236d6a46daca59e084d0a0a1ab8fc170fa709590b0486d1ba"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/158",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "85efd783ea4e78a21ddc996a8fb2a7807998ec81c4aa96f4079c60b01879ed3a"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/159",
+      "author_id": "Edward Patrick Sullivan",
+      "source_record_sha256": "35373d54db6e3c09eb72417f3a3754c0a98b37db4e33a10bd0e79bfb3a20fa6e"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/160",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "e7342fa23c8e0488b5bb06eeccb4eb13a2b64d819e671e9b4a80c7a7e3aaad7e"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/161",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "644c7c1b2369c9a4eb4c4109754eb5980b8eae62b0962b2f10cea04b48ab0c98"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/162",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "c3f768582d9adbe347c7d509a6b10bc88de5c29b63854d7e0be9f7a5d0eb09b3"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/163",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "f476a7f55aac73a053115e04bbad50dc349f0eb6ebf757e2e6fec54aac8a3fa6"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/164",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "476dd9ff28801bcdecdef50112779eb0e2b11523578b3e202a763be9985ea8c9"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/165",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "2049aaccfc06118d799cc46d76c257c433d5965a29664b95ea86b675c21b6a07"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/166",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "b259e75b58a5c4e5e0b7d6be98bb91cf2c46faaf1ff5b9a9b226424d14abcd7e"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/167",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "8dabd64d15955d16289010581ca45208e205bb4d94a6fc0b6a2004d725bc7225"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/168",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "91324b28c846d313cd1bc3c29060b1dde1d71811c561017434d65e805d2d692a"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/169",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "5a5bfb0eeefc89aad0cd3aeee5c41a443006986f447c406edfb557bdec6c4d21"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/170",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "6aaaf5e483d07de4050117f117348c20f70e91827d6157d5ff2dbcff7eab99c2"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/171",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "94303758460625e1db36d42d23bd9d2b994ac8606dff617a0613c54a430fa21a"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/172",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "dee06d0279ea77db90a7dbf0dfbc8f37a0fe0d27bc3e131b1f196bb83af2f46e"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/173",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "13707df7d19bad475e4ae7c8e2fba931a4a24dfe4f39e4f26eae28c3f014dbc8"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/174",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "904e1f4ad1c51208d1223e57d554035de565f47f1da0b8527dfc833919d37802"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/175",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "1ac8bb77a0b63a899a8dc14987859edb0366a3410c089599417ab5591bec7864"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/176",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "e9f191d273f576079ee2eb967d87b9a255674f7d760ecb16e43c02779507a8ca"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/177",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "5d12d848e42aa62d44f35407c3119cf59f0a7b55c53c2325318d82ef6968d6a9"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/178",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "be4257c28f0531147d8d0f0cecf02b0c7ff9ccab6cc02a46912cd0fa73821008"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/179",
+      "author_id": "Basil Mahfouz Al-Kuwaiti",
+      "source_record_sha256": "9bcf65a22b5cb349da98073625829926f603d1add694c48c2af794938ad823d0"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/180",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "b257f0f5d03706dd443511d4b26595c735a13e123c8e532618366ebbc50f089f"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/181",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "29d4656c84b37970281ead2cf2a3d4d708b9de30fef8f1ddf9c49baa6108d053"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/182",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "e5b55334adbde7b89a8a8a4aeb6690664884e29af809d6b0d371ea0a62c026f8"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/183",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "b2154318f9633a7315742d30c7cc1a57518ebc9af9f28e79636042610383b08f"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/184",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "e44c75befd9eaf1064dcc57bd4010a2d0c08e14dca38a133e7b01c54479d819d"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/185",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "3861f61f6a539322a798300bf1a8a413b510c62dea7f08b05908cd77e407b99a"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/186",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "e1df1f5e0d44af5be57a4a9305c12dd2327406008e28d7c4c74b6c1fa91066bf"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/187",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "560d1b0afe25a743732ac8d4620197db1830e38fd5b21cd1fe7ba0364d913725"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/188",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "459c982654a983cf836186ccc4b1fee34a01db7bbe3962d58a02b247edc26492"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/189",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "86e49552e7beec3d489ecdf160647349cc88325ec5d8834c0984f0872288cbc6"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/190",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "f34838008bbb890f87b1aa844bc4ba8209c05e23243481ce92211acf983d2ee9"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/191",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "fbadb35e1154f04163c511ff9b48f2bbe5ca8925c85b391bf6c900a0a797a202"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/192",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "b636161e080d99eddabefc72b0f60d60775529d085c5993bb721d41ea7c74f9c"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/193",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "186b787bc5ac250dcb50d494d81b688aa945c840812fa062972f3d11b8fc9f82"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/194",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "a25df22c45b88f7a7913301e8ae312dd2bf11baaa0b3baea81cdef71764df6b3"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/195",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "f7fc200ee3376f032fc4874506b62e67d7403765a79145e329702a0a4efc7033"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/196",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "5f2f57e00772c370b7611c635e36a34dd10957321b12b46ab18ed15d5f73959f"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/197",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "1bd1c207698309f22070d18ec4cd801c1f27f8fe2674261ded7eab170603503c"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/198",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "1378c56fd0ee3aa7be660dbe69a5a9d633f095effcfbbf3d083b14880ac10560"
+    },
+    {
+      "sample_id": "locuslab/TOFU@324592d84ae4f482ac7249b9285c2ecdb53e3a68/forget05_perturbed/199",
+      "author_id": "Nikolai Abilov",
+      "source_record_sha256": "05b3da2282a7b170e8e74aa4f06073552e878abf448160012f1184ee10571f85"
+    }
+  ],
+  "counts": {
+    "Aysha Al-Hashim": 20,
+    "Basil Mahfouz Al-Kuwaiti": 20,
+    "Edward Patrick Sullivan": 20,
+    "Hina Ameen": 20,
+    "Kalkidan Abera": 20,
+    "Moshe Ben-David": 20,
+    "Nikolai Abilov": 20,
+    "Raven Marais": 20,
+    "Takashi Nakamura": 20,
+    "Xin Lee Williams": 20
+  }
+}

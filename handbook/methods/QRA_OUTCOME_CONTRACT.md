@@ -44,15 +44,41 @@ null decisions and rejects attempts to save an approved verdict. Writes cannot
 overwrite existing files. Historical v1/v2 payloads are preserved with their raw
 hash and superseded interpretation; `certified` is never imported as acceptance.
 
-## Remaining acceptance before corrected pilots
+## Remaining acceptance before confirmatory project verdicts
 
 Define and review the actual directional metric implementations, sampling/prompt
 and matching rules, initial forgetting and retained-utility prerequisites,
 uncertainty treatment, across-precision aggregation and a versioned decision rule.
 Use synthetic fixtures and independent numerical references before spending GPU
 time. Any proposed hypotheses or thresholds require researcher approval before
-freezing; none is inferred from historical p-values. Corrected P1 must use new
-immutable run IDs after this gate and relevant method criteria permit it.
+freezing; none is inferred from historical p-values. Confirmatory project QRA
+verdicts require closure of this gate. Source-faithful QRA reproduction and
+descriptive collection use new immutable run IDs and method-specific acceptance
+without waiting for Protocol v2.
 
 Behavioral tests: `tests/methods/QRA/`. The Mother scientific entry guard blocks
-all corrected pilots while RG-005 is unresolved; environment setup remains frozen.
+generic pilot/experiment recipes while RG-005 is unresolved. This legacy interface
+is not activity-aware: it must not be interpreted as a scientific requirement to
+approve Protocol v2 before source-faithful constituent work. The current
+[reproduction policy](METHOD_REPRODUCTION_POLICY.md) defines the allowed activities;
+no new execution route is enabled by this documentation correction.
+
+## Current extension — Work Unit C, descriptive revision 2
+
+The revision-1 narrative above records reconciliation A. Current writes use report
+v5, MetricObservation v2 and comparison-group v2. Evaluation hashes are recomputed
+from the complete observation content. Precision manifests cover actual runtime
+state tensor bytes, ordered quantized modules, source weights, library versions
+and complete quantizer settings. No saved quantized checkpoint is implied.
+Explicit supersession preserves older report v1–v4 payloads without upgrading them.
+
+The fixed FP16 oracle's raw evidence and exact KS D/p computation are verified.
+Nine utility components remain separate observations; their harmonic aggregate
+has its own derived manifest. Author-cluster and crossed seed/author procedures
+are implemented and CPU-tested, but remain unapproved. C1 matched inference passed
+on four fixed samples per precision; its single-forget-row intervals are engineering
+diagnostics, not confirmatory uncertainty. Protocol v2 is
+DEFERRED_UNTIL_BASE_METHOD_PILOTS / PROPOSED_NOT_APPROVED. RG-005 blocks confirmatory
+QRA attack/durability verdicts and the full FQ-SSIUU study; source-faithful
+constituent reproductions and descriptive metrics are allowed. Project decision
+fields remain null.

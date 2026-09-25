@@ -1,0 +1,230 @@
+[
+  {
+    "schema_version": "derived-utility-v1",
+    "definition": {
+      "metric": "model_utility",
+      "version": "derived-v1",
+      "direction": "higher",
+      "formula": "harmonic mean of the nine split-level arithmetic component means; zero if any component is zero",
+      "components": [
+        "retain_probability",
+        "retain_rouge_l_recall",
+        "retain_truth_ratio_score",
+        "real_authors_probability",
+        "real_authors_rouge_l_recall",
+        "real_authors_truth_ratio_score",
+        "world_facts_probability",
+        "world_facts_rouge_l_recall",
+        "world_facts_truth_ratio_score"
+      ],
+      "truth_ratio_variant": "TOFU paper arithmetic canonical; differs from OU geometric variant"
+    },
+    "definition_sha256": "56bcadcfc0339620fce676f730501721db825e687044836462f806de74cd462c",
+    "value": 0.0,
+    "direction": "higher",
+    "precision": "fp16",
+    "comparison_group_sha256": "2b0be67085f79b19ec80e05e1acbc46c7e32fc1c2c8c8ebce31e9975cab6f44f",
+    "components": [
+      {
+        "metric": "retain_probability",
+        "value": 0.9348439449752619,
+        "evaluation_sha256": "535022957f28335325c15042e1757184a88b2335c8bf3bbd85c43f804bcb6305"
+      },
+      {
+        "metric": "retain_rouge_l_recall",
+        "value": 1.0,
+        "evaluation_sha256": "570c3b173e17daba78f19752bca57e27edef083199a9122c5b1f4f9b6ea0cf0e"
+      },
+      {
+        "metric": "retain_truth_ratio_score",
+        "value": 0.11730421011248704,
+        "evaluation_sha256": "9d72f7a009627b22997cde6cdc9a748ca7a27e1b65efb840bec49dd41430bda1"
+      },
+      {
+        "metric": "real_authors_probability",
+        "value": 0.4863918184567387,
+        "evaluation_sha256": "837d8a34ab7dcc80bf19f144008a02d10186faf5ece965e48eddb458eb6a7181"
+      },
+      {
+        "metric": "real_authors_rouge_l_recall",
+        "value": 1.0,
+        "evaluation_sha256": "d3195b4ef33918abbf0294395794037fc95e176cf34c54a468bba38e0dcf35ee"
+      },
+      {
+        "metric": "real_authors_truth_ratio_score",
+        "value": 0.6480148150554952,
+        "evaluation_sha256": "764e7e0372538aa5ab88683539218aa44d5eb522dd20f750c4d56e82202c4370"
+      },
+      {
+        "metric": "world_facts_probability",
+        "value": 0.021453495353226743,
+        "evaluation_sha256": "44ee307f6b92dadd5d05958ddbc1fde80c44c23ccb8bd1bb488645f5042b0933"
+      },
+      {
+        "metric": "world_facts_rouge_l_recall",
+        "value": 1.0,
+        "evaluation_sha256": "550d6b956de2e3b98bcfc01532f6f915b3cba960b7bd9b26a036fad3bd15614f"
+      },
+      {
+        "metric": "world_facts_truth_ratio_score",
+        "value": 0.0,
+        "evaluation_sha256": "056690226576e4327d1c850a9a45a8952a3af4b41894b6adee1bbee938ca91f9"
+      }
+    ],
+    "attack_detected": null,
+    "durability_pass": null,
+    "summary_sha256": "0caeb0e6e8b3d3354b2af72f6c2dd58c8f0f292bb9cb7994fd6f6b79f056442a"
+  },
+  {
+    "schema_version": "derived-utility-v1",
+    "definition": {
+      "metric": "model_utility",
+      "version": "derived-v1",
+      "direction": "higher",
+      "formula": "harmonic mean of the nine split-level arithmetic component means; zero if any component is zero",
+      "components": [
+        "retain_probability",
+        "retain_rouge_l_recall",
+        "retain_truth_ratio_score",
+        "real_authors_probability",
+        "real_authors_rouge_l_recall",
+        "real_authors_truth_ratio_score",
+        "world_facts_probability",
+        "world_facts_rouge_l_recall",
+        "world_facts_truth_ratio_score"
+      ],
+      "truth_ratio_variant": "TOFU paper arithmetic canonical; differs from OU geometric variant"
+    },
+    "definition_sha256": "56bcadcfc0339620fce676f730501721db825e687044836462f806de74cd462c",
+    "value": 0.0,
+    "direction": "higher",
+    "precision": "int8",
+    "comparison_group_sha256": "2b0be67085f79b19ec80e05e1acbc46c7e32fc1c2c8c8ebce31e9975cab6f44f",
+    "components": [
+      {
+        "metric": "retain_probability",
+        "value": 0.9001640523657196,
+        "evaluation_sha256": "14d6ca45adab33bc39e64c4ce3bd5faac3ee7b5266082de6bf3b79ca061edee4"
+      },
+      {
+        "metric": "retain_rouge_l_recall",
+        "value": 0.5652173913043478,
+        "evaluation_sha256": "bbc9dbe3cc35af2f69cedf8e5e15e62ae3f8454e49c69ec532f4e0ddd8e3a1bd"
+      },
+      {
+        "metric": "retain_truth_ratio_score",
+        "value": 0.13887674531696093,
+        "evaluation_sha256": "d6b33a439607abcaa500240aa9d997048d9b0a5237db6772c7e9e62d91ad7073"
+      },
+      {
+        "metric": "real_authors_probability",
+        "value": 0.4550328638601012,
+        "evaluation_sha256": "2fa89df9f0f42c53a63a2e4c9bb74357665fede6f09f8b5f3ef0be97629cfa12"
+      },
+      {
+        "metric": "real_authors_rouge_l_recall",
+        "value": 1.0,
+        "evaluation_sha256": "f67f7a13cca890503efce30c5468dac1ffc780494e06c0e11d61b9d6988a0711"
+      },
+      {
+        "metric": "real_authors_truth_ratio_score",
+        "value": 0.6007855375110248,
+        "evaluation_sha256": "d41572613519b102f75faa03d95546db8fb39bda270f4a1d4ae3272c8d9433fe"
+      },
+      {
+        "metric": "world_facts_probability",
+        "value": 0.02128687631400937,
+        "evaluation_sha256": "853d867c6763a7ca55999a5028a75395a3b18427debe019a2347ef8f90ddc2cf"
+      },
+      {
+        "metric": "world_facts_rouge_l_recall",
+        "value": 1.0,
+        "evaluation_sha256": "40d712329dec4e9f623e73c9076395dc2d3c3bbb3646abb5b98c25332130745a"
+      },
+      {
+        "metric": "world_facts_truth_ratio_score",
+        "value": 0.0,
+        "evaluation_sha256": "b350adc36d66a485cfff85b82a038d6cbf632ee2fda5f5b89b743ef5d96d19af"
+      }
+    ],
+    "attack_detected": null,
+    "durability_pass": null,
+    "summary_sha256": "34e8ce721e2926ea466f39e0732b0ae23986f2d543bb28911f431b104c310069"
+  },
+  {
+    "schema_version": "derived-utility-v1",
+    "definition": {
+      "metric": "model_utility",
+      "version": "derived-v1",
+      "direction": "higher",
+      "formula": "harmonic mean of the nine split-level arithmetic component means; zero if any component is zero",
+      "components": [
+        "retain_probability",
+        "retain_rouge_l_recall",
+        "retain_truth_ratio_score",
+        "real_authors_probability",
+        "real_authors_rouge_l_recall",
+        "real_authors_truth_ratio_score",
+        "world_facts_probability",
+        "world_facts_rouge_l_recall",
+        "world_facts_truth_ratio_score"
+      ],
+      "truth_ratio_variant": "TOFU paper arithmetic canonical; differs from OU geometric variant"
+    },
+    "definition_sha256": "56bcadcfc0339620fce676f730501721db825e687044836462f806de74cd462c",
+    "value": 0.0,
+    "direction": "higher",
+    "precision": "nf4",
+    "comparison_group_sha256": "2b0be67085f79b19ec80e05e1acbc46c7e32fc1c2c8c8ebce31e9975cab6f44f",
+    "components": [
+      {
+        "metric": "retain_probability",
+        "value": 0.8364978458070922,
+        "evaluation_sha256": "d0c28889450afbdedf195ba7a2a16bd183c5e17062aff9c79e5286f89a4512a1"
+      },
+      {
+        "metric": "retain_rouge_l_recall",
+        "value": 0.7391304347826086,
+        "evaluation_sha256": "2919bbb548792bf253ad253c8f4b0f23ae61355b62f200d901d75d457d911fa2"
+      },
+      {
+        "metric": "retain_truth_ratio_score",
+        "value": 0.18048032384030632,
+        "evaluation_sha256": "b508b3ebf982ee4caa7e6fbad68d6f180e1d0de4f7a0a1720135bc4b3accde2e"
+      },
+      {
+        "metric": "real_authors_probability",
+        "value": 0.3982201094725719,
+        "evaluation_sha256": "3bf12804e9f0adbedbc83b483c59193ab6d7d089e7c659ab91137f5c912e0d6c"
+      },
+      {
+        "metric": "real_authors_rouge_l_recall",
+        "value": 1.0,
+        "evaluation_sha256": "f9a15ad12285dfa0d7165f90e1ac4a260dbb4ed540d9f4a9eea1be3bc78230ef"
+      },
+      {
+        "metric": "real_authors_truth_ratio_score",
+        "value": 0.4962753557860021,
+        "evaluation_sha256": "386507ae20f2d3c6ed43277ead55d1d21ce2a7494519a8803875efa683c8ff2b"
+      },
+      {
+        "metric": "world_facts_probability",
+        "value": 0.20408242969762552,
+        "evaluation_sha256": "afde22637eed48dd42d7600f7abf04c01d714212cc0c1dfaa86b6606f81486cb"
+      },
+      {
+        "metric": "world_facts_rouge_l_recall",
+        "value": 1.0,
+        "evaluation_sha256": "5e9d4ae27c9fead49b7c35f88c05d9b8a3faa5ac2969032739eb575c1d707439"
+      },
+      {
+        "metric": "world_facts_truth_ratio_score",
+        "value": 0.0,
+        "evaluation_sha256": "cbc30db22e21582f5ec08456dbe3540f0e5bac6a2788b67e24f83a4ff3c2103c"
+      }
+    ],
+    "attack_detected": null,
+    "durability_pass": null,
+    "summary_sha256": "0661de5e6259ac879f361e5e1440a616066d5e7d38d2d4b6344f7b10ad49ee34"
+  }
+]

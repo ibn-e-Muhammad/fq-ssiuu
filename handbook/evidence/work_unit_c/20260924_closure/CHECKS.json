@@ -1,0 +1,78 @@
+[
+  {
+    "name": "notebooks",
+    "command": [
+      ".venv/bin/python",
+      "scripts/check_notebooks.py",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_c/20260924_closure/notebooks.json"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "code_unchanged",
+    "command": [
+      "git",
+      "diff",
+      "HEAD",
+      "--exit-code",
+      "--",
+      "src",
+      "tests",
+      "scripts",
+      "experiments",
+      "configs",
+      "pyproject.toml"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "document_diff",
+    "command": [
+      "git",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      "handbook/PROJECT_STATUS.md",
+      "handbook/MASTER_EXECUTION_PLAN.md",
+      "handbook/BRANCH_LEDGER.md",
+      "handbook/METHOD_IMPLEMENTATION_MATRIX.md",
+      "handbook/THESIS_UPDATE_LEDGER.md",
+      "handbook/decisions/REGISTER.md",
+      "handbook/methods",
+      "handbook/operational_gates.yaml",
+      "handbook/research_gates.yaml",
+      "handbook/research_diary",
+      "handbook/reports",
+      "handbook/reviews",
+      "handbook/thesis_updates",
+      "requirements"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "secret_tree_scan",
+    "index_tree": "69cc2c5d78811e800e95bc862088c14c657e0ba9",
+    "findings": [],
+    "status": "PASS",
+    "scope": "staged tree before adding this closure evidence; no secret values emitted"
+  },
+  {
+    "name": "old_overlay_preserved",
+    "status": "PASS",
+    "sha256": "d46175a3385a70a35ee476cc83a310b2c78ee23743075e3538930533909e64b0"
+  },
+  {
+    "name": "20260924_attempt1_b884c5e_immutable_manifest",
+    "status": "PASS",
+    "files": 71,
+    "manifest_sha256": "84de501d75f5888322c3b221677ba68833956695b0d93798b73c6af337614ce8"
+  },
+  {
+    "name": "20260924_attempt2_14669f3_immutable_manifest",
+    "status": "PASS",
+    "files": 103,
+    "manifest_sha256": "d4e12bd6c5968b2e413bacf2a095f749a93a27608aa7d9012d06269f8b88194b"
+  }
+]

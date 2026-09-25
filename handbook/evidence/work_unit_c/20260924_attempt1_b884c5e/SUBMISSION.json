@@ -1,0 +1,11 @@
+{
+  "work_unit": "C1",
+  "attempt": 1,
+  "maximum_submissions": 2,
+  "kernel": "muhammadii/fq-ssiuu-mother-runner",
+  "kernel_version": 3,
+  "source_dataset": "muhammadii/fq-ssiuu-c-source-b884c5e",
+  "code_commit": "b884c5ef0a8bfe7812e583f88f73cb5c1eaf9a83",
+  "private": true,
+  "training_authorized": false
+}

@@ -3,6 +3,7 @@
 import math
 from dataclasses import asdict, dataclass
 
+from fq_ssiuu.evaluation.content_identity import evaluation_hash, validate_oracle
 from fq_ssiuu.evaluation.identity import digest, require_hash
 from fq_ssiuu.evaluation.metric_definitions import definition_for, definition_hash
 
@@ -37,7 +38,7 @@ def metric_key(observation):
 
 
 def validate_group(group):
-    if group.get("schema_version") != "qra-comparison-group-v1":
+    if group.get("schema_version") != "qra-comparison-group-v2":
         raise ValueError("Unknown comparison group schema")
     if set(group["artifacts"]) != {"fp16", "int8", "nf4"}:
         raise ValueError("All precision artifact slots must be declared")
@@ -45,8 +46,21 @@ def validate_group(group):
         if slot.get("precision") != precision:
             raise ValueError("Artifact precision slot differs")
         require_hash(slot["artifact_sha256"])
+        from fq_ssiuu.evaluation.precision_artifact import validate_artifact
+
+        validate_artifact(slot["artifact_manifest"])
+        if (
+            digest(slot["artifact_manifest"]) != slot["artifact_sha256"]
+            or slot["artifact_manifest"]["precision"] != precision
+            or slot["artifact_manifest"]["checkpoint_sha256"] != group["checkpoint_sha256"]
+            or slot["artifact_manifest"]["quantizer_config"] != slot["quantizer_config"]
+        ):
+            raise ValueError("Precision artifact content differs")
         if not slot.get("quantizer_name") or not slot.get("quantizer_version"):
             raise ValueError("Quantizer name/version required")
+        library = "torch" if precision == "fp16" else "bitsandbytes"
+        if slot["quantizer_version"] != slot["artifact_manifest"]["versions"][library]:
+            raise ValueError("Quantizer version differs from actual artifact")
         if slot["quantizer_config_sha256"] != digest(slot["quantizer_config"]):
             raise ValueError("Quantizer configuration hash differs")
         expected = {"fp16": "identity", "int8": "bitsandbytes-llm-int8", "nf4": "bitsandbytes-nf4"}
@@ -104,8 +118,11 @@ class MetricObservation:
     evaluation_sha256: str
     raw_records: list[dict]
     raw_records_sha256: str
+    schema_version: str = "metric-observation-v2"
 
     def validate(self, group=None):
+        if self.schema_version != "metric-observation-v2":
+            raise ValueError("Legacy observations require explicit supersession")
         if self.precision not in {"fp16", "int8", "nf4"}:
             raise ValueError("Unknown precision")
         definition = definition_for(self.metric)
@@ -162,6 +179,8 @@ class MetricObservation:
             raise ValueError("KS requires an explicitly bound oracle evaluation")
         if not self.raw_records or self.raw_records_sha256 != digest(self.raw_records):
             raise ValueError("Raw per-example records or their hash differ")
+        if self.evaluation_sha256 != evaluation_hash(self):
+            raise ValueError("Evaluation content hash differs")
         ids = [r["sample_id"] for r in self.raw_records]
         if (
             len(set(ids)) != len(ids)
@@ -189,6 +208,44 @@ class MetricObservation:
                 raise ValueError("Aggregate differs from raw per-example records")
         if group is not None:
             validate_group(group)
+            if self.reference_policy == "fixed_fp16_oracle":
+                oracle = group.get("oracle_evidence")
+                if oracle is None:
+                    raise ValueError("Oracle raw evidence is required")
+                validate_oracle(oracle)
+                if (
+                    digest(oracle) != self.reference_evaluation_sha256
+                    or oracle["checkpoint_sha256"] != self.reference_sha256
+                    or any(
+                        oracle[k] != getattr(self, k)
+                        for k in (
+                            "tokenizer_revision",
+                            "dataset_revision",
+                            "preprocessing_sha256",
+                            "sample_ids_sha256",
+                            "evaluator_sha256",
+                        )
+                    )
+                ):
+                    raise ValueError("Oracle evidence linkage differs")
+                for left, right in zip(self.raw_records, oracle["raw_records"], strict=True):
+                    if any(
+                        left[k] != right[k]
+                        for k in ("sample_id", "source_record_sha256", "tensors_sha256")
+                    ):
+                        raise ValueError("Oracle sample content differs")
+                if self.metric in {"ks_statistic", "ks_p_value"}:
+                    from scipy.stats import ks_2samp
+
+                    ks = ks_2samp(
+                        [r["value"] for r in self.raw_records],
+                        [r["tofu_truth_ratio"] for r in oracle["raw_records"]],
+                        alternative="two-sided",
+                        method="exact",
+                    )
+                    expected = float(ks.statistic if self.metric == "ks_statistic" else ks.pvalue)
+                    if self.value != expected:
+                        raise ValueError("KS diagnostic differs from raw model/oracle ratios")
             if digest(group) != self.comparison_group_sha256:
                 raise ValueError("Comparison group manifest hash differs")
             for name in COMMON:
@@ -237,14 +294,42 @@ def compare_observations(baseline, target, group, *, bootstrap=None):
     else:
         if bootstrap is None:
             raise ValueError("Explicit paired bootstrap specification required")
-        from fq_ssiuu.evaluation.statistics import paired_bootstrap
+        from fq_ssiuu.evaluation.statistics import clustered_precision_bootstrap, paired_bootstrap
 
         ids = [r["sample_id"] for r in baseline.raw_records]
-        paired = paired_bootstrap(
+        arguments = dict(bootstrap)
+        method = arguments.pop("method", "paired-row-bootstrap-v1")
+        function = paired_bootstrap
+        if method == "paired-author-cluster-bootstrap-v1":
+            manifest = group.get("author_evidence", {}).get(baseline.source_split)
+            if manifest is None:
+                raise ValueError("Explicit author evidence required for clustered comparison")
+            if any(manifest[k] != getattr(baseline, k) for k in ("dataset_id", "dataset_revision")):
+                raise ValueError("Author evidence dataset differs")
+            if manifest["split"] != baseline.source_split:
+                raise ValueError("Author evidence split differs")
+            assignments = manifest["assignments"]
+            if len({r["sample_id"] for r in assignments}) != len(assignments):
+                raise ValueError("Duplicate author assignments")
+            mapping = {r["sample_id"]: r for r in assignments}
+            if any(
+                r["sample_id"] not in mapping
+                or mapping[r["sample_id"]]["source_record_sha256"] != r["source_record_sha256"]
+                for r in baseline.raw_records
+            ):
+                raise ValueError("Author evidence source records differ")
+            arguments.update(
+                author_ids=[mapping[i]["author_id"] for i in ids],
+                cluster_manifest_sha256=digest(manifest),
+            )
+            function = clustered_precision_bootstrap
+        elif method != "paired-row-bootstrap-v1":
+            raise ValueError("Unknown paired uncertainty method")
+        paired = function(
             ids,
-            [r["value"] for r in baseline.raw_records],
-            [r["value"] for r in target.raw_records],
-            **bootstrap,
+            baseline=[r["value"] for r in baseline.raw_records],
+            target=[r["value"] for r in target.raw_records],
+            **arguments,
         )
         result.update(
             comparison_status="DESCRIPTIVE_ONLY",

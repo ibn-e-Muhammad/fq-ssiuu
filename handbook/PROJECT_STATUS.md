@@ -1,12 +1,46 @@
 # FQ-SSIUU project status
 
-Updated 2026-09-22. [Canonical plan](MASTER_EXECUTION_PLAN.md).
-Integration tip: `dev` at `fb9882790082ac4640d04a87c43260c62566831d`.
-PR #8 is merged; `fix/upstream-method-reconciliation` is superseded and retained.
-Active work unit B: `fix/npo-adapter-qra-metrics`, from that dev tip.
-Environment and Mother installation remain frozen. No training or corrected pilot
-is authorized by this work unit. CPU and bounded forward-only runtime acceptance
-are recorded separately; RG-006 is RESOLVED for objective/data/reference conformance; RG-005 remains BLOCKED.
+Updated 2026-09-25. [Canonical plan](MASTER_EXECUTION_PLAN.md).
+Integration tip: `dev` at `2334f321b3ccf08352c29b1842200863b757c9d1` (PR #9 merged).
+Work units A and B are superseded and retained. Active work unit C:
+`fix/matched-precision-qra-protocol`, branched from that exact remote dev tip.
+C1 validates sequential FP16/LLM.int8/NF4 loading and actual descriptive metrics.
+C2 project choices are deferred until constituent 1B reproductions and bounded
+pilots are complete. Source-faithful reproductions and descriptive collection do
+not require Protocol v2 activation. This correction unit runs no training/pilot. The previously validated environment
+change is
+bitsandbytes 0.46.1, now validated for matched inference; 0.45.5 evidence remains immutable.
+RG-006 remains RESOLVED only for objective/data/frozen-reference conformance;
+RG-005 and method gates RG-001/002/003 remain BLOCKED.
+GitHub default is now dev; its active rule requires passing CI, one fresh approval
+from someone other than the last pusher, and resolved review threads. A substantive
+human scientific review is required in addition to automated checks.
+
+## Work unit C progress — 2026-09-24
+
+[PR #10](https://github.com/ibn-e-Muhammad/fq-ssiuu/pull/10) is open, unmerged.
+C1 **PASS within matched inference scope**, run `20260924-120549-b4c4f06e097d`,
+code `14669f34`, Mother v4. All three actual loaders, forwards, greedy generation,
+112 INT8/NF4 projections, 48 observations and the fixed FP16 oracle validated.
+84 sealed members verified; peak reserved memory 2,801,795,072 bytes on one T4.
+Environment remains BASELINE_DIRTY_NO_REGRESSION; six unchanged native diagnostics.
+New `requirements/kaggle-overlay.validated-0461.lock` copies the successful raw
+lock; the old lock is unchanged. See [derived verdict](evidence/work_unit_c/20260924_attempt2_14669f3/VERDICT.json).
+
+Both authorized submissions used. First failed its same-process model-release
+check after FP16; preserved unchanged. Sequential child-process repair passed
+attempt 2. CPU/CI 62: 294 passed, 4 unchanged skips, 10 deselected, 1 historical
+xfail. No training or scientific experiment ran. Packed-state bytes were hashed
+in the GPU runtime; no quantized checkpoint was saved for later byte rehashing.
+
+C1 used one example per dataset component; its one-versus-one KS result is not
+statistically inferential. The zero harmonic utility aggregate comes from a
+measured zero world-fact component, not general utility failure.
+
+[Protocol v2](methods/QRA_PROTOCOL_v2.md) is
+**DEFERRED_UNTIL_BASE_METHOD_PILOTS / PROPOSED_NOT_APPROVED**, non-executable.
+[Reproduction policy](methods/METHOD_REPRODUCTION_POLICY.md) separates upstream
+requirements from project proposals. [Work-unit report](reports/WORK_UNIT_C_FINAL_REPORT.md).
 
 ## Work unit B CPU acceptance — 2026-09-22
 
@@ -49,7 +83,7 @@ or corrected pilot has run. No Kaggle/model submission belongs to work unit A.
 |---|---|---|
 | OG-001 | PASS | Frozen [kernel v4 closure](evidence/og001_kaggle/20260906_kernel_v4_2be46116/VERDICT.json) |
 | Mother integration/archive | PASS | Frozen [Mother v1](evidence/mother_runner/20260908_kernel_v1_23682ea1/VERDICT.json); 1/2 submissions used |
-| RG-005 QRA outcomes | BLOCKED | Matched precision runtime and reviewed decision/uncertainty rules; all corrected pilots blocked |
+| RG-005 QRA outcomes | BLOCKED | Blocks confirmatory QRA verdicts/full FQ-SSIUU study; permits source-faithful constituent reproductions and descriptive collection |
 | RG-006 NPO parity | RESOLVED | Objective plus pinned data/frozen FP16 reference boundary accepted; no training-reproduction claim |
 | RG-003 QUAIL | BLOCKED | Complete objective/coefficients/margin/all-logit semantics and corrected P4 |
 | RG-002 weight NF4 | BLOCKED | Deployment-aligned weight transformation, gradients and corrected P3 |
@@ -65,12 +99,12 @@ evidence, not model-level scientific validation or training-memory evidence.
 
 ## Exact next action
 
-Work unit B is complete within its validation scope; PR #9 remains unmerged.
-Next reconcile the specific quantized-model loader compatibility and validate
-matched directional precision measurements, then review the proposed decision
-protocol. RG-005 remains BLOCKED; no corrected pilot is authorized yet.
-Proceed through QUAIL, weight NF4 and SSIUU before corrected pilots. Resolve and
-approve the final protocol only after feasibility; no outcome-dependent adjustments.
+Finish this documentation/gate-semantics correction, push PR #10 and stop; a
+substantive human PR review remains required. No further C1 run is authorized.
+Future source-faithful constituent reproduction work is permitted without Protocol
+v2 activation; it needs verified method-specific execution contracts, not project
+threshold approval. Revisit the final project protocol only after 1B constituent
+reproductions and bounded pilots. No effectiveness claim follows from C1.
 See [method matrix](METHOD_IMPLEMENTATION_MATRIX.md) and [scientific gates](research_gates.yaml).
 
 Tracked thesis prose is still absent; consequences are in the [thesis ledger](THESIS_UPDATE_LEDGER.md).
