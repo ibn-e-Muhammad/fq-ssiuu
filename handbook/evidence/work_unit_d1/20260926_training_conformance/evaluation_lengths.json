@@ -1,0 +1,26 @@
+{
+  "forget05_perturbed": {
+    "rows": 200,
+    "answer_variants": 1400,
+    "truncated": 0,
+    "max_original_length": 146
+  },
+  "retain_perturbed": {
+    "rows": 300,
+    "answer_variants": 2100,
+    "truncated": 0,
+    "max_original_length": 131
+  },
+  "real_authors_perturbed": {
+    "rows": 100,
+    "answer_variants": 500,
+    "truncated": 0,
+    "max_original_length": 74
+  },
+  "world_facts_perturbed": {
+    "rows": 117,
+    "answer_variants": 585,
+    "truncated": 0,
+    "max_original_length": 73
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schema": "npo-deepspeed-state-v1",
+  "status": "COMPLETE",
+  "identities": {
+    "reference_checkpoint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "preprocessing_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "eval_config_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "initial_checkpoint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "sample_membership_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "source_spec_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "train_config_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "dataset_revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "tokenizer_revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "identities_sha256": "b6770ea446baa4f9481b7fd212d12d4d7d130d140fb58c0edea40b52da9bbcc8",
+  "optimizer_step": 2,
+  "files": [
+    {
+      "path": "state/zero_pp_rank_0_mp_rank_00_model_states.pt",
+      "sha256": "7e03897432d8c74eb39905315288a89cc3da2bd600ae855ad0a3836c39b58249",
+      "bytes": 23022
+    },
+    {
+      "path": "state/zero_pp_rank_0_mp_rank_00_optim_states.pt",
+      "sha256": "6a49d37701b82d62d53bdc973fd1d58454eab8fbc5cdb3397261a4ceb7d66a44",
+      "bytes": 4883
+    },
+    {
+      "path": "zero_to_fp32.py",
+      "sha256": "54f74b8a39616e5c2a32c028a51524b1d8c481a15cd8b5961bb8125de244aed9",
+      "bytes": 38161
+    },
+    {
+      "path": "zero_to_torch.py",
+      "sha256": "b1f54984e60ece6da9343a70233ef4e04653e8ce4c2739faa4363cd124a99561",
+      "bytes": 2490
+    }
+  ]
+}

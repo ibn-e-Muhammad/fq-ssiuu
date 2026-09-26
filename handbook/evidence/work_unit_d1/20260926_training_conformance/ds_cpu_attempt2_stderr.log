@@ -1,0 +1,10 @@
+/home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/lib/python3.11/site-packages/torch/distributed/c10d_logger.py:83: FutureWarning: `torch.distributed.all_gather_into_tensor` is deprecated. Please use `torch.distributed.all_gather_single` instead.
+  return func(*args, **kwargs)
+/home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/lib/python3.11/site-packages/torch/distributed/c10d_logger.py:83: FutureWarning: `torch.distributed.reduce_scatter_tensor` is deprecated. Please use `torch.distributed.reduce_scatter_single` instead.
+  return func(*args, **kwargs)
+/home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/lib/python3.11/site-packages/torch/distributed/c10d_logger.py:83: FutureWarning: `torch.distributed.reduce_scatter_tensor` is deprecated. Please use `torch.distributed.reduce_scatter_single` instead.
+  return func(*args, **kwargs)
+/home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/lib/python3.11/site-packages/torch/distributed/c10d_logger.py:83: FutureWarning: `torch.distributed.reduce_scatter_tensor` is deprecated. Please use `torch.distributed.reduce_scatter_single` instead.
+  return func(*args, **kwargs)
+/home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/lib/python3.11/site-packages/torch/distributed/c10d_logger.py:83: FutureWarning: `torch.distributed.reduce_scatter_tensor` is deprecated. Please use `torch.distributed.reduce_scatter_single` instead.
+  return func(*args, **kwargs)

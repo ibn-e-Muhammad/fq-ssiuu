@@ -1,0 +1,35 @@
+{
+  "status": "PASS_CPU_ZERO3_RESUME_ONLY",
+  "torch": "2.13.0+cpu",
+  "deepspeed": "0.19.7",
+  "optimizer": "torch.optim.AdamW CPU test only",
+  "checkpoint_manifest_sha256": "bf089b302147f788617430f6bfca6e42ae65838461f604fedf33dc767b88b486",
+  "checkpoint_files": [
+    {
+      "path": "state/zero_pp_rank_0_mp_rank_00_model_states.pt",
+      "sha256": "7e03897432d8c74eb39905315288a89cc3da2bd600ae855ad0a3836c39b58249",
+      "bytes": 23022
+    },
+    {
+      "path": "state/zero_pp_rank_0_mp_rank_00_optim_states.pt",
+      "sha256": "6a49d37701b82d62d53bdc973fd1d58454eab8fbc5cdb3397261a4ceb7d66a44",
+      "bytes": 4883
+    },
+    {
+      "path": "zero_to_fp32.py",
+      "sha256": "54f74b8a39616e5c2a32c028a51524b1d8c481a15cd8b5961bb8125de244aed9",
+      "bytes": 38161
+    },
+    {
+      "path": "zero_to_torch.py",
+      "sha256": "b1f54984e60ece6da9343a70233ef4e04653e8ce4c2739faa4363cd124a99561",
+      "bytes": 2490
+    }
+  ],
+  "compared_microbatches": 16,
+  "loss_max_abs_error": 0.0,
+  "masters_bit_identical": true,
+  "scheduler_equal": true,
+  "rng_equal": true,
+  "cuda_or_paged_optimizer_validated": false
+}

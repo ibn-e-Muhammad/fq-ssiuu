@@ -107,3 +107,9 @@ Preflight covers all 4,000 training rows; a tiny CPU backward check establishes
 parameter-gradient wiring only. Logical parameter/optimizer bytes are not a GPU
 peak-memory measurement. No 1B optimization, checkpoint/resume or source-defined
 evaluation has run. Add no Results finding. All four DOCX files remain untouched.
+
+D1 continuation (2026-09-26): Chapter 3 may document source-executed pairing and
+metric parity, approved accumulation 8, historical effective clipping 0, distinct
+sampler/global/generation seed roles, and exact tiny CPU ZeRO-3 resume. These
+validate engineering boundaries; FP16 paged optimization and 1B feasibility
+remain untested. Add no Results finding; DOCX files remain untouched.

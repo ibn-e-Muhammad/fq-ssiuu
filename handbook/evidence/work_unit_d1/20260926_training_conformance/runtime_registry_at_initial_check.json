@@ -1,0 +1,79 @@
+{
+  "schema": "npo-d1-runtime-sources-v1",
+  "status": "COMPATIBILITY_CANDIDATES_NOT_GPU_VALIDATED",
+  "transformers_historical_reference": {
+    "version": "4.39.3",
+    "commit": "09f9f566de83eef1f13ee83b5a1bbeebde5c80c1",
+    "license": "Apache-2.0",
+    "scope": "Publication-era Trainer defaults and accumulation semantics; author did not pin installed version."
+  },
+  "bitsandbytes": {
+    "version": "0.46.1",
+    "commit": "4bca84499ad194d6c37e77dfcf99201b81dc6981",
+    "license": "MIT",
+    "scope": "Accepted C1 inference dependency; optimizer and paged restore require new D1 validation."
+  },
+  "deepspeed": {
+    "version": "0.19.7",
+    "url": "https://files.pythonhosted.org/packages/f2/06/aeeb0abbffbb3f1d8db049916eb654559d9d766443b058864b7e67e867f7/deepspeed-0.19.7.tar.gz",
+    "sha256": "c6640ecbda08ec6b4b6c72521155351719f145f48d850687b7332f503992921c",
+    "license": "Apache-2.0"
+  },
+  "files": {
+    "transformers/trainer.py": {
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/09f9f566de83eef1f13ee83b5a1bbeebde5c80c1/src/transformers/trainer.py",
+      "sha256": "fb3579779306c512c0b2ea0d3ce658f60cd572b4b207e80031d08ad06e45d45d",
+      "bytes": 208763
+    },
+    "transformers/training_args.py": {
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/09f9f566de83eef1f13ee83b5a1bbeebde5c80c1/src/transformers/training_args.py",
+      "sha256": "cfacc7168e898166ebf2f8df67fb3ef97ae9b777a98c3ad6cf83253469dfa3d7",
+      "bytes": 142569
+    },
+    "transformers/optimization.py": {
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/09f9f566de83eef1f13ee83b5a1bbeebde5c80c1/src/transformers/optimization.py",
+      "sha256": "8e5242e68dcd348ad5e4f9ce311fcac98a8d4f79f638d1bdf430b0b38658eec4",
+      "bytes": 33531
+    },
+    "bitsandbytes/optimizer.py": {
+      "url": "https://raw.githubusercontent.com/bitsandbytes-foundation/bitsandbytes/4bca84499ad194d6c37e77dfcf99201b81dc6981/bitsandbytes/optim/optimizer.py",
+      "sha256": "9156be6204017198af18adfdd91b9b748d05f174b3783576d8fb2e8fd898574e",
+      "bytes": 30232
+    },
+    "bitsandbytes/adamw.py": {
+      "url": "https://raw.githubusercontent.com/bitsandbytes-foundation/bitsandbytes/4bca84499ad194d6c37e77dfcf99201b81dc6981/bitsandbytes/optim/adamw.py",
+      "sha256": "58cb811e36c96edf9e931427662c697abdbfbada58848c8edc61a3ac455e3583",
+      "bytes": 15539
+    },
+    "generation_config.json": {
+      "url": "https://huggingface.co/open-unlearning/tofu_Llama-3.2-1B-Instruct_full/resolve/88e31200b97e4c0c04ae0d2f0b591f427046d192/generation_config.json",
+      "sha256": "f571455b7715ad274df4ffe832ab20e374e2ea1d6fde467a80e04da04e038f71",
+      "bytes": 184
+    }
+  },
+  "generation_config": {
+    "bos_token_id": 128000,
+    "do_sample": true,
+    "eos_token_id": [
+      128001,
+      128008,
+      128009
+    ],
+    "temperature": 0.6,
+    "top_p": 0.9,
+    "transformers_version": "4.45.1"
+  },
+  "implicit_source_defaults": {
+    "trainer_global_seed": 42,
+    "data_seed": 1001,
+    "generation_seed_each_batch": 0,
+    "adam_betas": [
+      0.9,
+      0.999
+    ],
+    "adam_epsilon": 1e-08,
+    "max_grad_norm": 1.0,
+    "scheduler": "linear",
+    "no_decay": "registered layer norms and names containing bias"
+  }
+}

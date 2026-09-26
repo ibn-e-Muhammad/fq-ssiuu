@@ -1,0 +1,17 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "experiments.reproductions.NPO.validate_deepspeed_cpu",
+    "--output",
+    "tmp/d1/ds_resume2"
+  ],
+  "returncode": 0,
+  "raw_checkpoint_local_path": "tmp/d1/ds_resume2/checkpoint2",
+  "scope": "Random tiny CPU NPO+RT, native ZeRO-3 save/load and CPU AdamW. Not FP16, CUDA or bitsandbytes acceptance.",
+  "earlier_checks": {
+    "tmp/d1/ds_cpu_stderr.log": "Sandbox prevented Gloo loopback; no model step occurred.",
+    "tmp/d1/ds_cpu_attempt2_stdout.log": "Smoke test succeeded with permitted loopback.",
+    "tmp/d1/ds_resume1/RESULT.json": "CPU persistence passed with clipping 1 test config; final run uses source-effective clipping 0."
+  }
+}

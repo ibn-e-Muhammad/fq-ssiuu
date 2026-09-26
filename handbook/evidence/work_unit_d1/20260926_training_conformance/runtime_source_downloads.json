@@ -1,0 +1,68 @@
+[
+  {
+    "path": "transformers/trainer.py",
+    "sha256": "fb3579779306c512c0b2ea0d3ce658f60cd572b4b207e80031d08ad06e45d45d",
+    "expected": "fb3579779306c512c0b2ea0d3ce658f60cd572b4b207e80031d08ad06e45d45d",
+    "match": true
+  },
+  {
+    "path": "transformers/training_args.py",
+    "sha256": "cfacc7168e898166ebf2f8df67fb3ef97ae9b777a98c3ad6cf83253469dfa3d7",
+    "expected": "cfacc7168e898166ebf2f8df67fb3ef97ae9b777a98c3ad6cf83253469dfa3d7",
+    "match": true
+  },
+  {
+    "path": "transformers/optimization.py",
+    "sha256": "8e5242e68dcd348ad5e4f9ce311fcac98a8d4f79f638d1bdf430b0b38658eec4",
+    "expected": "8e5242e68dcd348ad5e4f9ce311fcac98a8d4f79f638d1bdf430b0b38658eec4",
+    "match": true
+  },
+  {
+    "path": "bitsandbytes/optimizer.py",
+    "sha256": "9156be6204017198af18adfdd91b9b748d05f174b3783576d8fb2e8fd898574e",
+    "expected": "9156be6204017198af18adfdd91b9b748d05f174b3783576d8fb2e8fd898574e",
+    "match": true
+  },
+  {
+    "path": "bitsandbytes/adamw.py",
+    "sha256": "58cb811e36c96edf9e931427662c697abdbfbada58848c8edc61a3ac455e3583",
+    "expected": "58cb811e36c96edf9e931427662c697abdbfbada58848c8edc61a3ac455e3583",
+    "match": true
+  },
+  {
+    "path": "generation_config.json",
+    "sha256": "f571455b7715ad274df4ffe832ab20e374e2ea1d6fde467a80e04da04e038f71",
+    "expected": "f571455b7715ad274df4ffe832ab20e374e2ea1d6fde467a80e04da04e038f71",
+    "match": true
+  },
+  {
+    "path": "deepspeed-v0.14.0-constants.py",
+    "sha256": "ad0dfe32335928167f626d461b418e1749285fd05ac6ebc916ba43cf0dfa9407",
+    "expected": "ad0dfe32335928167f626d461b418e1749285fd05ac6ebc916ba43cf0dfa9407",
+    "match": true
+  },
+  {
+    "path": "deepspeed-v0.14.4-constants.py",
+    "sha256": "ad0dfe32335928167f626d461b418e1749285fd05ac6ebc916ba43cf0dfa9407",
+    "expected": "ad0dfe32335928167f626d461b418e1749285fd05ac6ebc916ba43cf0dfa9407",
+    "match": true
+  },
+  {
+    "path": "deepspeed-v0.15.2-constants.py",
+    "sha256": "c37dec327bdb55c3c255bda63311a15fb18b4492c6469aa1571a30020de26cb5",
+    "expected": "c37dec327bdb55c3c255bda63311a15fb18b4492c6469aa1571a30020de26cb5",
+    "match": true
+  },
+  {
+    "path": "accelerate/accelerator.py",
+    "sha256": "60a538877dd1b0f4fb0a55cdcb04d0dc5a86663da80915f8d731073c52a4bef8",
+    "expected": "60a538877dd1b0f4fb0a55cdcb04d0dc5a86663da80915f8d731073c52a4bef8",
+    "match": true
+  },
+  {
+    "path": "transformers/deepspeed.py",
+    "sha256": "f66ee2807e2676f33ce378cb4452ac05330ce8002af9a1dbe4830fe74f89dd34",
+    "expected": "f66ee2807e2676f33ce378cb4452ac05330ce8002af9a1dbe4830fe74f89dd34",
+    "match": true
+  }
+]

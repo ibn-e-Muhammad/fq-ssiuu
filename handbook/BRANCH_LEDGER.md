@@ -207,3 +207,7 @@ matches the merged `29d21a51` feature head. Created only
 `repro/npo-1b-source-faithful`. The governance receipt is
 `evidence/work_unit_d1/20260925_preflight/governance.json`.
 Raw C1 evidence, historical branches and all four DOCX files remain unchanged.
+
+D1 continuation (2026-09-26): same branch, source sampler/metrics and CPU ZeRO-3
+resume checked; 0/2 Kaggle submissions. Historical clipping default reconciled
+without changing the author objective. No D1 merge or independent-review claim.

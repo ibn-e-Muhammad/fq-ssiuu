@@ -1,15 +1,15 @@
 # FQ-SSIUU project status
 
-Updated 2026-09-25. [Canonical plan](MASTER_EXECUTION_PLAN.md).
+Updated 2026-09-26. [Canonical plan](MASTER_EXECUTION_PLAN.md).
 Integration tip: `dev` at `5ca92bfa0863a9ffadcd70bfc5f28c8ee8c6e76a` (PR #10 merged).
 Work units A, B and C are merged; their branches and evidence are retained.
 Active D1: `repro/npo-1b-source-faithful`, from that exact remote dev tip.
-Source/data preflight is implemented; the proposed category-3 accumulation
-change (accumulation 8) is now researcher-approved. No training recipe or Kaggle submission.
+CPU source pairing, accumulation and native ZeRO-3 resume checks pass; the category-3
+accumulation change to 8 is researcher-approved. No 1B training recipe or Kaggle submission.
 C1 validates sequential FP16/LLM.int8/NF4 loading and actual descriptive metrics.
 C2 project choices are deferred until constituent 1B reproductions and bounded
 pilots are complete. Source-faithful reproductions and descriptive collection do
-not require Protocol v2 activation. D1 has not run training/pilot. The previously validated environment
+not require Protocol v2 activation. D1 has run tiny CPU optimizer/resume tests but no 1B training/pilot. The previously validated environment
 change is
 bitsandbytes 0.46.1, now validated for matched inference; 0.45.5 evidence remains immutable.
 RG-006 remains RESOLVED only for objective/data/frozen-reference conformance;
@@ -104,7 +104,7 @@ evidence, not model-level scientific validation or training-memory evidence.
 ## Exact next action
 
 Implement the approved D1 resource adapter in [the source/adaptation specification](methods/NPO_D1_SOURCE_ADAPTATION.md):
-accumulation 4 → 8 on one GPU preserves source effective batch 32. Then implement
+accumulation 4 → 8 on one GPU preserves source effective batch 32. Then complete
 and review full-parameter NPO+RT optimization/checkpoint-resume before one bounded
 T4 run. D1 is not accepted from CPU preflight alone; see [D1 report](reports/WORK_UNIT_D1_REPORT.md).
 No Protocol v2 approval is needed for source-faithful reproduction. No effectiveness

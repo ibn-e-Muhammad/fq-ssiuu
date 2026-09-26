@@ -1,7 +1,7 @@
 # D1 NPO source and adaptation specification
 
-Status: **source conformance in progress; accumulation-8 resource adapter researcher-approved; no
-training recipe is enabled**. Intended result: a bounded source-faithful 1B
+Status: **CPU source/accumulation conformance and native ZeRO-3 checkpoint/resume checked;
+accumulation 8 approved; no 1B training recipe is enabled**. Intended result: a bounded source-faithful 1B
 adapted-reproduction pilot, not an exact replication or a multi-seed result.
 
 ## Primary source and version
@@ -32,14 +32,14 @@ file hashes remain in `inputs_v1.json` and `validate_upstream.py`.
 | Reference | `fine_tuned` checkpoint, frozen, eval, no_grad | Same exact original full checkpoint as candidate initialization; unquantized FP16 on cuda:0; retain95 diagnostic oracle is a different object |
 | Masking | `data_module.py`: shift by one in loss; question ignored, answer and terminator scored; fixed length 500 | Accepted pinned OpenUnlearning Llama-3 chat adapter, source length 500. Prompt/padding ignored; EOT attended and scored. This is a model adapter, not identical Llama-2 prompt tensors |
 | Split | Config defaults forget01; paper also evaluates forget05; dataset class derives retain split | Existing accepted forget05/retain95 boundary, not a new data substitution. All 200/3800 source rows and their order must match both registry and author Git blobs |
-| Retain sampling | Dataset `__getitem__` reseeds with forget index, then offsets a sampled retain index | Preserve this source pairing if runner is authorized. Do not replace with independent retain shuffling or cycle the entire retain set |
+| Retain sampling | Dataset `__getitem__` reseeds with forget index, then offsets a sampled retain index | All 200 pairings and post-call RNG states match the executed author function. Do not replace with independent retain shuffling or cycle the entire retain set |
 | Trainable weights | LoRA rank 0, complete model | Every unique model parameter trainable; tied embedding counted once. No LoRA, frozen backbone, quantized reference or reduced-state optimizer |
 | Optimizer | `forget.py`: paged_adamw_32bit; lr 1e-5, weight decay .01; ZeRO-3, no explicit offload | Preserve optimizer family and FP32 moments. Source does not pin dependency versions; native-compatible integration still needs parity/review. Do not silently substitute ordinary AdamW or an 8-bit optimizer |
 | Scheduler / stop | 10 nominal epochs, linear warmup then decay; script floors step counts; global batch 32 | 200 rows produce max_steps 62, warmup 6, evaluations at 6,12,...,60. Preserve this rounding; final checkpoint is step 62, not a best-score-selected checkpoint |
-| Seed | Shipped configuration 1001 | One declared pilot seed 1001; no project Protocol v2 seed rule |
+| Seed | Shipped configuration 1001 | Declared sampler seed 1001; the author omits TrainingArguments.seed, so its global initialization seed is 42. Generation resets torch seed to 0 for every batch. Preserve and record all three roles; no Protocol v2 seed rule |
 | Metrics | `evaluate_util.py` and `utils.py`: answer probability, ROUGE-L recall, Truth Ratio, KS, utility, KL diagnostic | Execute/compare pinned definitions before accepting evaluator. Author code uses geometric perturbed-answer probability; keep that explicitly named source diagnostic alongside the researcher-selected arithmetic TOFU diagnostic. No p-value effect size or durability rule |
-| Evaluation sampling / generation | Config ds_size 300, max_length 200, per-device batch 30; code sampling/order must be audited | Source-sized evaluation and final checkpoint evaluation remain unimplemented. Do not inherit C1's four-row validation limit or max_new_tokens=64 silently |
-| Save / resume | Author saves final model/tokenizer; normal periodic optimizer saves disabled and later deletion code exists | Required new immutable resumable checkpoints must preserve model, optimizer, scheduler, RNG, data cursor and source/config identities; never copy source deletion behavior. Not yet implemented/tested |
+| Evaluation sampling / generation | Config ds_size 300, max_length 200, per-device batch 30; code sampling/order must be audited | Verified first 300 retain, all 200 forget, 100 real-author and 117 world-fact rows; all 4,585 answer variants fit length 200 without truncation. Preserve sampled generation (do_sample=True), batch 30, seed 0 per batch; do not inherit C1 greedy generation. The pinned target generation config uses temperature 0.6 and top_p 0.9 as an explicit model adapter |
+| Save / resume | Author saves final model/tokenizer; normal periodic optimizer saves disabled and later deletion code exists | Identity-bound CPU and native DeepSpeed save/load implemented. Tiny random CPU ZeRO-3 resumed losses and FP32 masters bit-identically, preserving scheduler, RNG and cursor. Paged FP16 GPU restore remains unvalidated. Never copy source deletion behavior |
 
 ## Immutable target
 
@@ -97,3 +97,36 @@ recipe. D1 still requires optimizer/checkpoint/resume conformance and review
 before its first submission. Maximum two Kaggle attempts, second only for a
 reviewed operational repair. No project attack/durability verdicts; RG-005 and
 deferred Protocol v2 are unchanged.
+
+## CPU training-path conformance — 2026-09-26
+
+Evidence: `../evidence/work_unit_d1/20260926_training_conformance/`. Source-defined
+utility and geometric Truth Ratio/KS calculations agree with executed author
+functions on nontrivial fixed records, including zero-component harmonic utility.
+These are fixture calculations, not model effectiveness measurements. All 496
+planned microbatches match the author DataLoader; accumulation carries across
+epoch boundaries, preserving all source microbatches and 62 updates. Two-rank
+by-four versus one-rank by-eight accumulation has matching values/gradients,
+including heterogeneous retain answer lengths.
+
+A necessary compatibility setting is **effective gradient_clipping=0**. The
+author DeepSpeed JSON omits clipping. Historical DeepSpeed 0.14.0, 0.14.4 and
+0.15.2 default to zero; executed Transformers fill_match leaves an absent field
+absent, and executed Accelerate's DeepSpeed clipping path leaves gradients alone.
+DeepSpeed 0.19.7 defaults to one, so inheriting the new default would change the
+method. `runtime_sources_v1.json` pins those sources and the current candidate.
+Trainer's separate max_grad_norm default of one does not establish effective
+clipping in this source path.
+
+The loss selects scored vocabulary logits before FP32 promotion and does not
+calculate an unused second Transformers cross entropy. Prompt/padding gradients
+remain zero and source value/gradient parity still passes. Frozen reference
+logits are released after their sequence NLL is obtained; this is not a reference
+cache or a change of reference model.
+
+The paged optimizer restore adapter preserves FP32 moment values while recreating
+managed allocations using bitsandbytes' original allocator. Generic bnb loading
+alone does not recreate those allocations. CPU tests establish allocator
+invocation/value preservation, not real CUDA paging; GPU verification remains
+mandatory. DeepSpeed CPU conformance uses ordinary CPU AdamW solely to test the
+actual ZeRO checkpoint API, not as the D1 runtime optimizer.
