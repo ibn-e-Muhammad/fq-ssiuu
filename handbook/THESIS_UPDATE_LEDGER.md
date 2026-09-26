@@ -95,3 +95,15 @@ measured-zero-component utility aggregate is not general utility failure. Packed
 quantized tensors were hashed but not persisted. No forgetting/recovery/durability
 finding follows. Protocol v2 is deferred until base-method pilots, unapproved and
 non-executable; source requirements are not awaiting that approval. DOCX untouched.
+
+## D1 source/data preflight — 2026-09-25
+
+Chapter 2: distinguish the source NPO+RT default from pure NPO, preserve the
+sequence-summed forgetting and token-mean retain definitions, and cite the pinned
+author source in `methods/NPO_D1_SOURCE_ADAPTATION.md`.
+Chapter 3: record the accepted 1B/chat adaptation, verified forget05/retain95
+source membership and proposed global-batch-preserving resource adjustment.
+Preflight covers all 4,000 training rows; a tiny CPU backward check establishes
+parameter-gradient wiring only. Logical parameter/optimizer bytes are not a GPU
+peak-memory measurement. No 1B optimization, checkpoint/resume or source-defined
+evaluation has run. Add no Results finding. All four DOCX files remain untouched.

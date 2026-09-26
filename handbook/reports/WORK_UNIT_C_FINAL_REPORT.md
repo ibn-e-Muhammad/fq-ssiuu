@@ -3,21 +3,22 @@
 Current interpretation, corrected 2026-09-25: **C1 PASS only within matched
 inference and measurement-plumbing scope**. C2 is
 **DEFERRED_UNTIL_BASE_METHOD_PILOTS / PROPOSED_NOT_APPROVED**. Source-faithful
-constituent reproductions do not await activation of Protocol v2; substantive
-human PR review remains outstanding. No training, corrected pilot or
+constituent reproductions do not await activation of Protocol v2. The researcher
+subsequently approved and merged PR #10 at `5ca92bfa` (2026-09-25). No training, corrected pilot or
 scientific experiment ran. Attack and durability decisions remain null.
 
 ## Lineage and review
 
 - Starting remote dev: `2334f321b3ccf08352c29b1842200863b757c9d1` (merged PR #9).
-- Branch: `fix/matched-precision-qra-protocol`; one open [PR #10](https://github.com/ibn-e-Muhammad/fq-ssiuu/pull/10), not merged.
+- Branch: `fix/matched-precision-qra-protocol`; [PR #10](https://github.com/ibn-e-Muhammad/fq-ssiuu/pull/10) merged; final head `29d21a51de784190bdabf4e7267db8925c73260e`.
 - Implementation: `b884c5ef0a8bfe7812e583f88f73cb5c1eaf9a83`.
 - Executed repair: `14669f34cbaefde8c4e3d7d7f89616a240a6a6c7`.
 - Original evidence closure: `afb341b5ba1dd0e9c6de6f8a3842c5596afe967d`. The
   present documentation correction preserves that immutable snapshot. Its original file inventory is in
   `../evidence/work_unit_c/20260924_closure/FILE_INDEX.json`.
-- Default branch is dev. Required CI, fresh reviewer approval, resolved threads,
-  deletion/force-push protection and no last-pusher self-approval are enforced.
+- Default branch is dev. Required CI, fresh reviewer approval, resolved threads
+  and deletion/force-push protection remain enforced. The additional last-push
+  approval restriction was removed at the researcher's request when D1 began.
 - [Implementation review](../reviews/2026-09-24_work_unit_c_implementation_review.md)
   is explicitly the implementer's review, not an independent scientific approval.
 

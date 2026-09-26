@@ -1,0 +1,138 @@
+{
+  "before": {
+    "id": 20175027,
+    "name": "dev_rule",
+    "target": "branch",
+    "source_type": "Repository",
+    "source": "ibn-e-Muhammad/fq-ssiuu",
+    "enforcement": "active",
+    "conditions": {
+      "ref_name": {
+        "exclude": [],
+        "include": [
+          "refs/heads/dev"
+        ]
+      }
+    },
+    "rules": [
+      {
+        "type": "deletion"
+      },
+      {
+        "type": "non_fast_forward"
+      },
+      {
+        "type": "pull_request",
+        "parameters": {
+          "required_approving_review_count": 1,
+          "dismiss_stale_reviews_on_push": true,
+          "required_reviewers": [],
+          "require_code_owner_review": false,
+          "require_last_push_approval": true,
+          "required_review_thread_resolution": true,
+          "require_extra_approval_for_unattributed_changes": true,
+          "allowed_merge_methods": [
+            "merge",
+            "squash",
+            "rebase"
+          ]
+        }
+      },
+      {
+        "type": "required_status_checks",
+        "parameters": {
+          "strict_required_status_checks_policy": true,
+          "do_not_enforce_on_create": false,
+          "required_status_checks": [
+            {
+              "context": "Lint and Unit Tests",
+              "integration_id": 15368
+            }
+          ]
+        }
+      }
+    ],
+    "node_id": "RRS_lACqUmVwb3NpdG9yec5OnhaWzgEz2LM",
+    "created_at": "2026-08-01T12:44:04.500+05:00",
+    "updated_at": "2026-09-23T10:33:23.406+05:00",
+    "bypass_actors": [],
+    "current_user_can_bypass": "never",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/ibn-e-Muhammad/fq-ssiuu/rulesets/20175027"
+      },
+      "html": {
+        "href": "https://github.com/ibn-e-Muhammad/fq-ssiuu/rules/20175027"
+      }
+    }
+  },
+  "after": {
+    "id": 20175027,
+    "name": "dev_rule",
+    "target": "branch",
+    "source_type": "Repository",
+    "source": "ibn-e-Muhammad/fq-ssiuu",
+    "enforcement": "active",
+    "conditions": {
+      "ref_name": {
+        "exclude": [],
+        "include": [
+          "refs/heads/dev"
+        ]
+      }
+    },
+    "rules": [
+      {
+        "type": "deletion"
+      },
+      {
+        "type": "non_fast_forward"
+      },
+      {
+        "type": "pull_request",
+        "parameters": {
+          "required_approving_review_count": 1,
+          "dismiss_stale_reviews_on_push": true,
+          "required_reviewers": [],
+          "require_code_owner_review": false,
+          "require_last_push_approval": false,
+          "required_review_thread_resolution": true,
+          "require_extra_approval_for_unattributed_changes": true,
+          "allowed_merge_methods": [
+            "merge",
+            "squash",
+            "rebase"
+          ]
+        }
+      },
+      {
+        "type": "required_status_checks",
+        "parameters": {
+          "strict_required_status_checks_policy": true,
+          "do_not_enforce_on_create": false,
+          "required_status_checks": [
+            {
+              "context": "Lint and Unit Tests",
+              "integration_id": 15368
+            }
+          ]
+        }
+      }
+    ],
+    "node_id": "RRS_lACqUmVwb3NpdG9yec5OnhaWzgEz2LM",
+    "created_at": "2026-08-01T12:44:04.500+05:00",
+    "updated_at": "2026-09-25T22:19:09.051+05:00",
+    "bypass_actors": [],
+    "current_user_can_bypass": "never",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/ibn-e-Muhammad/fq-ssiuu/rulesets/20175027"
+      },
+      "html": {
+        "href": "https://github.com/ibn-e-Muhammad/fq-ssiuu/rules/20175027"
+      }
+    }
+  },
+  "only_requested_change": "require_last_push_approval=false",
+  "main_modified": false
+}

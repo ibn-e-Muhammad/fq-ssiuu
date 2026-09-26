@@ -1,0 +1,71 @@
+[
+  {
+    "name": "cpu_suite_final",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "tests/",
+      "-q",
+      "--tb=short",
+      "-m",
+      "not requires_gpu and not requires_model"
+    ],
+    "returncode": 0,
+    "seconds": 26.924104106990853
+  },
+  {
+    "name": "lint_final",
+    "argv": [
+      ".venv/bin/ruff",
+      "check",
+      "src/",
+      "tests/",
+      "scripts/",
+      "experiments/reproductions/"
+    ],
+    "returncode": 0,
+    "seconds": 0.016961578992777504
+  },
+  {
+    "name": "format_final",
+    "argv": [
+      ".venv/bin/ruff",
+      "format",
+      "--check",
+      "src/",
+      "tests/",
+      "scripts/",
+      "experiments/reproductions/"
+    ],
+    "returncode": 0,
+    "seconds": 0.013407530990662053
+  },
+  {
+    "name": "notebooks_final",
+    "argv": [
+      ".venv/bin/python",
+      "scripts/check_notebooks.py",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260925_preflight/notebooks_final.json"
+    ],
+    "returncode": 0,
+    "seconds": 0.32312358399212826
+  },
+  {
+    "name": "preflight_recheck",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "experiments.reproductions.NPO.preflight",
+      "--upstream",
+      "/tmp/fq-d1-upstream",
+      "--assets",
+      "/tmp/fq-b-assets",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260925_preflight/preflight_recheck.json"
+    ],
+    "returncode": 0,
+    "seconds": 12.89888367599633
+  }
+]

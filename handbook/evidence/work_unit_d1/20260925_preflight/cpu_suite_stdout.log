@@ -1,0 +1,42 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/muhammad-arslan/Downloads/projects/fq-ssiuu
+configfile: pyproject.toml
+collected 323 items / 10 deselected / 313 selected
+
+tests/historical/FQ_QAT/test_quantisation_location.py .......            [  2%]
+tests/historical/FQ_QAT/test_ste_gradients.py ....                       [  3%]
+tests/historical/NPO/test_npo_loss.py ...                                [  4%]
+tests/historical/NPO/test_npo_numerical.py ....                          [  5%]
+tests/historical/SSIUU/test_attribution.py ...                           [  6%]
+tests/historical/SSIUU/test_ssiuu_gradient_flow.py x.                    [  7%]
+tests/methods/NPO/test_adapter.py ...........                            [ 10%]
+tests/methods/NPO/test_conformance.py ......................             [ 17%]
+tests/methods/NPO/test_preflight.py ..............                       [ 22%]
+tests/methods/NPO/test_reference.py ............                         [ 26%]
+tests/methods/NPO/test_validation_contract.py ..........                 [ 29%]
+tests/methods/QRA/test_content_contract.py ................              [ 34%]
+tests/methods/QRA/test_metrics.py ...........                            [ 38%]
+tests/methods/QRA/test_outcomes.py ..................................    [ 48%]
+tests/methods/QRA/test_precision_validation.py ........                  [ 51%]
+tests/methods/QRA/test_report.py ........                                [ 53%]
+tests/test_configuration.py .......                                      [ 56%]
+tests/test_dotenv_sources.py ...                                         [ 57%]
+tests/test_drive_upload.py .....                                         [ 58%]
+tests/test_environment.py .......                                        [ 61%]
+tests/test_fade_compute.py ssss                                          [ 62%]
+tests/test_kaggle_dependency_policy.py ......................            [ 69%]
+tests/test_kaggle_source_transport.py ...............                    [ 74%]
+tests/test_model_loading_policy.py ....                                  [ 75%]
+tests/test_mother_runner.py ......                                       [ 77%]
+tests/test_og001_artifacts.py .......                                    [ 79%]
+tests/test_pilot_cli.py ..                                               [ 80%]
+tests/test_pip_consistency.py .......................                    [ 87%]
+tests/test_provenance.py .............                                   [ 91%]
+tests/test_repository_layout.py ...                                      [ 92%]
+tests/test_research_gate_authority.py .....                              [ 94%]
+tests/test_run_archiving.py .....                                        [ 95%]
+tests/test_secrets.py .......                                            [ 98%]
+tests/test_thesis_update.py ......                                       [100%]
+
+========== 308 passed, 4 skipped, 10 deselected, 1 xfailed in 24.03s ===========
