@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "manifest": "handbook/evidence/work_unit_d1/MANIFEST_20260926.json",
+  "manifest_sha256": "1291f90c1078b35575aafe9c9e9099fb8afcbc14e74ea38d77938a1fada935ab",
+  "evidence_files_verified": 84,
+  "historical_code_files_verified_at_recorded_commit": 31
+}

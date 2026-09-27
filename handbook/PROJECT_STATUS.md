@@ -1,11 +1,12 @@
 # FQ-SSIUU project status
 
-Updated 2026-09-26. [Canonical plan](MASTER_EXECUTION_PLAN.md).
+Updated 2026-09-27. [Canonical plan](MASTER_EXECUTION_PLAN.md).
 Integration tip: `dev` at `5ca92bfa0863a9ffadcd70bfc5f28c8ee8c6e76a` (PR #10 merged).
 Work units A, B and C are merged; their branches and evidence are retained.
 Active D1: `repro/npo-1b-source-faithful`, from that exact remote dev tip.
-CPU source pairing, accumulation and native ZeRO-3 resume checks pass; the category-3
-accumulation change to 8 is researcher-approved. No 1B training recipe or Kaggle submission.
+CPU source pairing, accumulation, native ZeRO-3 resume and the complete 62-step
+tiny CPU loop pass. The D1 runner/evaluator and closed Mother recipe are implemented
+for review; accumulation 8 is researcher-approved. No Kaggle submission or 1B training.
 C1 validates sequential FP16/LLM.int8/NF4 loading and actual descriptive metrics.
 C2 project choices are deferred until constituent 1B reproductions and bounded
 pilots are complete. Source-faithful reproductions and descriptive collection do
@@ -103,10 +104,12 @@ evidence, not model-level scientific validation or training-memory evidence.
 
 ## Exact next action
 
-Implement the approved D1 resource adapter in [the source/adaptation specification](methods/NPO_D1_SOURCE_ADAPTATION.md):
-accumulation 4 → 8 on one GPU preserves source effective batch 32. Then complete
-and review full-parameter NPO+RT optimization/checkpoint-resume before one bounded
-T4 run. D1 is not accepted from CPU preflight alone; see [D1 report](reports/WORK_UNIT_D1_REPORT.md).
+Review the implemented D1 runner and source evaluator, then perform the first
+bounded T4 submission after review passes. The prepared recipe preserves full
+NPO+RT, the frozen full reference, paged 32-bit AdamW, effective batch 32 and 62
+source steps. Both submissions remain unused. D1 is not accepted from CPU checks
+alone; see [D1 report](reports/WORK_UNIT_D1_REPORT.md) and
+[source/adaptation specification](methods/NPO_D1_SOURCE_ADAPTATION.md).
 No Protocol v2 approval is needed for source-faithful reproduction. No effectiveness
 claim follows from C1, and no further C1 execution is authorized.
 See [method matrix](METHOD_IMPLEMENTATION_MATRIX.md) and [scientific gates](research_gates.yaml).

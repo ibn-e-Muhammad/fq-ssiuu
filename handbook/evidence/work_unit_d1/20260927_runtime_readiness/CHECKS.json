@@ -1,0 +1,87 @@
+[
+  {
+    "name": "cpu_suite",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "tests/",
+      "-q",
+      "--tb=short",
+      "-m",
+      "not requires_gpu and not requires_model"
+    ],
+    "returncode": 0,
+    "seconds": 29.483065742999315
+  },
+  {
+    "name": "lint",
+    "argv": [
+      ".venv/bin/ruff",
+      "check",
+      "src/",
+      "tests/",
+      "scripts/",
+      "experiments/reproductions/"
+    ],
+    "returncode": 0,
+    "seconds": 0.015062039004988037
+  },
+  {
+    "name": "format",
+    "argv": [
+      ".venv/bin/ruff",
+      "format",
+      "--check",
+      "src/",
+      "tests/",
+      "scripts/",
+      "experiments/reproductions/"
+    ],
+    "returncode": 0,
+    "seconds": 0.009532466996461153
+  },
+  {
+    "name": "notebooks",
+    "argv": [
+      ".venv/bin/python",
+      "scripts/check_notebooks.py",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260927_runtime_readiness/NOTEBOOKS.json"
+    ],
+    "returncode": 0,
+    "seconds": 0.30413745999976527
+  },
+  {
+    "name": "upstream_objective",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "experiments.reproductions.NPO.validate_upstream",
+      "--upstream",
+      "tmp/d1/assets/npo",
+      "--openunlearning",
+      "tmp/d1/assets/openunlearning",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260927_runtime_readiness/OBJECTIVE_PARITY.json"
+    ],
+    "returncode": 0,
+    "seconds": 1.8897249090005062
+  },
+  {
+    "name": "upstream_schedule_metrics",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "experiments.reproductions.NPO.validate_training_source",
+      "--upstream",
+      "tmp/d1/assets/npo",
+      "--runtime-sources",
+      "tmp/d1/assets/runtime_sources",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260927_runtime_readiness/SOURCE_CONFORMANCE.json"
+    ],
+    "returncode": 0,
+    "seconds": 2.3291442049958277
+  }
+]

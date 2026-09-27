@@ -113,3 +113,11 @@ metric parity, approved accumulation 8, historical effective clipping 0, distinc
 sampler/global/generation seed roles, and exact tiny CPU ZeRO-3 resume. These
 validate engineering boundaries; FP16 paged optimization and 1B feasibility
 remain untested. Add no Results finding; DOCX files remain untouched.
+
+D1 continuation (2026-09-27): Chapter 3 may describe the implemented 62-step
+training loop, source-sized sampled evaluator, separate full NPO reference and
+retain-only diagnostic oracle, hash-bound oracle records, and preservation of
+partial observations/checkpoints. The full loop has executed only on a tiny
+random CPU model, including real ZeRO-3; it is not a 1B reproduction result.
+GPU paging, 1B memory, source evaluation and archive agreement remain unvalidated.
+No Chapter 4 effectiveness result; the four DOCX files remain untouched.

@@ -1,7 +1,8 @@
 # D1 NPO source and adaptation specification
 
-Status: **CPU source/accumulation conformance and native ZeRO-3 checkpoint/resume checked;
-accumulation 8 approved; no 1B training recipe is enabled**. Intended result: a bounded source-faithful 1B
+Status: **D1 runtime implemented for review; CPU source/accumulation, native ZeRO-3
+checkpoint/resume and complete tiny CPU loop checked; accumulation 8 approved;
+0/2 Kaggle submissions**. Intended result: a bounded source-faithful 1B
 adapted-reproduction pilot, not an exact replication or a multi-seed result.
 
 ## Primary source and version
@@ -130,3 +131,62 @@ alone does not recreate those allocations. CPU tests establish allocator
 invocation/value preservation, not real CUDA paging; GPU verification remains
 mandatory. DeepSpeed CPU conformance uses ordinary CPU AdamW solely to test the
 actual ZeRO checkpoint API, not as the D1 runtime optimizer.
+
+## Runtime implementation and remaining review — 2026-09-27
+
+The closed `configs/runs/work_unit_d1_npo_v1.json` Mother route selects only
+NPO+RT. Training/evaluation JSON files under `configs/reproductions/NPO/` are
+hash-bound and rejected if source settings, optimizer, masks, stopping rule or
+project verdict fields change. RG-005 remains blocking for project decisions;
+this route implements the researcher's source-reproduction exception only.
+Pre-run substantive review is still required; no independent review is claimed.
+
+`training_loop.py` preserves 496 ordered microbatches, including the epoch tail,
+62 update boundaries, and evaluations at 6,12,...,60. Step 62 is saved and evaluated
+additionally, with no best-metric selection. Raw forward observations are flushed
+before backward and completed updates separately, so a failed backward does not
+erase measured loss or imply an update occurred. Dynamic FP16 overflow/skipped
+updates are recorded explicitly. Native checkpoint state binds model, reference,
+configs, data, preprocessing, optimizer/scheduler, RNG and cursor; resume rejects
+identity or sample-plan mismatch.
+
+The evaluator uses all 717 source-selected rows and 4,585 answer variants, primary
+batch 30 and base/perturbation batches 7/7×options. Llama-3 generation uses the
+accepted chat prompt token prefix directly instead of the author's Llama-2 string
+delimiter/re-tokenization; this is an explicit category-2 model adapter. It keeps
+sampled decoding, total length 200 and seed 0 per batch. Source ROUGE-L uses stemming;
+the extra normalized exact-match field is descriptive and does not alter the
+published aggregate. Source geometric Truth Ratio/KS and the canonical paper
+arithmetic diagnostic remain separately named. Neither yields a project decision.
+
+The retain95 diagnostic oracle is evaluated and unloaded before training. Its
+record includes source/sample order, tensor content, preprocessing and evaluator
+hashes; those are recomputed before comparison. The original full checkpoint is
+then loaded as the frozen NPO reference. KL(ref||candidate) includes all sequence
+positions as in the source; CPU chunked FP32 reductions are a category-1 numerical
+compatibility adapter, preserving the formula without a second vocabulary-sized
+GPU allocation. Candidate/reference parameter or optimizer offload is not introduced.
+
+DeepSpeed 0.19.7 plus hjson 3.1.0 is a **candidate** overlay on the immutable C1
+0.46.1 lock. Source-distribution hash is fixed; build isolation is disabled to
+avoid an isolated replacement Torch install, while resolver/protected-stack and
+differential pip policies remain mandatory. Tiny random FP16/paged/ZeRO-3 resume
+validation must pass in the same planned submission before 1B optimization.
+The page-manager cleanup removes only a destroyed optimizer's own buffers; it
+does not change live moment values or updates.
+
+Peak PyTorch allocated/reserved memory and 0.1-second NVML samples are recorded.
+NVML samples include managed/non-PyTorch memory but cannot establish sub-interval
+peaks; report that observational limitation. A recorded peak at or above
+16,000,000,000 bytes fails acceptance. The full-model reference is loaded after
+engine initialization to reduce temporary allocation overlap, without moving it
+off the selected GPU during training.
+
+Final native optimizer state plus FP16 export requires approximately 17 GB;
+raw output therefore lives in `/kaggle/tmp`, and the complete sealed archive alone
+is retained under `/kaggle/working`. Nothing is deleted or omitted to fit the
+20 GB saved-output cap. The GPU runtime must compare exported FP16 weight values
+with the initial checkpoint, reject nonfinite/unchanged weights, reload the model,
+and reproduce final-batch NLL exactly. Full 1B optimizer resume is not claimed
+from the tiny GPU resume test. Private Kaggle/HF archive verification occurs after
+download and is required before D1 can pass.

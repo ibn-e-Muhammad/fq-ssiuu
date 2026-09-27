@@ -1,6 +1,6 @@
 # Work Unit D1 — NPO 1B adapted reproduction
 
-**PARTIAL WITH EVIDENCE — CPU training-path conformance; accumulation 8 approved; GPU implementation remains.**
+**PARTIAL WITH EVIDENCE — D1 runtime implemented for review; accumulation 8 approved; 0/2 Kaggle submissions.**
 No Kaggle submission, 1B training, trained 1B checkpoint or effectiveness
 result. Tiny random CPU optimizer/checkpoint tests have executed. Intended classification is a bounded source-faithful 1B adapted-reproduction
 pilot. Completed work currently establishes upstream/CPU conformance only.
@@ -142,7 +142,36 @@ for one T4, preserving effective batch 32, full-parameter NPO+RT, full frozen
 FP16 reference and the original paged 32-bit AdamW. D1 automatically allows only
 categories 1/2; the proposal changes an explicit source hyperparameter and cannot
 be silently applied; explicit approval has now been recorded. Continue **this same D1 branch** with
-GPU runner/source evaluation/storage implementation and review before the bounded run.
+substantive review of the implemented GPU runner/source evaluation/storage path before the bounded run.
 Kaggle officially retains at most 20 GB of notebook output; a full checkpoint plus
 a second raw/archive copy would exceed it. The runtime must persist one complete
 sealed copy and verify every member, without dropping optimizer state or raw records.
+
+## Runtime readiness — 2026-09-27
+
+Implemented the closed Mother D1 route, frozen training/evaluation configs,
+full-parameter FP16/ZeRO-3/paged AdamW runner, source-sized evaluator, separate
+retain-only oracle evaluation, native checkpoint save/resume, FP16 export/value
+comparison/reload, memory telemetry and truthful partial output. All code remains
+in the NPO reproduction namespace; nothing is promoted as an accepted combined
+method. Existing C1 locks and raw artifacts are preserved.
+
+Acceptance evidence: `../evidence/work_unit_d1/20260927_runtime_readiness/`.
+Code commit: `65c454a20de4658851603cbf49eb4796afed95c5`.
+Immutable manifest: `../evidence/work_unit_d1/MANIFEST_20260927.json`, SHA-256
+`5370210c9f79a4cffd0560ccb2b4f171c36d6b014e0d6147438068fe7074bbe9`.
+The final offline suite records **378 passed, 4 skipped, 10 deselected, 1 xfailed**;
+no new core test is skipped. Lint/format and all 14 notebooks pass. Actual pinned
+source objective, sampler, clipping and metric checks are rerun offline. A tiny
+random **real CPU ZeRO-3** loop completes all 496 microbatches/62 steps with finite
+nonzero gradients, unchanged reference and source evaluation cadence. Ordinary
+CPU AdamW is used only by that test; it does not validate the runtime paged GPU
+optimizer. An initial local-loopback sandbox failure and its successful authorized
+reruns are preserved, not counted as Kaggle submissions.
+
+Primary-agent implementation review is not independent review. A substantive
+review of this D1 PR remains the first unresolved pre-run requirement. Once that
+passes, the exact next action is the first bounded private T4 D1 submission.
+No trained 1B checkpoint, scientific metric, GPU memory observation or external
+archive hash exists yet; those must not be inferred from CPU acceptance. The
+final D1 verdict remains PARTIAL and every research/operational gate is unchanged.

@@ -1,0 +1,49 @@
+{
+  "attempts": [
+    {
+      "output": "tmp/d1/cpu_loop_20260927_a",
+      "returncode": 1,
+      "scope": "sandbox could not open local Gloo loopback; before model optimization"
+    },
+    {
+      "output": "tmp/d1/cpu_loop_20260927_b",
+      "returncode": 0,
+      "scope": "approved local-loopback CPU-only rerun"
+    }
+  ],
+  "files": [
+    {
+      "source": "tmp/d1/cpu_loop_20260927_a.stdout.log",
+      "path": "cpu_loop_20260927_a.stdout.log",
+      "sha256": "2dc610a43ce0e5e80511126d6862aeedeb68b550d7229cee28b3e262a76b3f48"
+    },
+    {
+      "source": "tmp/d1/cpu_loop_20260927_a.stderr.log",
+      "path": "cpu_loop_20260927_a.stderr.log",
+      "sha256": "0d5ab5c6ca84accfa51330e7900eb16475fba0e3df1e89c7ea482d6746f1a9c8"
+    },
+    {
+      "source": "tmp/d1/cpu_loop_20260927_b.stdout.log",
+      "path": "cpu_loop_20260927_b.stdout.log",
+      "sha256": "e3b214b06c00866f0e0c560be1c160010df5fcec7c176793db4b413304bfd2c1"
+    },
+    {
+      "source": "tmp/d1/cpu_loop_20260927_b.stderr.log",
+      "path": "cpu_loop_20260927_b.stderr.log",
+      "sha256": "88c793731f177d6a28fc4260a0bdec72d069de108f89cc6e466bc1dcb9790fa2"
+    },
+    {
+      "source": "tmp/d1/cpu_loop_20260927_b/RESULT.json",
+      "path": "CPU_ZERO3_RESULT.json",
+      "sha256": "fd72da183d86ffba56fbcff76d33418b5448d183784480662df98089029c49b9"
+    },
+    {
+      "source": "tmp/d1/cpu_loop_20260927_b/loop/microbatches.jsonl",
+      "path": "CPU_ZERO3_microbatches.jsonl",
+      "sha256": "37d4edb2bdf058027beda5b9db6fe59117f8c041f1187d8aac34b422fb89ff8e"
+    }
+  ],
+  "command": ".venv/bin/python -m experiments.reproductions.NPO.validate_deepspeed_cpu --loop --output <attempt-output>",
+  "kaggle_submissions": 0,
+  "note": "Native CPU loop run preceded addition of the extra forward-before-backward log; completed microbatch evidence is unchanged in scope. Synthetic fixture identities are not real dataset/model identities."
+}

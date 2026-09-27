@@ -211,3 +211,9 @@ Raw C1 evidence, historical branches and all four DOCX files remain unchanged.
 D1 continuation (2026-09-26): same branch, source sampler/metrics and CPU ZeRO-3
 resume checked; 0/2 Kaggle submissions. Historical clipping default reconciled
 without changing the author objective. No D1 merge or independent-review claim.
+
+D1 continuation (2026-09-27): same branch; source-sized evaluator, closed training
+recipe, native GPU optimizer validation, checkpoint export/reload and single-copy
+archive route implemented for review. CPU suite and tiny real ZeRO-3 loop pass.
+No Kaggle submission, merge or independent review is claimed. The existing
+last-push approval restriction remains disabled; no new author/committer restriction.
