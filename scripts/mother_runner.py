@@ -36,11 +36,17 @@ def load_recipe(path):
         "pilot",
         "experiment",
         "method_validation",
+        "adapted_reproduction",
     }:
         raise ValueError("Unknown recipe schema or run kind")
     if type(recipe.get("seed")) is not int or not 0 <= recipe["seed"] < 2**32:
         raise ValueError("Explicit integer seed required")
-    if recipe["kind"] == "method_validation":
+    if recipe["kind"] == "adapted_reproduction":
+        from experiments.reproductions.NPO.d1_recipe import validate_recipe
+
+        validate_recipe(recipe)
+        checked_path(ROOT, recipe["entrypoint"])
+    elif recipe["kind"] == "method_validation":
         if recipe.get("condition") == "work-unit-c-matched-precision-v1":
             from experiments.reproductions.QRA.validation_contract import validate_recipe
         else:
@@ -68,6 +74,20 @@ def load_recipe(path):
     return recipe
 
 
+def output_locations(recipe, requested, run_id):
+    requested = Path(requested).resolve()
+    sealed = requested.parent / (run_id + "-sealed")
+    if recipe["kind"] == "adapted_reproduction":
+        # A native optimizer checkpoint plus FP16 export is ~17 GB. Saving a
+        # second raw copy in /kaggle/working would exceed its 20 GB output cap.
+        # The complete raw tree is retained inside the sealed archive; no
+        # checkpoint state or failed-run artifact is dropped to fit the cap.
+        if requested != Path("/kaggle/working/runs") / run_id:
+            raise ValueError("D1 requires the canonical Kaggle output namespace")
+        return Path("/kaggle/tmp/fq-d1-runs") / run_id, sealed
+    return requested, sealed
+
+
 def run_command(name, argv, output, env, timeout):
     started = time.monotonic()
     record = {"argv": argv, "started_utc": datetime.now(UTC).isoformat()}
@@ -91,6 +111,9 @@ def run_command(name, argv, output, env, timeout):
 def execute(recipe_path, output, provenance, run_id):
     recipe_path, output = Path(recipe_path), Path(output)
     recipe = load_recipe(recipe_path)
+    output, sealed_output = output_locations(recipe, output, run_id)
+    if sealed_output.exists():
+        raise FileExistsError("Sealed run namespace already exists")
     output.mkdir(parents=True, exist_ok=False)
     write_new(output / "recipe.json", recipe)
     write_new(output / "source_provenance.json", provenance)
@@ -117,6 +140,8 @@ def execute(recipe_path, output, provenance, run_id):
         CUBLAS_WORKSPACE_CONFIG=":4096:8",
         PYTEST_DISABLE_PLUGIN_AUTOLOAD="1",
     )
+    if recipe["kind"] == "adapted_reproduction":
+        env.update(DS_BUILD_OPS="0", HF_HOME="/kaggle/tmp/fq-d1-hf-cache")
     phase = "environment"
     try:
         # Credentials are passed only to operations explicitly declaring them.
@@ -140,7 +165,8 @@ def execute(recipe_path, output, provenance, run_id):
                 str(checked_path(ROOT, recipe["overlay_lock"])),
                 "--output-dir",
                 str(output / "environment"),
-            ],
+            ]
+            + (["--no-build-isolation"] if recipe.get("no_build_isolation") else []),
             output,
             env,
             1200,
@@ -189,6 +215,37 @@ def execute(recipe_path, output, provenance, run_id):
             if any(codes.values()):
                 raise RuntimeError("Integration failed; see tests and notebooks output")
             result["supported_claims"] = ["Validated environment and non-model integration recipe"]
+        elif recipe["kind"] == "adapted_reproduction":
+            phase = "adapted_reproduction"
+            code = run_command(
+                phase,
+                [
+                    sys.executable,
+                    str(checked_path(ROOT, recipe["entrypoint"])),
+                    "--recipe",
+                    str(recipe_path.resolve()),
+                    "--output",
+                    str(output / phase),
+                    "--run-id",
+                    run_id,
+                    "--provenance",
+                    str(output / "source_provenance.json"),
+                ],
+                output,
+                env,
+                recipe["timeout_seconds"],
+            )
+            result["returncodes"] = {phase: code}
+            result["adapted_reproduction_attempted"] = True
+            if code:
+                raise RuntimeError("D1 reproduction failed; all partial output is preserved")
+            child = json.loads((output / phase / "RESULT.json").read_text())
+            if child["status"] != "PASS_LOCAL_RUNTIME_CRITERIA_ARCHIVAL_PENDING":
+                raise ValueError("D1 child did not establish bounded runtime acceptance")
+            result["supported_claims"] = [
+                "One-seed source-faithful 1B adapted reproduction; external archive verification pending"
+            ]
+            result["attack_detected"] = result["durability_pass"] = None
         elif recipe["kind"] == "method_validation":
             phase = "method_validation"
             code = run_command(
@@ -244,7 +301,7 @@ def execute(recipe_path, output, provenance, run_id):
     finally:
         result["finished_utc"] = datetime.now(UTC).isoformat()
         write_new(output / "run_result.json", result)
-        seal_run(output, output.parent / (run_id + "-sealed"), run_id)
+        seal_run(output, sealed_output, run_id)
     return result
 
 
