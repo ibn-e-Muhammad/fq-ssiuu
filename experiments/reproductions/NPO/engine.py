@@ -6,6 +6,11 @@ from experiments.reproductions.NPO.optimizer import paged_adamw32, parameter_gro
 from experiments.reproductions.NPO.training_contract import deepspeed_config, linear_schedule
 
 
+def source_scheduler(optimizer):
+    """Build after DeepSpeed has removed empty groups, preserving the source LR."""
+    return torch.optim.lr_scheduler.LambdaLR(optimizer, linear_schedule)
+
+
 def create_engine(model):
     import deepspeed
 
@@ -14,12 +19,11 @@ def create_engine(model):
     model.config.use_cache = False
     groups, inventory = parameter_groups(model, 0.01)
     optimizer = paged_adamw32(groups, lr=1e-5, betas=(0.9, 0.999), eps=1e-8)
-    scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, linear_schedule)
     config = deepspeed_config(model.config.hidden_size)
     engine, _, _, _ = deepspeed.initialize(
         model=model,
         optimizer=optimizer,
-        lr_scheduler=scheduler,
+        lr_scheduler=source_scheduler,
         config=config,
         dist_init_required=False,
     )

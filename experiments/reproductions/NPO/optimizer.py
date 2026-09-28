@@ -52,6 +52,7 @@ def paged_adamw32(parameter_groups, *, lr, betas, eps):
 
 def parameter_groups(model, weight_decay):
     """Publication-era Trainer: exclude registered layer norms and all bias names."""
+    from transformers.models.llama.modeling_llama import LlamaRMSNorm
     from transformers.pytorch_utils import ALL_LAYERNORM_LAYERS
     from transformers.trainer_pt_utils import get_parameter_names
 
@@ -60,9 +61,11 @@ def parameter_groups(model, weight_decay):
         raise ValueError("D1 requires every unique model parameter trainable")
     if len({id(p) for _, p in named}) != len(named):
         raise ValueError("Tied weights must be counted only once")
-    decay = {
-        name for name in get_parameter_names(model, ALL_LAYERNORM_LAYERS) if "bias" not in name
-    }
+    # Transformers 4.39.3 registered LlamaRMSNorm here on import; 5.0.0 no
+    # longer does. Restore the source exclusion locally, without mutating the
+    # library's process-global registry or switching to its newer regex policy.
+    norm_types = list(dict.fromkeys([*ALL_LAYERNORM_LAYERS, LlamaRMSNorm]))
+    decay = {name for name in get_parameter_names(model, norm_types) if "bias" not in name}
     groups = [
         {"params": [p for n, p in named if n in decay], "weight_decay": weight_decay},
         {"params": [p for n, p in named if n not in decay], "weight_decay": 0.0},

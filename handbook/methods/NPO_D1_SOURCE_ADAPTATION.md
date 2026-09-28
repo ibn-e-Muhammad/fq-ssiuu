@@ -190,3 +190,36 @@ with the initial checkpoint, reject nonfinite/unchanged weights, reload the mode
 and reproduce final-batch NLL exactly. Full 1B optimizer resume is not claimed
 from the tiny GPU resume test. Private Kaggle/HF archive verification occurs after
 download and is required before D1 can pass.
+
+## D1 attempt-1 compatibility repair — 2026-09-28
+
+Mother v5 (`ebd7077`, run `20260927-130645-e8483bf31420`) passed the environment
+and pinned data boundary, then failed in the tiny random GPU resume preflight;
+it did not load or train the 1B target. DeepSpeed removed an empty parameter group
+after the already-created scheduler had counted it, causing a strict zip error.
+
+Two category-1/API corrections preserve the method:
+
+- Transformers 4.39.3 registered `LlamaRMSNorm` as a no-weight-decay layer;
+  Transformers 5.0.0 no longer does. Add that exact class to the local exclusion
+  list, without changing global library state or adopting a new regex policy.
+  The former generic LayerNorm test did not establish actual Llama grouping.
+- Supply the source linear scheduler as a DeepSpeed factory, so it is created
+  after group normalization. Learning rate 1e-5, six warmup steps, 62 total steps,
+  weight decay .01 elsewhere, paged FP32 AdamW and every scientific config stay
+  unchanged. The original failed run and its configurations remain immutable.
+
+The additional primary source is Transformers commit
+`09f9f566de83eef1f13ee83b5a1bbeebde5c80c1` (Apache-2.0):
+`src/transformers/models/llama/modeling_llama.py`, SHA-256
+`d837afb31f42c167c43e095923a2a89642424f54d603948e20d38ed4076fb478`, and
+`src/transformers/trainer_pt_utils.py`, SHA-256
+`b77d4dee27208c4cd97254d43ba249d446f86436c344ab7ddba646fd546a3833`.
+These files are externally referenced, hash-verified and selectively executed by
+the offline compatibility check. The historical norm registration uses the
+modern equivalent Llama norm class as its explicit API binding. Executed Trainer
+group assignments match for both a tiny model and the pinned 1B architecture on
+meta tensors. Native CPU ZeRO-3 reproduces the prior scheduler failure, then
+passes the entire 62-step LR trajectory and checkpoint restore for an empty-group
+fixture and a tiny Llama. This is CPU compatibility evidence, not GPU or 1B
+training acceptance; the original paged GPU preflight must still pass on retry.
