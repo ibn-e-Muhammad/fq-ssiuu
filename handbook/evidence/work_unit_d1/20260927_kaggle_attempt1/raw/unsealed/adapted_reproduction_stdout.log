@@ -1,0 +1,2 @@
+[2026-09-27 13:08:49,453] [WARNING] [engine.py:2269:_do_optimizer_sanity_check] **** You are using ZeRO with an untested optimizer, proceed with caution *****
+{"status": "FAIL_PARTIAL_PRESERVED", "run_id": "20260927-130645-e8483bf31420", "error_type": "ValueError"}

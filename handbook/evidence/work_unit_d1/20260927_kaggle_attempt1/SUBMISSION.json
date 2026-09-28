@@ -1,0 +1,37 @@
+{
+  "recorded_at": "2026-09-27T13:06:49.037250+00:00",
+  "status": "SUBMITTED",
+  "attempt_number": 1,
+  "kernel": "muhammadii/fq-ssiuu-mother-runner",
+  "kernel_version": 5,
+  "source_dataset": "muhammadii/fq-ssiuu-d1-source-ebd7077",
+  "source_dataset_id": 12231744,
+  "source_dataset_private": true,
+  "source_commit": "ebd7077539a8093162fcad1264c3ff7240ef4a66",
+  "command": [
+    "./.venv/bin/python",
+    "-m",
+    "kaggle",
+    "kernels",
+    "push",
+    "-p",
+    "tmp/d1/mother_ebd7077",
+    "--timeout",
+    "43200",
+    "--accelerator",
+    "NvidiaTeslaT4"
+  ],
+  "returncode": 0,
+  "stdout": "submission_network_stdout.log",
+  "stderr": "submission_network_stderr.log",
+  "earlier_local_network_failure": {
+    "stdout": "submission_stdout.log",
+    "stderr": "submission_stderr.log",
+    "returncode": 1,
+    "consumed_kaggle_execution": false
+  },
+  "user_review": "Review passed; proceed once CI passes",
+  "ci_run": 36320687216,
+  "ci_conclusion": "success",
+  "runtime_verdict": null
+}

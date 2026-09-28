@@ -1,0 +1,10 @@
+{
+  "title": "FQ-SSIUU D1 private source ebd7077",
+  "id": "muhammadii/fq-ssiuu-d1-source-ebd7077",
+  "licenses": [
+    {
+      "name": "other"
+    }
+  ],
+  "description": "Private history-free source snapshot for bounded D1 NPO adapted reproduction. Source origin ebd7077539a8093162fcad1264c3ff7240ef4a66; no model, dataset or credentials included."
+}

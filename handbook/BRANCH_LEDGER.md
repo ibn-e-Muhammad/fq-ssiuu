@@ -12,10 +12,10 @@
 - Historical branches can be deleted only after ancestry, open-PR status and integration are reverified.
 - Experiment evidence must use commit SHA and run ID, not branch name alone.
 
-## Current integration — 2026-09-25
+## Current integration — 2026-09-28
 
 - `dev`: `5ca92bfa0863a9ffadcd70bfc5f28c8ee8c6e76a`, verified PR #10 merge; GitHub default branch.
-- `repro/npo-1b-source-faithful`: active D1, from that exact remote tip; NPO only, 0/2 Kaggle attempts.
+- `repro/npo-1b-source-faithful`: active D1, from that exact remote tip; PR #11 remains open. Researcher pre-run review and CI 66 passed; NPO only, 1/2 Kaggle attempts used (Mother v5, source `ebd7077`, operational preflight failure; no 1B training). Repair code `97e005a` reviewed by the primary agent; independent review is not claimed.
 - `fix/matched-precision-qra-protocol`: PR #10 merged, head `29d21a51de784190bdabf4e7267db8925c73260e`; superseded and retained.
 - `fix/npo-adapter-qra-metrics`: PR #9 merged, feature tip `e896dbc0467018a87d3d0754d68eddbe094b3b0e`; superseded and retained.
 - `fix/upstream-method-reconciliation`: PR #8 merged, superseded and retained.

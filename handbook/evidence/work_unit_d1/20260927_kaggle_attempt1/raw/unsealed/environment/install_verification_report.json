@@ -1,0 +1,104 @@
+{
+  "status": "PASS",
+  "total_proposed_packages": 19,
+  "violations_count": 0,
+  "violations": [],
+  "packages": [
+    {
+      "name": "bitsandbytes",
+      "normalized_name": "bitsandbytes",
+      "version": "0.46.1"
+    },
+    {
+      "name": "captum",
+      "normalized_name": "captum",
+      "version": "0.7.0"
+    },
+    {
+      "name": "DataProperty",
+      "normalized_name": "dataproperty",
+      "version": "1.1.1"
+    },
+    {
+      "name": "evaluate",
+      "normalized_name": "evaluate",
+      "version": "0.4.6"
+    },
+    {
+      "name": "hydra-core",
+      "normalized_name": "hydra-core",
+      "version": "1.3.6"
+    },
+    {
+      "name": "jsonlines",
+      "normalized_name": "jsonlines",
+      "version": "4.0.0"
+    },
+    {
+      "name": "lm_eval",
+      "normalized_name": "lm-eval",
+      "version": "0.4.13"
+    },
+    {
+      "name": "mbstrdecoder",
+      "normalized_name": "mbstrdecoder",
+      "version": "1.1.5"
+    },
+    {
+      "name": "pathvalidate",
+      "normalized_name": "pathvalidate",
+      "version": "3.3.1"
+    },
+    {
+      "name": "portalocker",
+      "normalized_name": "portalocker",
+      "version": "4.3.0"
+    },
+    {
+      "name": "pytablewriter",
+      "normalized_name": "pytablewriter",
+      "version": "1.2.1"
+    },
+    {
+      "name": "sacrebleu",
+      "normalized_name": "sacrebleu",
+      "version": "2.6.0"
+    },
+    {
+      "name": "sqlitedict",
+      "normalized_name": "sqlitedict",
+      "version": "2.1.0"
+    },
+    {
+      "name": "tabledata",
+      "normalized_name": "tabledata",
+      "version": "1.3.5"
+    },
+    {
+      "name": "tcolorpy",
+      "normalized_name": "tcolorpy",
+      "version": "0.1.7"
+    },
+    {
+      "name": "typepy",
+      "normalized_name": "typepy",
+      "version": "1.3.5"
+    },
+    {
+      "name": "word2number",
+      "normalized_name": "word2number",
+      "version": "1.1"
+    },
+    {
+      "name": "hjson",
+      "normalized_name": "hjson",
+      "version": "3.1.0"
+    },
+    {
+      "name": "deepspeed",
+      "normalized_name": "deepspeed",
+      "version": "0.19.7"
+    }
+  ],
+  "run_id": "968bf644-f4df-487e-95c6-11b964f95a79"
+}

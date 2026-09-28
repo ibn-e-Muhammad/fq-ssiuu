@@ -1,0 +1,7 @@
+{
+  "status": "FAIL_PARTIAL_PRESERVED",
+  "run_id": "20260927-130645-e8483bf31420",
+  "error_type": "ValueError",
+  "attack_detected": null,
+  "durability_pass": null
+}

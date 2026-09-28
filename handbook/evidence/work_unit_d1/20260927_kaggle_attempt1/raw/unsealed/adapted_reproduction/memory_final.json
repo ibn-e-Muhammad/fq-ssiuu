@@ -1,0 +1,10 @@
+{
+  "device_uuid": "GPU-5f37a89a-86b4-452b-4dee-dd1b98b50dd6",
+  "peak_allocated_bytes": 69427200,
+  "peak_reserved_bytes": 73400320,
+  "sampled_peak_device_used_bytes": 1762852864,
+  "device_sampling_interval_seconds": 0.1,
+  "qualification": "NVML sampled device peak includes managed/non-PyTorch memory; sub-interval transients are not continuously measured.",
+  "limit_bytes": 16000000000,
+  "telemetry_errors": []
+}

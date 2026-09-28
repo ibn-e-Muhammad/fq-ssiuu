@@ -1,0 +1,44 @@
+{
+  "code_commit": "97e005af195cb79e8faae0dedf09aa42b6f318cb",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "experiments.reproductions.NPO.validate_optimizer_compatibility",
+    "--sources",
+    "tmp/d1/optimizer_source_20260928",
+    "--trainer",
+    "tmp/d1/assets/runtime_sources/transformers/trainer.py",
+    "--target-config",
+    "tmp/d1/assets/tokenizer/config.json",
+    "--output",
+    "tmp/d1/optimizer_repair_cpu_1"
+  ],
+  "returncode": 0,
+  "preceding_sandbox_attempt": {
+    "returncode": 1,
+    "reason": "Gloo local loopback prohibited by sandbox; no model update"
+  },
+  "source_file_metadata": "SOURCE_FILES.json",
+  "checkpoints": [
+    {
+      "path": "tmp/d1/optimizer_repair_cpu_1/empty_group_checkpoint/step62/zero_pp_rank_0_mp_rank_00_model_states.pt",
+      "sha256": "b55b9455d3bcc8f9d55cc97297120eed7f224ad6e66ac45041bb6d2429a79057",
+      "bytes": 2882
+    },
+    {
+      "path": "tmp/d1/optimizer_repair_cpu_1/empty_group_checkpoint/step62/zero_pp_rank_0_mp_rank_00_optim_states.pt",
+      "sha256": "4bcdacad0db9073c950681dcb92acd1f616298bf42d1ebd14505f9c3c9efdc72",
+      "bytes": 3731
+    },
+    {
+      "path": "tmp/d1/optimizer_repair_cpu_1/llama_checkpoint/step62/zero_pp_rank_0_mp_rank_00_model_states.pt",
+      "sha256": "cb8746e474d09beec30301ffa90c17dce8127e2c64e60c776d68854a2bb7a131",
+      "bytes": 7725
+    },
+    {
+      "path": "tmp/d1/optimizer_repair_cpu_1/llama_checkpoint/step62/zero_pp_rank_0_mp_rank_00_optim_states.pt",
+      "sha256": "692535c6b44077b31b65483f5c4b81aa0c8c9576c018ed5a63954a615d4242ff",
+      "bytes": 45439
+    }
+  ]
+}

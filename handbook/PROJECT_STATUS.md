@@ -1,16 +1,20 @@
 # FQ-SSIUU project status
 
-Updated 2026-09-27. [Canonical plan](MASTER_EXECUTION_PLAN.md).
+Updated 2026-09-28. [Canonical plan](MASTER_EXECUTION_PLAN.md).
 Integration tip: `dev` at `5ca92bfa0863a9ffadcd70bfc5f28c8ee8c6e76a` (PR #10 merged).
 Work units A, B and C are merged; their branches and evidence are retained.
 Active D1: `repro/npo-1b-source-faithful`, from that exact remote dev tip.
 CPU source pairing, accumulation, native ZeRO-3 resume and the complete 62-step
-tiny CPU loop pass. The D1 runner/evaluator and closed Mother recipe are implemented
-for review; accumulation 8 is researcher-approved. No Kaggle submission or 1B training.
+tiny CPU loop pass. Researcher pre-run review of PR #11 and CI run 66 passed.
+D1 attempt 1 (private Mother v5, source `ebd7077`) failed in the tiny GPU
+scheduler preflight before 1B loading/training. Environment checks passed; raw
+evidence and both private archives are verified. Source-preserving API repair
+`97e005a` passes 381 offline tests and actual native CPU regression/resume checks.
+Accumulation 8 is researcher-approved. One of two submissions remains.
 C1 validates sequential FP16/LLM.int8/NF4 loading and actual descriptive metrics.
 C2 project choices are deferred until constituent 1B reproductions and bounded
 pilots are complete. Source-faithful reproductions and descriptive collection do
-not require Protocol v2 activation. D1 has run tiny CPU optimizer/resume tests but no 1B training/pilot. The previously validated environment
+not require Protocol v2 activation. D1 training completion is not yet established. The previously validated environment
 change is
 bitsandbytes 0.46.1, now validated for matched inference; 0.45.5 evidence remains immutable.
 RG-006 remains RESOLVED only for objective/data/frozen-reference conformance;
@@ -104,10 +108,10 @@ evidence, not model-level scientific validation or training-memory evidence.
 
 ## Exact next action
 
-Review the implemented D1 runner and source evaluator, then perform the first
-bounded T4 submission after review passes. The prepared recipe preserves full
-NPO+RT, the frozen full reference, paged 32-bit AdamW, effective batch 32 and 62
-source steps. Both submissions remain unused. D1 is not accepted from CPU checks
+Submit the one permitted operational retry with the reviewed scheduler/norm repair
+after CI passes. The submitted recipe preserves full NPO+RT, the frozen full reference,
+paged 32-bit AdamW, effective batch 32 and 62 source steps. One of two submissions
+is used; a second is permitted only for a diagnosed, reviewed operational repair. D1 is not accepted from CPU checks
 alone; see [D1 report](reports/WORK_UNIT_D1_REPORT.md) and
 [source/adaptation specification](methods/NPO_D1_SOURCE_ADAPTATION.md).
 No Protocol v2 approval is needed for source-faithful reproduction. No effectiveness

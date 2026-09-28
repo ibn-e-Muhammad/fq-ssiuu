@@ -1,0 +1,14 @@
+{
+  "modeling_llama.py": {
+    "url": "https://raw.githubusercontent.com/huggingface/transformers/09f9f566de83eef1f13ee83b5a1bbeebde5c80c1/src/transformers/models/llama/modeling_llama.py",
+    "sha256": "d837afb31f42c167c43e095923a2a89642424f54d603948e20d38ed4076fb478",
+    "bytes": 73073,
+    "license": "Apache-2.0"
+  },
+  "trainer_pt_utils.py": {
+    "url": "https://raw.githubusercontent.com/huggingface/transformers/09f9f566de83eef1f13ee83b5a1bbeebde5c80c1/src/transformers/trainer_pt_utils.py",
+    "sha256": "b77d4dee27208c4cd97254d43ba249d446f86436c344ab7ddba646fd546a3833",
+    "bytes": 54935,
+    "license": "Apache-2.0"
+  }
+}

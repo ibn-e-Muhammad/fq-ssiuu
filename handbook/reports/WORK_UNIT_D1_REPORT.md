@@ -1,8 +1,7 @@
 # Work Unit D1 — NPO 1B adapted reproduction
 
-**PARTIAL WITH EVIDENCE — D1 runtime implemented for review; accumulation 8 approved; 0/2 Kaggle submissions.**
-No Kaggle submission, 1B training, trained 1B checkpoint or effectiveness
-result. Tiny random CPU optimizer/checkpoint tests have executed. Intended classification is a bounded source-faithful 1B adapted-reproduction
+**PARTIAL WITH EVIDENCE — researcher pre-run review and CI 66 passed; D1 attempt 1 failed before 1B; source-preserving API repair validated, one retry remains.**
+No completed 1B training, trained checkpoint or effectiveness result is yet established. Tiny random CPU optimizer/checkpoint tests have executed. Intended classification is a bounded source-faithful 1B adapted-reproduction
 pilot. Completed work currently establishes upstream/CPU conformance only.
 
 ## Lineage and governance
@@ -17,7 +16,8 @@ Disabled only `require_last_push_approval` in dev ruleset 20175027, as requested
 Passing CI, one fresh approval, resolved threads and history protections remain.
 Before/after receipt: `../evidence/work_unit_d1/20260925_preflight/governance.json`.
 No main change, history rewrite, branch deletion or DOCX inclusion. No independent
-review of D1 is claimed; D1 training review remains outstanding.
+review by the primary agent is claimed. The researcher approved the substantive
+pre-run review: “Review passed; proceed once CI passes.” CI 66 passed.
 
 ## Sources and deviations
 
@@ -175,3 +175,52 @@ passes, the exact next action is the first bounded private T4 D1 submission.
 No trained 1B checkpoint, scientific metric, GPU memory observation or external
 archive hash exists yet; those must not be inferred from CPU acceptance. The
 final D1 verdict remains PARTIAL and every research/operational gate is unchanged.
+
+## First submission — 2026-09-27
+
+Researcher review and CI 66 authorized attempt 1, private Mother version 5, from
+`ebd7077539a8093162fcad1264c3ff7240ef4a66`. Source dataset
+`muhammadii/fq-ssiuu-d1-source-ebd7077` is private. Receipts and exact staging
+hashes are in `../evidence/work_unit_d1/20260927_kaggle_attempt1/`. A local sandbox
+DNS failure did not reach Kaggle; its logs are retained separately from the
+successful network submission. One of two runtime submissions is used. Earlier
+readiness snapshots above remain historical; the next action is to collect and
+verify the runtime and archives. PR #11 stays open.
+
+## Attempt 1 outcome and bounded repair — 2026-09-28
+
+Run `20260927-130645-e8483bf31420`, Mother v5, source `ebd7077`:
+**FAIL_OPERATIONAL_BEFORE_1B**. Environment verification passed with
+BASELINE_DIRTY_NO_REGRESSION. The real tiny synthetic GPU test reached backward
+and optimizer/scheduler control flow, then failed because scheduler and optimizer
+group counts differed. No target 1B model was loaded or trained, so there is no
+1B checkpoint, source metric or training-memory claim. All 61 original sealed
+members rehash correctly; raw evidence was not edited.
+
+Complete archive SHA-256:
+`2dbbfb2f98d0ca51aed1b1c2c5c699aef9265f4ebc18478b9d6171094ee3f77b`.
+Private Kaggle dataset: `muhammadii/fq-ssiuu-d1-20260927-e8483bf31420`.
+Private HF dataset: `Xafire/fq-ssiuu-run-20260927-130645-e8483bf31420-complete`,
+revision `f90c9838ed1b07ae1f11b2c6562f7956b100eb08`. HF archive bytes were
+downloaded and verified. Kaggle auto-extracted both tar levels; all members were
+downloaded and checked, then both canonical archives were reconstructed with
+matching original hashes. This is not a claim of direct tar-byte download from
+Kaggle. See attempt-1 `VERDICT.json` and both archive receipts.
+
+Repair code `97e005af195cb79e8faae0dedf09aa42b6f318cb` restores the source
+LlamaRMSNorm exclusion and constructs the linear scheduler after DeepSpeed group
+normalization. The single source/adaptation specification records the additional
+pinned primary files. Training/evaluation configs, source NPO+RT, full frozen
+reference, source hyperparameters and approved batch-32 accumulation remain
+unchanged. Actual native CPU ZeRO-3 reproduces the old failure, then passes the
+full 62-step schedule and checkpoint restore for an empty-group fixture and a
+tiny Llama. Executed pinned Trainer grouping matches the exact 1B architecture
+on meta tensors. Full suite: **381 passed, 4 skipped, 10 deselected, 1 xfailed**,
+return code 0; lint/format, 14 notebooks and upstream objective/schedule/metric
+conformance pass. Repair evidence is `../evidence/work_unit_d1/20260928_optimizer_repair/`.
+
+The primary agent reviewed the narrow operational repair; no independent review
+is claimed. Initial researcher review and authorization for one operational,
+code-reviewed retry are preserved. Next: after passing CI, use the remaining
+private T4 submission. D1 remains unaccepted until actual 1B optimization,
+evaluation, reload, memory and archives pass. No gate or Protocol v2 activation.

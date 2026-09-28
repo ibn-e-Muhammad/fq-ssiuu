@@ -121,3 +121,11 @@ partial observations/checkpoints. The full loop has executed only on a tiny
 random CPU model, including real ZeRO-3; it is not a 1B reproduction result.
 GPU paging, 1B memory, source evaluation and archive agreement remain unvalidated.
 No Chapter 4 effectiveness result; the four DOCX files remain untouched.
+
+D1 attempt 1 / repair (2026-09-28): environment/data preparation passed on T4,
+but a scheduler/group API incompatibility stopped the tiny GPU preflight before
+1B loading. Preserve this as an operational failure, with no Chapter 4 finding.
+Chapter 3 should record restoration of the publication-era Llama RMSNorm
+no-decay grouping and deferred scheduler construction; source settings are
+unchanged. CPU tests do not establish GPU paging or 1B training. Failed-run
+archives are verified in both private stores; DOCX files remain untouched.

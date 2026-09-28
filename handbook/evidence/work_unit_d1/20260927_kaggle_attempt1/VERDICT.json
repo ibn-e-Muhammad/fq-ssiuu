@@ -1,0 +1,45 @@
+{
+  "status": "FAIL_OPERATIONAL_BEFORE_1B",
+  "run_id": "20260927-130645-e8483bf31420",
+  "attempt": 1,
+  "kernel_version": 5,
+  "source_commit": "ebd7077539a8093162fcad1264c3ff7240ef4a66",
+  "environment_status": "PASS",
+  "pip_consistency": "BASELINE_DIRTY_NO_REGRESSION",
+  "failure_phase": "tiny_random_gpu_resume_validation",
+  "error": "Scheduler base_lrs length exceeded optimizer groups after DeepSpeed removed an empty group. Transformers 5 no longer registers LlamaRMSNorm in ALL_LAYERNORM_LAYERS.",
+  "one_b_training_executed": false,
+  "one_b_checkpoint_sha256": null,
+  "one_b_source_metrics": null,
+  "memory_scope": "tiny synthetic preflight, not 1B training",
+  "memory": {
+    "device_uuid": "GPU-5f37a89a-86b4-452b-4dee-dd1b98b50dd6",
+    "peak_allocated_bytes": 69427200,
+    "peak_reserved_bytes": 73400320,
+    "sampled_peak_device_used_bytes": 1762852864,
+    "device_sampling_interval_seconds": 0.1,
+    "qualification": "NVML sampled device peak includes managed/non-PyTorch memory; sub-interval transients are not continuously measured.",
+    "limit_bytes": 16000000000,
+    "telemetry_errors": []
+  },
+  "raw_sealed_members_verified": 61,
+  "raw_archive_sha256": "4e9a957b4bfe878573c33564820c8d5c07065384fe2fc3be21ac4336d67402bb",
+  "complete_archive_sha256": "2dbbfb2f98d0ca51aed1b1c2c5c699aef9265f4ebc18478b9d6171094ee3f77b",
+  "private_archives": {
+    "kaggle_receipt": "kaggle_receipt.json",
+    "huggingface_receipt": "huggingface_complete_receipt.json"
+  },
+  "attack_detected": null,
+  "durability_pass": null,
+  "supported_claims": [
+    "Environment and protected-stack checks passed",
+    "Pinned data/preprocessing accepted before synthetic GPU validation",
+    "Raw failed attempt preserved and private archives downloaded/hash verified"
+  ],
+  "unsupported_claims": [
+    "NPO optimization at 1B",
+    "Training-memory feasibility at 1B",
+    "Forgetting effectiveness",
+    "Recovery or durability"
+  ]
+}
