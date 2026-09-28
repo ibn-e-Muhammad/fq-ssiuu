@@ -9,9 +9,11 @@ from experiments.reproductions.NPO.training_contract import read_configs
 ROOT = Path(__file__).resolve().parents[3]
 
 
-def expected_recipe():
+def expected_recipe(version=1):
+    if type(version) is not int or version not in (1, 2):
+        raise ValueError("Unknown D1 recipe version")
     files = {
-        "train_config": "configs/reproductions/NPO/d1_train_v1.json",
+        "train_config": f"configs/reproductions/NPO/d1_train_v{version}.json",
         "eval_config": "configs/reproductions/NPO/d1_eval_v1.json",
         "overlay": "requirements/kaggle-overlay.d1-candidate.in",
         "source_spec": "experiments/reproductions/NPO/source_v1.json",
@@ -20,7 +22,7 @@ def expected_recipe():
     return {
         "schema_version": "1.0",
         "kind": "adapted_reproduction",
-        "condition": "d1-npo-source-faithful-1b-v1",
+        "condition": f"d1-npo-source-faithful-1b-v{version}",
         "seed": 1001,
         "entrypoint": "experiments/reproductions/NPO/train_runtime.py",
         "overlay_lock": files["overlay"],
@@ -37,7 +39,10 @@ def expected_recipe():
 
 
 def validate_recipe(recipe):
-    if json.dumps(recipe, sort_keys=True) != json.dumps(expected_recipe(), sort_keys=True):
+    if all(
+        json.dumps(recipe, sort_keys=True) != json.dumps(expected_recipe(v), sort_keys=True)
+        for v in (1, 2)
+    ):
         raise ValueError("Only the exact approved-scope D1 source reproduction recipe is allowed")
     if file_digest(Path(__file__).with_name("inputs_v1.json")) != recipe["inputs_registry_sha256"]:
         raise ValueError("Accepted model/data identities changed")

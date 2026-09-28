@@ -1,7 +1,7 @@
 # Work Unit D1 — bounded NPO 1B adapted-reproduction pilot
 
-**PARTIAL WITH EVIDENCE; blocked on resource-adaptation approval and the exhausted
-submission allowance.** Both authorized T4 attempts failed. Attempt 2 passed the
+**PARTIAL WITH EVIDENCE; researcher-approved resource continuation is in pre-run
+validation.** Both authorized T4 attempts failed. Attempt 2 passed the
 actual tiny GPU paged optimizer/resume test, then exhausted memory during 1B
 optimizer initialization, before any 1B backward or update. NPO at 1B is not yet
 reproduced. No trained 1B checkpoint or post-unlearning scientific metric exists.
@@ -158,3 +158,16 @@ reference boundary; RG-005 blocks project verdicts; RG-001/002/003 stay blocked.
 Protocol v2 remains deferred/non-executable; attack and durability decisions are
 null. No forgetting, recovery, durability or effectiveness conclusion follows
 from D1. Historical evidence and the four DOCX files remain untouched.
+
+## Approved continuation — 2026-09-28
+
+The researcher subsequently answered **“Approve resource change and one extra
+attempt.”** This supersedes the approval blocker above without changing either
+failed run's verdict. Total allowance is three, with two used. The new v2 train
+config/recipe preserves v1, changes only the approved subgroup size and version
+identifiers, and keeps the evaluation config unchanged. Actual CPU ZeRO-3 subgroup
+comparison passes: 64 microbatches, identical losses/masters/moments; 16 resumed
+microbatches match in each layout; reference unchanged. Source method unchanged.
+The next action is offline/CI/review acceptance followed by the one newly approved
+T4 attempt. Its GPU result remains unknown. Evidence:
+`../evidence/work_unit_d1/20260928_subgroup_adaptation/`.

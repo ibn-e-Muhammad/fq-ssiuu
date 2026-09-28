@@ -255,3 +255,19 @@ plus permission for another bounded execution. Offline numerical/update/resume
 conformance and review must precede that run. No such change or third run occurred.
 Evidence: `../evidence/work_unit_d1/20260928_kaggle_attempt2/MEMORY_ANALYSIS_V2.json`;
 it explicitly supersedes the first untied derived analysis without rewriting it.
+
+Researcher continuation on 2026-09-28: **“Approve resource change and one extra
+attempt.”** This explicitly authorizes the category-3 subgroup change and a total
+of three submissions. The historical v1 train/recipe bytes stay frozen. New
+`d1_train_v2.json` / `work_unit_d1_npo_v2.json` adds only the approved subgroup
+setting and version identifiers; evaluation is unchanged. The runner passes this
+setting to both the tiny GPU preflight and the full engine, and preserves the
+attempted DeepSpeed configuration before initialization can fail.
+
+Actual CPU ZeRO-3 testing forces 2 versus 3 groups in a random tiny NPO+RT model:
+64 microbatches produce identical losses, FP32 masters and both Adam moments;
+16 microbatches after native save/reload match exactly in both layouts, including
+scheduler/RNG. The full reference stays unchanged. This uses CPU AdamW as a
+splitting-math fixture, not a GPU paging or 1B acceptance claim. Evidence:
+`../evidence/work_unit_d1/20260928_subgroup_adaptation/`. One additional T4 attempt
+is permitted after these offline checks, CI and the primary-agent code review.

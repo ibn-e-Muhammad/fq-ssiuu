@@ -111,3 +111,16 @@ def test_failed_d1_child_keeps_partial_output_in_real_sealed_archive(tmp_path, m
         )
         assert json.load(archive.extractfile("run_result.json"))["status"] == "FAIL"
     assert (raw / "adapted_reproduction/partial.jsonl").exists()
+
+
+def test_versioned_resource_recipe_keeps_original_and_rejects_mixed_identity():
+    original, resource = expected_recipe(1), expected_recipe(2)
+    assert validate_recipe(original) == original
+    assert validate_recipe(resource) == resource
+    changed = {k for k in original if original[k] != resource[k]}
+    assert changed == {"condition", "train_config", "train_config_sha256"}
+    for key in changed:
+        with pytest.raises(ValueError, match="exact"):
+            validate_recipe(resource | {key: original[key]})
+    with pytest.raises(ValueError, match="Unknown"):
+        expected_recipe(3)

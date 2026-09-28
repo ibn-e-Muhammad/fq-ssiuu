@@ -36,7 +36,7 @@ from experiments.reproductions.NPO.evaluation_runtime import (
 from experiments.reproductions.NPO.memory import MemoryMonitor
 from experiments.reproductions.NPO.preflight import membership
 from experiments.reproductions.NPO.reference import ModelIdentity, ReferenceConfig, load_reference
-from experiments.reproductions.NPO.training_contract import read_configs
+from experiments.reproductions.NPO.training_contract import deepspeed_config, read_configs
 from experiments.reproductions.NPO.training_data import SourcePairDataset, source_batch_plan
 from experiments.reproductions.NPO.training_loop import run_training
 from experiments.reproductions.NPO.training_state import load_deepspeed_state, save_deepspeed_state
@@ -94,6 +94,7 @@ def execute(recipe, output, run_id, provenance, resume_checkpoint=None):
     write_new(output / "training_config.json", train)
     write_new(output / "evaluation_config.json", evaluation)
     write_new(output / "runtime_versions.json", versions)
+    sub_group_size = train.get("zero_sub_group_size", 1000000000)
     torch.backends.cuda.matmul.allow_tf32 = False
     torch.backends.cudnn.allow_tf32 = False
     torch.backends.cuda.enable_flash_sdp(False)
@@ -167,7 +168,7 @@ def execute(recipe, output, run_id, provenance, resume_checkpoint=None):
         torch.distributed.init_process_group(
             "nccl", init_method="file://" + str(output / "rendezvous"), rank=0, world_size=1
         )
-        validate_paged_gpu(output / "tiny_paged_resume", identities)
+        validate_paged_gpu(output / "tiny_paged_resume", identities, sub_group_size=sub_group_size)
         monitor.observe()
 
         # Compute the retain-only diagnostic oracle, then unload it before the
@@ -207,12 +208,16 @@ def execute(recipe, output, run_id, provenance, resume_checkpoint=None):
             device_map={"": 0},
             attn_implementation="sdpa",
         )
-        engine, inventory, ds_config = create_engine(candidate)
+        # Preserve the attempted resource settings even if initialization fails.
+        write_new(
+            output / "deepspeed_config.json",
+            deepspeed_config(candidate.config.hidden_size, sub_group_size=sub_group_size),
+        )
+        engine, inventory, ds_config = create_engine(candidate, sub_group_size=sub_group_size)
         del candidate
         if sum(x["numel"] for x in inventory) != 1235814400:
             raise ValueError("Unexpected trainable parameter set")
         write_new(output / "parameter_inventory.json", inventory)
-        write_new(output / "deepspeed_config.json", ds_config)
         identity = ModelIdentity(**pins["target"])
         reference_config = ReferenceConfig(identity, identity)
         reference = load_reference(reference_config, target_dir)

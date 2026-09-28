@@ -17,7 +17,7 @@ from experiments.reproductions.NPO.training_state import (
 )
 
 
-def validate(directory, identities):
+def validate(directory, identities, *, sub_group_size=1000000000):
     from transformers import LlamaConfig, LlamaForCausalLM
 
     directory = Path(directory)
@@ -48,6 +48,7 @@ def validate(directory, identities):
                 "model": cfg.to_dict(),
                 "warmup_limit_updates": 16,
                 "resume_comparison_microbatches": 16,
+                "zero_sub_group_size": sub_group_size,
             }
         ),
         "eval_config_sha256": digest({"evaluation": "none"}),
@@ -70,7 +71,7 @@ def validate(directory, identities):
         candidate = LlamaForCausalLM(cfg).half()
         candidate.tie_weights()
         candidate.load_state_dict(initial)
-        return create_engine(candidate.cuda())[0]
+        return create_engine(candidate.cuda(), sub_group_size=sub_group_size)[0]
 
     def micro(engine):
         ids = torch.randint(0, 1024, (4, 8), device="cuda:0")
@@ -169,6 +170,7 @@ def validate(directory, identities):
         "scheduler_equal": True,
         "rng_equal": True,
         "not_a_1b_training_result": True,
+        "zero_sub_group_size": sub_group_size,
         "parent_run_identities": parent_identities,
         "synthetic_identity_semantics": "Random initial tensor hash; code revision identifies synthetic integer-token generator. No TOFU/model checkpoint identity is claimed for this test.",
     }

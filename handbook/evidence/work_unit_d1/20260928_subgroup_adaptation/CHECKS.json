@@ -1,0 +1,87 @@
+[
+  {
+    "name": "cpu_suite",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "tests/",
+      "-q",
+      "--tb=short",
+      "-m",
+      "not requires_gpu and not requires_model"
+    ],
+    "returncode": 0,
+    "seconds": 31.58885747200111
+  },
+  {
+    "name": "lint",
+    "argv": [
+      ".venv/bin/ruff",
+      "check",
+      "src/",
+      "tests/",
+      "scripts/",
+      "experiments/reproductions/"
+    ],
+    "returncode": 0,
+    "seconds": 0.008614286001829896
+  },
+  {
+    "name": "format",
+    "argv": [
+      ".venv/bin/ruff",
+      "format",
+      "--check",
+      "src/",
+      "tests/",
+      "scripts/",
+      "experiments/reproductions/"
+    ],
+    "returncode": 0,
+    "seconds": 0.0080686190049164
+  },
+  {
+    "name": "notebooks",
+    "argv": [
+      ".venv/bin/python",
+      "scripts/check_notebooks.py",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/NOTEBOOKS.json"
+    ],
+    "returncode": 0,
+    "seconds": 0.2676204300005338
+  },
+  {
+    "name": "upstream_objective",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "experiments.reproductions.NPO.validate_upstream",
+      "--upstream",
+      "tmp/d1/assets/npo",
+      "--openunlearning",
+      "tmp/d1/assets/openunlearning",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/OBJECTIVE_PARITY.json"
+    ],
+    "returncode": 0,
+    "seconds": 1.9174465510004666
+  },
+  {
+    "name": "upstream_schedule_metrics",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "experiments.reproductions.NPO.validate_training_source",
+      "--upstream",
+      "tmp/d1/assets/npo",
+      "--runtime-sources",
+      "tmp/d1/assets/runtime_sources",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/SOURCE_CONFORMANCE.json"
+    ],
+    "returncode": 0,
+    "seconds": 2.3191987610043725
+  }
+]

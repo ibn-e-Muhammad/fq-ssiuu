@@ -42,6 +42,8 @@ TRAIN = {
     "memory_limit_bytes": 16000000000,
 }
 
+TRAIN_V2 = {**TRAIN, "schema": "npo-d1-training-v2", "zero_sub_group_size": 100000000}
+
 EVALUATION = {
     "schema": "npo-d1-evaluation-v1",
     "max_length": 200,
@@ -62,16 +64,18 @@ EVALUATION = {
 
 def read_configs(train_path, eval_path, expected_train_hash, expected_eval_hash):
     values = []
-    for path, sha, expected in (
-        (train_path, expected_train_hash, TRAIN),
-        (eval_path, expected_eval_hash, EVALUATION),
+    for path, sha, accepted in (
+        (train_path, expected_train_hash, (TRAIN, TRAIN_V2)),
+        (eval_path, expected_eval_hash, (EVALUATION,)),
     ):
         if file_digest(path) != sha:
             raise ValueError("Frozen D1 config bytes changed")
         value = json.loads(Path(path).read_text())
         # JSON equality alone treats True as 1; use canonical serialization to
         # reject type drift as well as unknown/unapproved configuration keys.
-        if json.dumps(value, sort_keys=True) != json.dumps(expected, sort_keys=True):
+        if all(
+            json.dumps(value, sort_keys=True) != json.dumps(x, sort_keys=True) for x in accepted
+        ):
             raise ValueError("D1 config changes an accepted source/resource setting")
         values.append(value)
     schedule = source_schedule(200, TRAIN["nominal_epochs"], 4, 8, 1)
@@ -80,9 +84,11 @@ def read_configs(train_path, eval_path, expected_train_hash, expected_eval_hash)
     return tuple(values)
 
 
-def deepspeed_config(hidden_size):
+def deepspeed_config(hidden_size, *, sub_group_size=1000000000):
     if type(hidden_size) is not int or hidden_size <= 0:
         raise ValueError("Positive model hidden dimension required")
+    if type(sub_group_size) is not int or sub_group_size not in (1000000000, 100000000):
+        raise ValueError("Only original or researcher-approved subgroup size allowed")
     return {
         "train_batch_size": 32,
         "train_micro_batch_size_per_gpu": 4,
@@ -97,7 +103,7 @@ def deepspeed_config(hidden_size):
             "offload_param": {"device": "none", "pin_memory": True},
             "overlap_comm": True,
             "contiguous_gradients": True,
-            "sub_group_size": 1000000000,
+            "sub_group_size": sub_group_size,
             "reduce_bucket_size": hidden_size * hidden_size,
             "stage3_prefetch_bucket_size": int(0.9 * hidden_size * hidden_size),
             "stage3_param_persistence_threshold": 10 * hidden_size,

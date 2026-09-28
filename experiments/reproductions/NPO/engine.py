@@ -11,7 +11,7 @@ def source_scheduler(optimizer):
     return torch.optim.lr_scheduler.LambdaLR(optimizer, linear_schedule)
 
 
-def create_engine(model):
+def create_engine(model, *, sub_group_size=1000000000):
     import deepspeed
 
     model.requires_grad_(True)
@@ -19,7 +19,7 @@ def create_engine(model):
     model.config.use_cache = False
     groups, inventory = parameter_groups(model, 0.01)
     optimizer = paged_adamw32(groups, lr=1e-5, betas=(0.9, 0.999), eps=1e-8)
-    config = deepspeed_config(model.config.hidden_size)
+    config = deepspeed_config(model.config.hidden_size, sub_group_size=sub_group_size)
     engine, _, _, _ = deepspeed.initialize(
         model=model,
         optimizer=optimizer,
