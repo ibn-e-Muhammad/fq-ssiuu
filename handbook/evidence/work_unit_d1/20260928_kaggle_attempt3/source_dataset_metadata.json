@@ -1,0 +1,10 @@
+{
+  "title": "FQ-SSIUU D1 private source 1e4a093",
+  "id": "muhammadii/fq-ssiuu-d1-source-1e4a093",
+  "licenses": [
+    {
+      "name": "other"
+    }
+  ],
+  "description": "Private parentless source for researcher-approved D1 third attempt; only subgroup resource change. Origin 1e4a0937cc58843d1dd74b8ebdcfb2b14a5c1080. No credentials or model weights."
+}

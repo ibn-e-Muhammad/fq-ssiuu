@@ -1,0 +1,16 @@
+{
+  "schema": "npo-d1-evaluation-v1",
+  "max_length": 200,
+  "selection": "first-min-300-per-component",
+  "primary_batch": 30,
+  "base_batch": 7,
+  "generation_seed_per_batch": 0,
+  "generation": "source-sampled-pinned-llama3-defaults",
+  "source_truth_ratio": "npo-author-geometric-1207bbe-v1",
+  "additional_diagnostic": "tofu-paper-arithmetic-v1",
+  "oracle": "pinned-retain95-fp16",
+  "kl_reference": "original-full-fp16-all-positions",
+  "final_evaluation": true,
+  "attack_detected": null,
+  "durability_pass": null
+}

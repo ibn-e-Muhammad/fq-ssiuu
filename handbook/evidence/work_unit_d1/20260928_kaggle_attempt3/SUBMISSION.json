@@ -1,0 +1,30 @@
+{
+  "recorded_at": "2026-09-28T12:45:27.226920+00:00",
+  "status": "SUBMITTED",
+  "attempt_number": 3,
+  "total_submission_limit": 3,
+  "kernel": "muhammadii/fq-ssiuu-mother-runner",
+  "kernel_version": 7,
+  "source_dataset": "muhammadii/fq-ssiuu-d1-source-1e4a093",
+  "source_commit": "1e4a0937cc58843d1dd74b8ebdcfb2b14a5c1080",
+  "command": [
+    "./.venv/bin/python",
+    "-m",
+    "kaggle",
+    "kernels",
+    "push",
+    "-p",
+    "tmp/d1/mother_subgroups_1e4a093",
+    "--timeout",
+    "43200",
+    "--accelerator",
+    "NvidiaTeslaT4"
+  ],
+  "returncode": 0,
+  "stdout": "submission_stdout.log",
+  "stderr": "submission_stderr.log",
+  "ci_run": 36423523924,
+  "ci_conclusion": "success",
+  "runtime_verdict": null,
+  "further_submissions_authorized": false
+}

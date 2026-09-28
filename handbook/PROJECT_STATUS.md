@@ -4,17 +4,16 @@ Updated 2026-09-28. [Canonical plan](MASTER_EXECUTION_PLAN.md).
 Integration tip: `dev` at `5ca92bfa0863a9ffadcd70bfc5f28c8ee8c6e76a` (PR #10 merged).
 Work units A, B and C are merged; their branches and evidence are retained.
 Active D1: `repro/npo-1b-source-faithful`, from that exact remote dev tip.
-D1 is **PARTIAL WITH EVIDENCE; approved resource continuation is in pre-run validation**.
-Researcher pre-run review and CI 66/67 passed. Both authorized T4 attempts are used:
-v5 failed its tiny GPU scheduler preflight; v6 (`4855049`) passed actual tiny GPU
-paged optimizer resume, then exhausted memory during 1B optimizer initialization.
-No 1B backward/update, trained checkpoint or post-unlearning metric exists.
-All raw artifacts and complete private Kaggle/HF archives are hash-verified.
-The researcher has now approved subgroup size 1e8 and one additional T4 attempt.
-Closeout: 382 offline tests, actual CPU source/group/resume checks and 14 notebooks
-pass. A tied-embedding inventory test was corrected; runtime code is unchanged.
-Accumulation 8 remains approved; versioned v2 changes only the approved ZeRO
-subgroup size. Native CPU update/moment/resume equivalence passes.
+D1 is **PARTIAL WITH EVIDENCE / FAILED GPU ACCEPTANCE; paused for researcher audit**.
+All three authorized T4 attempts are used. Mother v7 (`1e4a093`) passed environment,
+tiny GPU resume, full 1B optimizer initialization and the first NPO+RT forward with
+the frozen full reference. It exhausted memory during the first backward pass:
+zero completed 1B microbatches or optimizer updates; no trained 1B checkpoint.
+Sampled device peak 16,086,401,024 bytes also exceeds the 16,000,000,000-byte limit.
+Offline acceptance at the run commit was 389 passed (existing exclusions retained),
+14 notebooks and CI 69 PASS. These do not establish 1B training feasibility.
+Original evidence is preserved; no further repair/run is authorized. The researcher
+requested failure diagnosis, outcome commit/push, then a stop for their audit.
 C1 validates sequential FP16/LLM.int8/NF4 loading and actual descriptive metrics.
 C2 project choices are deferred until constituent 1B reproductions and bounded
 pilots are complete. Source-faithful reproductions and descriptive collection do
@@ -112,12 +111,10 @@ evidence, not model-level scientific validation or training-memory evidence.
 
 ## Exact next action
 
-Complete offline/CI/review acceptance of the approved v2 subgroup adaptation,
-then submit the single additional bounded T4 attempt (third overall). Preserve
-full NPO+RT, full GPU reference, paged FP32 AdamW and source batch/schedule.
-Two of the now three authorized attempts have executed. See
-[D1 report](reports/WORK_UNIT_D1_REPORT.md) and
-[source/adaptation specification](methods/NPO_D1_SOURCE_ADAPTATION.md).
+Await the researcher's audit and next instructions. Do not change resource settings,
+implement another repair, submit a fourth run or merge PR #11.
+See [D1 report](reports/WORK_UNIT_D1_REPORT.md) and the
+[third-attempt verdict](evidence/work_unit_d1/20260928_kaggle_attempt3/VERDICT.json).
 No Protocol v2 approval is needed for source-faithful reproduction. No effectiveness
 claim follows from C1, and no further C1 execution is authorized.
 See [method matrix](METHOD_IMPLEMENTATION_MATRIX.md) and [scientific gates](research_gates.yaml).

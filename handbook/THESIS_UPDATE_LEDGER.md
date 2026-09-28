@@ -140,3 +140,11 @@ attempts and complete private archives are retained. The corrected tied meta
 inventory has 1,235,814,400 unique parameters; the earlier untied fixture count
 is superseded, with its raw record preserved. No Chapter 4 effectiveness result,
 new method acceptance or Protocol v2 activation. DOCX files remain untouched.
+
+D1 attempt 3 / requested stop (2026-09-28): Chapter 3 may state that approved
+smaller ZeRO groups cleared optimizer initialization, the full 1B candidate and
+frozen full reference completed one NPO+RT forward, and the first backward failed
+with CUDA OOM. No completed 1B update or trained checkpoint. Sampled device peak
+16,086,401,024 bytes exceeded the 16e9 limit. Initial finite loss is wiring evidence,
+not learning or effectiveness evidence; no Chapter 4 scientific result. Preserve
+the failed artifacts and stop after outcome commit/push for researcher audit.

@@ -1,0 +1,18 @@
+{
+  "overall_status": "PASS",
+  "mode": "APPLY",
+  "run_id": "00737b0d-ca76-4ceb-9359-dab32a2b8a6c",
+  "git_sha": "47e8cbfb5e9fea7a9831899b4e21d5585d9e3504",
+  "dry_run_exit_code": 0,
+  "install_exit_code": 0,
+  "editable_exit_code": 0,
+  "pip_check_exit_code": 1,
+  "pip_consistency_state": "BASELINE_DIRTY_NO_REGRESSION",
+  "substantive_checks": {
+    "pip_consistency": "PASS",
+    "verifier": "PASS",
+    "after_snapshot": "PASS",
+    "environment_transition": "PASS"
+  },
+  "verifier_exit_code": 0
+}

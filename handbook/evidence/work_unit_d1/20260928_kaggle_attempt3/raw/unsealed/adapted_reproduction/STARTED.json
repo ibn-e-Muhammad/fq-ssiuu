@@ -1,0 +1,53 @@
+{
+  "run_id": "20260928-124613-efd94997a1e8",
+  "recipe": {
+    "schema_version": "1.0",
+    "kind": "adapted_reproduction",
+    "condition": "d1-npo-source-faithful-1b-v2",
+    "seed": 1001,
+    "entrypoint": "experiments/reproductions/NPO/train_runtime.py",
+    "overlay_lock": "requirements/kaggle-overlay.d1-candidate.in",
+    "no_build_isolation": true,
+    "required_secrets": [],
+    "timeout_seconds": 39600,
+    "storage": "scratch-raw-single-working-archive",
+    "attack_detected": null,
+    "durability_pass": null,
+    "inputs_registry_sha256": "9c24f66e568ce60dba39c61e92e948e48027b1318a0580ff859928d5ec02dbc6",
+    "train_config": "configs/reproductions/NPO/d1_train_v2.json",
+    "eval_config": "configs/reproductions/NPO/d1_eval_v1.json",
+    "overlay": "requirements/kaggle-overlay.d1-candidate.in",
+    "source_spec": "experiments/reproductions/NPO/source_v1.json",
+    "runtime_sources": "experiments/reproductions/NPO/runtime_sources_v1.json",
+    "train_config_sha256": "7b5bb1d7c43c68c6cc274ceb68fcdf20773ea2f36d57de1d66e5b8ba73365711",
+    "eval_config_sha256": "0db526da36ac9c60946cb6e4046005061585f870a42ed3ed10099a4ca6084194",
+    "overlay_sha256": "bfe3bae35ca3fa02cb985f5ad29c3658cbd32350afe257c3f6ccbc9f159b7815",
+    "source_spec_sha256": "be073b839516e12f73a52671f4e39d59fcc65f52d2140e63d7805f2a25f812ee",
+    "runtime_sources_sha256": "6def02b66ffd1ab092cad7a78108649b7dfad65f7e861329a0c85007161d8837"
+  },
+  "source_provenance": {
+    "source_origin_sha": "1e4a0937cc58843d1dd74b8ebdcfb2b14a5c1080",
+    "source_tree_sha": "8be44ee4ff107cab775a643de00cb0d7e9ddfb8f",
+    "source_manifest_sha256": "232f163c0060b0b5f16b9f51c8aba304ab29fdf4b94b61e52b6f38129dcecc2b",
+    "dataset_id": "muhammadii/fq-ssiuu-d1-source-1e4a093",
+    "orchestration_commit": "1e4a0937cc58843d1dd74b8ebdcfb2b14a5c1080",
+    "recipe": "configs/runs/work_unit_d1_npo_v2.json",
+    "snapshot_commit_sha": "47e8cbfb5e9fea7a9831899b4e21d5585d9e3504",
+    "source_manifest": {
+      "schema_version": "1.0",
+      "source_repository_name": "fq-ssiuu",
+      "source_origin_sha": "1e4a0937cc58843d1dd74b8ebdcfb2b14a5c1080",
+      "source_tree_sha": "8be44ee4ff107cab775a643de00cb0d7e9ddfb8f",
+      "snapshot_commit_sha": "47e8cbfb5e9fea7a9831899b4e21d5585d9e3504",
+      "snapshot_ref": "kaggle-snapshot",
+      "bundle_filename": "fq-ssiuu-source.bundle",
+      "bundle_size_bytes": 4924595,
+      "bundle_sha256": "873af3f2edd74c80cf0982b01dcb78e84900ce76f9b9ff1e55482cd06e74f241",
+      "creation_utc": "2026-09-28T12:39:33.736791+00:00",
+      "secret_scan_status": "PASS",
+      "history_commit_count": 1,
+      "contains_original_history": false
+    },
+    "run_id": "20260928-124613-efd94997a1e8"
+  }
+}

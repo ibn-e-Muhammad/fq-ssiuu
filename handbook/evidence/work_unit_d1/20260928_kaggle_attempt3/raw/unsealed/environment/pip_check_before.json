@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "stage": "before",
+  "run_id": "00737b0d-ca76-4ceb-9359-dab32a2b8a6c",
+  "git_sha": "47e8cbfb5e9fea7a9831899b4e21d5585d9e3504",
+  "utc_timestamp": "2026-09-28T12:46:31.416879+00:00",
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "pip",
+    "check"
+  ],
+  "stdout": "bigframes 2.39.0 requires google-cloud-bigquery-storage, which is not installed.\ngoogle-adk 1.29.0 requires google-cloud-bigquery-storage, which is not installed.\ngoogle-colab 1.0.0 has requirement jupyter-server==2.14.0, but you have jupyter-server 2.12.5.\ngoogle-colab 1.0.0 has requirement pandas==2.2.2, but you have pandas 2.3.3.\ndopamine-rl 4.1.2 has requirement gym<=0.25.2, but you have gym 0.26.2.\nmoviepy 1.0.3 has requirement decorator<5.0,>=4.0.2, but you have decorator 5.3.1.\n",
+  "stderr": "",
+  "returncode": 1,
+  "stdout_sha256": "2c99993bdaa1efa61406b281e3c408724a14e714bcaf3dfb4da60af8ec2a044c",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "diagnostics": [
+    {
+      "kind": "conflict",
+      "owner": "moviepy",
+      "owner_version": "1.0.3",
+      "dependency": "decorator",
+      "requirement": "decorator<5.0,>=4.0.2",
+      "installed_version": "5.3.1"
+    },
+    {
+      "kind": "missing",
+      "owner": "bigframes",
+      "owner_version": "2.39.0",
+      "dependency": "google-cloud-bigquery-storage"
+    },
+    {
+      "kind": "missing",
+      "owner": "google-adk",
+      "owner_version": "1.29.0",
+      "dependency": "google-cloud-bigquery-storage"
+    },
+    {
+      "kind": "conflict",
+      "owner": "dopamine-rl",
+      "owner_version": "4.1.2",
+      "dependency": "gym",
+      "requirement": "gym<=0.25.2",
+      "installed_version": "0.26.2"
+    },
+    {
+      "kind": "conflict",
+      "owner": "google-colab",
+      "owner_version": "1.0.0",
+      "dependency": "jupyter-server",
+      "requirement": "jupyter-server==2.14.0",
+      "installed_version": "2.12.5"
+    },
+    {
+      "kind": "conflict",
+      "owner": "google-colab",
+      "owner_version": "1.0.0",
+      "dependency": "pandas",
+      "requirement": "pandas==2.2.2",
+      "installed_version": "2.3.3"
+    }
+  ],
+  "record_status": "VALID"
+}

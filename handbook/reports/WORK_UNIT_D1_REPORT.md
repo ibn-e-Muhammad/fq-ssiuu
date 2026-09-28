@@ -1,17 +1,19 @@
 # Work Unit D1 — bounded NPO 1B adapted-reproduction pilot
 
-**PARTIAL WITH EVIDENCE; researcher-approved resource continuation is in pre-run
-validation.** Both authorized T4 attempts failed. Attempt 2 passed the
-actual tiny GPU paged optimizer/resume test, then exhausted memory during 1B
-optimizer initialization, before any 1B backward or update. NPO at 1B is not yet
-reproduced. No trained 1B checkpoint or post-unlearning scientific metric exists.
+**PARTIAL WITH EVIDENCE / FAILED GPU ACCEPTANCE. Paused for researcher audit.**
+All three authorized single-T4 attempts failed. The third cleared optimizer
+initialization and completed one real 1B NPO+RT forward with the frozen full
+reference, but its first backward exhausted memory. It also exceeded the declared
+16,000,000,000-byte sampled memory ceiling. Zero completed 1B optimizer updates;
+no trained 1B checkpoint or post-unlearning scientific metric. The researcher
+requested diagnosis, outcome commit/push and then a stop; no further work/run.
 
 ## Lineage, approval and method
 
 Base `dev`: `5ca92bfa0863a9ffadcd70bfc5f28c8ee8c6e76a` (PR #10 merged).
 Branch: `repro/npo-1b-source-faithful`; PR #11 remains open, not merged.
 Researcher pre-run review: “Review passed; proceed once CI passes.” CI 66 passed
-for attempt 1; CI 67 passed for attempt 2. Repair `97e005a` was reviewed by the
+for attempt 1; CI 67 passed for attempt 2; CI 69 passed for attempt 3. Repair `97e005a` was reviewed by the
 primary agent; no independent review is claimed. The last-push approval restriction
 was disabled as requested; other existing protections remain.
 
@@ -60,9 +62,11 @@ reference; file-level hashes/licensing are in the source/adaptation specificatio
 - Diagnostic oracle, distinct from the full NPO reference:
   `open-unlearning/tofu_Llama-3.2-1B-Instruct_retain95@f05bc9fd6c8d59decf7599f5e186153081061fd2`.
   Weight hash `955e430aac277d9ccc309307f8462ce462c81fd4308cd934a6c24e5518077e94`.
-- Unchanged training config hash:
-  `f32a35dbe9b82fcefffc12709c09a22224bf2dee05c67326a4a1aa6ccfadd9e1`;
-  evaluation config hash:
+- Historical v1 training config hash (attempts 1/2, preserved):
+  `f32a35dbe9b82fcefffc12709c09a22224bf2dee05c67326a4a1aa6ccfadd9e1`.
+  Approved v2 training hash (attempt 3):
+  `7b5bb1d7c43c68c6cc274ceb68fcdf20773ea2f36d57de1d66e5b8ba73365711`.
+  Unchanged evaluation config hash:
   `0db526da36ac9c60946cb6e4046005061585f870a42ed3ed10099a4ca6084194`.
 
 ## Acceptance and exact limitations
@@ -71,39 +75,43 @@ reference; file-level hashes/licensing are in the source/adaptation specificatio
 |---|---|
 | Pinned upstream value/gradient conformance | PASS, 16 fixed CPU cases; maximum gradient discrepancy approximately 2.98e-8 |
 | Dataset, shifted answer/EOT masks, prompt/padding exclusion | PASS offline; all 4,000 rows compared with executed pinned preprocessing; runtime preparation passed |
-| Full frozen reference identity | Contract and prior bounded forwards pass; D1 attempt 2 stopped before loading its full NPO reference |
-| Full-parameter gradients | Tiny CPU model passes; no 1B gradient/optimization evidence |
+| Full frozen reference identity | PASS for third-attempt full reference loading/validation and initial forward; no learning claim |
+| Full-parameter gradients | Tiny CPU model passes; first 1B backward attempted and OOM; no completed 1B gradient/update acceptance |
 | Source schedule, sampler and metrics | Executed upstream CPU comparisons pass; no trained-1B evaluation |
 | Native CPU checkpoint/resume | PASS, source schedule and state restored |
-| Actual tiny FP16 GPU paged optimizer/resume | PASS on attempt 2: 16 resumed microbatches, max loss error 0, bit-identical masters, equal scheduler/RNG |
-| 1B optimization | FAIL before first update: optimizer initialization OOM |
+| Actual tiny FP16 GPU paged optimizer/resume | PASS on attempts 2 and 3: 16 resumed microbatches, max loss error 0, bit-identical masters, equal scheduler/RNG |
+| 1B optimization | FAIL: third attempt first backward OOM; zero completed updates |
 | Reloadable trained 1B checkpoint | Absent; only tiny random-model checkpoints exist |
 | Source-defined unlearned-model metrics | Absent; raw retain-only oracle evaluations are preserved separately |
-| GPU memory | Whole-attempt telemetry exists; no successful 1B training-memory acceptance |
-| Immutable local/Kaggle/HF archives | PASS for both failed attempts |
+| GPU memory | FAIL: third-attempt sampled peak 16,086,401,024 bytes exceeds 16e9; first backward OOM |
+| Immutable local/Kaggle/HF archives | Verified preservation/receipts for failed attempts; third-attempt receipts are in its evidence directory |
 
-Final offline checks: **382 passed, 4 skipped, 10 deselected, 1 xfailed**, exit 0.
+Run-commit offline checks: **389 passed, 4 skipped, 10 deselected, 1 xfailed**, exit 0.
 The skips/exclusions/xfail are existing cases; no new core acceptance test is
 skipped. Lint, format, all 14 notebook schema/cell checks, executed upstream
 objective and schedule/metric conformance pass. Commands, exit codes and raw logs:
-`../evidence/work_unit_d1/20260928_closeout/CHECKS.json`.
+`../evidence/work_unit_d1/20260928_subgroup_adaptation/CHECKS.json`.
+No implementation changes or additional training tests were made during the
+requested third-attempt outcome-only closeout; integrity checks are recorded separately.
 
-A closeout test correction restores tied embeddings in a bare meta fixture and
+Before the third submission, a CPU test correction restored tied embeddings in a bare meta fixture and
 compares the source Trainer's deduplicated parameter groups. Unique target count
 is 1,235,814,400. The earlier untied topology claim is explicitly superseded in
-`INVENTORY_CORRECTION.json`, preserving its original record. The first corrected
+`../evidence/work_unit_d1/20260928_closeout/INVENTORY_CORRECTION.json`, preserving its original record. The first corrected
 fixture check also exposed an unused tied-name alias in the expected-name list;
 the final real CPU check passes. Neither correction changes the GPU runner or
-scientific configs. Old manifests (228 D1 and 174 C1 entries) rehash unchanged.
+scientific configs. All seven prior D1/C1 manifests rehash unchanged; counts are
+recorded in the third-attempt `PRESERVATION.json`.
 
-## Both Kaggle attempts and archives
+## Kaggle attempts and archives
 
 | Attempt | Code / run / Mother | Outcome |
 |---|---|---|
-| 1 of 2 | `ebd7077539a8093162fcad1264c3ff7240ef4a66` / `20260927-130645-e8483bf31420` / v5 | Tiny GPU scheduler/group mismatch; no 1B loading |
-| 2 of 2 | `485504904d8116797430da7234e1a6bef5dee22c` / `20260928-062524-7118f1ae8d74` / v6 | Tiny GPU resume passes; oracle evaluated; target loaded; 1B optimizer-init OOM |
+| 1 of 3 | `ebd7077539a8093162fcad1264c3ff7240ef4a66` / `20260927-130645-e8483bf31420` / v5 | Tiny GPU scheduler/group mismatch; no 1B loading |
+| 2 of 3 | `485504904d8116797430da7234e1a6bef5dee22c` / `20260928-062524-7118f1ae8d74` / v6 | Tiny GPU resume passes; oracle evaluated; target loaded; 1B optimizer-init OOM |
+| 3 of 3 | `1e4a0937cc58843d1dd74b8ebdcfb2b14a5c1080` / `20260928-124613-efd94997a1e8` / v7 | Approved subgroup reduction clears optimizer initialization; full target/reference forward passes; first backward OOM |
 
-Both environment checks passed `BASELINE_DIRTY_NO_REGRESSION`; no new package
+All three environment checks passed `BASELINE_DIRTY_NO_REGRESSION`; no new package
 conflict or protected-stack drift. Selected single T4 only. Attempt 2 failed at
 DeepSpeed's temporary FP32 gradient buffer allocation: requested 3.74 GiB, only
 3.58 GiB free. No 1B backward/optimizer step followed.
@@ -134,40 +142,61 @@ optimizer state `6c098f5fbba0ca909ec79c804cf764be85c5c6e9d706b97e96eeb1ad905ba1a
 
 Attempt verdicts, raw traces, manifests, config/source identities and archive
 receipts live under `../evidence/work_unit_d1/20260927_kaggle_attempt1/` and
-`../evidence/work_unit_d1/20260928_kaggle_attempt2/`. Closeout manifest:
-`../evidence/work_unit_d1/MANIFEST_20260928_CLOSEOUT.json`. Its containing Git commit
-resolves the final report/test-helper revision; actual runtime code is `4855049`.
+`../evidence/work_unit_d1/20260928_kaggle_attempt2/`. The earlier second-attempt
+closeout manifest is `../evidence/work_unit_d1/MANIFEST_20260928_CLOSEOUT.json`;
+its runtime code is `4855049`. The third-attempt source and manifest follow below.
 
-## Exact blocker and next action
+## Third attempt: exact failure and claim boundary
 
-Both allowed submissions are used. Proposed category-3 change, **not implemented**:
-reduce only ZeRO optimizer `sub_group_size` from 1e9 to 1e8. Read-only execution
-of the installed grouping code on the tied architecture reduces the largest
-temporary buffer from 4,011,851,776 to 1,050,673,152 bytes. This addresses the
-observed failed allocation, not proof of complete training fit. Candidate,
-masters, FP16 gradients and full reference alone account for 12,358,144,000 bytes,
-excluding managed moments, activations, workspace and fragmentation.
+The researcher explicitly approved subgroup size 1e8 and one extra T4 attempt.
+Versioned v2 preserved original v1/evaluation bytes. CPU ZeRO subgroup comparisons
+produced identical updates/moments and exact native resume; this did not establish
+GPU memory feasibility. No other resource or mathematical change was made.
 
-Next single action: obtain researcher approval for that resource-only change and
-one additional bounded T4 attempt, conditional on offline update/resume conformance
-and code review. Preserve full parameters, full GPU reference, original paged FP32
-AdamW, objective, batch and schedule. No further submission before approval.
+Run `20260928-124613-efd94997a1e8` started at 12:46:20 UTC and failed at
+12:55:06 UTC on 2026-09-28. Environment and tiny GPU resume passed. The raw
+parameter inventory records **1,235,814,400** unique trainable parameters. The
+full frozen reference loaded and the first forward completed on the selected T4.
+The first `engine.backward(terms.total)` then failed: another **124 MiB** was
+requested with **20.81 MiB** free. This is a backward-memory failure, not the
+previous optimizer-initialization failure.
 
-No research gate changes: RG-006 remains limited to the accepted objective/data/
-reference boundary; RG-005 blocks project verdicts; RG-001/002/003 stay blocked.
-Protocol v2 remains deferred/non-executable; attack and durability decisions are
-null. No forgetting, recovery, durability or effectiveness conclusion follows
-from D1. Historical evidence and the four DOCX files remain untouched.
+Exactly one `FORWARD_COMPLETE_BEFORE_BACKWARD` record and an empty completed
+microbatch log are preserved. Initial NPO loss **13.862943649291992**, retain loss
+**0.08412517607212067**, total **13.94706916809082**. Candidate/reference NLLs match
+at initialization; these finite values establish initial wiring only. They are
+not a training trajectory, forgetting result or scientific-effectiveness metric.
+No completed 1B backward/update, gradient norm, trained checkpoint or post-unlearning
+evaluation can be reported.
 
-## Approved continuation — 2026-09-28
+Whole-attempt peak allocated **14,163,470,336 bytes**, reserved **14,526,971,904**,
+sampled device-used **16,086,401,024**. The latter exceeds the 16e9 policy limit by
+**86,401,024 bytes**, independently of the OOM failure. NVML samples every 0.1 s;
+no continuous sub-interval peak is claimed.
 
-The researcher subsequently answered **“Approve resource change and one extra
-attempt.”** This supersedes the approval blocker above without changing either
-failed run's verdict. Total allowance is three, with two used. The new v2 train
-config/recipe preserves v1, changes only the approved subgroup size and version
-identifiers, and keeps the evaluation config unchanged. Actual CPU ZeRO-3 subgroup
-comparison passes: 64 microbatches, identical losses/masters/moments; 16 resumed
-microbatches match in each layout; reference unchanged. Source method unchanged.
-The next action is offline/CI/review acceptance followed by the one newly approved
-T4 attempt. Its GPU result remains unknown. Evidence:
-`../evidence/work_unit_d1/20260928_subgroup_adaptation/`.
+Third complete archive SHA-256:
+`0b872fee75c953fa0581d8a54ce9919c32a51f66c85b8ebdf830a8257644cf72`.
+Raw inner archive SHA-256:
+`fcd9a10525c22b6fb14fb0ba6861246b9e38dca01875fd2eaf7444d814bd1249`.
+All **77** sealed members verify; **75** extracted non-checkpoint members are
+preserved in Git and the two tiny random `.pt` files remain in complete archives.
+Private archive destinations and download-verification receipts are recorded in
+`../evidence/work_unit_d1/20260928_kaggle_attempt3/`: Kaggle dataset
+`muhammadii/fq-ssiuu-d1-20260928-efd94997a1e8`, and HF dataset
+`Xafire/fq-ssiuu-run-20260928-124613-efd94997a1e8-complete` at
+`1ca20644a8d597700a71cd0c00ab362e61b05826`. Both downloaded archives match.
+Third-attempt manifest:
+`../evidence/work_unit_d1/MANIFEST_20260928_ATTEMPT3.json`.
+
+## Stop for researcher audit
+
+All **3/3** authorized submissions are used. The researcher requested that this
+failure be diagnosed and its outcomes committed/pushed, with **no extra work**.
+No new repair, resource proposal, experiment, fourth submission or merge follows.
+PR #11 stays open. Exact next action: await researcher audit and instructions.
+
+D1 has not passed. RG-006 remains scoped to the accepted objective/data/reference
+boundary; RG-005 and RG-001/002/003 remain blocked. Protocol v2 is deferred and
+non-executable; attack/durability decisions remain null. No forgetting, recovery,
+durability or effectiveness claim is supported. Raw historical evidence and the
+four DOCX files remain unchanged.

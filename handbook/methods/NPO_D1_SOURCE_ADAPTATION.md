@@ -271,3 +271,14 @@ scheduler/RNG. The full reference stays unchanged. This uses CPU AdamW as a
 splitting-math fixture, not a GPU paging or 1B acceptance claim. Evidence:
 `../evidence/work_unit_d1/20260928_subgroup_adaptation/`. One additional T4 attempt
 is permitted after these offline checks, CI and the primary-agent code review.
+
+## Third-attempt outcome — no further adaptation
+
+Run `20260928-124613-efd94997a1e8`, Mother v7, source `1e4a093`, used the approved
+subgroup size 1e8. Optimizer initialization and the first full 1B NPO+RT forward
+passed; the first backward failed allocating another 124 MiB with 20.81 MiB free.
+No completed 1B microbatch/update or trained checkpoint exists. The sampled peak
+16,086,401,024 bytes exceeds the 16,000,000,000-byte acceptance limit. The tiny GPU
+resume again passed, which does not establish 1B feasibility. All three permitted
+attempts are used. The researcher explicitly requested outcome preservation,
+commit/push and a stop for audit; no additional adaptation is proposed or applied.

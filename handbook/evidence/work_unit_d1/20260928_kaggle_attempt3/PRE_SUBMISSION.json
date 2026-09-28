@@ -1,0 +1,22 @@
+{
+  "recorded_at": "2026-09-28T12:44:37.886691+00:00",
+  "source_commit": "1e4a0937cc58843d1dd74b8ebdcfb2b14a5c1080",
+  "pr": 11,
+  "ci": {
+    "run_id": 36423523924,
+    "job_id": 108931812120,
+    "run_number": 69,
+    "conclusion": "success"
+  },
+  "attempt_number": 3,
+  "total_submission_limit": 3,
+  "authorization": "Researcher explicitly approved resource change and one extra attempt; AUTHORIZATION.json in subgroup-adaptation evidence.",
+  "source_dataset_private": true,
+  "review": "../20260928_subgroup_adaptation/REVIEW.json",
+  "independent_review": false,
+  "staging_sha256": "40b082c76ff545f0be10a0d5b964100f60a45fded8b4b89005f90109c918bb37",
+  "training_config_sha256": "7b5bb1d7c43c68c6cc274ceb68fcdf20773ea2f36d57de1d66e5b8ba73365711",
+  "evaluation_config_sha256": "0db526da36ac9c60946cb6e4046005061585f870a42ed3ed10099a4ca6084194",
+  "only_resource_change": "zero_sub_group_size 1e9 to 1e8",
+  "protocol_v2": "DEFERRED_NON_EXECUTABLE"
+}

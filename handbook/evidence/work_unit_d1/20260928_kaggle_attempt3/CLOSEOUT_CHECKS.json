@@ -1,0 +1,26 @@
+{
+  "status": "PASS_EVIDENCE_CLOSEOUT_ONLY",
+  "checks": [
+    "77 raw inner hashes and 75 extracted non-PT copies",
+    "5 outer member hashes and local/Kaggle/HF archive agreement",
+    "Prior manifests rehashed unchanged",
+    "Runtime config bytes match pinned v2/eval v1",
+    "Forward count 1; completed microbatch log empty",
+    "No implementation edits since submitted 1e4a093",
+    "Documentation whitespace check"
+  ],
+  "whitespace_returncode": 0,
+  "raw_log_whitespace_preserved": true,
+  "new_training_or_tests_executed": false,
+  "last_offline_acceptance": {
+    "commit": "1e4a0937cc58843d1dd74b8ebdcfb2b14a5c1080",
+    "passed": 389,
+    "skipped": 4,
+    "deselected": 10,
+    "xfailed": 1,
+    "ci_run": 36423523924,
+    "ci_run_number": 69,
+    "conclusion": "success"
+  },
+  "researcher_requested_stop": true
+}

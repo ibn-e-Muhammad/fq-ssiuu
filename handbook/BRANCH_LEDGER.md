@@ -15,7 +15,7 @@
 ## Current integration — 2026-09-28
 
 - `dev`: `5ca92bfa0863a9ffadcd70bfc5f28c8ee8c6e76a`, verified PR #10 merge; GitHub default branch.
-- `repro/npo-1b-source-faithful`: active D1 from exact dev `5ca92bf`; PR #11 remains open. Researcher pre-run review and CI 66/67 passed. 2/2 T4 submissions used: first tiny scheduler failure; second (`4855049`) tiny GPU resume PASS, then 1B optimizer-init OOM before any 1B update. Evidence/archive closeout is preserved; no merge or independent-review claim. Researcher subsequently approved subgroup 1e8 and one additional attempt; same branch, v2 config, no objective or protocol change.
+- `repro/npo-1b-source-faithful`: paused D1, PR #11 open, from dev `5ca92bf`. All 3 authorized T4 submissions used. Third run (`1e4a093`, CI69 PASS) completed the first full 1B forward but failed first backward with OOM; zero 1B updates, memory ceiling exceeded. Outcome-only closeout, then researcher audit; no merge, new repair or fourth run. No independent-review claim.
 - `fix/matched-precision-qra-protocol`: PR #10 merged, head `29d21a51de784190bdabf4e7267db8925c73260e`; superseded and retained.
 - `fix/npo-adapter-qra-metrics`: PR #9 merged, feature tip `e896dbc0467018a87d3d0754d68eddbe094b3b0e`; superseded and retained.
 - `fix/upstream-method-reconciliation`: PR #8 merged, superseded and retained.

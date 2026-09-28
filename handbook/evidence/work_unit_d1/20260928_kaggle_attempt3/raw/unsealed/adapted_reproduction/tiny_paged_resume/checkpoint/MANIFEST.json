@@ -1,0 +1,40 @@
+{
+  "schema": "npo-deepspeed-state-v1",
+  "status": "COMPLETE",
+  "identities": {
+    "source_commit": "1e4a0937cc58843d1dd74b8ebdcfb2b14a5c1080",
+    "source_spec_sha256": "be073b839516e12f73a52671f4e39d59fcc65f52d2140e63d7805f2a25f812ee",
+    "train_config_sha256": "af3f9c835fd876a59b852beba51e0d37510dbba14c1898f65c9e95a01c3cdbb1",
+    "eval_config_sha256": "02f1f95635fe2e9af57870e7ed78791ffbd2204c29cb5e25555c8c3871c67b40",
+    "initial_checkpoint_sha256": "396f29c07211c739f2ccc6a12d94b2cce41fddd57c81ab8473dcd382e072e06e",
+    "reference_checkpoint_sha256": "396f29c07211c739f2ccc6a12d94b2cce41fddd57c81ab8473dcd382e072e06e",
+    "tokenizer_revision": "1e4a0937cc58843d1dd74b8ebdcfb2b14a5c1080",
+    "dataset_revision": "1e4a0937cc58843d1dd74b8ebdcfb2b14a5c1080",
+    "preprocessing_sha256": "6a1d64916f3d7dcd7853e25acc6ee8176e8ba5006550ed2009777df6d6a51716",
+    "sample_membership_sha256": "7517141ab780d41237d5eafc4dba2f77c7132f4f46f0da613d0865e197c72afe"
+  },
+  "identities_sha256": "762c328e369e1fb4a42ea6845a0c91490767c0afd388662744c6d417fe0722f3",
+  "optimizer_step": 2,
+  "files": [
+    {
+      "path": "state/zero_pp_rank_0_mp_rank_00_model_states.pt",
+      "sha256": "0f04a63f03c485136617bf5fd924c808e55897b289e300d8259e8a4ee20abec1",
+      "bytes": 32417
+    },
+    {
+      "path": "state/zero_pp_rank_0_mp_rank_00_optim_states.pt",
+      "sha256": "fa9069993dbad792b7a18f8c1452c7864bacba96dcfe9cd174cba2a594571363",
+      "bytes": 1680137
+    },
+    {
+      "path": "zero_to_fp32.py",
+      "sha256": "54f74b8a39616e5c2a32c028a51524b1d8c481a15cd8b5961bb8125de244aed9",
+      "bytes": 38161
+    },
+    {
+      "path": "zero_to_torch.py",
+      "sha256": "b1f54984e60ece6da9343a70233ef4e04653e8ce4c2739faa4363cd124a99561",
+      "bytes": 2490
+    }
+  ]
+}
