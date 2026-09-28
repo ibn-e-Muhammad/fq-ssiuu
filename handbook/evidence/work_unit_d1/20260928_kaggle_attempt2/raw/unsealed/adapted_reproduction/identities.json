@@ -1,0 +1,12 @@
+{
+  "source_commit": "485504904d8116797430da7234e1a6bef5dee22c",
+  "source_spec_sha256": "be073b839516e12f73a52671f4e39d59fcc65f52d2140e63d7805f2a25f812ee",
+  "train_config_sha256": "f32a35dbe9b82fcefffc12709c09a22224bf2dee05c67326a4a1aa6ccfadd9e1",
+  "eval_config_sha256": "0db526da36ac9c60946cb6e4046005061585f870a42ed3ed10099a4ca6084194",
+  "initial_checkpoint_sha256": "35b0cd9f7db2735538ff78b4879fab61b23b7ca316df27b059585bf656700a8d",
+  "reference_checkpoint_sha256": "35b0cd9f7db2735538ff78b4879fab61b23b7ca316df27b059585bf656700a8d",
+  "tokenizer_revision": "88e31200b97e4c0c04ae0d2f0b591f427046d192",
+  "dataset_revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+  "preprocessing_sha256": "cf728f9b6797925394671496a592ea4b9d1466d7afaeb5431a94841056cd80e7",
+  "sample_membership_sha256": "2164ba5e6d93eec38efef66a6a7c864b62388c0bcef5c984967890af011a382b"
+}

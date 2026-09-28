@@ -24,8 +24,20 @@ PINNED_FILES = {
 }
 
 
+def meta_model_for_config(config):
+    """Match from_pretrained's embedding aliases without allocating weights."""
+    from transformers import LlamaForCausalLM
+
+    with torch.device("meta"):
+        model = LlamaForCausalLM(config)
+    model.tie_weights()
+    if config.tie_word_embeddings and model.lm_head.weight is not model.model.embed_tokens.weight:
+        raise ValueError("Meta fixture did not reproduce tied input/output weights")
+    return model
+
+
 def source_groups(sources, trainer_path, target_config):
-    from transformers import LlamaConfig, LlamaForCausalLM
+    from transformers import LlamaConfig
     from transformers.models.llama.modeling_llama import LlamaRMSNorm
 
     sources, trainer_path = Path(sources), Path(trainer_path)
@@ -69,9 +81,13 @@ def source_groups(sources, trainer_path, target_config):
     ]
     results = []
     for config in configs:
-        with torch.device("meta"):
-            model = LlamaForCausalLM(config)
-        expected = set(upstream(None, model))
+        # Bare meta construction in Transformers 5 does not apply the tied
+        # embedding alias used by from_pretrained. Match the runtime topology.
+        model = meta_model_for_config(config)
+        decay_names = set(upstream(None, model))
+        # Trainer creates groups from named_parameters(), which deduplicates
+        # tied aliases; get_decay_parameter_names alone also lists lm_head.
+        expected = {name for name, _ in model.named_parameters() if name in decay_names}
         _, inventory = parameter_groups(model, 0.01)
         actual = {x["name"] for x in inventory if x["weight_decay"] == 0.01}
         if expected != actual:

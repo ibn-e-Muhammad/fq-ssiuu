@@ -15,7 +15,7 @@
 ## Current integration — 2026-09-28
 
 - `dev`: `5ca92bfa0863a9ffadcd70bfc5f28c8ee8c6e76a`, verified PR #10 merge; GitHub default branch.
-- `repro/npo-1b-source-faithful`: active D1, from that exact remote tip; PR #11 remains open. Researcher pre-run review and CI 66 passed; NPO only, 1/2 Kaggle attempts used (Mother v5, source `ebd7077`, operational preflight failure; no 1B training). Repair code `97e005a` reviewed by the primary agent; independent review is not claimed.
+- `repro/npo-1b-source-faithful`: active D1 from exact dev `5ca92bf`; PR #11 remains open. Researcher pre-run review and CI 66/67 passed. 2/2 T4 submissions used: first tiny scheduler failure; second (`4855049`) tiny GPU resume PASS, then 1B optimizer-init OOM before any 1B update. Evidence/archive closeout is preserved; no merge or independent-review claim. New resource adaptation and further GPU execution require approval.
 - `fix/matched-precision-qra-protocol`: PR #10 merged, head `29d21a51de784190bdabf4e7267db8925c73260e`; superseded and retained.
 - `fix/npo-adapter-qra-metrics`: PR #9 merged, feature tip `e896dbc0467018a87d3d0754d68eddbe094b3b0e`; superseded and retained.
 - `fix/upstream-method-reconciliation`: PR #8 merged, superseded and retained.

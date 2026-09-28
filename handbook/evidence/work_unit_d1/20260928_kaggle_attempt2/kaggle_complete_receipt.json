@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "store": "kaggle",
+  "dataset": "muhammadii/fq-ssiuu-d1-20260928-7118f1ae8d74",
+  "dataset_id": 12251147,
+  "private": true,
+  "archive_sha256": "6fe611e1fc3b9361e5b71374532198181d03d483e7e53deabdf65f8f2f6d06e5",
+  "downloaded_archive_bytes_verified": true,
+  "transport_filename": "artifacts.tar.bin",
+  "canonical_filename": "artifacts.tar",
+  "transport_note": "Opaque .bin suffix prevents automatic extraction; downloaded bytes are identical to original tar.",
+  "outer_members_verified": 5,
+  "inner_members_verified": 72,
+  "local_raw_extracted_members_verified": 70,
+  "binary_members_preserved_in_complete_archives_not_git": [
+    {
+      "path": "adapted_reproduction/tiny_paged_resume/checkpoint/state/zero_pp_rank_0_mp_rank_00_model_states.pt",
+      "size_bytes": 32417,
+      "sha256": "2f6dba9bc53c0eb77842784cc459e75d3c0d1f94631e37a38b4809bc03c039df"
+    },
+    {
+      "path": "adapted_reproduction/tiny_paged_resume/checkpoint/state/zero_pp_rank_0_mp_rank_00_optim_states.pt",
+      "size_bytes": 1680137,
+      "sha256": "6c098f5fbba0ca909ec79c804cf764be85c5c6e9d706b97e96eeb1ad905ba1a4"
+    }
+  ]
+}

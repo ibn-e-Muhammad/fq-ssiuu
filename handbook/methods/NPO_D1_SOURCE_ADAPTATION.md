@@ -223,3 +223,35 @@ meta tensors. Native CPU ZeRO-3 reproduces the prior scheduler failure, then
 passes the entire 62-step LR trajectory and checkpoint restore for an empty-group
 fixture and a tiny Llama. This is CPU compatibility evidence, not GPU or 1B
 training acceptance; the original paged GPU preflight must still pass on retry.
+
+## D1 attempt 2 and resource boundary — 2026-09-28
+
+Mother v6, run `20260928-062524-7118f1ae8d74`, code `4855049`, passed the
+actual tiny GPU paged FP32 optimizer restore (16 subsequent microbatches, zero
+loss error, bit-identical masters and equal RNG/scheduler). It evaluated the
+pinned retain-only oracle and loaded the full target, then failed in DeepSpeed
+`initialize_optimizer_states`, allocating a 3.74 GiB temporary FP32 gradient
+buffer. No 1B backward/update or full-reference load followed. Training/evaluation
+configs remain byte-identical to attempt 1. Both allowed submissions are used.
+
+The initial offline grouping fixture omitted `tie_weights()` on bare meta
+construction and counted the output embedding twice; that earlier exact-topology
+claim is superseded. Runtime `from_pretrained` already ties these parameters.
+The corrected helper reproduces the alias and the source Trainer's actual
+`named_parameters()` deduplication, then verifies norm grouping against pinned
+source. Unique parameter count is 1,235,814,400. Original records remain unchanged;
+see `../evidence/work_unit_d1/20260928_closeout/INVENTORY_CORRECTION.json`.
+
+**Proposed, not implemented:** reduce ZeRO `sub_group_size` from source 1e9 to
+1e8. Executing the installed DeepSpeed 0.19.7 grouping function on the tied meta
+architecture predicts that its largest temporary FP32 buffer changes from
+4,011,851,776 to 1,050,673,152 bytes. The candidate/master/FP16-gradient/full-reference
+inventory alone is 12,358,144,000 bytes, excluding paged moments, activations,
+workspace and fragmentation. Smaller subgroups address the observed allocation,
+not proof of eventual training fit. Source objective, full parameters, full frozen
+GPU reference, paged FP32 optimizer, batch and schedule would remain unchanged.
+This is a category-3 resource adaptation requiring explicit researcher approval,
+plus permission for another bounded execution. Offline numerical/update/resume
+conformance and review must precede that run. No such change or third run occurred.
+Evidence: `../evidence/work_unit_d1/20260928_kaggle_attempt2/MEMORY_ANALYSIS_V2.json`;
+it explicitly supersedes the first untied derived analysis without rewriting it.

@@ -1,0 +1,23 @@
+{
+  "recorded_at": "2026-09-28T06:24:56.842665+00:00",
+  "source_commit": "485504904d8116797430da7234e1a6bef5dee22c",
+  "repair_code_commit": "97e005af195cb79e8faae0dedf09aa42b6f318cb",
+  "pr": 11,
+  "ci": {
+    "run_id": 36386152757,
+    "job_id": 108811845554,
+    "run_number": 67,
+    "conclusion": "success"
+  },
+  "attempt_number": 2,
+  "submission_limit": 2,
+  "source_dataset_private": true,
+  "authorization": "Original D1 policy permits one code-reviewed operational repair after failed attempt 1; researcher pre-run review and latest continue instruction are preserved.",
+  "repair_review": "../20260928_optimizer_repair/REPAIR_REVIEW.json",
+  "independent_review": false,
+  "staging_sha256": "53c638ff7c5c37181a962f490988692d0dd68d7d0dda407770e5e1ed3c6885fc",
+  "scientific_config_change": false,
+  "training_config_sha256": "f32a35dbe9b82fcefffc12709c09a22224bf2dee05c67326a4a1aa6ccfadd9e1",
+  "evaluation_config_sha256": "0db526da36ac9c60946cb6e4046005061585f870a42ed3ed10099a4ca6084194",
+  "protocol_v2": "DEFERRED_NON_EXECUTABLE"
+}

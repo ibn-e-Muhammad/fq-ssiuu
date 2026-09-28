@@ -6,6 +6,37 @@ import torch
 from experiments.reproductions.NPO.optimizer import parameter_groups, restore_paged_moments
 
 
+def test_meta_inventory_respects_actual_tied_embedding_identity():
+    from transformers import LlamaConfig
+
+    from experiments.reproductions.NPO.validate_optimizer_compatibility import (
+        meta_model_for_config,
+    )
+
+    config = LlamaConfig(
+        vocab_size=32,
+        hidden_size=16,
+        intermediate_size=32,
+        num_hidden_layers=1,
+        num_attention_heads=2,
+        num_key_value_heads=1,
+        tie_word_embeddings=False,
+    )
+    untied = meta_model_for_config(config)
+    assert untied.lm_head.weight is not untied.model.embed_tokens.weight
+    config.tie_word_embeddings = True
+    tied = meta_model_for_config(config)
+    assert tied.lm_head.weight is tied.model.embed_tokens.weight
+    assert all(p.device.type == "meta" for p in tied.parameters())
+    difference = sum(p.numel() for p in untied.parameters()) - sum(
+        p.numel() for p in tied.parameters()
+    )
+    assert difference == 32 * 16
+    groups, inventory = parameter_groups(tied, 0.01)
+    assert sum(x["numel"] for x in inventory) == sum(p.numel() for p in tied.parameters())
+    assert sum(p is tied.lm_head.weight for g in groups for p in g["params"]) == 1
+
+
 def test_restored_moments_use_original_allocator_with_identical_values():
     p = torch.nn.Parameter(torch.arange(6, dtype=torch.float32).reshape(2, 3))
     original = {"state1": p.detach().clone() / 7, "state2": p.detach().clone() ** 2, "step": 11}

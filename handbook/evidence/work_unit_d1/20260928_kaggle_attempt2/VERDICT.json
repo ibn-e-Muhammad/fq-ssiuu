@@ -1,0 +1,62 @@
+{
+  "status": "FAIL_1B_OPTIMIZER_INITIALIZATION_OOM",
+  "work_unit_status": "PARTIAL_WITH_EVIDENCE_BLOCKED_RESOURCE_APPROVAL_AND_SUBMISSION_LIMIT",
+  "run_id": "20260928-062524-7118f1ae8d74",
+  "source_commit": "485504904d8116797430da7234e1a6bef5dee22c",
+  "mother_version": 6,
+  "attempt_number": 2,
+  "submissions_used": 2,
+  "submission_limit": 2,
+  "environment": "BASELINE_DIRTY_NO_REGRESSION",
+  "tiny_random_gpu_resume": {
+    "status": "PASS_TINY_RANDOM_GPU_RESUME_ONLY",
+    "compared_microbatches": 16,
+    "max_loss_error": 0.0,
+    "masters_bit_identical": true,
+    "scheduler_equal": true,
+    "rng_equal": true
+  },
+  "failure_phase": "DeepSpeed ZeRO-3 initialize_optimizer_states temporary FP32 gradient buffer; before 1B training and full frozen NPO reference loading",
+  "failure_raw": "raw/unsealed/adapted_reproduction/traceback.log",
+  "failed_temporary_allocation_gib_reported": 3.74,
+  "one_b_optimizer_updates": 0,
+  "one_b_backward_passes": 0,
+  "trained_one_b_checkpoint": null,
+  "post_unlearning_source_metrics": null,
+  "retained_oracle": "Pinned retain-only oracle loaded and raw pretraining diagnostic outputs preserved; not unlearned-model effectiveness evidence.",
+  "memory": {
+    "device_uuid": "GPU-0e91bef6-fe4a-d025-6d6f-5e18a1043ced",
+    "peak_allocated_bytes": 11496737792,
+    "peak_reserved_bytes": 14245953536,
+    "sampled_peak_device_used_bytes": 15935406080,
+    "device_sampling_interval_seconds": 0.1,
+    "qualification": "NVML sampled device peak includes managed/non-PyTorch memory; sub-interval transients are not continuously measured.",
+    "limit_bytes": 16000000000,
+    "telemetry_errors": []
+  },
+  "memory_scope": "Whole attempted run, including tiny preflight and oracle. Sampled peak below policy ceiling is not proof of 1B training feasibility; run failed OOM.",
+  "raw_inner_archive_sha256": "79f0c8734d949ce3d92f2f2a326178c41909819ced5444cc42eee6d2849470a6",
+  "complete_archive_sha256": "6fe611e1fc3b9361e5b71374532198181d03d483e7e53deabdf65f8f2f6d06e5",
+  "archive_agreement": "PASS_LOCAL_KAGGLE_HUGGINGFACE",
+  "receipts": [
+    "kaggle_complete_receipt.json",
+    "huggingface_complete_receipt.json"
+  ],
+  "supported_claims": [
+    "Pinned source/data preparation and environment checks passed",
+    "Actual tiny random FP16 GPU paged optimizer checkpoint/resume passed",
+    "Exact full target checkpoint loaded before optimizer initialization failure",
+    "All archived bytes/member hashes verified"
+  ],
+  "unsupported_claims": [
+    "1B NPO optimization or completed adapted reproduction",
+    "Trained 1B checkpoint or unlearning evaluation",
+    "1B training memory feasibility",
+    "Forgetting, recovery, durability or confirmatory effectiveness"
+  ],
+  "attack_detected": null,
+  "durability_pass": null,
+  "protocol_v2": "DEFERRED_NON_EXECUTABLE",
+  "gates_changed": [],
+  "next_action": "Researcher decision on category-3 optimizer subgroup resource adaptation and additional bounded execution; none implemented or submitted."
+}

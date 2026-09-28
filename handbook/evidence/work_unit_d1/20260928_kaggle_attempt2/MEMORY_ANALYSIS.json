@@ -1,0 +1,49 @@
+{
+  "status": "READ_ONLY_RESOURCE_ANALYSIS_NOT_IMPLEMENTED_NOT_GPU_VALIDATED",
+  "target_config_sha256": "f851a2874b759ee56099c11786b9de7f3e6051677615d4a88259ef0e206ba8a9",
+  "deepspeed_version": "0.19.7",
+  "analyzed_stage3_source_sha256": "3d489e136832de4506a469a3b1172d3c5d4d830cc8d73077fcf6deac8b501dab",
+  "method": "Executed installed DeepSpeed grouping function on meta-model parameter sizes; world size 1",
+  "unique_parameters": 1498482688,
+  "cases": [
+    {
+      "sub_group_size": 1000000000,
+      "subgroup_numel": [
+        1002962944,
+        495452160,
+        67584
+      ],
+      "largest_initial_fp32_gradient_buffer_bytes": 4011851776,
+      "largest_initial_fp32_gradient_buffer_gib": 3.736328125
+    },
+    {
+      "sub_group_size": 100000000,
+      "subgroup_numel": [
+        262668288,
+        104857600,
+        104857600,
+        100663296,
+        115343360,
+        104857600,
+        104857600,
+        100663296,
+        115343360,
+        104857600,
+        279445504,
+        67584
+      ],
+      "largest_initial_fp32_gradient_buffer_bytes": 1117782016,
+      "largest_initial_fp32_gradient_buffer_gib": 1.041015625
+    }
+  ],
+  "resident_inventory_excluding_paged_moments_activations_and_workspace": {
+    "candidate_fp16": 2996965376,
+    "masters_fp32": 5993930752,
+    "gradient_accumulation_fp16": 2996965376,
+    "full_reference_fp16": 2996965376,
+    "total_bytes": 14984826880
+  },
+  "qualification": "Smaller subgroups reduce the specific failed temporary allocation. This does not prove complete training will fit: resident gradients/reference, activations, CUDA workspace, paged moments and allocator fragmentation remain. No resource setting changed.",
+  "proposed_change_classification": "Category 3 resource adaptation requiring researcher approval",
+  "additional_gpu_submissions_authorized": false
+}

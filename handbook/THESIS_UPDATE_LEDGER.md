@@ -129,3 +129,14 @@ Chapter 3 should record restoration of the publication-era Llama RMSNorm
 no-decay grouping and deferred scheduler construction; source settings are
 unchanged. CPU tests do not establish GPU paging or 1B training. Failed-run
 archives are verified in both private stores; DOCX files remain untouched.
+
+D1 attempt 2 / closeout (2026-09-28): Chapter 3 may describe verified tiny
+FP16 GPU paged-optimizer restore (16 resumed microbatches, identical losses,
+masters, scheduler and RNG), while explicitly excluding a 1B training claim.
+The 1B candidate loaded but optimizer initialization exhausted memory before
+any update or frozen full-reference loading. Whole-attempt sampled peak was
+15,935,406,080 bytes; this does not establish training feasibility. Both failed
+attempts and complete private archives are retained. The corrected tied meta
+inventory has 1,235,814,400 unique parameters; the earlier untied fixture count
+is superseded, with its raw record preserved. No Chapter 4 effectiveness result,
+new method acceptance or Protocol v2 activation. DOCX files remain untouched.
