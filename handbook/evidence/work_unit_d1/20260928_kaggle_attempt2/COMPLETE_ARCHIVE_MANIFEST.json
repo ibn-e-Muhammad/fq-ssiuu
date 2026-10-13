@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "run_id": "20260928-062524-7118f1ae8d74-complete",
+  "artifacts": [
+    {
+      "path": "bootstrap-20260928-062524-7118f1ae8d74.json",
+      "size_bytes": 1200,
+      "sha256": "6bab5fe9fcdfcd08608b6fdb6e155402f0b77933c95b5c07cfaa259b43ea5045"
+    },
+    {
+      "path": "bootstrap-failure-20260928-062524-7118f1ae8d74.json",
+      "size_bytes": 165,
+      "sha256": "324e36eb8ef0bd0b48c884fc2e1f960ac9d591f5de2ff93c41eb96bfa71134cc"
+    },
+    {
+      "path": "fq-ssiuu-mother-runner.log",
+      "size_bytes": 8362,
+      "sha256": "33362bb7f8e7b34b33cc2a045ea651dc99a73760c530a43899db64615edc6c79"
+    },
+    {
+      "path": "runs/20260928-062524-7118f1ae8d74-sealed/ARCHIVE_MANIFEST.json",
+      "size_bytes": 13028,
+      "sha256": "8ea534216bcb7b5cab34e6b18026370e83a5931268b744980de1b5bf8c7b57c2"
+    },
+    {
+      "path": "runs/20260928-062524-7118f1ae8d74-sealed/artifacts.tar",
+      "size_bytes": 12963840,
+      "sha256": "79f0c8734d949ce3d92f2f2a326178c41909819ced5444cc42eee6d2849470a6"
+    }
+  ],
+  "archive": {
+    "path": "artifacts.tar",
+    "sha256": "6fe611e1fc3b9361e5b71374532198181d03d483e7e53deabdf65f8f2f6d06e5",
+    "size_bytes": 12994560
+  },
+  "secret_scan": "PASS"
+}

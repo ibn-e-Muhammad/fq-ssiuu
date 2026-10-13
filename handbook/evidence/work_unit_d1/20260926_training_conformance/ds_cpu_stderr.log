@@ -1,0 +1,17 @@
+[W926 13:01:08.642155190 ProcessGroupGloo.cpp:524] Warning: Unable to resolve hostname to a (local) address. Using the loopback address as fallback. Manually set the network interface to bind to with GLOO_SOCKET_IFNAME. (function operator())
+Traceback (most recent call last):
+  File "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/tmp/d1/test_ds_cpu.py", line 8, in <module>
+    torch.distributed.init_process_group('gloo',init_method='file://'+str(Path('tmp/d1/gloo_rendezvous').resolve()),rank=0,world_size=1)
+  File "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/lib/python3.11/site-packages/torch/distributed/c10d_logger.py", line 83, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/lib/python3.11/site-packages/torch/distributed/c10d_logger.py", line 97, in wrapper
+    func_return = func(*args, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py", line 1899, in init_process_group
+    default_pg, _ = _new_process_group_helper(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py", line 2169, in _new_process_group_helper
+    backend_class = ProcessGroupGloo(
+                    ^^^^^^^^^^^^^^^^^
+RuntimeError: Cannot resolve 127.0.0.1 to a (local) address

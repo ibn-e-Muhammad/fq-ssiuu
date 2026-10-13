@@ -1,0 +1,87 @@
+[
+  {
+    "name": "cpu_suite",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "tests/",
+      "-q",
+      "--tb=short",
+      "-m",
+      "not requires_gpu and not requires_model"
+    ],
+    "returncode": 0,
+    "seconds": 35.62633505999838
+  },
+  {
+    "name": "lint",
+    "argv": [
+      ".venv/bin/ruff",
+      "check",
+      "src/",
+      "tests/",
+      "scripts/",
+      "experiments/reproductions/"
+    ],
+    "returncode": 0,
+    "seconds": 0.011262385996815283
+  },
+  {
+    "name": "format",
+    "argv": [
+      ".venv/bin/ruff",
+      "format",
+      "--check",
+      "src/",
+      "tests/",
+      "scripts/",
+      "experiments/reproductions/"
+    ],
+    "returncode": 0,
+    "seconds": 0.010408327994809952
+  },
+  {
+    "name": "notebooks",
+    "argv": [
+      ".venv/bin/python",
+      "scripts/check_notebooks.py",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260928_closeout/NOTEBOOKS.json"
+    ],
+    "returncode": 0,
+    "seconds": 0.28835230699769454
+  },
+  {
+    "name": "upstream_objective",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "experiments.reproductions.NPO.validate_upstream",
+      "--upstream",
+      "tmp/d1/assets/npo",
+      "--openunlearning",
+      "tmp/d1/assets/openunlearning",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260928_closeout/OBJECTIVE_PARITY.json"
+    ],
+    "returncode": 0,
+    "seconds": 2.047867077999399
+  },
+  {
+    "name": "upstream_schedule_metrics",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "experiments.reproductions.NPO.validate_training_source",
+      "--upstream",
+      "tmp/d1/assets/npo",
+      "--runtime-sources",
+      "tmp/d1/assets/runtime_sources",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260928_closeout/SOURCE_CONFORMANCE.json"
+    ],
+    "returncode": 0,
+    "seconds": 2.164844095997978
+  }
+]

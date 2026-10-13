@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.0",
+  "run_id": "968bf644-f4df-487e-95c6-11b964f95a79",
+  "git_sha": "1e1818dfa87a9d2691ae7f7c3f2ef64c99562d1f",
+  "created_utc": "2026-09-27T13:08:18.255647+00:00",
+  "report_hashes": {
+    "pip_dry_run_report": "1a5737ba159c448db01a22ed920d871c716eb61ff42296ee0914780ac69ad65c",
+    "pip_install_report": "1a5737ba159c448db01a22ed920d871c716eb61ff42296ee0914780ac69ad65c",
+    "pip_consistency": "219ef8ae2899b5dd965f6f7fa9309576ac782bc355f6c9c9c19f91c5205b0cfb",
+    "environment_transition": "b9924cd0d59e0ed3a316144732458b9dc169ece4c1e213dc03da879b4ddc6909"
+  },
+  "lock_entries": [
+    {
+      "normalized_name": "bitsandbytes",
+      "before_version": null,
+      "after_version": "0.46.1",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "captum",
+      "before_version": null,
+      "after_version": "0.7.0",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "dataproperty",
+      "before_version": null,
+      "after_version": "1.1.1",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "deepspeed",
+      "before_version": null,
+      "after_version": "0.19.7",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "evaluate",
+      "before_version": null,
+      "after_version": "0.4.6",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "hjson",
+      "before_version": null,
+      "after_version": "3.1.0",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "hydra-core",
+      "before_version": null,
+      "after_version": "1.3.6",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "jsonlines",
+      "before_version": null,
+      "after_version": "4.0.0",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "lm-eval",
+      "before_version": null,
+      "after_version": "0.4.13",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "mbstrdecoder",
+      "before_version": null,
+      "after_version": "1.1.5",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "pathvalidate",
+      "before_version": null,
+      "after_version": "3.3.1",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "portalocker",
+      "before_version": null,
+      "after_version": "4.3.0",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "pytablewriter",
+      "before_version": null,
+      "after_version": "1.2.1",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "sacrebleu",
+      "before_version": null,
+      "after_version": "2.6.0",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "sqlitedict",
+      "before_version": null,
+      "after_version": "2.1.0",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "tabledata",
+      "before_version": null,
+      "after_version": "1.3.5",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "tcolorpy",
+      "before_version": null,
+      "after_version": "0.1.7",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "typepy",
+      "before_version": null,
+      "after_version": "1.3.5",
+      "operation": "added"
+    },
+    {
+      "normalized_name": "word2number",
+      "before_version": null,
+      "after_version": "1.1",
+      "operation": "added"
+    }
+  ]
+}

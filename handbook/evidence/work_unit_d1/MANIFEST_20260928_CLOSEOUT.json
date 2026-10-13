@@ -1,0 +1,748 @@
+{
+  "schema": "work-unit-d1-evidence-v1",
+  "status": "PARTIAL_WITH_EVIDENCE_BLOCKED_RESOURCE_APPROVAL_AND_SUBMISSION_LIMIT",
+  "runtime_code_commit": "485504904d8116797430da7234e1a6bef5dee22c",
+  "closeout_revision": "Containing Git commit; no runtime/scientific configuration change",
+  "closeout_code_files": {
+    "experiments/reproductions/NPO/validate_optimizer_compatibility.py": "2820966ec96d0035c2c5173425043f2e00d6f023b4c35ecbdd577e6cee94d83c",
+    "tests/methods/NPO/test_optimizer.py": "eda4fdf4918c6223f42ea3fb660fa3a1295145ff55f1e8d23d9820b91b53812e"
+  },
+  "attempts_used": 2,
+  "submission_limit": 2,
+  "one_b_updates": 0,
+  "trained_one_b_checkpoint": null,
+  "research_gates_changed": [],
+  "files": [
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/CI_67.log",
+      "bytes": 99972,
+      "sha256": "74cfa2de6eded5a39b821f2f54b9af08090c2081c8a8efeda2289425d7797243"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/COMPLETE_ARCHIVE_MANIFEST.json",
+      "bytes": 1227,
+      "sha256": "ceeb39616318368802581e1cb2c1b8dd7b2006923feba2211ea4cb1db1302da5"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/MEMORY_ANALYSIS.json",
+      "bytes": 1851,
+      "sha256": "139fbacc1259e6233075b9ca85e1ddff7be6dea4cddf374aa00f548d9c7dae0f"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/MEMORY_ANALYSIS_V2.json",
+      "bytes": 2161,
+      "sha256": "c62157fee344d6dc54ec373c2827c951fb63fc55ddb636e9052b32f76791b719"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/PRE_SUBMISSION.json",
+      "bytes": 1048,
+      "sha256": "9fc851b6fc435c335a8b1f59267bd343779f30711cb5e7baf725811b1cd67472"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/SOURCE_MANIFEST.json",
+      "bytes": 627,
+      "sha256": "6e221d0b736fb09776373842b9a2b86311c7a0938f7e4b0afb611c73adb18121"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/SOURCE_REMOTE_METADATA.json",
+      "bytes": 475,
+      "sha256": "87bd2bfb26c4ca9b5479dffc77426b99a02b6199724048acb9bd7b6196295d60"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/STAGING_PROVENANCE.json",
+      "bytes": 729,
+      "sha256": "53c638ff7c5c37181a962f490988692d0dd68d7d0dda407770e5e1ed3c6885fc"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/SUBMISSION.json",
+      "bytes": 732,
+      "sha256": "2d81a96420f7de04bf1d31e7ef3e53ffb4a0b9af77d3f92be32d3bd612f77e19"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/VERDICT.json",
+      "bytes": 3012,
+      "sha256": "b89cf87af25e335f2cfccc71ff97d17a30942e582dc4437961dc18d6965f71a6"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/archive_dataset_metadata.json",
+      "bytes": 486,
+      "sha256": "bc6758a73b0e442a577711e4faaf2f671b469d571c1254ebcbf9a7935b5b36aa"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/archive_remote_metadata.json",
+      "bytes": 619,
+      "sha256": "8cecdb5efb79e7812b68187efde68c1563378569f55702b6eb37445bf71a2d08"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/huggingface_complete_receipt.json",
+      "bytes": 236,
+      "sha256": "9cadb712ee3f0321ac1893c1641e91133e97df90324b7c71926d70851af71969"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/kaggle_complete_receipt.json",
+      "bytes": 1142,
+      "sha256": "1b3d9768e9512a679cc690e4af470270f3f2f088b88e7a4334c1b2046e565b50"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/kernel-metadata.json",
+      "bytes": 627,
+      "sha256": "b525833d4a7a2d509b5c25147518ff7829906edb72079d87e8da82e8acf8dbdc"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/memory_analysis_v2.py.txt",
+      "bytes": 3078,
+      "sha256": "3716f3a8d736604b96abf7109b2168f3adb87749b9a4207cf361dd6e18d35d5f"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/ARCHIVE_MANIFEST.json",
+      "bytes": 13028,
+      "sha256": "8ea534216bcb7b5cab34e6b18026370e83a5931268b744980de1b5bf8c7b57c2"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/bootstrap-20260928-062524-7118f1ae8d74.json",
+      "bytes": 1200,
+      "sha256": "6bab5fe9fcdfcd08608b6fdb6e155402f0b77933c95b5c07cfaa259b43ea5045"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/bootstrap-failure-20260928-062524-7118f1ae8d74.json",
+      "bytes": 165,
+      "sha256": "324e36eb8ef0bd0b48c884fc2e1f960ac9d591f5de2ff93c41eb96bfa71134cc"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/fq-ssiuu-mother-runner.log",
+      "bytes": 8362,
+      "sha256": "33362bb7f8e7b34b33cc2a045ea651dc99a73760c530a43899db64615edc6c79"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/RESULT.json",
+      "bytes": 175,
+      "sha256": "5778af5d07f9e39a120b081b462bb5ade8f7cbe48c5f2fe23a5ba840660f4f91"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/STARTED.json",
+      "bytes": 2714,
+      "sha256": "4318ff4d0f90e22ec83c0227700e8693d426ed444e60d4aaeadca0e8fb23775b"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/adapter_specs.json",
+      "bytes": 1169,
+      "sha256": "1571b60ade2c4c83277f5ffd369e0978319a64cc9140183ea4aa8a0a61ce446e"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/device_memory.jsonl",
+      "bytes": 65290,
+      "sha256": "9556212aa3f433c5764ade787068d2f306458f6f86b781f2ee4fda3ed39f1c15"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/evaluation_config.json",
+      "bytes": 525,
+      "sha256": "0db526da36ac9c60946cb6e4046005061585f870a42ed3ed10099a4ca6084194"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/identities.json",
+      "bytes": 869,
+      "sha256": "59c2f3e4a27fb6163758999bca2bd19dec49686072ef6dbd4481363b8d9f2162"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/input_files.json",
+      "bytes": 2704,
+      "sha256": "6f2cad23f597ee84e0185c99bf99fb9d17c92cbc4715907657fb9fc4f2e2c8a4"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/membership.json",
+      "bytes": 628,
+      "sha256": "fff57f0b3ed549432946f6fd44dd0e7bae95e7c4f099edaf66a2abb87692b356"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/memory_final.json",
+      "bytes": 428,
+      "sha256": "f2346f4bb5ea0e24d5a23b8149e86114a7eb9c5d236da317e98c840e9ecf9024"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/oracle_checkpoint.json",
+      "bytes": 680,
+      "sha256": "336edff68cb88cdecfc56298a4952ac63a9b0d22fe366f61b1e6142f61d6147f"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/oracle_evaluation/ORACLE.json",
+      "bytes": 5575255,
+      "sha256": "bdfe0771a1f436fb532446e008708caa8f14bd21ccb4da37392ffda0d10a0986"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/oracle_evaluation/base.jsonl",
+      "bytes": 419608,
+      "sha256": "10016999ba9e8b1ab11257ad58cd5a8a3176fcf4c58a89d907714b14d7d66d3c"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/oracle_evaluation/perturbations.jsonl",
+      "bytes": 2103565,
+      "sha256": "c92db22e6c3bb543fdba3e3e8ac35764a8fddbdc7651eefc6841f8ada89b6462"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/rendezvous",
+      "bytes": 337,
+      "sha256": "47e71b6da22baa0f8802a35bf8f89332867d236257be59f52e919730c33b1ab0"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/runtime_versions.json",
+      "bytes": 136,
+      "sha256": "d5dcc736b7706f0f33c2e34e2b4090469b7d7ac4fb23bb9d86e461d15caeb242"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/target_checkpoint.json",
+      "bytes": 765,
+      "sha256": "c65caafd39f17c82a56f6d2b2050f33196c49ee8463f0ddbd16a779eb5c67c6f"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/tiny_paged_resume/RESULT.json",
+      "bytes": 4172,
+      "sha256": "b66cd24f4cef3de162cd5ff8969ab677a15773fd16b7ed15336fd5b073f4679e"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/tiny_paged_resume/checkpoint/MANIFEST.json",
+      "bytes": 1774,
+      "sha256": "b3931127877ca5fc0bf0f3089b302f9e190a85b26af0c76b7f70729fb4e31ee6"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/tiny_paged_resume/checkpoint/zero_to_fp32.py",
+      "bytes": 38161,
+      "sha256": "54f74b8a39616e5c2a32c028a51524b1d8c481a15cd8b5961bb8125de244aed9"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/tiny_paged_resume/checkpoint/zero_to_torch.py",
+      "bytes": 2490,
+      "sha256": "b1f54984e60ece6da9343a70233ef4e04653e8ce4c2739faa4363cd124a99561"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/traceback.log",
+      "bytes": 2764,
+      "sha256": "013eff7a2f17bfc66a42cb69f619fb1901557fd6d509fcd27d2933206a6ef022"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/training_adapter_records.json",
+      "bytes": 1648775,
+      "sha256": "b12b63837ea99ae41f0333787fd9d54a68ff0d6626d08079c0b0468c0aa8c17f"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/training_config.json",
+      "bytes": 954,
+      "sha256": "f32a35dbe9b82fcefffc12709c09a22224bf2dee05c67326a4a1aa6ccfadd9e1"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction_execution.json",
+      "bytes": 624,
+      "sha256": "c8ef7489b757016635d8983901fb016c1e89bf7c92818942050c3d1af624c92b"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction_stderr.log",
+      "bytes": 82801,
+      "sha256": "f9120ab68c4f2732fde61ec5ad25a725e19669eaa226d14d644e2b57cdddbd9d"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction_stdout.log",
+      "bytes": 590,
+      "sha256": "d938dd36486dbff9004f7b9d2697cccf48123a9d5e5aed2116e2059c09b7fbd6"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/MANIFEST.json",
+      "bytes": 5965,
+      "sha256": "84a9f21d852493e6d9b3891f319e3cca689a50ebacd26a388624663a1c4ebda6"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/after_distributions.json",
+      "bytes": 173850,
+      "sha256": "243ae612a528785b1e532cc0e81f27462fd4269bc2902bcc84a1fdb9b6becc01"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/after_freeze.log",
+      "bytes": 19195,
+      "sha256": "c9067e7527be990bc60c944c60f2d638adb7e775b4557b7a2cfd364effb5e572"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/after_manifest.json",
+      "bytes": 29875,
+      "sha256": "cfa29865af09417bdcd6e0f5ec146ae6fe07e189714fcf516d8a28c502c16c1c"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/before_distributions.json",
+      "bytes": 170325,
+      "sha256": "1d6be837592c747f967511e9cac189779ebf4bac30bd64ee3b5b72d534bbacfb"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/before_freeze.log",
+      "bytes": 18534,
+      "sha256": "adb45b486828a86f7f95eba637d1320aa2eb71f35d77839424c4ee4b605072ab"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/before_manifest.json",
+      "bytes": 29300,
+      "sha256": "059edda564cbcf082df008467c6ed008892e56e122bac9f0c0e8f2c2cc82f469"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/dry_run_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/dry_run_stdout.log",
+      "bytes": 35254,
+      "sha256": "cda8594a81813dc0338db3107729baa464ffe1ad4eb3a65f2f819a69a33958cc"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/editable_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/editable_stdout.log",
+      "bytes": 1160,
+      "sha256": "9de0686e282760504067c76d0e523597b3046b84932e6506cb1d8aebb86adc89"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/environment_transition.json",
+      "bytes": 7456,
+      "sha256": "0a4ae804cb22311fd9f160e0b06e03d26061270b6e087a113263113786274ad9"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/install_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/install_stdout.log",
+      "bytes": 35091,
+      "sha256": "2071a6741b46972adc9ffa6ecbe2b44fb760ab96256a08670c4a068c4c993a2c"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/install_verification_report.json",
+      "bytes": 2146,
+      "sha256": "c1c3c5a93a044ebb520b90162acf9ccd43e96cb617ef2eb14fb87f8afb85404b"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/kaggle-overlay.lock",
+      "bytes": 1213,
+      "sha256": "9a5188bc294893af00bfba0f100d54dea04141f82a68b5e0eb7123944cfb4a9a"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/kaggle_env_verification.json",
+      "bytes": 6610,
+      "sha256": "a07c3b1aba11daa061c5cd4c099c1d6b06cb6e5c3a8337072758b9ec88a0ea90"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/native_baseline.json",
+      "bytes": 999,
+      "sha256": "7b33f273b3150ef6aade5bcbf7ea47e8d0787c9440744d04c8e8c5d61659aafc"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/overlay_lock.json",
+      "bytes": 3286,
+      "sha256": "c69521092d61cd7ba755e8d5ee8a3b1ed4354e49242be34ec60e2211e000b747"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_after.json",
+      "bytes": 2204,
+      "sha256": "7efbb3bdea50505fbab2c6dcc42d60cf61e3fff6ed102a0f06ae258b5800df3b"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_after_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_after_stdout.log",
+      "bytes": 490,
+      "sha256": "2c99993bdaa1efa61406b281e3c408724a14e714bcaf3dfb4da60af8ec2a044c"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_before.json",
+      "bytes": 2205,
+      "sha256": "d721838e8ffdcddd9f04a249660f2f5d2e5b03a4af50b37d2324a6e604df7094"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_before_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_before_stdout.log",
+      "bytes": 490,
+      "sha256": "2c99993bdaa1efa61406b281e3c408724a14e714bcaf3dfb4da60af8ec2a044c"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_verifier.json",
+      "bytes": 2207,
+      "sha256": "6d659cadc90598a6855a45e318678471ffee3a8f463c78ec93e44d665748cb9f"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_verifier_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_verifier_stdout.log",
+      "bytes": 490,
+      "sha256": "2c99993bdaa1efa61406b281e3c408724a14e714bcaf3dfb4da60af8ec2a044c"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_consistency.json",
+      "bytes": 1482,
+      "sha256": "6487d25f06e2f8ba2e822654ca053a2f3cded0e1bea6889e9e2b6e2194c73e7d"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_dry_run_report.json",
+      "bytes": 336442,
+      "sha256": "1a5737ba159c448db01a22ed920d871c716eb61ff42296ee0914780ac69ad65c"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_install_report.json",
+      "bytes": 336442,
+      "sha256": "1a5737ba159c448db01a22ed920d871c716eb61ff42296ee0914780ac69ad65c"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/setup_status.json",
+      "bytes": 504,
+      "sha256": "77ee759e4eb9d18c14b615ecb427dc7ff97d5095f2d913737f634c34e7518037"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/verification_report.json",
+      "bytes": 2146,
+      "sha256": "c1c3c5a93a044ebb520b90162acf9ccd43e96cb617ef2eb14fb87f8afb85404b"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/verifier_execution.json",
+      "bytes": 780,
+      "sha256": "d031b50931901619620ecabd130e7f68face27eabbeae13929b984489b39fed1"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/verifier_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/verifier_stdout.log",
+      "bytes": 433,
+      "sha256": "7aa4eccbc57be6f034ad750db79d06b8b8c5f3bb4b10a16258ce11d05f9faf70"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment_acceptance.json",
+      "bytes": 491,
+      "sha256": "93bec75f8f4f5eb36ca6467798ce8d524860b8efd865415c07f4a495a86a3b2a"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment_execution.json",
+      "bytes": 491,
+      "sha256": "d30ff29e2672f3ca04dfb74196cc3001e7438179aa1bc33ed0b204637777c3ce"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment_stdout.log",
+      "bytes": 567,
+      "sha256": "3617d90b1181d935e05740eeefda4d95023aec6cd5cc11e45e550f15f4378066"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/recipe.json",
+      "bytes": 1333,
+      "sha256": "03eb963453155c5e8f5e720ae4b2f20f546ac4233317e4cde8583887c2920dc2"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/run_result.json",
+      "bytes": 689,
+      "sha256": "014d9734a3ee910a3ece41fe4afb5261285b4e6c813298a20b115c4628b5f686"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/run_started.json",
+      "bytes": 260,
+      "sha256": "ebd358f0aad1f06ed21ba7e8f4dd28c9db3ce7e84d3cfbbe220c4cb1eb754d11"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/source_provenance.json",
+      "bytes": 1201,
+      "sha256": "9f734ffb8c057cb17f54863c871419e63bb2ba08db0518a8886c2601ae9d3bdc"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/source_dataset_metadata.json",
+      "bytes": 342,
+      "sha256": "5df28557f2892d94a0889b6e512b36fadc79b123ae0e572c9609f1f0e64509f1"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/submission_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/submission_stdout.log",
+      "bytes": 126,
+      "sha256": "28219befc65a335671c48638e82e71420e4a0d325f293e2c3aab3f9888a318d5"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/submitted_notebook.ipynb",
+      "bytes": 8079,
+      "sha256": "561d4a1e256d820c6f32eb5413168ed67ea2e8a22abc36bb91e41877d2d33ad0"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/CHECKS.json",
+      "bytes": 2025,
+      "sha256": "03fcd6caf2e2097d4257a0cb5966d72e37caa48adc92991bb87682f4045345b0"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/CLOSEOUT_REVIEW.json",
+      "bytes": 1214,
+      "sha256": "ec2ea73c8f2ed445f076ecb121bc1f23018370b174a783ed7d24b16450cc77d7"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/INVENTORY_CORRECTION.json",
+      "bytes": 1194,
+      "sha256": "ea20681341b79e508d5322a552570a66a6bcfd89805dfba9c63b032aa5fc9ac8"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/NATIVE_CPU_SOURCE_RESULT_TIED.json",
+      "bytes": 17817,
+      "sha256": "449099f785c167029ac1b1ee1a800bfee078f305a3a57c45657de3c70448be37"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/NATIVE_EXECUTION.json",
+      "bytes": 649,
+      "sha256": "d19678848c2d1b1c589d74d27691d8d2f3bd2d233c1234739c7d272f0771ed8e"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/NOTEBOOKS.json",
+      "bytes": 2558,
+      "sha256": "3afa347f9defe5712380a1778b861d01f639cd142a9979701842e0b825db521b"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/OBJECTIVE_PARITY.json",
+      "bytes": 7507,
+      "sha256": "e91c11bc7ebf9ec775d872cc481f0f1287334c3df00eb2a58d083f29b653ae3e"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/PRESERVATION.json",
+      "bytes": 1206,
+      "sha256": "0557d104d9c2c38f50543d64ddeccada3eafc8403683d6f524f899d2a0fbb1bf"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/SECRET_SCAN.json",
+      "bytes": 304,
+      "sha256": "13e47ec733ce5bbebe362cdcc7ca5b0c19eff075658fdec56fc080a6afb46847"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/SOURCE_CONFORMANCE.json",
+      "bytes": 5520,
+      "sha256": "80812a72c6f8acf4e6dbf2998d63d7993324d0c0026e8c8de9164f656bd31443"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/cpu_suite.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/cpu_suite.stdout.log",
+      "bytes": 3802,
+      "sha256": "4842e9e514754d56ed082cf2e39d2a14db62bc94cfcb0366b229e3ac4ab5d03f"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/cpu_tied_v2.stderr.log",
+      "bytes": 737,
+      "sha256": "7414d3693db8801604c5f7e57f087c0a20402368d750ed9737e731a0d3efe828"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/cpu_tied_v2.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/cpu_tied_v3.stderr.log",
+      "bytes": 54335,
+      "sha256": "86f927b05be82a7a88e825dfe75ccbbbad98b61d671526ac8aa603e7c8078114"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/cpu_tied_v3.stdout.log",
+      "bytes": 267,
+      "sha256": "59a8491e749c591d7432bd0e5c07d73228d25e8cbac1c4efe9325c58ce23869f"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/format.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/format.stdout.log",
+      "bytes": 28,
+      "sha256": "184b6bfbf75ff0afb5735687ad68f56f0140c93fd26fa8c144e3386b4e6c6ab1"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/lint.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/lint.stdout.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/notebooks.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/notebooks.stdout.log",
+      "bytes": 41,
+      "sha256": "ca55e48085e5ba4808c80219764cf9a26b97829383c239cf03ed0a26a86af2fc"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/upstream_objective.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/upstream_objective.stdout.log",
+      "bytes": 6235,
+      "sha256": "f0c84c70b56a6db26c13cbed0a0fc443c3770d535d0dedc3c469e85f637e7671"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/upstream_schedule_metrics.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_closeout/upstream_schedule_metrics.stdout.log",
+      "bytes": 25,
+      "sha256": "d4eb5fa64d0c84787c2d0464c3ca03576b44a22c18cfd331027e894d039e0174"
+    }
+  ],
+  "changed_file_list_before_manifest": [
+    "experiments/reproductions/NPO/validate_optimizer_compatibility.py",
+    "handbook/BRANCH_LEDGER.md",
+    "handbook/MASTER_EXECUTION_PLAN.md",
+    "handbook/PROJECT_STATUS.md",
+    "handbook/THESIS_UPDATE_LEDGER.md",
+    "handbook/evidence/work_unit_d1/20260928_closeout/CHECKS.json",
+    "handbook/evidence/work_unit_d1/20260928_closeout/CLOSEOUT_REVIEW.json",
+    "handbook/evidence/work_unit_d1/20260928_closeout/INVENTORY_CORRECTION.json",
+    "handbook/evidence/work_unit_d1/20260928_closeout/NATIVE_CPU_SOURCE_RESULT_TIED.json",
+    "handbook/evidence/work_unit_d1/20260928_closeout/NATIVE_EXECUTION.json",
+    "handbook/evidence/work_unit_d1/20260928_closeout/NOTEBOOKS.json",
+    "handbook/evidence/work_unit_d1/20260928_closeout/OBJECTIVE_PARITY.json",
+    "handbook/evidence/work_unit_d1/20260928_closeout/PRESERVATION.json",
+    "handbook/evidence/work_unit_d1/20260928_closeout/SOURCE_CONFORMANCE.json",
+    "handbook/evidence/work_unit_d1/20260928_closeout/cpu_suite.stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_closeout/cpu_suite.stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_closeout/cpu_tied_v2.stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_closeout/cpu_tied_v2.stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_closeout/cpu_tied_v3.stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_closeout/cpu_tied_v3.stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_closeout/format.stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_closeout/format.stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_closeout/lint.stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_closeout/lint.stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_closeout/notebooks.stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_closeout/notebooks.stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_closeout/upstream_objective.stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_closeout/upstream_objective.stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_closeout/upstream_schedule_metrics.stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_closeout/upstream_schedule_metrics.stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/CI_67.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/COMPLETE_ARCHIVE_MANIFEST.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/MEMORY_ANALYSIS.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/MEMORY_ANALYSIS_V2.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/PRE_SUBMISSION.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/SOURCE_MANIFEST.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/SOURCE_REMOTE_METADATA.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/STAGING_PROVENANCE.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/SUBMISSION.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/VERDICT.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/archive_dataset_metadata.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/archive_remote_metadata.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/huggingface_complete_receipt.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/kaggle_complete_receipt.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/kernel-metadata.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/memory_analysis_v2.py.txt",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/ARCHIVE_MANIFEST.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/bootstrap-20260928-062524-7118f1ae8d74.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/bootstrap-failure-20260928-062524-7118f1ae8d74.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/fq-ssiuu-mother-runner.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/RESULT.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/STARTED.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/adapter_specs.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/device_memory.jsonl",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/evaluation_config.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/identities.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/input_files.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/membership.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/memory_final.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/oracle_checkpoint.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/oracle_evaluation/ORACLE.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/oracle_evaluation/base.jsonl",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/oracle_evaluation/perturbations.jsonl",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/rendezvous",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/runtime_versions.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/target_checkpoint.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/tiny_paged_resume/RESULT.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/tiny_paged_resume/checkpoint/MANIFEST.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/tiny_paged_resume/checkpoint/zero_to_fp32.py",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/tiny_paged_resume/checkpoint/zero_to_torch.py",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/traceback.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/training_adapter_records.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction/training_config.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction_execution.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction_stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/adapted_reproduction_stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/MANIFEST.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/after_distributions.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/after_freeze.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/after_manifest.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/before_distributions.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/before_freeze.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/before_manifest.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/dry_run_stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/dry_run_stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/editable_stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/editable_stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/environment_transition.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/install_stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/install_stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/install_verification_report.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/kaggle-overlay.lock",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/kaggle_env_verification.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/native_baseline.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/overlay_lock.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_after.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_after_stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_after_stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_before.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_before_stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_before_stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_verifier.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_verifier_stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_check_verifier_stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_consistency.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_dry_run_report.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/pip_install_report.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/setup_status.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/verification_report.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/verifier_execution.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/verifier_stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment/verifier_stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment_acceptance.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment_execution.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment_stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/environment_stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/recipe.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/run_result.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/run_started.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/raw/unsealed/source_provenance.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/source_dataset_metadata.json",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/submission_stderr.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/submission_stdout.log",
+    "handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/submitted_notebook.ipynb",
+    "handbook/methods/NPO_D1_SOURCE_ADAPTATION.md",
+    "handbook/reports/WORK_UNIT_D1_REPORT.md",
+    "tests/methods/NPO/test_optimizer.py"
+  ],
+  "raw_evidence_policy": "Original bytes preserved; supersession metadata identifies the incorrect derived untied inventory; tiny checkpoint binaries preserved in complete private archives, not in Git.",
+  "next_action": "Approve or decline category-3 subgroup reduction and one additional bounded T4 attempt after offline conformance/review."
+}

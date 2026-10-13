@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "/kaggle/working/checkout-20260927-130645-e8483bf31420/experiments/reproductions/NPO/train_runtime.py",
+    "--recipe",
+    "/kaggle/working/checkout-20260927-130645-e8483bf31420/configs/runs/work_unit_d1_npo_v1.json",
+    "--output",
+    "/kaggle/tmp/fq-d1-runs/20260927-130645-e8483bf31420/adapted_reproduction",
+    "--run-id",
+    "20260927-130645-e8483bf31420",
+    "--provenance",
+    "/kaggle/tmp/fq-d1-runs/20260927-130645-e8483bf31420/source_provenance.json"
+  ],
+  "started_utc": "2026-09-27T13:08:18.766046+00:00",
+  "returncode": 1,
+  "elapsed_seconds": 35.659170260999986
+}

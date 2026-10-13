@@ -1,0 +1,4 @@
+# D1 candidate only. The C1 lock remains immutable. No native stack replacement.
+-r kaggle-overlay.validated-0461.lock
+hjson==3.1.0
+deepspeed @ https://files.pythonhosted.org/packages/f2/06/aeeb0abbffbb3f1d8db049916eb654559d9d766443b058864b7e67e867f7/deepspeed-0.19.7.tar.gz#sha256=c6640ecbda08ec6b4b6c72521155351719f145f48d850687b7332f503992921c

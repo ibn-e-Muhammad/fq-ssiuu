@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "total_verified": 174,
+  "records": [
+    {
+      "manifest": "handbook/evidence/work_unit_c/20260924_attempt1_b884c5e/MANIFEST.json",
+      "manifest_sha256": "84de501d75f5888322c3b221677ba68833956695b0d93798b73c6af337614ce8",
+      "verified_files": 71
+    },
+    {
+      "manifest": "handbook/evidence/work_unit_c/20260924_attempt2_14669f3/MANIFEST.json",
+      "manifest_sha256": "d4e12bd6c5968b2e413bacf2a095f749a93a27608aa7d9012d06269f8b88194b",
+      "verified_files": 103
+    }
+  ]
+}

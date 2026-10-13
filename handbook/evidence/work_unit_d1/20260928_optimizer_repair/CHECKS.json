@@ -1,0 +1,87 @@
+[
+  {
+    "name": "cpu_suite",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "tests/",
+      "-q",
+      "--tb=short",
+      "-m",
+      "not requires_gpu and not requires_model"
+    ],
+    "returncode": 0,
+    "seconds": 28.552228806998755
+  },
+  {
+    "name": "lint",
+    "argv": [
+      ".venv/bin/ruff",
+      "check",
+      "src/",
+      "tests/",
+      "scripts/",
+      "experiments/reproductions/"
+    ],
+    "returncode": 0,
+    "seconds": 0.009039716998813674
+  },
+  {
+    "name": "format",
+    "argv": [
+      ".venv/bin/ruff",
+      "format",
+      "--check",
+      "src/",
+      "tests/",
+      "scripts/",
+      "experiments/reproductions/"
+    ],
+    "returncode": 0,
+    "seconds": 0.009832199997617863
+  },
+  {
+    "name": "notebooks",
+    "argv": [
+      ".venv/bin/python",
+      "scripts/check_notebooks.py",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260928_optimizer_repair/NOTEBOOKS.json"
+    ],
+    "returncode": 0,
+    "seconds": 0.2995646380004473
+  },
+  {
+    "name": "upstream_objective",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "experiments.reproductions.NPO.validate_upstream",
+      "--upstream",
+      "tmp/d1/assets/npo",
+      "--openunlearning",
+      "tmp/d1/assets/openunlearning",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260928_optimizer_repair/OBJECTIVE_PARITY.json"
+    ],
+    "returncode": 0,
+    "seconds": 1.8048612060010782
+  },
+  {
+    "name": "upstream_schedule_metrics",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "experiments.reproductions.NPO.validate_training_source",
+      "--upstream",
+      "tmp/d1/assets/npo",
+      "--runtime-sources",
+      "tmp/d1/assets/runtime_sources",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260928_optimizer_repair/SOURCE_CONFORMANCE.json"
+    ],
+    "returncode": 0,
+    "seconds": 1.910341315997357
+  }
+]

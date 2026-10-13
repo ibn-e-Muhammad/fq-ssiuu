@@ -12,15 +12,17 @@
 - Historical branches can be deleted only after ancestry, open-PR status and integration are reverified.
 - Experiment evidence must use commit SHA and run ID, not branch name alone.
 
-## Current integration — 2026-09-24
+## Current integration — 2026-09-28
 
-- `dev`: `2334f321b3ccf08352c29b1842200863b757c9d1`, verified PR #9 merge; GitHub default branch.
-- `fix/matched-precision-qra-protocol`: active work unit C, created from exact remote dev; one branch/PR, no training, at most two Kaggle executions.
+- `dev`: `5ca92bfa0863a9ffadcd70bfc5f28c8ee8c6e76a`, verified PR #10 merge; GitHub default branch.
+- `repro/npo-1b-source-faithful`: paused D1, PR #11 open, from dev `5ca92bf`. All 3 authorized T4 submissions used. Third run (`1e4a093`, CI69 PASS) completed the first full 1B forward but failed first backward with OOM; zero 1B updates, memory ceiling exceeded. Outcome-only closeout, then researcher audit; no merge, new repair or fourth run. No independent-review claim.
+- `fix/matched-precision-qra-protocol`: PR #10 merged, head `29d21a51de784190bdabf4e7267db8925c73260e`; superseded and retained.
 - `fix/npo-adapter-qra-metrics`: PR #9 merged, feature tip `e896dbc0467018a87d3d0754d68eddbe094b3b0e`; superseded and retained.
 - `fix/upstream-method-reconciliation`: PR #8 merged, superseded and retained.
 - `fix/kaggle-overlay-evidence-integrity`: PR #7 merged, superseded and retained.
 - dev rules: passing `Lint and Unit Tests` from GitHub Actions; one fresh approval;
-  last pusher cannot approve own changes; resolved threads; deletion/force-push blocked.
+  resolved threads; deletion/force-push blocked. The additional last-push approval
+  restriction was disabled at the researcher's request; all other rules preserved.
   A substantive human scientific review is required, not a quota-exhausted bot comment.
 - No main changes, history rewriting, deletion or DOCX inclusion.
 
@@ -197,3 +199,21 @@ permits source-faithful constituent reproductions independently of deferred
 Protocol v2. RG-005 still blocks confirmatory QRA verdicts/full FQ-SSIUU study.
 No merge, new Kaggle run, model download or training in this correction; human
 review remains outstanding. The containing commit records this single pass.
+
+## D1 start — 2026-09-25
+
+The researcher approved and merged PR #10. Fetch verified `5ca92bfa`; its tree
+matches the merged `29d21a51` feature head. Created only
+`repro/npo-1b-source-faithful`. The governance receipt is
+`evidence/work_unit_d1/20260925_preflight/governance.json`.
+Raw C1 evidence, historical branches and all four DOCX files remain unchanged.
+
+D1 continuation (2026-09-26): same branch, source sampler/metrics and CPU ZeRO-3
+resume checked; 0/2 Kaggle submissions. Historical clipping default reconciled
+without changing the author objective. No D1 merge or independent-review claim.
+
+D1 continuation (2026-09-27): same branch; source-sized evaluator, closed training
+recipe, native GPU optimizer validation, checkpoint export/reload and single-copy
+archive route implemented for review. CPU suite and tiny real ZeRO-3 loop pass.
+No Kaggle submission, merge or independent review is claimed. The existing
+last-push approval restriction remains disabled; no new author/committer restriction.

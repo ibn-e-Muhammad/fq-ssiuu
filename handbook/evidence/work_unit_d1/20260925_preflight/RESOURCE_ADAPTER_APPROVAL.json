@@ -1,0 +1,21 @@
+{
+  "recorded_date": "2026-09-26",
+  "decision": "Approve accumulation 8; preserve the method",
+  "approved": {
+    "world_size": 1,
+    "micro_batch": 4,
+    "gradient_accumulation": 8,
+    "effective_batch": 32,
+    "variant": "npo_grad_diff",
+    "trainable_parameters": "all",
+    "reference": "frozen full FP16",
+    "optimizer": "paged_adamw_32bit"
+  },
+  "does_not_authorize": [
+    "LoRA",
+    "changed objective coefficients",
+    "fixed CPU offload",
+    "8-bit optimizer",
+    "QRA Protocol v2 activation"
+  ]
+}

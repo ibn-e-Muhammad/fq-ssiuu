@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/kaggle/working/checkout-20260927-130645-e8483bf31420/experiments/reproductions/NPO/train_runtime.py", line 409, in main
+    result = execute(recipe, output, args.run_id, provenance, args.resume_checkpoint)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/checkout-20260927-130645-e8483bf31420/experiments/reproductions/NPO/train_runtime.py", line 170, in execute
+    validate_paged_gpu(output / "tiny_paged_resume", identities)
+  File "/kaggle/working/checkout-20260927-130645-e8483bf31420/experiments/reproductions/NPO/validate_paged_gpu.py", line 99, in validate
+    micro(engine)
+  File "/kaggle/working/checkout-20260927-130645-e8483bf31420/experiments/reproductions/NPO/validate_paged_gpu.py", line 92, in micro
+    engine.step()
+  File "/usr/local/lib/python3.12/dist-packages/deepspeed/runtime/engine.py", line 3696, in step
+    self._take_model_step(lr_kwargs)
+  File "/usr/local/lib/python3.12/dist-packages/deepspeed/runtime/engine.py", line 3612, in _take_model_step
+    self.lr_scheduler.step(**(lr_kwargs or {}))
+  File "/usr/local/lib/python3.12/dist-packages/torch/optim/lr_scheduler.py", line 282, in step
+    self._update_lr(epoch)
+  File "/usr/local/lib/python3.12/dist-packages/torch/optim/lr_scheduler.py", line 296, in _update_lr
+    for param_group, lr in zip(self.optimizer.param_groups, values, strict=True):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: zip() argument 2 is longer than argument 1

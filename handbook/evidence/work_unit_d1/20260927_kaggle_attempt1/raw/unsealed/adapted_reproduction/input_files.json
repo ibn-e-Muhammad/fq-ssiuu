@@ -1,0 +1,82 @@
+[
+  {
+    "repo": "open-unlearning/tofu_Llama-3.2-1B-Instruct_full",
+    "revision": "88e31200b97e4c0c04ae0d2f0b591f427046d192",
+    "path": "config.json",
+    "bytes": 927,
+    "sha256": "f851a2874b759ee56099c11786b9de7f3e6051677615d4a88259ef0e206ba8a9",
+    "verified": true
+  },
+  {
+    "repo": "open-unlearning/tofu_Llama-3.2-1B-Instruct_full",
+    "revision": "88e31200b97e4c0c04ae0d2f0b591f427046d192",
+    "path": "tokenizer.json",
+    "bytes": 17209920,
+    "sha256": "6b9e4e7fb171f92fd137b777cc2714bf87d11576700a1dcd7a399e7bbe39537b",
+    "verified": true
+  },
+  {
+    "repo": "open-unlearning/tofu_Llama-3.2-1B-Instruct_full",
+    "revision": "88e31200b97e4c0c04ae0d2f0b591f427046d192",
+    "path": "tokenizer_config.json",
+    "bytes": 54557,
+    "sha256": "df757249013ee916c1318f170d2763cc2272d10d66c5d73a792ce34c2bd8cbb6",
+    "verified": true
+  },
+  {
+    "repo": "open-unlearning/tofu_Llama-3.2-1B-Instruct_full",
+    "revision": "88e31200b97e4c0c04ae0d2f0b591f427046d192",
+    "path": "special_tokens_map.json",
+    "bytes": 325,
+    "sha256": "1b1835caa5b4d70acaa210fa222b0036f1882f9525c4660fd4810fb3e1e40ff8",
+    "verified": true
+  },
+  {
+    "repo": "locuslab/TOFU",
+    "revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+    "path": "forget05.json",
+    "bytes": 56437,
+    "sha256": "88542818f98fd6f880ecaea71bc3f3e7a34f959944e5ff1cdef7ea8c5c137173",
+    "verified": true
+  },
+  {
+    "repo": "locuslab/TOFU",
+    "revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+    "path": "retain95.json",
+    "bytes": 1021406,
+    "sha256": "6625bb8e7e01f27a237bd273b961fcf2fb51568157702acdcd934b13398aa2fc",
+    "verified": true
+  },
+  {
+    "repo": "locuslab/TOFU",
+    "revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+    "path": "forget05_perturbed.json",
+    "bytes": 334176,
+    "sha256": "7596c863a3f7eafb551a167363826f71a7327f28617a0a533fed06108a50ccdb",
+    "verified": true
+  },
+  {
+    "repo": "locuslab/TOFU",
+    "revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+    "path": "retain_perturbed.json",
+    "bytes": 641057,
+    "sha256": "fc69f33bad70d3dca65920bdb54380039e3e8872dd16bbae20c1a839b99533fb",
+    "verified": true
+  },
+  {
+    "repo": "locuslab/TOFU",
+    "revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+    "path": "real_authors_perturbed.json",
+    "bytes": 17146,
+    "sha256": "a23255383ac75a5fbe5acd57622a03fb9c368954fd7b2428afa152b784d9533a",
+    "verified": true
+  },
+  {
+    "repo": "locuslab/TOFU",
+    "revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+    "path": "world_facts_perturbed.json",
+    "bytes": 18053,
+    "sha256": "0e171838040d0ec94b1ce248d891508e85e3b77344370077caa27b61898eb3e1",
+    "verified": true
+  }
+]

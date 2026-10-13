@@ -1,0 +1,3 @@
+[2026-09-26 18:11:44,985] [WARNING] [real_accelerator.py:199:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+DS_CPU_STEPS 2
+DS_CPU_CHECKPOINT True

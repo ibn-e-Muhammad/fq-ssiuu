@@ -1,0 +1,79 @@
+[{"stream_name":"stderr","time":6.181097676,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.181162479,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.181168379,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.181172371,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":6.738008382,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.738037571,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.738042322,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.738045953,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":230.538776231,"data":"{\n"}
+,{"stream_name":"stdout","time":230.538838012,"data":"  \"run_id\": \"20260928-062524-7118f1ae8d74\",\n"}
+,{"stream_name":"stdout","time":230.538846244,"data":"  \"kind\": \"adapted_reproduction\",\n"}
+,{"stream_name":"stdout","time":230.538851682,"data":"  \"seed\": 1001,\n"}
+,{"stream_name":"stdout","time":230.538856946,"data":"  \"started_utc\": \"2026-09-28T06:25:30.162505+00:00\",\n"}
+,{"stream_name":"stdout","time":230.538862536,"data":"  \"status\": \"FAIL\",\n"}
+,{"stream_name":"stdout","time":230.538867948,"data":"  \"recipe_sha256\": \"03eb963453155c5e8f5e720ae4b2f20f546ac4233317e4cde8583887c2920dc2\",\n"}
+,{"stream_name":"stdout","time":230.538873222,"data":"  \"scientific_experiment_executed\": false,\n"}
+,{"stream_name":"stdout","time":230.538877714,"data":"  \"supported_claims\": [],\n"}
+,{"stream_name":"stdout","time":230.53888229,"data":"  \"unsupported_claims\": [\n"}
+,{"stream_name":"stdout","time":230.538886679,"data":"    \"Scientific hypothesis confirmation\"\n"}
+,{"stream_name":"stdout","time":230.538891231,"data":"  ],\n"}
+,{"stream_name":"stdout","time":230.538901416,"data":"  \"environment_run_id\": \"02c859e3-59ab-4d67-9651-5987acf5c929\",\n"}
+,{"stream_name":"stdout","time":230.538904986,"data":"  \"returncodes\": {\n"}
+,{"stream_name":"stdout","time":230.538908204,"data":"    \"adapted_reproduction\": 1\n"}
+,{"stream_name":"stdout","time":230.538924129,"data":"  },\n"}
+,{"stream_name":"stdout","time":230.538929124,"data":"  \"adapted_reproduction_attempted\": true,\n"}
+,{"stream_name":"stdout","time":230.538934809,"data":"  \"failure_phase\": \"adapted_reproduction\",\n"}
+,{"stream_name":"stdout","time":230.538940305,"data":"  \"failure_type\": \"RuntimeError\",\n"}
+,{"stream_name":"stdout","time":230.538945094,"data":"  \"finished_utc\": \"2026-09-28T06:29:06.331834+00:00\"\n"}
+,{"stream_name":"stdout","time":230.538949295,"data":"}\n"}
+,{"stream_name":"stdout","time":230.60223261,"data":"{\n"}
+,{"stream_name":"stdout","time":230.602260764,"data":"  \"run_id\": \"20260928-062524-7118f1ae8d74\",\n"}
+,{"stream_name":"stdout","time":230.602266637,"data":"  \"kind\": \"adapted_reproduction\",\n"}
+,{"stream_name":"stdout","time":230.602271368,"data":"  \"seed\": 1001,\n"}
+,{"stream_name":"stdout","time":230.602276484,"data":"  \"started_utc\": \"2026-09-28T06:25:30.162505+00:00\",\n"}
+,{"stream_name":"stdout","time":230.602281862,"data":"  \"status\": \"FAIL\",\n"}
+,{"stream_name":"stdout","time":230.602286988,"data":"  \"recipe_sha256\": \"03eb963453155c5e8f5e720ae4b2f20f546ac4233317e4cde8583887c2920dc2\",\n"}
+,{"stream_name":"stdout","time":230.60230289,"data":"  \"scientific_experiment_executed\": false,\n"}
+,{"stream_name":"stdout","time":230.602307606,"data":"  \"supported_claims\": [],\n"}
+,{"stream_name":"stdout","time":230.60231166,"data":"  \"unsupported_claims\": [\n"}
+,{"stream_name":"stdout","time":230.602315039,"data":"    \"Scientific hypothesis confirmation\"\n"}
+,{"stream_name":"stdout","time":230.602318529,"data":"  ],\n"}
+,{"stream_name":"stdout","time":230.602321671,"data":"  \"environment_run_id\": \"02c859e3-59ab-4d67-9651-5987acf5c929\",\n"}
+,{"stream_name":"stdout","time":230.602325207,"data":"  \"returncodes\": {\n"}
+,{"stream_name":"stdout","time":230.60232846,"data":"    \"adapted_reproduction\": 1\n"}
+,{"stream_name":"stdout","time":230.602331813,"data":"  },\n"}
+,{"stream_name":"stdout","time":230.602334958,"data":"  \"adapted_reproduction_attempted\": true,\n"}
+,{"stream_name":"stdout","time":230.602338448,"data":"  \"failure_phase\": \"adapted_reproduction\",\n"}
+,{"stream_name":"stdout","time":230.602341921,"data":"  \"failure_type\": \"RuntimeError\",\n"}
+,{"stream_name":"stdout","time":230.602345315,"data":"  \"finished_utc\": \"2026-09-28T06:29:06.331834+00:00\"\n"}
+,{"stream_name":"stdout","time":230.602348719,"data":"}\n"}
+,{"stream_name":"stderr","time":230.826256952,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":230.826325385,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":230.826333225,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":230.826341635,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":230.826359663,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":230.826515113,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":230.82729768,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":230.827314103,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":230.827318209,"data":"Exception encountered at \"In [2]\":\n"}
+,{"stream_name":"stderr","time":230.827321777,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":230.827325751,"data":"RuntimeError                              Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":230.827329933,"data":"/tmp/ipykernel_24/2922997236.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":230.827333749,"data":"     69     result = subprocess.run(command, cwd=checkout)\n"}
+,{"stream_name":"stderr","time":230.827337343,"data":"     70     if result.returncode:\n"}
+,{"stream_name":"stderr","time":230.82734073,"data":"---\u003e 71         raise RuntimeError(\"Recipe failed; raw run outputs and termination record are retained\")\n"}
+,{"stream_name":"stderr","time":230.827344754,"data":"     72     print(\"Run complete:\", run_id, \"— preserve sealed outputs with both private archive receipts.\")\n"}
+,{"stream_name":"stderr","time":230.827349102,"data":"     73 except Exception as exc:\n"}
+,{"stream_name":"stderr","time":230.8273526,"data":"\n"}
+,{"stream_name":"stderr","time":230.827356265,"data":"RuntimeError: Recipe failed; raw run outputs and termination record are retained\n"}
+,{"stream_name":"stderr","time":230.827359909,"data":"\n"}
+,{"stream_name":"stderr","time":232.84972937,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":232.849803666,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":232.992675013,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":232.992727741,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":233.617222877,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":233.909479933,"data":"[NbConvertApp] Writing 12933 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":236.2192819,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":237.011700772,"data":"[NbConvertApp] Writing 300871 bytes to __results__.html\n"}
+]

@@ -1,0 +1,36 @@
+{
+  "code_commit": "65c454a20de4658851603cbf49eb4796afed95c5",
+  "returncode": 0,
+  "argv": [
+    ".venv/bin/python",
+    "-m",
+    "experiments.reproductions.NPO.validate_deepspeed_cpu",
+    "--loop",
+    "--output",
+    "tmp/d1/cpu_loop_20260927_c"
+  ],
+  "files": [
+    {
+      "path": "CPU_ZERO3_FINAL_RESULT.json",
+      "sha256": "fd72da183d86ffba56fbcff76d33418b5448d183784480662df98089029c49b9"
+    },
+    {
+      "path": "CPU_ZERO3_FINAL_microbatches.jsonl",
+      "sha256": "37d4edb2bdf058027beda5b9db6fe59117f8c041f1187d8aac34b422fb89ff8e"
+    },
+    {
+      "path": "CPU_ZERO3_FINAL_forward_observations.jsonl",
+      "sha256": "a2f4bd6332a328fe6c703112bcec4176334c89f3ce3a18107e2959a3feb62d21"
+    },
+    {
+      "path": "CPU_ZERO3_FINAL_stdout.log",
+      "sha256": "555b9dadc300c9a87ab6bddd4bcb8c9f6e2d1a0bd0c6108952b3c24f9ef2a56b"
+    },
+    {
+      "path": "CPU_ZERO3_FINAL_stderr.log",
+      "sha256": "88c793731f177d6a28fc4260a0bdec72d069de108f89cc6e466bc1dcb9790fa2"
+    }
+  ],
+  "scope": "Final CPU-only D1 loop after addition of pre-backward evidence writes",
+  "kaggle_submissions": 0
+}

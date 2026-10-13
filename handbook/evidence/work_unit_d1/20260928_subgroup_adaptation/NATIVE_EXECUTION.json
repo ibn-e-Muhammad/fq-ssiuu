@@ -1,0 +1,15 @@
+{
+  "argv": [
+    ".venv/bin/python",
+    "-m",
+    "experiments.reproductions.NPO.validate_subgroups_cpu",
+    "--output",
+    "tmp/d1/subgroup_cpu_20260928_a"
+  ],
+  "returncode": 0,
+  "scope": "Random tiny CPU NPO+RT; thresholds 1e9 and 40 force 2 versus 3 actual ZeRO groups; ordinary CPU AdamW tests splitting math, not runtime CUDA paging.",
+  "result": "NATIVE_CPU_SUBGROUP_RESULT.json",
+  "stdout": "native_cpu.stdout.log",
+  "stderr": "native_cpu.stderr.log",
+  "gpu_submissions": 0
+}

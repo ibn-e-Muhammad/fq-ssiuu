@@ -1,0 +1,10 @@
+{
+  "title": "FQ-SSIUU D1 attempt3 20260928 efd94997a1e8",
+  "id": "muhammadii/fq-ssiuu-d1-20260928-efd94997a1e8",
+  "licenses": [
+    {
+      "name": "other"
+    }
+  ],
+  "description": "Private immutable failed D1 third attempt. Full target/reference first forward completed; first backward OOM; zero 1B updates. Original outputs and tiny synthetic checkpoints preserved. .bin suffix preserves exact tar bytes."
+}

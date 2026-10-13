@@ -1,0 +1,4 @@
+[2026-09-28 12:48:26,587] [WARNING] [engine.py:2269:_do_optimizer_sanity_check] **** You are using ZeRO with an untested optimizer, proceed with caution *****
+[2026-09-28 12:48:33,055] [WARNING] [engine.py:2269:_do_optimizer_sanity_check] **** You are using ZeRO with an untested optimizer, proceed with caution *****
+[2026-09-28 12:54:51,105] [WARNING] [engine.py:2269:_do_optimizer_sanity_check] **** You are using ZeRO with an untested optimizer, proceed with caution *****
+{"status": "FAIL_PARTIAL_PRESERVED", "run_id": "20260928-124613-efd94997a1e8", "error_type": "OutOfMemoryError"}

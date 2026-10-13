@@ -1,0 +1,10 @@
+{
+  "title": "FQ-SSIUU D1 private source 4855049",
+  "id": "muhammadii/fq-ssiuu-d1-source-4855049",
+  "licenses": [
+    {
+      "name": "other"
+    }
+  ],
+  "description": "Private history-free source for D1 final authorized operational retry. Exact source commit 485504904d8116797430da7234e1a6bef5dee22c. No credentials or model weights."
+}

@@ -1,24 +1,36 @@
 # FQ-SSIUU project status
 
-Updated 2026-09-25. [Canonical plan](MASTER_EXECUTION_PLAN.md).
-Integration tip: `dev` at `2334f321b3ccf08352c29b1842200863b757c9d1` (PR #9 merged).
-Work units A and B are superseded and retained. Active work unit C:
-`fix/matched-precision-qra-protocol`, branched from that exact remote dev tip.
+Updated 2026-09-28. [Canonical plan](MASTER_EXECUTION_PLAN.md).
+Integration tip: `dev` at `5ca92bfa0863a9ffadcd70bfc5f28c8ee8c6e76a` (PR #10 merged).
+Work units A, B and C are merged; their branches and evidence are retained.
+Active D1: `repro/npo-1b-source-faithful`, from that exact remote dev tip.
+D1 is **PARTIAL WITH EVIDENCE / FAILED GPU ACCEPTANCE; paused for researcher audit**.
+All three authorized T4 attempts are used. Mother v7 (`1e4a093`) passed environment,
+tiny GPU resume, full 1B optimizer initialization and the first NPO+RT forward with
+the frozen full reference. It exhausted memory during the first backward pass:
+zero completed 1B microbatches or optimizer updates; no trained 1B checkpoint.
+Sampled device peak 16,086,401,024 bytes also exceeds the 16,000,000,000-byte limit.
+Offline acceptance at the run commit was 389 passed (existing exclusions retained),
+14 notebooks and CI 69 PASS. These do not establish 1B training feasibility.
+Original evidence is preserved; no further repair/run is authorized. The researcher
+requested failure diagnosis, outcome commit/push, then a stop for their audit.
 C1 validates sequential FP16/LLM.int8/NF4 loading and actual descriptive metrics.
 C2 project choices are deferred until constituent 1B reproductions and bounded
 pilots are complete. Source-faithful reproductions and descriptive collection do
-not require Protocol v2 activation. This correction unit runs no training/pilot. The previously validated environment
+not require Protocol v2 activation. D1 training completion is not yet established. The previously validated environment
 change is
 bitsandbytes 0.46.1, now validated for matched inference; 0.45.5 evidence remains immutable.
 RG-006 remains RESOLVED only for objective/data/frozen-reference conformance;
 RG-005 and method gates RG-001/002/003 remain BLOCKED.
-GitHub default is now dev; its active rule requires passing CI, one fresh approval
-from someone other than the last pusher, and resolved review threads. A substantive
+GitHub default is dev; its active rule requires passing CI, one fresh approval,
+and resolved review threads. On the researcher's request, the additional last-push
+approval restriction was disabled; other current protections were preserved. A substantive
 human scientific review is required in addition to automated checks.
 
 ## Work unit C progress — 2026-09-24
 
-[PR #10](https://github.com/ibn-e-Muhammad/fq-ssiuu/pull/10) is open, unmerged.
+[PR #10](https://github.com/ibn-e-Muhammad/fq-ssiuu/pull/10) was researcher-reviewed
+and merged at `5ca92bfa`; its feature head was `29d21a51`.
 C1 **PASS within matched inference scope**, run `20260924-120549-b4c4f06e097d`,
 code `14669f34`, Mother v4. All three actual loaders, forwards, greedy generation,
 112 INT8/NF4 projections, 48 observations and the fixed FP16 oracle validated.
@@ -99,12 +111,12 @@ evidence, not model-level scientific validation or training-memory evidence.
 
 ## Exact next action
 
-Finish this documentation/gate-semantics correction, push PR #10 and stop; a
-substantive human PR review remains required. No further C1 run is authorized.
-Future source-faithful constituent reproduction work is permitted without Protocol
-v2 activation; it needs verified method-specific execution contracts, not project
-threshold approval. Revisit the final project protocol only after 1B constituent
-reproductions and bounded pilots. No effectiveness claim follows from C1.
+Await the researcher's audit and next instructions. Do not change resource settings,
+implement another repair, submit a fourth run or merge PR #11.
+See [D1 report](reports/WORK_UNIT_D1_REPORT.md) and the
+[third-attempt verdict](evidence/work_unit_d1/20260928_kaggle_attempt3/VERDICT.json).
+No Protocol v2 approval is needed for source-faithful reproduction. No effectiveness
+claim follows from C1, and no further C1 execution is authorized.
 See [method matrix](METHOD_IMPLEMENTATION_MATRIX.md) and [scientific gates](research_gates.yaml).
 
 Tracked thesis prose is still absent; consequences are in the [thesis ledger](THESIS_UPDATE_LEDGER.md).

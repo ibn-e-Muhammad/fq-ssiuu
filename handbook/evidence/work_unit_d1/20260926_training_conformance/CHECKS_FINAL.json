@@ -1,0 +1,87 @@
+[
+  {
+    "name": "cpu_suite_final",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "tests/",
+      "-q",
+      "--tb=short",
+      "-m",
+      "not requires_gpu and not requires_model"
+    ],
+    "returncode": 0,
+    "seconds": 21.32628526699773
+  },
+  {
+    "name": "lint_final",
+    "argv": [
+      ".venv/bin/ruff",
+      "check",
+      "src/",
+      "tests/",
+      "scripts/",
+      "experiments/reproductions/"
+    ],
+    "returncode": 0,
+    "seconds": 0.010422398001537658
+  },
+  {
+    "name": "format_final",
+    "argv": [
+      ".venv/bin/ruff",
+      "format",
+      "--check",
+      "src/",
+      "tests/",
+      "scripts/",
+      "experiments/reproductions/"
+    ],
+    "returncode": 0,
+    "seconds": 0.00870466600099462
+  },
+  {
+    "name": "notebooks_final",
+    "argv": [
+      ".venv/bin/python",
+      "scripts/check_notebooks.py",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260926_training_conformance/notebooks_final.json"
+    ],
+    "returncode": 0,
+    "seconds": 0.24458868899819208
+  },
+  {
+    "name": "source_final",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "experiments.reproductions.NPO.validate_training_source",
+      "--upstream",
+      "tmp/d1/assets/npo",
+      "--runtime-sources",
+      "tmp/d1/assets/runtime_sources",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260926_training_conformance/source_conformance_final.json"
+    ],
+    "returncode": 0,
+    "seconds": 1.9304547540014028
+  },
+  {
+    "name": "objective_final",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "experiments.reproductions.NPO.validate_upstream",
+      "--upstream",
+      "tmp/d1/assets/npo",
+      "--openunlearning",
+      "tmp/d1/assets/openunlearning",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260926_training_conformance/objective_parity_final.json"
+    ],
+    "returncode": 0,
+    "seconds": 1.7293737500003772
+  }
+]

@@ -714,6 +714,11 @@ def main():
     )
 
     parser.add_argument("--overlay", help="Path to kaggle-overlay.in file.")
+    parser.add_argument(
+        "--no-build-isolation",
+        action="store_true",
+        help="Use existing build dependencies for the pinned D1 source distribution; resolver and protected-stack policies still apply.",
+    )
     parser.add_argument("--baseline", help="Path to baseline JSON file.")
     parser.add_argument(
         "--report-file",
@@ -926,6 +931,8 @@ def main():
             "-r",
             overlay_path,
         ]
+        if args.no_build_isolation:
+            dry_run_cmd.append("--no-build-isolation")
         print(f"Generating dry-run pip report against {overlay_path}...")
         res_dry = subprocess.run(dry_run_cmd, capture_output=True, text=True)
         dry_run_exit_code = res_dry.returncode
@@ -1005,6 +1012,8 @@ def main():
         "-r",
         overlay_path,
     ]
+    if args.no_build_isolation:
+        install_cmd.append("--no-build-isolation")
     res_inst = subprocess.run(install_cmd, capture_output=True, text=True)
     install_exit_code = res_inst.returncode
     atomic_write_text(os.path.join(out_dir, "install_stdout.log"), res_inst.stdout)

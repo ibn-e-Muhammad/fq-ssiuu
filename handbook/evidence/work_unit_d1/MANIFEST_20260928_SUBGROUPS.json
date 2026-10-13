@@ -1,0 +1,139 @@
+{
+  "schema": "work-unit-d1-evidence-v1",
+  "status": "APPROVED_RESOURCE_V2_OFFLINE_REVIEW_PASS_PENDING_CI_GPU",
+  "code_revision": "Containing commit; staging pins its resolved SHA",
+  "previous_runtime_source": "485504904d8116797430da7234e1a6bef5dee22c",
+  "submissions_used": 2,
+  "submission_limit": 3,
+  "files": [
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/AUTHORIZATION.json",
+      "bytes": 704,
+      "sha256": "bd4060ae6f52fde87a8ce24517386ebc7ae6ae572dd4767f624c3021be335df6"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/CHECKS.json",
+      "bytes": 2057,
+      "sha256": "4ce5d3ba008d79462a73e38ae16b6dbe82d899521afa1f368bcaff07382918e5"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/NATIVE_CPU_SUBGROUP_RESULT.json",
+      "bytes": 6091,
+      "sha256": "aa8b1867a2fbe728e5730b90679b9914ac86abaa672a4c39abce8bacac897895"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/NATIVE_EXECUTION.json",
+      "bytes": 494,
+      "sha256": "f9574191f68b53b34d60ff1af04c1cf58f6b1a96d62cf7cc0470f97a0ccfb16d"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/NOTEBOOKS.json",
+      "bytes": 2747,
+      "sha256": "01728f21028e9fdb120b892b6e0e4002cdfd5fdc74c8f739c6aeccb0567d5d30"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/OBJECTIVE_PARITY.json",
+      "bytes": 7507,
+      "sha256": "e91c11bc7ebf9ec775d872cc481f0f1287334c3df00eb2a58d083f29b653ae3e"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/REVIEW.json",
+      "bytes": 1516,
+      "sha256": "6e5c2f591f5f33b15020f4460f1cf11176bc180d67f627c078f936f8f0238374"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/SECRET_SCAN.json",
+      "bytes": 126,
+      "sha256": "d27e730e7e821d0475a7e2e29aaad0e9b450a7908ad778a008ce8e96cb1c00e0"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/SOURCE_CONFORMANCE.json",
+      "bytes": 5520,
+      "sha256": "80812a72c6f8acf4e6dbf2998d63d7993324d0c0026e8c8de9164f656bd31443"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/cpu_suite.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/cpu_suite.stdout.log",
+      "bytes": 3802,
+      "sha256": "a30340ef4f1c9fd55ea48c0376ad102c2ca7091d0875103da308c428fbf2bc6a"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/format.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/format.stdout.log",
+      "bytes": 28,
+      "sha256": "e8a753af63ae08bac9cbbfb14aaed366e221bfb2644e4888525d063ecd9b2f20"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/lint.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/lint.stdout.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/native_cpu.stderr.log",
+      "bytes": 56240,
+      "sha256": "a10a0ed7fa5d4a088673f8b3ea1cb209bb41091aa83ddefa8ec81983aaa906c9"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/native_cpu.stdout.log",
+      "bytes": 357,
+      "sha256": "f52bbd94067ef775beb63cfa4616bb9ffe98aaf754e7e9c357c25309dbc9055f"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/notebooks.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/notebooks.stdout.log",
+      "bytes": 41,
+      "sha256": "d8c36173c604b3c4358271968a59815188c3d6e6573cdb976bc912f1e511cc06"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/upstream_objective.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/upstream_objective.stdout.log",
+      "bytes": 6235,
+      "sha256": "f0c84c70b56a6db26c13cbed0a0fc443c3770d535d0dedc3c469e85f637e7671"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/upstream_schedule_metrics.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260928_subgroup_adaptation/upstream_schedule_metrics.stdout.log",
+      "bytes": 25,
+      "sha256": "d4eb5fa64d0c84787c2d0464c3ca03576b44a22c18cfd331027e894d039e0174"
+    }
+  ],
+  "code_config_hashes": {
+    "configs/reproductions/NPO/d1_train_v2.json": "7b5bb1d7c43c68c6cc274ceb68fcdf20773ea2f36d57de1d66e5b8ba73365711",
+    "configs/runs/work_unit_d1_npo_v2.json": "6a79cd39013dcd553ca73e887fcad2bda32f700e8a06cac7b38e2f9ee1109ca5",
+    "experiments/reproductions/NPO/d1_recipe.py": "87b900e1e85956b90208348bce3d7d7342360c00d22e89305681efe39f39c369",
+    "experiments/reproductions/NPO/engine.py": "28d7c263241f1255092cb6fe918f67aae4aadf63baea183f91d4a40487aad2c3",
+    "experiments/reproductions/NPO/train_runtime.py": "90e6f879d0d842d792901896878c0f550900112d74f6c1312003882c4ac9a2a9",
+    "experiments/reproductions/NPO/training_contract.py": "6a5d8b263bd00e7f90acfd319ebab23e79f58b5500096228e5d83f525ef13fa6",
+    "experiments/reproductions/NPO/validate_paged_gpu.py": "6a1d64916f3d7dcd7853e25acc6ee8176e8ba5006550ed2009777df6d6a51716",
+    "experiments/reproductions/NPO/validate_subgroups_cpu.py": "89d5905afb61203761871f104b5401db343802ebcb8c94c076cc8c5f453cb579",
+    "tests/methods/NPO/test_d1_execution_boundary.py": "e7b6c77377fb1caaf72fd49134fc28b438ae18215c358ec7883db22c430d7ac1",
+    "tests/methods/NPO/test_training_contract.py": "59b56b709b5ebe8cddb67c6aaddb1dc52cc9e4d458a761b81b09858593478d4a"
+  },
+  "runtime_result": null,
+  "independent_review": false
+}

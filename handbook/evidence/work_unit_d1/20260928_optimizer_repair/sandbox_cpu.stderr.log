@@ -1,0 +1,22 @@
+[W928 11:13:08.149352664 ProcessGroupGloo.cpp:524] Warning: Unable to resolve hostname to a (local) address. Using the loopback address as fallback. Manually set the network interface to bind to with GLOO_SOCKET_IFNAME. (function operator())
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/experiments/reproductions/NPO/validate_optimizer_compatibility.py", line 222, in <module>
+    "native_cpu": native_scheduler(output),
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/experiments/reproductions/NPO/validate_optimizer_compatibility.py", line 105, in native_scheduler
+    torch.distributed.init_process_group(
+  File "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/lib/python3.11/site-packages/torch/distributed/c10d_logger.py", line 83, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/lib/python3.11/site-packages/torch/distributed/c10d_logger.py", line 97, in wrapper
+    func_return = func(*args, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py", line 1899, in init_process_group
+    default_pg, _ = _new_process_group_helper(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/.venv/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py", line 2169, in _new_process_group_helper
+    backend_class = ProcessGroupGloo(
+                    ^^^^^^^^^^^^^^^^^
+RuntimeError: Cannot resolve 127.0.0.1 to a (local) address

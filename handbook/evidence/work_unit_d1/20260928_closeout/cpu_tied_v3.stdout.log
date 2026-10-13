@@ -1,0 +1,2 @@
+[2026-09-28 17:22:54,226] [WARNING] [real_accelerator.py:199:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+{"source": "PASS_PINNED_SOURCE_GROUPS", "native_cpu": "PASS_CPU_NATIVE_ZERO3_SCHEDULER_ONLY"}

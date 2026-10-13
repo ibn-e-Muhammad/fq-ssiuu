@@ -1,0 +1,71 @@
+[
+  {
+    "name": "cpu_suite",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "tests/",
+      "-q",
+      "--tb=short",
+      "-m",
+      "not requires_gpu and not requires_model"
+    ],
+    "returncode": 0,
+    "seconds": 25.203060075000394
+  },
+  {
+    "name": "lint",
+    "argv": [
+      ".venv/bin/ruff",
+      "check",
+      "src/",
+      "tests/",
+      "scripts/",
+      "experiments/reproductions/"
+    ],
+    "returncode": 0,
+    "seconds": 0.010071671000332572
+  },
+  {
+    "name": "format",
+    "argv": [
+      ".venv/bin/ruff",
+      "format",
+      "--check",
+      "src/",
+      "tests/",
+      "scripts/",
+      "experiments/reproductions/"
+    ],
+    "returncode": 0,
+    "seconds": 0.009764230999280699
+  },
+  {
+    "name": "notebooks",
+    "argv": [
+      ".venv/bin/python",
+      "scripts/check_notebooks.py",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260925_preflight/notebooks.json"
+    ],
+    "returncode": 0,
+    "seconds": 0.2862137800111668
+  },
+  {
+    "name": "preflight_final",
+    "argv": [
+      ".venv/bin/python",
+      "-m",
+      "experiments.reproductions.NPO.preflight",
+      "--upstream",
+      "/tmp/fq-d1-upstream",
+      "--assets",
+      "/tmp/fq-b-assets",
+      "--output",
+      "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/handbook/evidence/work_unit_d1/20260925_preflight/preflight_final.json"
+    ],
+    "returncode": 1,
+    "seconds": 3.2300526440085378
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "status": "PASS_PRIMARY_AGENT_REVIEW",
+  "independent_review": false,
+  "authorizing_record": "AUTHORIZATION.json",
+  "findings": [],
+  "scope": "Closed v1/v2 config routing; subgroup propagated to tiny GPU and full engine; attempted config written before initializer; no source math/settings/offload change. Real CPU test compares 2/3 groups and native resume; no inference that CPU proves T4 fit.",
+  "tests": "CHECKS.json",
+  "unchanged_source_configs": {
+    "configs/reproductions/NPO/d1_train_v1.json": "f32a35dbe9b82fcefffc12709c09a22224bf2dee05c67326a4a1aa6ccfadd9e1",
+    "configs/reproductions/NPO/d1_eval_v1.json": "0db526da36ac9c60946cb6e4046005061585f870a42ed3ed10099a4ca6084194",
+    "configs/runs/work_unit_d1_npo_v1.json": "03eb963453155c5e8f5e720ae4b2f20f546ac4233317e4cde8583887c2920dc2",
+    "experiments/reproductions/NPO/source_v1.json": "be073b839516e12f73a52671f4e39d59fcc65f52d2140e63d7805f2a25f812ee",
+    "experiments/reproductions/NPO/inputs_v1.json": "9c24f66e568ce60dba39c61e92e948e48027b1318a0580ff859928d5ec02dbc6",
+    "requirements/kaggle-overlay.d1-candidate.in": "bfe3bae35ca3fa02cb985f5ad29c3658cbd32350afe257c3f6ccbc9f159b7815"
+  },
+  "approved_new_files": {
+    "configs/reproductions/NPO/d1_train_v2.json": "7b5bb1d7c43c68c6cc274ceb68fcdf20773ea2f36d57de1d66e5b8ba73365711",
+    "configs/runs/work_unit_d1_npo_v2.json": "6a79cd39013dcd553ca73e887fcad2bda32f700e8a06cac7b38e2f9ee1109ca5"
+  },
+  "gpu_attempts_used_before_submission": 2,
+  "gpu_attempts_now_authorized": 3
+}

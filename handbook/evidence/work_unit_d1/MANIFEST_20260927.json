@@ -1,0 +1,261 @@
+{
+  "schema": "work-unit-d1-evidence-v1",
+  "status": "PARTIAL_RUNTIME_IMPLEMENTED_PENDING_REVIEW_AND_GPU",
+  "code_commit": "65c454a20de4658851603cbf49eb4796afed95c5",
+  "base_commit": "5ca92bfa0863a9ffadcd70bfc5f28c8ee8c6e76a",
+  "prior_manifest_sha256": "1291f90c1078b35575aafe9c9e9099fb8afcbc14e74ea38d77938a1fada935ab",
+  "code_files": {
+    "configs/reproductions/NPO/d1_eval_v1.json": "0db526da36ac9c60946cb6e4046005061585f870a42ed3ed10099a4ca6084194",
+    "configs/reproductions/NPO/d1_train_v1.json": "f32a35dbe9b82fcefffc12709c09a22224bf2dee05c67326a4a1aa6ccfadd9e1",
+    "configs/runs/work_unit_d1_npo_v1.json": "03eb963453155c5e8f5e720ae4b2f20f546ac4233317e4cde8583887c2920dc2",
+    "experiments/reproductions/NPO/README.md": "60fa7918d3c29dbb6deeb20a775779c389243dcfdd1814012cc49fb44090ac2e",
+    "experiments/reproductions/NPO/__init__.py": "51bf742e62101af887be7839a2701dee17a4f5fa8ccf85a6897a4d661725deaf",
+    "experiments/reproductions/NPO/adapter.py": "06968c54476dfe41ca5eaa2a8c5d55131e5b86ab9eae87a66d87d69a60176efc",
+    "experiments/reproductions/NPO/assets.py": "401e0757d4ff13480721a8fc01a7e6f0f9a49315f41c40086272dffc83513036",
+    "experiments/reproductions/NPO/candidate.py": "cd4e14a29432353ce8916778071e8a59de26a012631afd9d9c7f5c38b515ad8e",
+    "experiments/reproductions/NPO/checkpoint_values.py": "3a6f5e5798eaec4400152d4ccf83ef6563db79b7e38b13ba20e516ac3ef38cac",
+    "experiments/reproductions/NPO/d1_recipe.py": "c3bd1e623827f91bb16dce09e1466ec89c37880d2a66ad8a883f1791ee7a4331",
+    "experiments/reproductions/NPO/engine.py": "7445b97d767093008badc6891a22fc2f983718d9920726a6a28aca46242d7828",
+    "experiments/reproductions/NPO/evaluation_runtime.py": "f28aa41b4076346841d6a46c267bc36869c796d4a26e862f03c8dbc494c32bb9",
+    "experiments/reproductions/NPO/historical/__init__.py": "51bf742e62101af887be7839a2701dee17a4f5fa8ccf85a6897a4d661725deaf",
+    "experiments/reproductions/NPO/historical/gate1_eval.py": "1359fde696cf958d7789f761ed3c43850018d4ad766dc0fb88c2e76647dc2c20",
+    "experiments/reproductions/NPO/historical/token_mean_loss.py": "15e10202326d81305837983d77653961e291fa209cdc522c57709eeb4c473681",
+    "experiments/reproductions/NPO/inputs_v1.json": "9c24f66e568ce60dba39c61e92e948e48027b1318a0580ff859928d5ec02dbc6",
+    "experiments/reproductions/NPO/memory.py": "11be52e495576141a3fffcb2d65bdb4edbf697d5420b07dcccdf4051fc158b09",
+    "experiments/reproductions/NPO/optimizer.py": "92629eebc12d6618faec4c74b2a79bbe354ce2c169d3496c2c7cae9dc381e037",
+    "experiments/reproductions/NPO/preflight.py": "1dcf86413852c02c27bd7fce79edb6d45428f1eb02098c2a001c1cf7719bd5fa",
+    "experiments/reproductions/NPO/reference.py": "8e670065692544649483389b60115e4f25f70207105106a7921835b7e1a31ae4",
+    "experiments/reproductions/NPO/runtime_sources_v1.json": "6def02b66ffd1ab092cad7a78108649b7dfad65f7e861329a0c85007161d8837",
+    "experiments/reproductions/NPO/source_metrics.py": "0a1c927e547a43a1f312583b60c1316e4c4a5e63819192234122003a3af6eb30",
+    "experiments/reproductions/NPO/source_v1.json": "be073b839516e12f73a52671f4e39d59fcc65f52d2140e63d7805f2a25f812ee",
+    "experiments/reproductions/NPO/train_runtime.py": "0b278b45c275ceee5f05695216e1b996735e45cd768c349f0e792362a19f614a",
+    "experiments/reproductions/NPO/training_contract.py": "70df9b9aec59fdd7caf17f82502116687331520459ddf5ae332dc0a1561ad99f",
+    "experiments/reproductions/NPO/training_data.py": "3f28ee7efda1e4cbeab0033621fa5b961f330539e4656336d2edbe89d3084aa5",
+    "experiments/reproductions/NPO/training_forward.py": "32a192d60cd16d2a2d4d80cdcde8d45752f843800e4437f57b0c4602d6663d6f",
+    "experiments/reproductions/NPO/training_loop.py": "1f970122a45f62d7a0a172b1fc1c6c747e59c464c9f38cb46ce31528fdb425ab",
+    "experiments/reproductions/NPO/training_state.py": "7d56ffa2dcbe99a68e8a4555b57d9a64aa112dad36e5fe0294cf60ded53a368d",
+    "experiments/reproductions/NPO/validate_adapter.py": "9d8b9ee769b237feae151a57761e129ef70a411d5ac567d0c4fe64f128c88bd5",
+    "experiments/reproductions/NPO/validate_deepspeed_cpu.py": "3ecea175fa0d8601eedf45e207ecc7c5e581b2d088589b2352c2336fb985ed6d",
+    "experiments/reproductions/NPO/validate_paged_gpu.py": "bc298bc22ca92031ed86a6c1973047c6566588e8fe8c5cbec23724b9e19c1d26",
+    "experiments/reproductions/NPO/validate_runtime.py": "725fb4a788aed28b3c29e97cd7266d6f73242dd62cf8eb68d486b45e0a55b8b3",
+    "experiments/reproductions/NPO/validate_training_source.py": "c06a5517ffba86af794772007ad7869dda2ee6e6097d7d896f1b3ae1283c7f06",
+    "experiments/reproductions/NPO/validate_upstream.py": "1992032df18f94d7c50e862de6d079dc4e7c1161e28d87a15749eeebd4942e6b",
+    "experiments/reproductions/NPO/validation_contract.py": "c652540a3d28be413e380fc6b1c46dcff151d2f824ba0b85e33fb1f9a61759e0",
+    "requirements/kaggle-overlay.d1-candidate.in": "bfe3bae35ca3fa02cb985f5ad29c3658cbd32350afe257c3f6ccbc9f159b7815",
+    "scripts/kaggle_setup.py": "329e09360086b07bc0b78fc04ca74e302eb702f884723112233eeb646ad58176",
+    "scripts/mother_runner.py": "d9f05ee7f4787a184b9b893b7668e40766f6f1c655c192000be3e2229f239a54",
+    "tests/methods/NPO/__init__.py": "51bf742e62101af887be7839a2701dee17a4f5fa8ccf85a6897a4d661725deaf",
+    "tests/methods/NPO/test_adapter.py": "f701d035e8f34d4a4d95c524157f0f52daba4f814209b59e7ec4535c36714a55",
+    "tests/methods/NPO/test_conformance.py": "297d0fcdf7ceead3669951dec5b8b87a50683ed7fc907a04be5167abc5e2ec8c",
+    "tests/methods/NPO/test_d1_execution_boundary.py": "f633ad93599d5e88b5a90e1e4a0a1a9c1a656dd154fd700debc86886ac5d2b81",
+    "tests/methods/NPO/test_evaluation_runtime.py": "c574d85492a984a33e1fa6b2ff8f4472f5cb508ce16315db2808dee0ce125acb",
+    "tests/methods/NPO/test_optimizer.py": "34706db2baf6f98229093d191199ed6a33d2eb5df8d13ded15f261ad5950db09",
+    "tests/methods/NPO/test_preflight.py": "933a0caeb3c7cd71341dde3b2bfa4357b23f6e62eba46c8140edb11d3edb8e72",
+    "tests/methods/NPO/test_reference.py": "857631c7b26a0f0bfdcc13c67995033e1d821631f714a3a14066b5d92e862f34",
+    "tests/methods/NPO/test_source_metrics.py": "d16b89d65a84f93fd9ae09e8d72cd901578a38d220c41c1f54cd4615ced39913",
+    "tests/methods/NPO/test_training_contract.py": "c22b954cbce2faa7a496cd61e8ce1965c56c03a7380c9ddfbe93b7e3fbf7bf8e",
+    "tests/methods/NPO/test_training_data.py": "a14da34e5f5ca65ad1948ee957ff3bddd6c8afc995df22de81557781f2f5513c",
+    "tests/methods/NPO/test_training_forward.py": "79a23b63036c4d7b459b1e0fafc040b9a0951a1588b56d576578f252497947f4",
+    "tests/methods/NPO/test_training_loop.py": "76e4fd84cf29f31e8508f3ff5e03a5660949c231a11ff1b7d147c20b2008e367",
+    "tests/methods/NPO/test_training_state.py": "57a985aa43317c8c4438347ac3a46b8f586514ad84f1e585e827a62eb77822a5",
+    "tests/methods/NPO/test_validation_contract.py": "ef9079b3432d566c9f47e477a4d3d90075d3a051c31780c4c882695665d94390"
+  },
+  "files": [
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/C1_PRESERVATION.json",
+      "bytes": 498,
+      "sha256": "05b41b3c2a1bf1506bc199c88e97b723d10a95fc41f59144a3d695052058759c"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/CHECKS.json",
+      "bytes": 2055,
+      "sha256": "c942f8b876bc525aacea8395bf9ea225aa128945aaa00542fb4a447be5f13fff"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/CPU_ZERO3_EXECUTIONS.json",
+      "bytes": 1919,
+      "sha256": "c75154a75711284fbe600079623d67cb788ade5142dcb2d7949758ec5de4c720"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/CPU_ZERO3_FINAL_EXECUTION.json",
+      "bytes": 1110,
+      "sha256": "6c74d88cdd46eca6c7019a7ea8a2cf4467e420e6fc517a47f19ba9c452c63c8c"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/CPU_ZERO3_FINAL_RESULT.json",
+      "bytes": 488,
+      "sha256": "fd72da183d86ffba56fbcff76d33418b5448d183784480662df98089029c49b9"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/CPU_ZERO3_FINAL_forward_observations.jsonl",
+      "bytes": 705468,
+      "sha256": "a2f4bd6332a328fe6c703112bcec4176334c89f3ce3a18107e2959a3feb62d21"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/CPU_ZERO3_FINAL_microbatches.jsonl",
+      "bytes": 746578,
+      "sha256": "37d4edb2bdf058027beda5b9db6fe59117f8c041f1187d8aac34b422fb89ff8e"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/CPU_ZERO3_FINAL_stderr.log",
+      "bytes": 142636,
+      "sha256": "88c793731f177d6a28fc4260a0bdec72d069de108f89cc6e466bc1dcb9790fa2"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/CPU_ZERO3_FINAL_stdout.log",
+      "bytes": 971,
+      "sha256": "555b9dadc300c9a87ab6bddd4bcb8c9f6e2d1a0bd0c6108952b3c24f9ef2a56b"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/CPU_ZERO3_RESULT.json",
+      "bytes": 488,
+      "sha256": "fd72da183d86ffba56fbcff76d33418b5448d183784480662df98089029c49b9"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/CPU_ZERO3_microbatches.jsonl",
+      "bytes": 746578,
+      "sha256": "37d4edb2bdf058027beda5b9db6fe59117f8c041f1187d8aac34b422fb89ff8e"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/IMPLEMENTATION_REVIEW.json",
+      "bytes": 1532,
+      "sha256": "c0c1d6fdcc70fdd8725f2691ad48bfdcf59aca42e86f023e47c5562199eff7ab"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/LINEAGE.json",
+      "bytes": 1325,
+      "sha256": "affcaa1f65e0e438658cd5198a5c9be8db92aeda213280da87bc76362784d359"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/NOTEBOOKS.json",
+      "bytes": 2558,
+      "sha256": "3afa347f9defe5712380a1778b861d01f639cd142a9979701842e0b825db521b"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/OBJECTIVE_PARITY.json",
+      "bytes": 7507,
+      "sha256": "e91c11bc7ebf9ec775d872cc481f0f1287334c3df00eb2a58d083f29b653ae3e"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/PRIOR_D1_PRESERVATION.json",
+      "bytes": 275,
+      "sha256": "4b954e7424e0377b056955e891bf718d5e3ceb955c918a9408a2850a038dcc31"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/SECRET_SCAN_CODE.json",
+      "bytes": 95,
+      "sha256": "244083d2739033a9c6c6817adc2e1443f7aff2e6f979cd1d1927fdc31cba262e"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/SOURCE_CONFORMANCE.json",
+      "bytes": 5520,
+      "sha256": "80812a72c6f8acf4e6dbf2998d63d7993324d0c0026e8c8de9164f656bd31443"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/cpu_loop_20260927_a.stderr.log",
+      "bytes": 1871,
+      "sha256": "0d5ab5c6ca84accfa51330e7900eb16475fba0e3df1e89c7ea482d6746f1a9c8"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/cpu_loop_20260927_a.stdout.log",
+      "bytes": 173,
+      "sha256": "2dc610a43ce0e5e80511126d6862aeedeb68b550d7229cee28b3e262a76b3f48"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/cpu_loop_20260927_b.stderr.log",
+      "bytes": 142636,
+      "sha256": "88c793731f177d6a28fc4260a0bdec72d069de108f89cc6e466bc1dcb9790fa2"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/cpu_loop_20260927_b.stdout.log",
+      "bytes": 971,
+      "sha256": "e3b214b06c00866f0e0c560be1c160010df5fcec7c176793db4b413304bfd2c1"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/cpu_suite.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/cpu_suite.stdout.log",
+      "bytes": 3802,
+      "sha256": "4732ff956a46019717ff5b65e55edbd0e709c19c375176454fc7a391106727e9"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/format.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/format.stdout.log",
+      "bytes": 28,
+      "sha256": "cbe88957293375728c82711c04eac17517fa43bcb787dcdd5b71f1468540688f"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/lint.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/lint.stdout.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/notebooks.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/notebooks.stdout.log",
+      "bytes": 41,
+      "sha256": "ca55e48085e5ba4808c80219764cf9a26b97829383c239cf03ed0a26a86af2fc"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/upstream_objective.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/upstream_objective.stdout.log",
+      "bytes": 6235,
+      "sha256": "f0c84c70b56a6db26c13cbed0a0fc443c3770d535d0dedc3c469e85f637e7671"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/upstream_schedule_metrics.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/20260927_runtime_readiness/upstream_schedule_metrics.stdout.log",
+      "bytes": 25,
+      "sha256": "d4eb5fa64d0c84787c2d0464c3ca03576b44a22c18cfd331027e894d039e0174"
+    }
+  ],
+  "acceptance": {
+    "cpu_tests": "378 passed, 4 skipped, 10 deselected, 1 xfailed",
+    "cpu_returncode": 0,
+    "notebooks": 14,
+    "native_cpu_zero3_updates": 62,
+    "c1_preserved_entries": 174,
+    "source_loss_and_metric_parity": "PASS",
+    "kaggle_submissions": 0,
+    "independent_review": false
+  },
+  "supported_claims": [
+    "Pinned-source CPU conformance",
+    "Complete tiny CPU training loop and native ZeRO-3 control flow",
+    "Runtime/evaluator implementation with tested negative boundaries"
+  ],
+  "unsupported_claims": [
+    "NPO trained at 1B",
+    "GPU optimizer/memory acceptance",
+    "Source-defined scientific results",
+    "Reloadable trained 1B checkpoint",
+    "External archive agreement",
+    "Forgetting/recovery/durability effectiveness"
+  ],
+  "attack_detected": null,
+  "durability_pass": null,
+  "next_action": "Substantive D1 review before first bounded private Kaggle submission"
+}

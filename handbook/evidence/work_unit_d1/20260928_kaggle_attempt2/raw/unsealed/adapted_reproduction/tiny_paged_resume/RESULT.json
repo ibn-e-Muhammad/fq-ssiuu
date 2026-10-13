@@ -1,0 +1,114 @@
+{
+  "status": "PASS_TINY_RANDOM_GPU_RESUME_ONLY",
+  "checkpoint_manifest": {
+    "schema": "npo-deepspeed-state-v1",
+    "status": "COMPLETE",
+    "identities": {
+      "source_commit": "485504904d8116797430da7234e1a6bef5dee22c",
+      "source_spec_sha256": "be073b839516e12f73a52671f4e39d59fcc65f52d2140e63d7805f2a25f812ee",
+      "train_config_sha256": "87afbde402642220b2227f58d3ef11f747a45e61d2f82664eb00bf02e44c3f88",
+      "eval_config_sha256": "02f1f95635fe2e9af57870e7ed78791ffbd2204c29cb5e25555c8c3871c67b40",
+      "initial_checkpoint_sha256": "396f29c07211c739f2ccc6a12d94b2cce41fddd57c81ab8473dcd382e072e06e",
+      "reference_checkpoint_sha256": "396f29c07211c739f2ccc6a12d94b2cce41fddd57c81ab8473dcd382e072e06e",
+      "tokenizer_revision": "485504904d8116797430da7234e1a6bef5dee22c",
+      "dataset_revision": "485504904d8116797430da7234e1a6bef5dee22c",
+      "preprocessing_sha256": "bc298bc22ca92031ed86a6c1973047c6566588e8fe8c5cbec23724b9e19c1d26",
+      "sample_membership_sha256": "722c85692c5e14f6db6d498be499713d2008295c0a301394dd968d61a557540e"
+    },
+    "identities_sha256": "6a7278af9ae84cfee22f58800a3583481aac743e2582208c7e0b391168b5e1fb",
+    "optimizer_step": 2,
+    "files": [
+      {
+        "path": "state/zero_pp_rank_0_mp_rank_00_model_states.pt",
+        "sha256": "2f6dba9bc53c0eb77842784cc459e75d3c0d1f94631e37a38b4809bc03c039df",
+        "bytes": 32417
+      },
+      {
+        "path": "state/zero_pp_rank_0_mp_rank_00_optim_states.pt",
+        "sha256": "6c098f5fbba0ca909ec79c804cf764be85c5c6e9d706b97e96eeb1ad905ba1a4",
+        "bytes": 1680137
+      },
+      {
+        "path": "zero_to_fp32.py",
+        "sha256": "54f74b8a39616e5c2a32c028a51524b1d8c481a15cd8b5961bb8125de244aed9",
+        "bytes": 38161
+      },
+      {
+        "path": "zero_to_torch.py",
+        "sha256": "b1f54984e60ece6da9343a70233ef4e04653e8ce4c2739faa4363cd124a99561",
+        "bytes": 2490
+      }
+    ]
+  },
+  "before_moments": [
+    {
+      "name": "state1",
+      "numel": 139264,
+      "dtype": "torch.float32",
+      "is_paged": true
+    },
+    {
+      "name": "state2",
+      "numel": 139264,
+      "dtype": "torch.float32",
+      "is_paged": true
+    },
+    {
+      "name": "state1",
+      "numel": 320,
+      "dtype": "torch.float32",
+      "is_paged": false
+    },
+    {
+      "name": "state2",
+      "numel": 320,
+      "dtype": "torch.float32",
+      "is_paged": false
+    }
+  ],
+  "restored_moments": [
+    {
+      "name": "state1",
+      "numel": 139264,
+      "dtype": "torch.float32",
+      "is_paged": true
+    },
+    {
+      "name": "state2",
+      "numel": 139264,
+      "dtype": "torch.float32",
+      "is_paged": true
+    },
+    {
+      "name": "state1",
+      "numel": 320,
+      "dtype": "torch.float32",
+      "is_paged": false
+    },
+    {
+      "name": "state2",
+      "numel": 320,
+      "dtype": "torch.float32",
+      "is_paged": false
+    }
+  ],
+  "compared_microbatches": 16,
+  "max_loss_error": 0.0,
+  "masters_bit_identical": true,
+  "scheduler_equal": true,
+  "rng_equal": true,
+  "not_a_1b_training_result": true,
+  "parent_run_identities": {
+    "source_commit": "485504904d8116797430da7234e1a6bef5dee22c",
+    "source_spec_sha256": "be073b839516e12f73a52671f4e39d59fcc65f52d2140e63d7805f2a25f812ee",
+    "train_config_sha256": "f32a35dbe9b82fcefffc12709c09a22224bf2dee05c67326a4a1aa6ccfadd9e1",
+    "eval_config_sha256": "0db526da36ac9c60946cb6e4046005061585f870a42ed3ed10099a4ca6084194",
+    "initial_checkpoint_sha256": "35b0cd9f7db2735538ff78b4879fab61b23b7ca316df27b059585bf656700a8d",
+    "reference_checkpoint_sha256": "35b0cd9f7db2735538ff78b4879fab61b23b7ca316df27b059585bf656700a8d",
+    "tokenizer_revision": "88e31200b97e4c0c04ae0d2f0b591f427046d192",
+    "dataset_revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+    "preprocessing_sha256": "cf728f9b6797925394671496a592ea4b9d1466d7afaeb5431a94841056cd80e7",
+    "sample_membership_sha256": "2164ba5e6d93eec38efef66a6a7c864b62388c0bcef5c984967890af011a382b"
+  },
+  "synthetic_identity_semantics": "Random initial tensor hash; code revision identifies synthetic integer-token generator. No TOFU/model checkpoint identity is claimed for this test."
+}

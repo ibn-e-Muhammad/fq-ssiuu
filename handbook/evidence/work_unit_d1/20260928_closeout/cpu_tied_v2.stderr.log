@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/experiments/reproductions/NPO/validate_optimizer_compatibility.py", line 229, in <module>
+    "source": source_groups(args.sources, args.trainer, args.target_config),
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/muhammad-arslan/Downloads/projects/fq-ssiuu/experiments/reproductions/NPO/validate_optimizer_compatibility.py", line 86, in source_groups
+    raise ValueError("Decay assignment differs from executed pinned Trainer")
+ValueError: Decay assignment differs from executed pinned Trainer

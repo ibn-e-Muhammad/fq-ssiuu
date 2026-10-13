@@ -1,6 +1,6 @@
 # Master execution plan
 
-Updated 2026-09-25. FQ-SSIUU: Verifiable Machine Unlearning Against Quantisation
+Updated 2026-09-28. FQ-SSIUU: Verifiable Machine Unlearning Against Quantisation
 Recovery Attacks in Large Language Models. Muhammad Arslan (23BSAI020), Rohan Ahmed
 (23BSAI008), supervisor Dr. Sania Bhatti; BS AI, MUET, 2026–27.
 
@@ -11,15 +11,21 @@ The research aims to test empirical durability under a defined protocol at about
 pilots establish only the behavior of their historical implementations. Full
 hypothesis testing has not begun.
 
-Active branch: `fix/matched-precision-qra-protocol`, from remote dev
-`2334f321b3ccf08352c29b1842200863b757c9d1` (PR #9 merged). Prior A/B branches
-are superseded and retained. Work unit C has one branch and one PR, no training,
-both Kaggle executions consumed, and no more runtime work in this correction.
+Active branch: `repro/npo-1b-source-faithful`, from remote dev
+`5ca92bfa0863a9ffadcd70bfc5f28c8ee8c6e76a` (PR #10 researcher-reviewed and merged).
+Prior A/B/C branches are superseded and retained. D1 is NPO-only; all three
+researcher-authorized T4 attempts are now used. CI 69 passed at `1e4a093`; offline
+acceptance is 389 tests. Mother v7 cleared optimizer initialization and completed
+the first 1B NPO+RT forward with the frozen full reference, then OOM'd on its first
+backward. No 1B update/checkpoint; sampled peak 16,086,401,024 bytes exceeds the
+16e9 limit. Preserve this failure, commit/push its outcomes and stop as requested
+for researcher audit. No fourth submission or further repair is authorized.
 Researcher scope correction: source-faithful constituent reproductions and
 descriptive measurements may proceed independently of deferred Protocol v2;
 project decisions/full study still require final confirmatory-protocol approval.
-Preserve old overlays and evidence; only the demonstrated Transformers 5.0.0 /
-bitsandbytes 0.45.5 incompatibility authorizes candidate 0.46.1 integration.
+Preserve old overlays and evidence. C1 accepted bitsandbytes 0.46.1 for inference.
+D1 adds only a pinned DeepSpeed/hjson candidate for the source training path,
+subject to protected-stack resolution, differential consistency and GPU acceptance.
 
 Canonical future compute remains one Tesla T4, CUDA_VISIBLE_DEVICES=0, FP16 and
 peak selected-device VRAM below 16,000,000,000 bytes; no sharding or second GPU.
@@ -40,7 +46,8 @@ resolve with Git history instead of inventing a self-referential hash.
 | Operational dev integration | Accepted runtime/review/CI | Reviewed diff, preserved raw evidence, no secrets/DOCX/main changes | COMPLETE, PR #7 | `d310815c`; review fixes `291bbda5` | `handbook/evidence/integration/20260908_pr7/` | Preserve merged historical branches | None |
 | Method code organisation | Current dev | Separate candidates/historical methods; one first notebook; imports/CLI/tests compile; raw paths unchanged | PASS within layout/CPU scope | Containing commit | `experiments/LAYOUT.json`; `handbook/evidence/scientific_reconciliation/20260910_contract_and_npo/` | Use published layout at `0715877`; PR #8 merged, dev `fb988279`, CI passed | None |
 | Work unit B data/reference/metrics | Work unit A objective parity; OG-001 | Real pinned adapter/upstream tensor checks, immutable unquantized reference, directional metric/paired uncertainty behavior, fail-closed provenance, bounded FP16 runtime | PASS within bounded validation scope; 1/2 submissions used | Containing commit | `handbook/methods/WORK_UNIT_B_CONFORMANCE.md`; `handbook/evidence/work_unit_b/20260922_attempt1_318e523a/` | Merged PR #9; preserve bounded claims and evidence | Paper arithmetic Truth Ratio chosen by researcher; final decision rule remains unapproved |
-| C1 matched precision | B boundary; OG-001 | Same pinned checkpoint sequential FP16/INT8/NF4; actual packed-state identities, forward/generation/metrics; differential package consistency; <16 GB one T4; no training | PASS within inference scope; 2/2 submissions used | `14669f34` | `handbook/evidence/work_unit_c/20260924_attempt2_14669f3/` | Preserve validated 0.46.1 lock and both attempts; review PR #10 | None |
+| C1 matched precision | B boundary; OG-001 | Same pinned checkpoint sequential FP16/INT8/NF4; actual packed-state identities, forward/generation/metrics; differential package consistency; <16 GB one T4; no training | PASS within inference scope; 2/2 submissions used; PR #10 merged | `14669f34` | `handbook/evidence/work_unit_c/20260924_attempt2_14669f3/` | Preserve validated 0.46.1 lock and both attempts | None |
+| D1 NPO 1B adapted reproduction | A/B NPO boundary; merged C; pinned primary source | Source conformance, full-parameter optimization, nondegenerate gradients, save/resume, source metrics, immutable identities, <16,000,000,000 bytes and matching private archives | PARTIAL / FAILED GPU ACCEPTANCE: 3/3 attempts used; first 1B forward completed, first backward OOM, zero updates and memory ceiling exceeded | Runtime `1e4a093`; containing outcome commit | `handbook/evidence/work_unit_d1/20260928_kaggle_attempt3/`; `handbook/reports/WORK_UNIT_D1_REPORT.md` | Stop after outcome commit/push; await researcher audit | Researcher next-step instructions; no further action authorized |
 | C2 project protocol | Constituent 1B reproductions and bounded pilots; primary sources | Content-recomputed evaluations, bound oracle, derived nine-component utility, author-cluster/multi-seed uncertainty, versioned ex-ante rules | DEFERRED_UNTIL_BASE_METHOD_PILOTS / PROPOSED_NOT_APPROVED; decisions null | Containing commit | `handbook/methods/QRA_PROTOCOL_v2.md`; C final report | Keep non-executable; revisit only after constituent reproductions/pilots for final confirmatory approval | Final confirmatory-protocol approval later; no Protocol v2 approval needed for source-faithful reproduction |
 | RG-005 QRA/report contract | RG-004 interpretation | No p-value recovery score; matched provenance; nullable independent decisions; real metric definitions and approved decision rule before verdicts | BLOCKED for confirmatory QRA verdicts/full study; source-faithful reproduction/descriptive collection allowed | Containing commit | `handbook/methods/QRA_OUTCOME_CONTRACT.md`; `tests/methods/QRA/` | Preserve null project decisions; apply reproduction policy without activating v2 | Researcher approval before thresholds/protocol freeze |
 | RG-006 NPO parity | Pinned author and OpenUnlearning | Causal sequence loss/current-retain gradients; answer/EOS adapter; frozen unquantised reference; explicit variants/adaptations | RESOLVED for objective/data/reference boundary; no training reproduction | Containing commit | `handbook/methods/NPO_CONFORMANCE.md`; reconciliation evidence | Preserve accepted boundary; complete source-faithful training reproduction in a separate work unit | No new scientific choice needed for upstream parity |

@@ -1,0 +1,2 @@
+[2026-09-28 17:36:05,418] [WARNING] [real_accelerator.py:199:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+{"status": "PASS_CPU_SUBGROUP_EQUIVALENCE_AND_RESUME_ONLY", "cross_group_loss_max_abs_error": 0.0, "cross_group_state_max_abs_error": {"masters": 0.0, "moment1": 0.0, "moment2": 0.0}}

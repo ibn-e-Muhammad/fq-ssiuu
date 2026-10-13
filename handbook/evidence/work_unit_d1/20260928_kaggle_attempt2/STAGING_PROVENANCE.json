@@ -1,0 +1,13 @@
+{
+  "parameters": {
+    "source_origin_sha": "485504904d8116797430da7234e1a6bef5dee22c",
+    "source_tree_sha": "6e0ee868c68d4aef6e2cc7041c443dedfdb7970b",
+    "source_manifest_sha256": "6e221d0b736fb09776373842b9a2b86311c7a0938f7e4b0afb611c73adb18121",
+    "dataset_id": "muhammadii/fq-ssiuu-d1-source-4855049",
+    "orchestration_commit": "485504904d8116797430da7234e1a6bef5dee22c",
+    "recipe": "configs/runs/work_unit_d1_npo_v1.json"
+  },
+  "committed_notebook_sha256": "a55506fd4d23b76a151617f27188bb7302beff5447108cf54a49ed672ee7a8a8",
+  "staged_notebook_sha256": "561d4a1e256d820c6f32eb5413168ed67ea2e8a22abc36bb91e41877d2d33ad0",
+  "metadata_sha256": "b525833d4a7a2d509b5c25147518ff7829906edb72079d87e8da82e8acf8dbdc"
+}

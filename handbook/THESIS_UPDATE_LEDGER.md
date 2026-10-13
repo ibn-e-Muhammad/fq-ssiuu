@@ -95,3 +95,56 @@ measured-zero-component utility aggregate is not general utility failure. Packed
 quantized tensors were hashed but not persisted. No forgetting/recovery/durability
 finding follows. Protocol v2 is deferred until base-method pilots, unapproved and
 non-executable; source requirements are not awaiting that approval. DOCX untouched.
+
+## D1 source/data preflight — 2026-09-25
+
+Chapter 2: distinguish the source NPO+RT default from pure NPO, preserve the
+sequence-summed forgetting and token-mean retain definitions, and cite the pinned
+author source in `methods/NPO_D1_SOURCE_ADAPTATION.md`.
+Chapter 3: record the accepted 1B/chat adaptation, verified forget05/retain95
+source membership and proposed global-batch-preserving resource adjustment.
+Preflight covers all 4,000 training rows; a tiny CPU backward check establishes
+parameter-gradient wiring only. Logical parameter/optimizer bytes are not a GPU
+peak-memory measurement. No 1B optimization, checkpoint/resume or source-defined
+evaluation has run. Add no Results finding. All four DOCX files remain untouched.
+
+D1 continuation (2026-09-26): Chapter 3 may document source-executed pairing and
+metric parity, approved accumulation 8, historical effective clipping 0, distinct
+sampler/global/generation seed roles, and exact tiny CPU ZeRO-3 resume. These
+validate engineering boundaries; FP16 paged optimization and 1B feasibility
+remain untested. Add no Results finding; DOCX files remain untouched.
+
+D1 continuation (2026-09-27): Chapter 3 may describe the implemented 62-step
+training loop, source-sized sampled evaluator, separate full NPO reference and
+retain-only diagnostic oracle, hash-bound oracle records, and preservation of
+partial observations/checkpoints. The full loop has executed only on a tiny
+random CPU model, including real ZeRO-3; it is not a 1B reproduction result.
+GPU paging, 1B memory, source evaluation and archive agreement remain unvalidated.
+No Chapter 4 effectiveness result; the four DOCX files remain untouched.
+
+D1 attempt 1 / repair (2026-09-28): environment/data preparation passed on T4,
+but a scheduler/group API incompatibility stopped the tiny GPU preflight before
+1B loading. Preserve this as an operational failure, with no Chapter 4 finding.
+Chapter 3 should record restoration of the publication-era Llama RMSNorm
+no-decay grouping and deferred scheduler construction; source settings are
+unchanged. CPU tests do not establish GPU paging or 1B training. Failed-run
+archives are verified in both private stores; DOCX files remain untouched.
+
+D1 attempt 2 / closeout (2026-09-28): Chapter 3 may describe verified tiny
+FP16 GPU paged-optimizer restore (16 resumed microbatches, identical losses,
+masters, scheduler and RNG), while explicitly excluding a 1B training claim.
+The 1B candidate loaded but optimizer initialization exhausted memory before
+any update or frozen full-reference loading. Whole-attempt sampled peak was
+15,935,406,080 bytes; this does not establish training feasibility. Both failed
+attempts and complete private archives are retained. The corrected tied meta
+inventory has 1,235,814,400 unique parameters; the earlier untied fixture count
+is superseded, with its raw record preserved. No Chapter 4 effectiveness result,
+new method acceptance or Protocol v2 activation. DOCX files remain untouched.
+
+D1 attempt 3 / requested stop (2026-09-28): Chapter 3 may state that approved
+smaller ZeRO groups cleared optimizer initialization, the full 1B candidate and
+frozen full reference completed one NPO+RT forward, and the first backward failed
+with CUDA OOM. No completed 1B update or trained checkpoint. Sampled device peak
+16,086,401,024 bytes exceeded the 16e9 limit. Initial finite loss is wiring evidence,
+not learning or effectiveness evidence; no Chapter 4 scientific result. Preserve
+the failed artifacts and stop after outcome commit/push for researcher audit.

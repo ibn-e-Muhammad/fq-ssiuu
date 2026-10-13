@@ -1,0 +1,76 @@
+{
+  "status": "FAIL_FIRST_1B_BACKWARD_OOM_AND_MEMORY_CEILING",
+  "work_unit_status": "PARTIAL_WITH_EVIDENCE_PAUSED_FOR_RESEARCHER_AUDIT",
+  "run_id": "20260928-124613-efd94997a1e8",
+  "source_commit": "1e4a0937cc58843d1dd74b8ebdcfb2b14a5c1080",
+  "mother_version": 7,
+  "attempt_number": 3,
+  "authorized_total_submissions": 3,
+  "further_submissions_authorized": false,
+  "environment": "BASELINE_DIRTY_NO_REGRESSION",
+  "tiny_gpu_resume": {
+    "status": "PASS_TINY_RANDOM_GPU_RESUME_ONLY",
+    "compared_microbatches": 16,
+    "max_loss_error": 0.0,
+    "masters_bit_identical": true,
+    "scheduler_equal": true,
+    "rng_equal": true
+  },
+  "one_b_optimizer_initialization": "PASS",
+  "full_frozen_reference_loaded": true,
+  "unique_trainable_parameters": 1235814400,
+  "one_b_forward_records": 1,
+  "one_b_backward_attempts": 1,
+  "one_b_completed_backward_passes": 0,
+  "one_b_completed_microbatches": 0,
+  "one_b_training_optimizer_updates": 0,
+  "trained_one_b_checkpoint": null,
+  "post_unlearning_metrics": null,
+  "initial_forward_losses": {
+    "npo_loss": 13.862943649291992,
+    "retain_loss": 0.08412517607212067,
+    "total_loss": 13.94706916809082
+  },
+  "initial_loss_interpretation": "First-batch wiring observation at initialization, not a trajectory or effectiveness result. Candidate/reference NLLs are equal; reference graph detached.",
+  "failure_raw": "raw/unsealed/adapted_reproduction/traceback.log",
+  "failure_allocation_mib": 124.0,
+  "reported_free_mib": 20.81,
+  "memory": {
+    "device_uuid": "GPU-eb90c78c-2965-839d-125b-cfc71650cd3a",
+    "peak_allocated_bytes": 14163470336,
+    "peak_reserved_bytes": 14526971904,
+    "sampled_peak_device_used_bytes": 16086401024,
+    "device_sampling_interval_seconds": 0.1,
+    "qualification": "NVML sampled device peak includes managed/non-PyTorch memory; sub-interval transients are not continuously measured.",
+    "limit_bytes": 16000000000,
+    "telemetry_errors": []
+  },
+  "memory_acceptance": "FAIL",
+  "memory_excess_sampled_bytes": 86401024,
+  "memory_scope": "Whole attempt; 0.1-second NVML sampling, not continuous sub-interval peak.",
+  "inner_archive_sha256": "fcd9a10525c22b6fb14fb0ba6861246b9e38dca01875fd2eaf7444d814bd1249",
+  "complete_archive_sha256": "0b872fee75c953fa0581d8a54ce9919c32a51f66c85b8ebdf830a8257644cf72",
+  "archives": "PASS_LOCAL_KAGGLE_HUGGINGFACE_HASH_AGREEMENT",
+  "archive_receipts": [
+    "kaggle_complete_receipt.json",
+    "huggingface_complete_receipt.json"
+  ],
+  "supported_claims": [
+    "Approved subgroup setting cleared prior optimizer-init failure",
+    "First full target/reference NPO+RT forward completed",
+    "First backward failed OOM before any completed training update",
+    "Raw records and private archives hash-verified"
+  ],
+  "unsupported_claims": [
+    "Successful NPO 1B reproduction",
+    "Nondegenerate completed 1B optimization",
+    "Reloadable trained 1B checkpoint",
+    "Forgetting, recovery, durability or effectiveness"
+  ],
+  "attack_detected": null,
+  "durability_pass": null,
+  "protocol_v2": "DEFERRED_NON_EXECUTABLE",
+  "gates_changed": [],
+  "researcher_instruction": "Check failure, commit and push outcomes, then stop for audit; no extra work.",
+  "next_action": "Await researcher audit and instructions; no repair/run/merge."
+}

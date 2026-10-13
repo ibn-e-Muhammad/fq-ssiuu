@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "dataset": "muhammadii/fq-ssiuu-d1-20260927-e8483bf31420",
+  "dataset_id": 12245478,
+  "private": true,
+  "archive_sha256": "2dbbfb2f98d0ca51aed1b1c2c5c699aef9265f4ebc18478b9d6171094ee3f77b",
+  "manifest_sha256": "c0bb21f40cc32328131944c40bff0e6b1e95425b92a32aa2fae42f3abf4cbba3",
+  "downloaded_or_reconstructed_members_verified": 127,
+  "archive_transport": "Kaggle auto-extracted both tar levels. All downloaded member hashes verified, then canonical tar headers rebuilt; reconstructed inner and complete archive hashes match originals. No direct byte-preserved tar download is claimed."
+}

@@ -1,0 +1,30 @@
+{
+  "code_commit": "97e005af195cb79e8faae0dedf09aa42b6f318cb",
+  "reviewer": "primary implementation agent",
+  "independent_review": false,
+  "status": "PASS_FOR_BOUNDED_OPERATIONAL_RETRY",
+  "reviewed_file_hashes": {
+    "experiments/reproductions/NPO/engine.py": "026ec93a30dbb5a6a3d278f4ff5a62116f3a0832e455274721b587e5ada23ae2",
+    "experiments/reproductions/NPO/optimizer.py": "571651b355ece29c2152f6ad8b6de8ca62ec22fdc5f1072ec19042818a15221e",
+    "experiments/reproductions/NPO/validate_optimizer_compatibility.py": "e348e794a97e5e5a581b084b0637b4a2ce285237a2fa9c7be237e1950dc9d105",
+    "tests/methods/NPO/test_optimizer.py": "b60de077ed76c2e10abedd99191e8286a12811783c81c4d9596c16aff451651a"
+  },
+  "reason": "Operational/API defect reproduced locally with actual DeepSpeed and repaired against the pinned primary source. D1 permits one code-reviewed operational repair; original researcher review and latest continue instruction remain recorded.",
+  "checks": [
+    "Source RMSNorm exclusion restored explicitly, without global mutation",
+    "No source objective, beta, retain term, reference, split, seed, batch size, step count, LR or optimizer changed",
+    "Native scheduler factory runs after group normalization; 63 LR states and 62 updates tested",
+    "Native scheduler state survives checkpoint restore",
+    "Pinned source grouping verified on exact 1B architecture with meta tensors",
+    "Full offline suite 381 passed; no skipped new core tests",
+    "Failed first run retained with matching private archives"
+  ],
+  "remaining_gpu_acceptance": [
+    "tiny actual paged FP16 resume",
+    "1B full-parameter optimization",
+    "source evaluation",
+    "checkpoint reload",
+    "selected-device memory",
+    "private archive agreement"
+  ]
+}

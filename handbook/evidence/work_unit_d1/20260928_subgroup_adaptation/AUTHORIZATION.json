@@ -1,0 +1,18 @@
+{
+  "status": "APPROVED",
+  "researcher_response": "Approve resource change and one extra attempt",
+  "date": "2026-09-28",
+  "scope": "Only ZeRO subgroup size 1e9 to 1e8; one additional single-T4 execution after offline update/resume checks and review. Full-parameter NPO+RT, full GPU reference, paged FP32 AdamW, batch and schedule unchanged.",
+  "previous_submissions": 2,
+  "additional_submissions_authorized": 1,
+  "total_submission_limit": 3,
+  "classification": "category-3 resource adaptation",
+  "not_authorized": [
+    "LoRA or PEFT substitution",
+    "reference offload",
+    "optimizer substitution",
+    "objective/hyperparameter changes",
+    "second GPU",
+    "Protocol v2 verdicts"
+  ]
+}

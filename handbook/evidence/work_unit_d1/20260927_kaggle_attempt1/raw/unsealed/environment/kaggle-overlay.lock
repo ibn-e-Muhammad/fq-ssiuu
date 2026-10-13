@@ -1,0 +1,23 @@
+# FQ-SSIUU Overlay Lock (Generated: 2026-09-27T13:08:18.255647+00:00)
+# Run ID: 968bf644-f4df-487e-95c6-11b964f95a79
+# Git SHA: 1e1818dfa87a9d2691ae7f7c3f2ef64c99562d1f
+# Non-protected overlay dependencies (added/upgraded/downgraded):
+bitsandbytes==0.46.1  # operation: added, before: None
+captum==0.7.0  # operation: added, before: None
+dataproperty==1.1.1  # operation: added, before: None
+deepspeed==0.19.7  # operation: added, before: None
+evaluate==0.4.6  # operation: added, before: None
+hjson==3.1.0  # operation: added, before: None
+hydra-core==1.3.6  # operation: added, before: None
+jsonlines==4.0.0  # operation: added, before: None
+lm-eval==0.4.13  # operation: added, before: None
+mbstrdecoder==1.1.5  # operation: added, before: None
+pathvalidate==3.3.1  # operation: added, before: None
+portalocker==4.3.0  # operation: added, before: None
+pytablewriter==1.2.1  # operation: added, before: None
+sacrebleu==2.6.0  # operation: added, before: None
+sqlitedict==2.1.0  # operation: added, before: None
+tabledata==1.3.5  # operation: added, before: None
+tcolorpy==0.1.7  # operation: added, before: None
+typepy==1.3.5  # operation: added, before: None
+word2number==1.1  # operation: added, before: None

@@ -1,0 +1,155 @@
+{
+  "commits": [
+    {
+      "sha": "1207bbe9a1abf502bc2d7b43a0a467d9524b4036",
+      "date": "2024-07-15T18:10:34Z",
+      "message": "update synthetic"
+    },
+    {
+      "sha": "eb877a351f4878f5b9ad6cbd44c27818e3b4b74b",
+      "date": "2024-04-10T04:15:57Z",
+      "message": "Update README.md"
+    },
+    {
+      "sha": "7e0849d5160d0de2c14288b73dd0afbe2b257500",
+      "date": "2024-04-08T09:19:51Z",
+      "message": "Add files via upload"
+    },
+    {
+      "sha": "e8b47a9edda9626330504f613822ac3ffe085b14",
+      "date": "2024-04-08T09:17:00Z",
+      "message": "Add files via upload"
+    },
+    {
+      "sha": "5f88a03db3789b83bc39fd6bddd3c11ad726df0c",
+      "date": "2024-04-08T09:16:01Z",
+      "message": "Add files via upload"
+    },
+    {
+      "sha": "3a330d84b1706240b571242b305101d998481fd9",
+      "date": "2024-04-08T09:15:43Z",
+      "message": "Add files via upload"
+    },
+    {
+      "sha": "57d9d348a5a2e58e44c89bb67debef560428c665",
+      "date": "2024-04-08T09:15:11Z",
+      "message": "Delete evals directory"
+    },
+    {
+      "sha": "c1b3b32da2a699a875852939487b82c42c3567a0",
+      "date": "2024-04-08T09:15:02Z",
+      "message": "Delete config directory"
+    },
+    {
+      "sha": "38d2414db9a65fd89fa482d6238a1a0da63b1302",
+      "date": "2024-04-08T09:14:22Z",
+      "message": "Rename utils.py to TOFU/utils.py"
+    },
+    {
+      "sha": "2d6d0d519166a39eeb004d62582220ad63f1188a",
+      "date": "2024-04-08T09:14:08Z",
+      "message": "Rename retrain.py to TOFU/retrain.py"
+    },
+    {
+      "sha": "36415b3fe9ef6b771180954a20f91c3ea8ee60b8",
+      "date": "2024-04-08T09:13:56Z",
+      "message": "Rename forget.py to TOFU/forget.py"
+    },
+    {
+      "sha": "98797fb570f95fae25888f7bdf8d76d94446fd3b",
+      "date": "2024-04-08T09:13:44Z",
+      "message": "Rename finetune.py to TOFU/finetune.py"
+    },
+    {
+      "sha": "0231e48e7ffe2ae532f4f8efc12a8aadbcd8f9a7",
+      "date": "2024-04-08T09:13:32Z",
+      "message": "Rename evaluate_util.py to TOFU/evaluate_util.py"
+    },
+    {
+      "sha": "9e5f646b09bb5f1a6eed16085220ed1c3affa42d",
+      "date": "2024-04-08T09:13:19Z",
+      "message": "Rename dataloader.py to TOFU/dataloader.py"
+    },
+    {
+      "sha": "da5f57b71ec739f73d21665a1fe0c05ffa4fe762",
+      "date": "2024-04-08T09:13:02Z",
+      "message": "Rename data_module.py to TOFU/data_module.py"
+    },
+    {
+      "sha": "3bb1366256c675ed38f2e1865a9d954342ce7652",
+      "date": "2024-04-08T09:11:40Z",
+      "message": "Add files via upload"
+    },
+    {
+      "sha": "025d1efbeb5afeae84ea4ad2d796172e920c0c4f",
+      "date": "2024-04-08T08:30:13Z",
+      "message": "Create readme"
+    },
+    {
+      "sha": "cea5d3fd7b3a55fcc191746d8e6ad75c4ac06817",
+      "date": "2024-04-08T03:24:27Z",
+      "message": "Update README.md"
+    },
+    {
+      "sha": "a4f31387f01b77e70743a1d1c0201d702a1a4e11",
+      "date": "2024-04-08T03:11:11Z",
+      "message": "update"
+    },
+    {
+      "sha": "356fd9cb8dcd185f73e5dd4fb6537d1125cab02d",
+      "date": "2024-04-08T03:04:29Z",
+      "message": "Initial commit"
+    }
+  ],
+  "comparison": {
+    "base": "eb877a351f4878f5b9ad6cbd44c27818e3b4b74b",
+    "head": "1207bbe9a1abf502bc2d7b43a0a467d9524b4036",
+    "files": [
+      "synthetic/dist.py"
+    ]
+  },
+  "tree_sha": "1207bbe9a1abf502bc2d7b43a0a467d9524b4036",
+  "license_paths": [],
+  "source_files": {
+    "README.md": {
+      "sha256": "398f5fe8a1e513ee3664f8db4770bcb46132a45b75607e379fde70c7daf3944d",
+      "git_blob": "036328d1e20b4ac4a96be6d533285742c95cdc45"
+    },
+    "TOFU/config/ds_config.json": {
+      "sha256": "50112c35f92600290d224134840941254e5553d4432717d94e9ab24a10a4d188",
+      "git_blob": "0054e2c690896cb9bd17aa3b329a4c2217e74ba2"
+    },
+    "TOFU/config/eval.yaml": {
+      "sha256": "5ee905cb72d6c0a694c28a821261e1ed6b91b209fcecc215550c29bd7c76b151",
+      "git_blob": "6b1c38c23125a8f802277f447018980428087d80"
+    },
+    "TOFU/config/forget.yaml": {
+      "sha256": "c0e00825cd3157166b4188e0857239e0c4f5f889509874564bef501ed1b98e60",
+      "git_blob": "397371e852321d47a7f5c87dd830364fd01a5117"
+    },
+    "TOFU/config/model_config.yaml": {
+      "sha256": "c64a12ef5f079fcffc1e08e9dd2363e4c07b968fe5630fce97e37836a42b6e2d",
+      "git_blob": "22d2135f7220af6ee1c01a40beaf079412e58428"
+    },
+    "TOFU/data_module.py": {
+      "sha256": "8e076f18c20b663dbad9862a5d97c25e91fe4f9475bed77e597dbc2b349abf31",
+      "git_blob": "b2e9f764e9c01c57d8df68a7e6edc9c911e4486b"
+    },
+    "TOFU/dataloader.py": {
+      "sha256": "a692b709d01d05204a81e40c38b1f6e64faac9286a662d9d7cf9e4cc4dcf6c69",
+      "git_blob": "308fdda2742ae9ec1d049b29f7d254575e0fea38"
+    },
+    "TOFU/evaluate_util.py": {
+      "sha256": "b661d3629be266dadefb3598d305d31319748d74402ba813e55a4378d765fc0d",
+      "git_blob": "b719bef0639934a47304f5b704de1d111e3ef2db"
+    },
+    "TOFU/forget.py": {
+      "sha256": "0f34bdaae7cc4fbe8f3ee97bf568beed3df37a537c672b57c237ba1b1904f7d9",
+      "git_blob": "f17766c420d3e19ff57f8a2d5c9df1e0ee5517d8"
+    },
+    "TOFU/utils.py": {
+      "sha256": "e68d46ce0f6bf2167ac5157f96a48b98b680b953b011b13034362132469d6ff0",
+      "git_blob": "1e5e93e6a429c6f8f6763adf4dc1af8e9158131b"
+    }
+  }
+}

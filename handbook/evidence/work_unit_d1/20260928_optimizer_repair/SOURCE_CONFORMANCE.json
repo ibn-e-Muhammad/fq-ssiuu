@@ -1,0 +1,140 @@
+{
+  "status": "PASS_CPU_SOURCE_CONFORMANCE_ONLY",
+  "source_commit": "1207bbe9a1abf502bc2d7b43a0a467d9524b4036",
+  "source_files": {
+    "README.md": {
+      "sha256": "398f5fe8a1e513ee3664f8db4770bcb46132a45b75607e379fde70c7daf3944d",
+      "git_blob": "036328d1e20b4ac4a96be6d533285742c95cdc45",
+      "bytes": 1670
+    },
+    "TOFU/config/ds_config.json": {
+      "sha256": "50112c35f92600290d224134840941254e5553d4432717d94e9ab24a10a4d188",
+      "git_blob": "0054e2c690896cb9bd17aa3b329a4c2217e74ba2",
+      "bytes": 805
+    },
+    "TOFU/config/eval.yaml": {
+      "sha256": "5ee905cb72d6c0a694c28a821261e1ed6b91b209fcecc215550c29bd7c76b151",
+      "git_blob": "6b1c38c23125a8f802277f447018980428087d80",
+      "bytes": 331
+    },
+    "TOFU/config/forget.yaml": {
+      "sha256": "c0e00825cd3157166b4188e0857239e0c4f5f889509874564bef501ed1b98e60",
+      "git_blob": "397371e852321d47a7f5c87dd830364fd01a5117",
+      "bytes": 1701
+    },
+    "TOFU/config/model_config.yaml": {
+      "sha256": "c64a12ef5f079fcffc1e08e9dd2363e4c07b968fe5630fce97e37836a42b6e2d",
+      "git_blob": "22d2135f7220af6ee1c01a40beaf079412e58428",
+      "bytes": 1120
+    },
+    "TOFU/data_module.py": {
+      "sha256": "8e076f18c20b663dbad9862a5d97c25e91fe4f9475bed77e597dbc2b349abf31",
+      "git_blob": "b2e9f764e9c01c57d8df68a7e6edc9c911e4486b",
+      "bytes": 10507
+    },
+    "TOFU/dataloader.py": {
+      "sha256": "a692b709d01d05204a81e40c38b1f6e64faac9286a662d9d7cf9e4cc4dcf6c69",
+      "git_blob": "308fdda2742ae9ec1d049b29f7d254575e0fea38",
+      "bytes": 39176
+    },
+    "TOFU/evaluate_util.py": {
+      "sha256": "b661d3629be266dadefb3598d305d31319748d74402ba813e55a4378d765fc0d",
+      "git_blob": "b719bef0639934a47304f5b704de1d111e3ef2db",
+      "bytes": 14268
+    },
+    "TOFU/forget.py": {
+      "sha256": "0f34bdaae7cc4fbe8f3ee97bf568beed3df37a537c672b57c237ba1b1904f7d9",
+      "git_blob": "f17766c420d3e19ff57f8a2d5c9df1e0ee5517d8",
+      "bytes": 9793
+    },
+    "TOFU/utils.py": {
+      "sha256": "e68d46ce0f6bf2167ac5157f96a48b98b680b953b011b13034362132469d6ff0",
+      "git_blob": "1e5e93e6a429c6f8f6763adf4dc1af8e9158131b",
+      "bytes": 7043
+    }
+  },
+  "runtime_source_files": {
+    "transformers/trainer.py": {
+      "sha256": "fb3579779306c512c0b2ea0d3ce658f60cd572b4b207e80031d08ad06e45d45d",
+      "git_blob": "ac014c672e73e31826f4a8cccc0a4334c530e828",
+      "bytes": 208763
+    },
+    "transformers/training_args.py": {
+      "sha256": "cfacc7168e898166ebf2f8df67fb3ef97ae9b777a98c3ad6cf83253469dfa3d7",
+      "git_blob": "a52a77e9a766d6d947093fc8be80ab95c470214b",
+      "bytes": 142569
+    },
+    "transformers/optimization.py": {
+      "sha256": "8e5242e68dcd348ad5e4f9ce311fcac98a8d4f79f638d1bdf430b0b38658eec4",
+      "git_blob": "d0cadbf69f2717d56ec7368bfd5df4a6fadc7921",
+      "bytes": 33531
+    },
+    "bitsandbytes/optimizer.py": {
+      "sha256": "9156be6204017198af18adfdd91b9b748d05f174b3783576d8fb2e8fd898574e",
+      "git_blob": "ee1781a8b1f3831c7b1af278b5b47c757c07bef2",
+      "bytes": 30232
+    },
+    "bitsandbytes/adamw.py": {
+      "sha256": "58cb811e36c96edf9e931427662c697abdbfbada58848c8edc61a3ac455e3583",
+      "git_blob": "5f225c9ad9d51ced5f769cf0e495dbf04074bc16",
+      "bytes": 15539
+    },
+    "generation_config.json": {
+      "sha256": "f571455b7715ad274df4ffe832ab20e374e2ea1d6fde467a80e04da04e038f71",
+      "git_blob": "c48a399aa8034b72beb35864138749bddb403d50",
+      "bytes": 184
+    },
+    "deepspeed-v0.14.0-constants.py": {
+      "sha256": "ad0dfe32335928167f626d461b418e1749285fd05ac6ebc916ba43cf0dfa9407",
+      "git_blob": "679230ca7d4c3f08fb0e4c87d1f251e958081fb1",
+      "bytes": 14373
+    },
+    "deepspeed-v0.14.4-constants.py": {
+      "sha256": "ad0dfe32335928167f626d461b418e1749285fd05ac6ebc916ba43cf0dfa9407",
+      "git_blob": "679230ca7d4c3f08fb0e4c87d1f251e958081fb1",
+      "bytes": 14373
+    },
+    "deepspeed-v0.15.2-constants.py": {
+      "sha256": "c37dec327bdb55c3c255bda63311a15fb18b4492c6469aa1571a30020de26cb5",
+      "git_blob": "55cfa8f59c91a284dbfc9fafa3233705d2a01779",
+      "bytes": 14375
+    },
+    "accelerate/accelerator.py": {
+      "sha256": "60a538877dd1b0f4fb0a55cdcb04d0dc5a86663da80915f8d731073c52a4bef8",
+      "git_blob": "dcf37ead633255aa9fc8bb4439a1cdb8ed7e8f24",
+      "bytes": 142504
+    },
+    "transformers/deepspeed.py": {
+      "sha256": "f66ee2807e2676f33ce378cb4452ac05330ce8002af9a1dbe4830fe74f89dd34",
+      "git_blob": "b0db718dba016bb6150acd304f14d5909ed9b6b0",
+      "bytes": 18545
+    }
+  },
+  "runtime_registry_sha256": "6def02b66ffd1ab092cad7a78108649b7dfad65f7e861329a0c85007161d8837",
+  "historical_clipping_defaults": {
+    "deepspeed-v0.14.0-constants.py": 0.0,
+    "deepspeed-v0.14.4-constants.py": 0.0,
+    "deepspeed-v0.15.2-constants.py": 0.0
+  },
+  "effective_gradient_clipping": 0.0,
+  "pairing_rows": 200,
+  "pairs_sha256": "99be6191a5eafad061e62c360599c0e28fd7feb2d447388707b3792633ed0468",
+  "microbatches_compared": 496,
+  "plan_sha256": "68c6674d4d8680fb8c86c2bf7a04d72d42fe25d38d2a72b22da2cb32a68b26ac",
+  "metric_cases": [
+    {
+      "zero_case": false,
+      "max_error": 5.551115123125783e-17,
+      "input_sha256": "d48ec5ea114608ae1ec5d5657809bacc502fd935714b1c2a4b0622be4ec898c9",
+      "utility": 0.29207468740177445
+    },
+    {
+      "zero_case": true,
+      "max_error": 5.551115123125783e-17,
+      "input_sha256": "69663f8b8fdc1a1fea2604ba5e9ec335b144dafc342ca127836a1097794837f5",
+      "utility": 0.0
+    }
+  ],
+  "kaggle_submissions": 0,
+  "model_weights_loaded": false
+}

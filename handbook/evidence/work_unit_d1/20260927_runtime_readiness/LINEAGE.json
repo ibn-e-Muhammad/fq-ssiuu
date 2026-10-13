@@ -1,0 +1,30 @@
+{
+  "branch": "repro/npo-1b-source-faithful",
+  "base_dev": "5ca92bfa0863a9ffadcd70bfc5f28c8ee8c6e76a",
+  "starting_turn_sha": "02855b349331fd1d0e5b89ee7dc2cc4584e47a5b",
+  "code_commit": "65c454a20de4658851603cbf49eb4796afed95c5",
+  "code_changed_files": [
+    "configs/reproductions/NPO/d1_eval_v1.json",
+    "configs/reproductions/NPO/d1_train_v1.json",
+    "configs/runs/work_unit_d1_npo_v1.json",
+    "experiments/reproductions/NPO/checkpoint_values.py",
+    "experiments/reproductions/NPO/d1_recipe.py",
+    "experiments/reproductions/NPO/engine.py",
+    "experiments/reproductions/NPO/evaluation_runtime.py",
+    "experiments/reproductions/NPO/memory.py",
+    "experiments/reproductions/NPO/train_runtime.py",
+    "experiments/reproductions/NPO/training_contract.py",
+    "experiments/reproductions/NPO/training_loop.py",
+    "experiments/reproductions/NPO/validate_deepspeed_cpu.py",
+    "experiments/reproductions/NPO/validate_paged_gpu.py",
+    "requirements/kaggle-overlay.d1-candidate.in",
+    "scripts/kaggle_setup.py",
+    "scripts/mother_runner.py",
+    "tests/methods/NPO/test_d1_execution_boundary.py",
+    "tests/methods/NPO/test_evaluation_runtime.py",
+    "tests/methods/NPO/test_training_contract.py",
+    "tests/methods/NPO/test_training_loop.py"
+  ],
+  "kaggle_attempts": [],
+  "submission_limit": 2
+}

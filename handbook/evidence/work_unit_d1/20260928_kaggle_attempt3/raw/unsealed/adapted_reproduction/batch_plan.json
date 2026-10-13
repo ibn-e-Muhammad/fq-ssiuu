@@ -1,0 +1,4971 @@
+{
+  "version": "npo-source-continuous-accumulation-v1",
+  "seed": 1001,
+  "sample_count": 200,
+  "micro_batch": 4,
+  "accumulation": 8,
+  "max_steps": 62,
+  "batches": [
+    {
+      "epoch": 0,
+      "batch_in_epoch": 0,
+      "forget_indices": [
+        157,
+        195,
+        140,
+        65
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 1,
+      "forget_indices": [
+        100,
+        118,
+        22,
+        10
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 2,
+      "forget_indices": [
+        43,
+        197,
+        152,
+        109
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 3,
+      "forget_indices": [
+        69,
+        151,
+        98,
+        12
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 4,
+      "forget_indices": [
+        175,
+        129,
+        187,
+        7
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 5,
+      "forget_indices": [
+        170,
+        92,
+        116,
+        20
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 6,
+      "forget_indices": [
+        57,
+        131,
+        76,
+        30
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 7,
+      "forget_indices": [
+        189,
+        33,
+        93,
+        184
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 8,
+      "forget_indices": [
+        52,
+        162,
+        148,
+        185
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 9,
+      "forget_indices": [
+        24,
+        168,
+        121,
+        70
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 10,
+      "forget_indices": [
+        146,
+        1,
+        8,
+        74
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 11,
+      "forget_indices": [
+        107,
+        190,
+        40,
+        104
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 12,
+      "forget_indices": [
+        87,
+        167,
+        141,
+        35
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 13,
+      "forget_indices": [
+        47,
+        124,
+        180,
+        164
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 14,
+      "forget_indices": [
+        106,
+        154,
+        108,
+        177
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 15,
+      "forget_indices": [
+        160,
+        150,
+        31,
+        72
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 16,
+      "forget_indices": [
+        193,
+        44,
+        38,
+        13
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 17,
+      "forget_indices": [
+        25,
+        105,
+        55,
+        75
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 18,
+      "forget_indices": [
+        112,
+        182,
+        174,
+        3
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 19,
+      "forget_indices": [
+        60,
+        45,
+        58,
+        71
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 20,
+      "forget_indices": [
+        15,
+        126,
+        94,
+        82
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 21,
+      "forget_indices": [
+        186,
+        68,
+        96,
+        130
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 22,
+      "forget_indices": [
+        50,
+        169,
+        32,
+        156
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 23,
+      "forget_indices": [
+        36,
+        153,
+        0,
+        56
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 24,
+      "forget_indices": [
+        62,
+        9,
+        95,
+        143
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 25,
+      "forget_indices": [
+        128,
+        14,
+        67,
+        123
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 26,
+      "forget_indices": [
+        84,
+        6,
+        134,
+        51
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 27,
+      "forget_indices": [
+        28,
+        49,
+        166,
+        5
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 28,
+      "forget_indices": [
+        29,
+        135,
+        179,
+        127
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 29,
+      "forget_indices": [
+        114,
+        21,
+        144,
+        4
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 30,
+      "forget_indices": [
+        194,
+        196,
+        136,
+        161
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 31,
+      "forget_indices": [
+        139,
+        41,
+        183,
+        171
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 32,
+      "forget_indices": [
+        165,
+        23,
+        103,
+        86
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 33,
+      "forget_indices": [
+        27,
+        110,
+        191,
+        61
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 34,
+      "forget_indices": [
+        198,
+        163,
+        63,
+        132
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 35,
+      "forget_indices": [
+        34,
+        2,
+        178,
+        89
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 36,
+      "forget_indices": [
+        111,
+        173,
+        48,
+        19
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 37,
+      "forget_indices": [
+        120,
+        53,
+        42,
+        117
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 38,
+      "forget_indices": [
+        102,
+        155,
+        101,
+        26
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 39,
+      "forget_indices": [
+        133,
+        37,
+        97,
+        113
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 40,
+      "forget_indices": [
+        172,
+        122,
+        158,
+        91
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 41,
+      "forget_indices": [
+        79,
+        83,
+        159,
+        138
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 42,
+      "forget_indices": [
+        77,
+        145,
+        17,
+        147
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 43,
+      "forget_indices": [
+        73,
+        188,
+        99,
+        88
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 44,
+      "forget_indices": [
+        199,
+        85,
+        16,
+        64
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 45,
+      "forget_indices": [
+        11,
+        137,
+        181,
+        192
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 46,
+      "forget_indices": [
+        90,
+        176,
+        66,
+        54
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 47,
+      "forget_indices": [
+        39,
+        18,
+        46,
+        149
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 48,
+      "forget_indices": [
+        59,
+        115,
+        78,
+        142
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 49,
+      "forget_indices": [
+        80,
+        81,
+        119,
+        125
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 0,
+      "forget_indices": [
+        186,
+        163,
+        6,
+        148
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 1,
+      "forget_indices": [
+        132,
+        161,
+        90,
+        39
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 2,
+      "forget_indices": [
+        112,
+        178,
+        16,
+        33
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 3,
+      "forget_indices": [
+        193,
+        173,
+        1,
+        165
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 4,
+      "forget_indices": [
+        84,
+        79,
+        50,
+        0
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 5,
+      "forget_indices": [
+        144,
+        108,
+        93,
+        184
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 6,
+      "forget_indices": [
+        64,
+        59,
+        28,
+        91
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 7,
+      "forget_indices": [
+        2,
+        117,
+        54,
+        177
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 8,
+      "forget_indices": [
+        8,
+        122,
+        98,
+        113
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 9,
+      "forget_indices": [
+        86,
+        49,
+        19,
+        53
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 10,
+      "forget_indices": [
+        77,
+        119,
+        188,
+        109
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 11,
+      "forget_indices": [
+        121,
+        187,
+        24,
+        168
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 12,
+      "forget_indices": [
+        189,
+        101,
+        103,
+        140
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 13,
+      "forget_indices": [
+        52,
+        12,
+        104,
+        176
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 14,
+      "forget_indices": [
+        18,
+        46,
+        166,
+        120
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 15,
+      "forget_indices": [
+        114,
+        22,
+        136,
+        45
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 16,
+      "forget_indices": [
+        141,
+        92,
+        51,
+        192
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 17,
+      "forget_indices": [
+        164,
+        138,
+        73,
+        58
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 18,
+      "forget_indices": [
+        153,
+        125,
+        162,
+        129
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 19,
+      "forget_indices": [
+        191,
+        81,
+        61,
+        47
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 20,
+      "forget_indices": [
+        27,
+        195,
+        17,
+        4
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 21,
+      "forget_indices": [
+        43,
+        65,
+        175,
+        56
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 22,
+      "forget_indices": [
+        180,
+        170,
+        34,
+        102
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 23,
+      "forget_indices": [
+        67,
+        30,
+        97,
+        169
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 24,
+      "forget_indices": [
+        160,
+        41,
+        158,
+        147
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 25,
+      "forget_indices": [
+        107,
+        76,
+        110,
+        116
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 26,
+      "forget_indices": [
+        66,
+        157,
+        26,
+        154
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 27,
+      "forget_indices": [
+        5,
+        68,
+        115,
+        11
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 28,
+      "forget_indices": [
+        196,
+        182,
+        13,
+        29
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 29,
+      "forget_indices": [
+        63,
+        21,
+        194,
+        94
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 30,
+      "forget_indices": [
+        7,
+        155,
+        126,
+        55
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 31,
+      "forget_indices": [
+        149,
+        99,
+        130,
+        95
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 32,
+      "forget_indices": [
+        57,
+        62,
+        75,
+        23
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 33,
+      "forget_indices": [
+        190,
+        89,
+        199,
+        179
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 34,
+      "forget_indices": [
+        134,
+        156,
+        36,
+        127
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 35,
+      "forget_indices": [
+        145,
+        14,
+        88,
+        118
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 36,
+      "forget_indices": [
+        185,
+        80,
+        197,
+        3
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 37,
+      "forget_indices": [
+        159,
+        44,
+        69,
+        133
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 38,
+      "forget_indices": [
+        137,
+        82,
+        181,
+        87
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 39,
+      "forget_indices": [
+        10,
+        128,
+        71,
+        72
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 40,
+      "forget_indices": [
+        74,
+        106,
+        38,
+        100
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 41,
+      "forget_indices": [
+        32,
+        78,
+        42,
+        167
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 42,
+      "forget_indices": [
+        139,
+        83,
+        171,
+        15
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 43,
+      "forget_indices": [
+        40,
+        31,
+        152,
+        124
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 44,
+      "forget_indices": [
+        146,
+        131,
+        123,
+        183
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 45,
+      "forget_indices": [
+        174,
+        172,
+        9,
+        151
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 46,
+      "forget_indices": [
+        60,
+        111,
+        96,
+        85
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 47,
+      "forget_indices": [
+        150,
+        25,
+        105,
+        142
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 48,
+      "forget_indices": [
+        48,
+        198,
+        37,
+        135
+      ]
+    },
+    {
+      "epoch": 1,
+      "batch_in_epoch": 49,
+      "forget_indices": [
+        35,
+        70,
+        20,
+        143
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 0,
+      "forget_indices": [
+        191,
+        194,
+        113,
+        182
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 1,
+      "forget_indices": [
+        148,
+        137,
+        24,
+        27
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 2,
+      "forget_indices": [
+        81,
+        62,
+        132,
+        30
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 3,
+      "forget_indices": [
+        37,
+        97,
+        199,
+        185
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 4,
+      "forget_indices": [
+        110,
+        82,
+        195,
+        144
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 5,
+      "forget_indices": [
+        112,
+        19,
+        192,
+        127
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 6,
+      "forget_indices": [
+        198,
+        153,
+        130,
+        8
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 7,
+      "forget_indices": [
+        39,
+        120,
+        67,
+        108
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 8,
+      "forget_indices": [
+        197,
+        157,
+        64,
+        184
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 9,
+      "forget_indices": [
+        6,
+        156,
+        42,
+        76
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 10,
+      "forget_indices": [
+        35,
+        121,
+        87,
+        135
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 11,
+      "forget_indices": [
+        165,
+        98,
+        104,
+        101
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 12,
+      "forget_indices": [
+        183,
+        164,
+        154,
+        58
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 13,
+      "forget_indices": [
+        75,
+        117,
+        60,
+        159
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 14,
+      "forget_indices": [
+        66,
+        196,
+        41,
+        20
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 15,
+      "forget_indices": [
+        45,
+        92,
+        174,
+        63
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 16,
+      "forget_indices": [
+        166,
+        124,
+        161,
+        178
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 17,
+      "forget_indices": [
+        109,
+        169,
+        150,
+        142
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 18,
+      "forget_indices": [
+        180,
+        136,
+        160,
+        189
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 19,
+      "forget_indices": [
+        116,
+        32,
+        141,
+        188
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 20,
+      "forget_indices": [
+        83,
+        129,
+        36,
+        59
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 21,
+      "forget_indices": [
+        3,
+        10,
+        69,
+        49
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 22,
+      "forget_indices": [
+        16,
+        95,
+        134,
+        173
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 23,
+      "forget_indices": [
+        47,
+        22,
+        55,
+        50
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 24,
+      "forget_indices": [
+        131,
+        17,
+        54,
+        84
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 25,
+      "forget_indices": [
+        79,
+        74,
+        26,
+        100
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 26,
+      "forget_indices": [
+        187,
+        88,
+        89,
+        103
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 27,
+      "forget_indices": [
+        46,
+        71,
+        78,
+        175
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 28,
+      "forget_indices": [
+        94,
+        172,
+        152,
+        48
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 29,
+      "forget_indices": [
+        147,
+        133,
+        96,
+        99
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 30,
+      "forget_indices": [
+        90,
+        33,
+        158,
+        72
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 31,
+      "forget_indices": [
+        38,
+        53,
+        5,
+        57
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 32,
+      "forget_indices": [
+        119,
+        139,
+        85,
+        123
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 33,
+      "forget_indices": [
+        107,
+        25,
+        28,
+        4
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 34,
+      "forget_indices": [
+        171,
+        140,
+        163,
+        0
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 35,
+      "forget_indices": [
+        170,
+        65,
+        68,
+        77
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 36,
+      "forget_indices": [
+        151,
+        13,
+        18,
+        105
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 37,
+      "forget_indices": [
+        61,
+        126,
+        51,
+        73
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 38,
+      "forget_indices": [
+        114,
+        149,
+        162,
+        31
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 39,
+      "forget_indices": [
+        80,
+        102,
+        23,
+        29
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 40,
+      "forget_indices": [
+        34,
+        111,
+        138,
+        106
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 41,
+      "forget_indices": [
+        12,
+        167,
+        190,
+        146
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 42,
+      "forget_indices": [
+        181,
+        40,
+        2,
+        52
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 43,
+      "forget_indices": [
+        177,
+        86,
+        186,
+        1
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 44,
+      "forget_indices": [
+        56,
+        168,
+        7,
+        11
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 45,
+      "forget_indices": [
+        125,
+        128,
+        193,
+        176
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 46,
+      "forget_indices": [
+        93,
+        122,
+        143,
+        9
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 47,
+      "forget_indices": [
+        179,
+        115,
+        70,
+        155
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 48,
+      "forget_indices": [
+        43,
+        21,
+        14,
+        15
+      ]
+    },
+    {
+      "epoch": 2,
+      "batch_in_epoch": 49,
+      "forget_indices": [
+        44,
+        91,
+        118,
+        145
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 0,
+      "forget_indices": [
+        19,
+        197,
+        63,
+        186
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 1,
+      "forget_indices": [
+        78,
+        59,
+        156,
+        105
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 2,
+      "forget_indices": [
+        104,
+        103,
+        137,
+        129
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 3,
+      "forget_indices": [
+        28,
+        115,
+        108,
+        183
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 4,
+      "forget_indices": [
+        155,
+        84,
+        123,
+        94
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 5,
+      "forget_indices": [
+        199,
+        181,
+        178,
+        174
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 6,
+      "forget_indices": [
+        75,
+        81,
+        196,
+        48
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 7,
+      "forget_indices": [
+        119,
+        110,
+        177,
+        13
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 8,
+      "forget_indices": [
+        44,
+        71,
+        131,
+        9
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 9,
+      "forget_indices": [
+        149,
+        73,
+        150,
+        187
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 10,
+      "forget_indices": [
+        98,
+        5,
+        52,
+        41
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 11,
+      "forget_indices": [
+        69,
+        188,
+        34,
+        160
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 12,
+      "forget_indices": [
+        132,
+        66,
+        109,
+        62
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 13,
+      "forget_indices": [
+        167,
+        124,
+        50,
+        96
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 14,
+      "forget_indices": [
+        146,
+        68,
+        36,
+        151
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 15,
+      "forget_indices": [
+        80,
+        56,
+        189,
+        120
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 16,
+      "forget_indices": [
+        60,
+        161,
+        15,
+        18
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 17,
+      "forget_indices": [
+        70,
+        32,
+        158,
+        91
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 18,
+      "forget_indices": [
+        141,
+        25,
+        29,
+        27
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 19,
+      "forget_indices": [
+        58,
+        117,
+        89,
+        14
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 20,
+      "forget_indices": [
+        31,
+        54,
+        21,
+        111
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 21,
+      "forget_indices": [
+        93,
+        184,
+        10,
+        30
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 22,
+      "forget_indices": [
+        40,
+        116,
+        113,
+        77
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 23,
+      "forget_indices": [
+        190,
+        122,
+        11,
+        53
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 24,
+      "forget_indices": [
+        16,
+        194,
+        39,
+        140
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 25,
+      "forget_indices": [
+        82,
+        3,
+        153,
+        57
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 26,
+      "forget_indices": [
+        101,
+        195,
+        26,
+        180
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 27,
+      "forget_indices": [
+        185,
+        154,
+        97,
+        6
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 28,
+      "forget_indices": [
+        130,
+        86,
+        20,
+        182
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 29,
+      "forget_indices": [
+        192,
+        92,
+        88,
+        51
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 30,
+      "forget_indices": [
+        46,
+        72,
+        7,
+        114
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 31,
+      "forget_indices": [
+        163,
+        164,
+        193,
+        176
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 32,
+      "forget_indices": [
+        169,
+        144,
+        112,
+        172
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 33,
+      "forget_indices": [
+        12,
+        191,
+        38,
+        87
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 34,
+      "forget_indices": [
+        175,
+        2,
+        165,
+        127
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 35,
+      "forget_indices": [
+        100,
+        4,
+        138,
+        157
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 36,
+      "forget_indices": [
+        43,
+        102,
+        136,
+        22
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 37,
+      "forget_indices": [
+        159,
+        23,
+        168,
+        67
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 38,
+      "forget_indices": [
+        61,
+        90,
+        135,
+        106
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 39,
+      "forget_indices": [
+        64,
+        33,
+        134,
+        65
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 40,
+      "forget_indices": [
+        142,
+        173,
+        166,
+        95
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 41,
+      "forget_indices": [
+        42,
+        47,
+        49,
+        55
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 42,
+      "forget_indices": [
+        83,
+        99,
+        118,
+        145
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 43,
+      "forget_indices": [
+        17,
+        126,
+        171,
+        133
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 44,
+      "forget_indices": [
+        74,
+        162,
+        125,
+        8
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 45,
+      "forget_indices": [
+        147,
+        148,
+        45,
+        128
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 46,
+      "forget_indices": [
+        85,
+        179,
+        1,
+        139
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 47,
+      "forget_indices": [
+        37,
+        152,
+        76,
+        35
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 48,
+      "forget_indices": [
+        24,
+        79,
+        0,
+        107
+      ]
+    },
+    {
+      "epoch": 3,
+      "batch_in_epoch": 49,
+      "forget_indices": [
+        143,
+        198,
+        121,
+        170
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 0,
+      "forget_indices": [
+        31,
+        136,
+        53,
+        195
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 1,
+      "forget_indices": [
+        149,
+        183,
+        27,
+        59
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 2,
+      "forget_indices": [
+        25,
+        12,
+        107,
+        40
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 3,
+      "forget_indices": [
+        72,
+        163,
+        37,
+        39
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 4,
+      "forget_indices": [
+        109,
+        76,
+        80,
+        65
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 5,
+      "forget_indices": [
+        94,
+        54,
+        184,
+        137
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 6,
+      "forget_indices": [
+        143,
+        23,
+        35,
+        71
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 7,
+      "forget_indices": [
+        97,
+        162,
+        24,
+        178
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 8,
+      "forget_indices": [
+        172,
+        6,
+        89,
+        194
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 9,
+      "forget_indices": [
+        122,
+        85,
+        111,
+        43
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 10,
+      "forget_indices": [
+        191,
+        187,
+        157,
+        5
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 11,
+      "forget_indices": [
+        2,
+        93,
+        108,
+        110
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 12,
+      "forget_indices": [
+        56,
+        48,
+        168,
+        148
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 13,
+      "forget_indices": [
+        9,
+        57,
+        115,
+        64
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 14,
+      "forget_indices": [
+        10,
+        95,
+        29,
+        58
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 15,
+      "forget_indices": [
+        176,
+        132,
+        86,
+        45
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 16,
+      "forget_indices": [
+        165,
+        60,
+        138,
+        130
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 17,
+      "forget_indices": [
+        190,
+        175,
+        171,
+        18
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 18,
+      "forget_indices": [
+        26,
+        120,
+        16,
+        3
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 19,
+      "forget_indices": [
+        49,
+        8,
+        78,
+        92
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 20,
+      "forget_indices": [
+        196,
+        144,
+        44,
+        169
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 21,
+      "forget_indices": [
+        199,
+        142,
+        180,
+        124
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 22,
+      "forget_indices": [
+        126,
+        47,
+        101,
+        170
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 23,
+      "forget_indices": [
+        68,
+        153,
+        164,
+        198
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 24,
+      "forget_indices": [
+        147,
+        1,
+        50,
+        46
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 25,
+      "forget_indices": [
+        75,
+        151,
+        139,
+        193
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 26,
+      "forget_indices": [
+        105,
+        83,
+        79,
+        197
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 27,
+      "forget_indices": [
+        99,
+        52,
+        88,
+        102
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 28,
+      "forget_indices": [
+        181,
+        17,
+        7,
+        13
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 29,
+      "forget_indices": [
+        98,
+        70,
+        113,
+        96
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 30,
+      "forget_indices": [
+        128,
+        189,
+        30,
+        129
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 31,
+      "forget_indices": [
+        159,
+        103,
+        82,
+        179
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 32,
+      "forget_indices": [
+        38,
+        4,
+        21,
+        119
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 33,
+      "forget_indices": [
+        14,
+        145,
+        186,
+        152
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 34,
+      "forget_indices": [
+        156,
+        131,
+        134,
+        125
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 35,
+      "forget_indices": [
+        28,
+        121,
+        61,
+        87
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 36,
+      "forget_indices": [
+        118,
+        42,
+        158,
+        66
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 37,
+      "forget_indices": [
+        114,
+        19,
+        182,
+        74
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 38,
+      "forget_indices": [
+        112,
+        127,
+        177,
+        117
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 39,
+      "forget_indices": [
+        62,
+        106,
+        174,
+        116
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 40,
+      "forget_indices": [
+        185,
+        69,
+        100,
+        135
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 41,
+      "forget_indices": [
+        160,
+        55,
+        173,
+        90
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 42,
+      "forget_indices": [
+        63,
+        73,
+        0,
+        140
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 43,
+      "forget_indices": [
+        22,
+        41,
+        15,
+        192
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 44,
+      "forget_indices": [
+        161,
+        34,
+        154,
+        81
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 45,
+      "forget_indices": [
+        146,
+        51,
+        20,
+        32
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 46,
+      "forget_indices": [
+        77,
+        166,
+        155,
+        133
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 47,
+      "forget_indices": [
+        150,
+        104,
+        188,
+        141
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 48,
+      "forget_indices": [
+        36,
+        11,
+        84,
+        67
+      ]
+    },
+    {
+      "epoch": 4,
+      "batch_in_epoch": 49,
+      "forget_indices": [
+        123,
+        167,
+        91,
+        33
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 0,
+      "forget_indices": [
+        71,
+        14,
+        153,
+        165
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 1,
+      "forget_indices": [
+        149,
+        152,
+        157,
+        197
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 2,
+      "forget_indices": [
+        136,
+        178,
+        82,
+        88
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 3,
+      "forget_indices": [
+        117,
+        58,
+        57,
+        161
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 4,
+      "forget_indices": [
+        199,
+        76,
+        140,
+        21
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 5,
+      "forget_indices": [
+        143,
+        131,
+        169,
+        114
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 6,
+      "forget_indices": [
+        128,
+        68,
+        126,
+        96
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 7,
+      "forget_indices": [
+        72,
+        158,
+        65,
+        80
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 8,
+      "forget_indices": [
+        135,
+        115,
+        47,
+        100
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 9,
+      "forget_indices": [
+        137,
+        40,
+        142,
+        108
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 10,
+      "forget_indices": [
+        122,
+        163,
+        78,
+        130
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 11,
+      "forget_indices": [
+        20,
+        7,
+        36,
+        187
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 12,
+      "forget_indices": [
+        24,
+        101,
+        33,
+        132
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 13,
+      "forget_indices": [
+        26,
+        44,
+        184,
+        172
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 14,
+      "forget_indices": [
+        1,
+        8,
+        186,
+        91
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 15,
+      "forget_indices": [
+        81,
+        30,
+        112,
+        133
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 16,
+      "forget_indices": [
+        166,
+        31,
+        90,
+        37
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 17,
+      "forget_indices": [
+        120,
+        154,
+        4,
+        134
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 18,
+      "forget_indices": [
+        56,
+        123,
+        155,
+        66
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 19,
+      "forget_indices": [
+        43,
+        12,
+        11,
+        9
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 20,
+      "forget_indices": [
+        105,
+        180,
+        121,
+        192
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 21,
+      "forget_indices": [
+        86,
+        171,
+        6,
+        173
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 22,
+      "forget_indices": [
+        79,
+        195,
+        129,
+        150
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 23,
+      "forget_indices": [
+        185,
+        59,
+        179,
+        46
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 24,
+      "forget_indices": [
+        194,
+        116,
+        164,
+        52
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 25,
+      "forget_indices": [
+        176,
+        89,
+        177,
+        22
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 26,
+      "forget_indices": [
+        34,
+        175,
+        106,
+        95
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 27,
+      "forget_indices": [
+        18,
+        141,
+        87,
+        110
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 28,
+      "forget_indices": [
+        83,
+        85,
+        119,
+        93
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 29,
+      "forget_indices": [
+        118,
+        74,
+        103,
+        124
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 30,
+      "forget_indices": [
+        48,
+        53,
+        183,
+        174
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 31,
+      "forget_indices": [
+        190,
+        27,
+        146,
+        60
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 32,
+      "forget_indices": [
+        159,
+        147,
+        19,
+        139
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 33,
+      "forget_indices": [
+        15,
+        28,
+        196,
+        41
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 34,
+      "forget_indices": [
+        67,
+        188,
+        148,
+        193
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 35,
+      "forget_indices": [
+        98,
+        16,
+        10,
+        63
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 36,
+      "forget_indices": [
+        32,
+        151,
+        170,
+        84
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 37,
+      "forget_indices": [
+        182,
+        189,
+        144,
+        29
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 38,
+      "forget_indices": [
+        162,
+        198,
+        49,
+        127
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 39,
+      "forget_indices": [
+        125,
+        156,
+        62,
+        94
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 40,
+      "forget_indices": [
+        104,
+        102,
+        55,
+        45
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 41,
+      "forget_indices": [
+        0,
+        50,
+        160,
+        99
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 42,
+      "forget_indices": [
+        75,
+        3,
+        39,
+        64
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 43,
+      "forget_indices": [
+        25,
+        54,
+        107,
+        97
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 44,
+      "forget_indices": [
+        167,
+        181,
+        70,
+        138
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 45,
+      "forget_indices": [
+        77,
+        13,
+        168,
+        51
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 46,
+      "forget_indices": [
+        17,
+        69,
+        23,
+        38
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 47,
+      "forget_indices": [
+        5,
+        2,
+        73,
+        113
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 48,
+      "forget_indices": [
+        35,
+        111,
+        92,
+        42
+      ]
+    },
+    {
+      "epoch": 5,
+      "batch_in_epoch": 49,
+      "forget_indices": [
+        61,
+        191,
+        145,
+        109
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 0,
+      "forget_indices": [
+        107,
+        129,
+        194,
+        159
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 1,
+      "forget_indices": [
+        4,
+        166,
+        144,
+        22
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 2,
+      "forget_indices": [
+        62,
+        147,
+        124,
+        179
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 3,
+      "forget_indices": [
+        47,
+        148,
+        112,
+        9
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 4,
+      "forget_indices": [
+        134,
+        84,
+        181,
+        76
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 5,
+      "forget_indices": [
+        187,
+        79,
+        80,
+        58
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 6,
+      "forget_indices": [
+        18,
+        125,
+        90,
+        30
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 7,
+      "forget_indices": [
+        161,
+        61,
+        172,
+        34
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 8,
+      "forget_indices": [
+        70,
+        74,
+        193,
+        23
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 9,
+      "forget_indices": [
+        95,
+        16,
+        135,
+        94
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 10,
+      "forget_indices": [
+        24,
+        151,
+        119,
+        140
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 11,
+      "forget_indices": [
+        93,
+        150,
+        122,
+        21
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 12,
+      "forget_indices": [
+        48,
+        177,
+        29,
+        33
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 13,
+      "forget_indices": [
+        102,
+        113,
+        195,
+        174
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 14,
+      "forget_indices": [
+        160,
+        198,
+        68,
+        56
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 15,
+      "forget_indices": [
+        153,
+        173,
+        13,
+        116
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 16,
+      "forget_indices": [
+        89,
+        41,
+        63,
+        137
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 17,
+      "forget_indices": [
+        106,
+        164,
+        91,
+        191
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 18,
+      "forget_indices": [
+        152,
+        128,
+        178,
+        75
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 19,
+      "forget_indices": [
+        15,
+        114,
+        32,
+        73
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 20,
+      "forget_indices": [
+        43,
+        141,
+        2,
+        132
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 21,
+      "forget_indices": [
+        25,
+        111,
+        168,
+        77
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 22,
+      "forget_indices": [
+        110,
+        197,
+        72,
+        154
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 23,
+      "forget_indices": [
+        138,
+        199,
+        69,
+        117
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 24,
+      "forget_indices": [
+        39,
+        52,
+        57,
+        127
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 25,
+      "forget_indices": [
+        66,
+        180,
+        115,
+        101
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 26,
+      "forget_indices": [
+        118,
+        31,
+        37,
+        17
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 27,
+      "forget_indices": [
+        133,
+        103,
+        71,
+        86
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 28,
+      "forget_indices": [
+        146,
+        99,
+        175,
+        88
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 29,
+      "forget_indices": [
+        54,
+        186,
+        60,
+        188
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 30,
+      "forget_indices": [
+        27,
+        51,
+        59,
+        11
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 31,
+      "forget_indices": [
+        131,
+        120,
+        10,
+        100
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 32,
+      "forget_indices": [
+        40,
+        98,
+        136,
+        35
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 33,
+      "forget_indices": [
+        109,
+        157,
+        5,
+        145
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 34,
+      "forget_indices": [
+        121,
+        123,
+        87,
+        19
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 35,
+      "forget_indices": [
+        196,
+        53,
+        130,
+        162
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 36,
+      "forget_indices": [
+        83,
+        49,
+        155,
+        55
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 37,
+      "forget_indices": [
+        26,
+        163,
+        143,
+        28
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 38,
+      "forget_indices": [
+        67,
+        7,
+        96,
+        3
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 39,
+      "forget_indices": [
+        104,
+        38,
+        46,
+        176
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 40,
+      "forget_indices": [
+        189,
+        0,
+        1,
+        108
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 41,
+      "forget_indices": [
+        81,
+        78,
+        82,
+        171
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 42,
+      "forget_indices": [
+        185,
+        170,
+        50,
+        139
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 43,
+      "forget_indices": [
+        184,
+        190,
+        192,
+        20
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 44,
+      "forget_indices": [
+        14,
+        169,
+        65,
+        165
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 45,
+      "forget_indices": [
+        126,
+        92,
+        36,
+        97
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 46,
+      "forget_indices": [
+        85,
+        149,
+        142,
+        45
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 47,
+      "forget_indices": [
+        12,
+        64,
+        6,
+        182
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 48,
+      "forget_indices": [
+        105,
+        183,
+        158,
+        44
+      ]
+    },
+    {
+      "epoch": 6,
+      "batch_in_epoch": 49,
+      "forget_indices": [
+        156,
+        8,
+        167,
+        42
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 0,
+      "forget_indices": [
+        86,
+        129,
+        61,
+        104
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 1,
+      "forget_indices": [
+        15,
+        166,
+        143,
+        148
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 2,
+      "forget_indices": [
+        29,
+        149,
+        181,
+        198
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 3,
+      "forget_indices": [
+        81,
+        142,
+        82,
+        79
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 4,
+      "forget_indices": [
+        42,
+        164,
+        123,
+        64
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 5,
+      "forget_indices": [
+        26,
+        31,
+        137,
+        160
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 6,
+      "forget_indices": [
+        154,
+        108,
+        30,
+        76
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 7,
+      "forget_indices": [
+        128,
+        195,
+        13,
+        131
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 8,
+      "forget_indices": [
+        83,
+        89,
+        77,
+        7
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 9,
+      "forget_indices": [
+        39,
+        109,
+        115,
+        103
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 10,
+      "forget_indices": [
+        172,
+        75,
+        126,
+        196
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 11,
+      "forget_indices": [
+        36,
+        32,
+        35,
+        88
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 12,
+      "forget_indices": [
+        85,
+        156,
+        188,
+        23
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 13,
+      "forget_indices": [
+        179,
+        146,
+        138,
+        194
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 14,
+      "forget_indices": [
+        80,
+        183,
+        33,
+        54
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 15,
+      "forget_indices": [
+        10,
+        134,
+        87,
+        5
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 16,
+      "forget_indices": [
+        191,
+        184,
+        96,
+        67
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 17,
+      "forget_indices": [
+        52,
+        170,
+        176,
+        68
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 18,
+      "forget_indices": [
+        167,
+        1,
+        72,
+        182
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 19,
+      "forget_indices": [
+        65,
+        136,
+        62,
+        121
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 20,
+      "forget_indices": [
+        151,
+        199,
+        90,
+        192
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 21,
+      "forget_indices": [
+        177,
+        135,
+        21,
+        175
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 22,
+      "forget_indices": [
+        84,
+        74,
+        50,
+        155
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 23,
+      "forget_indices": [
+        41,
+        0,
+        187,
+        157
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 24,
+      "forget_indices": [
+        171,
+        113,
+        111,
+        2
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 25,
+      "forget_indices": [
+        59,
+        124,
+        48,
+        25
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 26,
+      "forget_indices": [
+        71,
+        17,
+        70,
+        78
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 27,
+      "forget_indices": [
+        99,
+        6,
+        4,
+        190
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 28,
+      "forget_indices": [
+        43,
+        14,
+        147,
+        46
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 29,
+      "forget_indices": [
+        174,
+        60,
+        63,
+        66
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 30,
+      "forget_indices": [
+        145,
+        24,
+        56,
+        12
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 31,
+      "forget_indices": [
+        100,
+        180,
+        178,
+        73
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 32,
+      "forget_indices": [
+        19,
+        58,
+        120,
+        152
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 33,
+      "forget_indices": [
+        93,
+        34,
+        45,
+        133
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 34,
+      "forget_indices": [
+        18,
+        57,
+        127,
+        51
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 35,
+      "forget_indices": [
+        9,
+        105,
+        119,
+        44
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 36,
+      "forget_indices": [
+        69,
+        162,
+        91,
+        132
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 37,
+      "forget_indices": [
+        49,
+        168,
+        140,
+        38
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 38,
+      "forget_indices": [
+        101,
+        106,
+        20,
+        153
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 39,
+      "forget_indices": [
+        92,
+        8,
+        107,
+        40
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 40,
+      "forget_indices": [
+        158,
+        186,
+        16,
+        125
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 41,
+      "forget_indices": [
+        144,
+        102,
+        130,
+        165
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 42,
+      "forget_indices": [
+        3,
+        95,
+        28,
+        97
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 43,
+      "forget_indices": [
+        141,
+        94,
+        117,
+        122
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 44,
+      "forget_indices": [
+        185,
+        37,
+        114,
+        27
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 45,
+      "forget_indices": [
+        98,
+        159,
+        150,
+        11
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 46,
+      "forget_indices": [
+        193,
+        169,
+        110,
+        47
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 47,
+      "forget_indices": [
+        112,
+        22,
+        139,
+        197
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 48,
+      "forget_indices": [
+        161,
+        173,
+        116,
+        118
+      ]
+    },
+    {
+      "epoch": 7,
+      "batch_in_epoch": 49,
+      "forget_indices": [
+        163,
+        189,
+        53,
+        55
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 0,
+      "forget_indices": [
+        183,
+        139,
+        119,
+        80
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 1,
+      "forget_indices": [
+        167,
+        134,
+        85,
+        150
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 2,
+      "forget_indices": [
+        155,
+        188,
+        20,
+        154
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 3,
+      "forget_indices": [
+        169,
+        185,
+        132,
+        112
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 4,
+      "forget_indices": [
+        122,
+        14,
+        84,
+        102
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 5,
+      "forget_indices": [
+        109,
+        11,
+        153,
+        162
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 6,
+      "forget_indices": [
+        90,
+        12,
+        147,
+        170
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 7,
+      "forget_indices": [
+        164,
+        39,
+        161,
+        54
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 8,
+      "forget_indices": [
+        159,
+        181,
+        10,
+        56
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 9,
+      "forget_indices": [
+        196,
+        99,
+        49,
+        179
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 10,
+      "forget_indices": [
+        38,
+        115,
+        94,
+        45
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 11,
+      "forget_indices": [
+        34,
+        126,
+        125,
+        60
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 12,
+      "forget_indices": [
+        101,
+        106,
+        1,
+        77
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 13,
+      "forget_indices": [
+        62,
+        127,
+        104,
+        180
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 14,
+      "forget_indices": [
+        29,
+        26,
+        172,
+        176
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 15,
+      "forget_indices": [
+        186,
+        86,
+        198,
+        199
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 16,
+      "forget_indices": [
+        163,
+        48,
+        194,
+        19
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 17,
+      "forget_indices": [
+        27,
+        136,
+        142,
+        46
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 18,
+      "forget_indices": [
+        89,
+        15,
+        165,
+        168
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 19,
+      "forget_indices": [
+        6,
+        91,
+        65,
+        28
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 20,
+      "forget_indices": [
+        74,
+        148,
+        22,
+        35
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 21,
+      "forget_indices": [
+        4,
+        121,
+        73,
+        52
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 22,
+      "forget_indices": [
+        57,
+        174,
+        37,
+        173
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 23,
+      "forget_indices": [
+        50,
+        128,
+        137,
+        141
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 24,
+      "forget_indices": [
+        5,
+        7,
+        114,
+        93
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 25,
+      "forget_indices": [
+        133,
+        140,
+        191,
+        23
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 26,
+      "forget_indices": [
+        58,
+        82,
+        8,
+        100
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 27,
+      "forget_indices": [
+        0,
+        95,
+        190,
+        44
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 28,
+      "forget_indices": [
+        83,
+        118,
+        69,
+        189
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 29,
+      "forget_indices": [
+        187,
+        68,
+        31,
+        130
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 30,
+      "forget_indices": [
+        47,
+        43,
+        182,
+        110
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 31,
+      "forget_indices": [
+        175,
+        67,
+        25,
+        78
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 32,
+      "forget_indices": [
+        41,
+        64,
+        135,
+        30
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 33,
+      "forget_indices": [
+        32,
+        70,
+        151,
+        36
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 34,
+      "forget_indices": [
+        3,
+        96,
+        177,
+        79
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 35,
+      "forget_indices": [
+        81,
+        61,
+        18,
+        113
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 36,
+      "forget_indices": [
+        171,
+        111,
+        24,
+        145
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 37,
+      "forget_indices": [
+        59,
+        51,
+        116,
+        160
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 38,
+      "forget_indices": [
+        2,
+        146,
+        149,
+        117
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 39,
+      "forget_indices": [
+        166,
+        193,
+        192,
+        72
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 40,
+      "forget_indices": [
+        21,
+        129,
+        138,
+        33
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 41,
+      "forget_indices": [
+        75,
+        157,
+        92,
+        156
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 42,
+      "forget_indices": [
+        124,
+        158,
+        71,
+        123
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 43,
+      "forget_indices": [
+        98,
+        40,
+        178,
+        17
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 44,
+      "forget_indices": [
+        63,
+        195,
+        103,
+        108
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 45,
+      "forget_indices": [
+        184,
+        16,
+        42,
+        120
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 46,
+      "forget_indices": [
+        107,
+        53,
+        9,
+        144
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 47,
+      "forget_indices": [
+        88,
+        97,
+        55,
+        143
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 48,
+      "forget_indices": [
+        105,
+        13,
+        131,
+        197
+      ]
+    },
+    {
+      "epoch": 8,
+      "batch_in_epoch": 49,
+      "forget_indices": [
+        152,
+        76,
+        66,
+        87
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 0,
+      "forget_indices": [
+        117,
+        17,
+        173,
+        21
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 1,
+      "forget_indices": [
+        144,
+        120,
+        78,
+        163
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 2,
+      "forget_indices": [
+        0,
+        97,
+        165,
+        84
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 3,
+      "forget_indices": [
+        32,
+        195,
+        74,
+        9
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 4,
+      "forget_indices": [
+        89,
+        179,
+        10,
+        86
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 5,
+      "forget_indices": [
+        122,
+        172,
+        152,
+        28
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 6,
+      "forget_indices": [
+        161,
+        115,
+        45,
+        35
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 7,
+      "forget_indices": [
+        109,
+        164,
+        14,
+        138
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 8,
+      "forget_indices": [
+        186,
+        197,
+        129,
+        133
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 9,
+      "forget_indices": [
+        77,
+        53,
+        198,
+        76
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 10,
+      "forget_indices": [
+        184,
+        87,
+        147,
+        185
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 11,
+      "forget_indices": [
+        118,
+        128,
+        50,
+        113
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 12,
+      "forget_indices": [
+        62,
+        194,
+        43,
+        107
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 13,
+      "forget_indices": [
+        31,
+        191,
+        47,
+        178
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 14,
+      "forget_indices": [
+        196,
+        111,
+        37,
+        71
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 15,
+      "forget_indices": [
+        192,
+        95,
+        175,
+        114
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 16,
+      "forget_indices": [
+        170,
+        59,
+        67,
+        131
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 17,
+      "forget_indices": [
+        169,
+        99,
+        101,
+        79
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 18,
+      "forget_indices": [
+        39,
+        119,
+        176,
+        80
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 19,
+      "forget_indices": [
+        90,
+        142,
+        36,
+        4
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 20,
+      "forget_indices": [
+        156,
+        27,
+        25,
+        112
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 21,
+      "forget_indices": [
+        187,
+        48,
+        189,
+        167
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 22,
+      "forget_indices": [
+        102,
+        70,
+        93,
+        91
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 23,
+      "forget_indices": [
+        23,
+        183,
+        126,
+        85
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 24,
+      "forget_indices": [
+        61,
+        140,
+        12,
+        46
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 25,
+      "forget_indices": [
+        177,
+        193,
+        19,
+        57
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 26,
+      "forget_indices": [
+        145,
+        22,
+        143,
+        33
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 27,
+      "forget_indices": [
+        56,
+        96,
+        132,
+        181
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 28,
+      "forget_indices": [
+        139,
+        168,
+        72,
+        124
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 29,
+      "forget_indices": [
+        6,
+        92,
+        82,
+        94
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 30,
+      "forget_indices": [
+        180,
+        108,
+        104,
+        8
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 31,
+      "forget_indices": [
+        55,
+        64,
+        171,
+        15
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 32,
+      "forget_indices": [
+        16,
+        121,
+        11,
+        199
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 33,
+      "forget_indices": [
+        157,
+        153,
+        7,
+        20
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 34,
+      "forget_indices": [
+        88,
+        174,
+        158,
+        100
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 35,
+      "forget_indices": [
+        137,
+        130,
+        65,
+        83
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 36,
+      "forget_indices": [
+        105,
+        29,
+        24,
+        1
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 37,
+      "forget_indices": [
+        106,
+        103,
+        63,
+        49
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 38,
+      "forget_indices": [
+        159,
+        160,
+        73,
+        68
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 39,
+      "forget_indices": [
+        127,
+        75,
+        41,
+        146
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 40,
+      "forget_indices": [
+        66,
+        166,
+        116,
+        34
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 41,
+      "forget_indices": [
+        188,
+        5,
+        58,
+        40
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 42,
+      "forget_indices": [
+        182,
+        136,
+        60,
+        54
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 43,
+      "forget_indices": [
+        26,
+        18,
+        123,
+        125
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 44,
+      "forget_indices": [
+        150,
+        81,
+        52,
+        162
+      ]
+    },
+    {
+      "epoch": 9,
+      "batch_in_epoch": 45,
+      "forget_indices": [
+        42,
+        151,
+        3,
+        51
+      ]
+    }
+  ],
+  "sha256": "68c6674d4d8680fb8c86c2bf7a04d72d42fe25d38d2a72b22da2cb32a68b26ac"
+}

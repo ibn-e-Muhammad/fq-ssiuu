@@ -1,0 +1,28 @@
+import ast,json
+from pathlib import Path
+from types import SimpleNamespace
+import torch
+from transformers import LlamaConfig,LlamaForCausalLM
+from experiments.reproductions.NPO.optimizer import parameter_groups
+from experiments.reproductions.common import file_digest
+import deepspeed
+source=Path(deepspeed.__file__).parent/'runtime/zero/stage3.py'
+node=next(n for c in ast.parse(source.read_text()).body if isinstance(c,ast.ClassDef) for n in c.body if isinstance(n,ast.FunctionDef) and n.name=='_create_fp16_sub_groups')
+ns={}; exec(compile(ast.Module(body=[node],type_ignores=[]),str(source),'exec'),ns); group_fn=ns['_create_fp16_sub_groups']
+config_path=Path('tmp/d1/assets/tokenizer/config.json'); cfg=LlamaConfig.from_json_file(str(config_path))
+with torch.device('meta'): model=LlamaForCausalLM(cfg)
+model.tie_weights()
+groups,inventory=parameter_groups(model,.01)
+parameter_count=sum(p.numel() for p in model.parameters())
+assert parameter_count == 1235814400
+cases=[]
+for threshold in (1000000000,100000000):
+ sizes=[]
+ for group in groups:
+  params=[SimpleNamespace(partition_numel=lambda size=p.numel():size) for p in group['params']]
+  sizes.extend(sum(p.partition_numel() for p in chunk) for chunk in group_fn(SimpleNamespace(sub_group_size=threshold),params))
+ largest=max(sizes); cases.append({'sub_group_size':threshold,'subgroup_numel':sizes,'largest_initial_fp32_gradient_buffer_bytes':largest*4,'largest_initial_fp32_gradient_buffer_gib':largest*4/2**30})
+result={'status':'READ_ONLY_RESOURCE_ANALYSIS_NOT_IMPLEMENTED_NOT_GPU_VALIDATED','target_config_sha256':file_digest(config_path),'deepspeed_version':deepspeed.__version__,'analyzed_stage3_source_sha256':file_digest(source),'method':'Executed installed DeepSpeed grouping function on meta-model parameter sizes; world size 1','unique_parameters':parameter_count,'cases':cases,'resident_inventory_excluding_paged_moments_activations_and_workspace':{'candidate_fp16':parameter_count*2,'masters_fp32':parameter_count*4,'gradient_accumulation_fp16':parameter_count*2,'full_reference_fp16':parameter_count*2,'total_bytes':parameter_count*10},'qualification':'Smaller subgroups reduce the specific failed temporary allocation. This does not prove complete training will fit: resident gradients/reference, activations, CUDA workspace, paged moments and allocator fragmentation remain. No resource setting changed.','proposed_change_classification':'Category 3 resource adaptation requiring researcher approval','additional_gpu_submissions_authorized':False,'supersedes':'MEMORY_ANALYSIS.json','correction':'The first derived meta-model inventory omitted tie_weights() and counted the tied output embedding twice. This version applies the actual runtime alias and asserts exactly 1,235,814,400 unique parameters. No raw artifact or execution code was changed.'}
+out=Path('handbook/evidence/work_unit_d1/20260928_kaggle_attempt2/MEMORY_ANALYSIS_V2.json')
+with out.open('x') as f: json.dump(result,f,indent=2); f.write('\n')
+print(json.dumps({'cases':cases,'resident_tensor_inventory_bytes':parameter_count*10}))

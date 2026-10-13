@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "/kaggle/working/checkout-20260928-062524-7118f1ae8d74/experiments/reproductions/NPO/train_runtime.py", line 409, in main
+    result = execute(recipe, output, args.run_id, provenance, args.resume_checkpoint)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/checkout-20260928-062524-7118f1ae8d74/experiments/reproductions/NPO/train_runtime.py", line 210, in execute
+    engine, inventory, ds_config = create_engine(candidate)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/checkout-20260928-062524-7118f1ae8d74/experiments/reproductions/NPO/engine.py", line 23, in create_engine
+    engine, _, _, _ = deepspeed.initialize(
+                      ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/deepspeed/__init__.py", line 244, in initialize
+    engine = DeepSpeedEngine(args=args,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/deepspeed/runtime/engine.py", line 687, in __init__
+    self._configure_optimizer(optimizer, model_parameters)
+  File "/usr/local/lib/python3.12/dist-packages/deepspeed/runtime/engine.py", line 2337, in _configure_optimizer
+    self.optimizer = self._configure_zero_optimizer(basic_optimizer)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/deepspeed/runtime/engine.py", line 2754, in _configure_zero_optimizer
+    optimizer = Stage3ZeroOptimizer(
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/deepspeed/runtime/zero/stage3.py", line 487, in __init__
+    self._setup_for_real_optimizer()
+  File "/usr/local/lib/python3.12/dist-packages/deepspeed/runtime/zero/stage3.py", line 727, in _setup_for_real_optimizer
+    self.initialize_optimizer_states()
+  File "/usr/local/lib/python3.12/dist-packages/deepspeed/runtime/zero/stage3.py", line 1260, in initialize_optimizer_states
+    gradient_buffer = torch.zeros(int(largest_numel), dtype=gradient_dtype, device=self.device)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 3.74 GiB. GPU 0 has a total capacity of 14.56 GiB of which 3.58 GiB is free. Including non-PyTorch memory, this process has 10.85 GiB memory in use. Of the allocated memory 6.97 GiB is allocated by PyTorch, and 2.87 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

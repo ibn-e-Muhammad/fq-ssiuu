@@ -1,0 +1,25 @@
+{
+  "recorded_at": "2026-09-27T13:04:53.957809+00:00",
+  "branch": "repro/npo-1b-source-faithful",
+  "source_commit": "ebd7077539a8093162fcad1264c3ff7240ef4a66",
+  "pr": 11,
+  "researcher_review": "Review passed; proceed once CI passes",
+  "ci": {
+    "run_id": 36320687216,
+    "run_number": 66,
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/ibn-e-Muhammad/fq-ssiuu/actions/runs/36320687216"
+  },
+  "primary_agent_review_is_independent": false,
+  "submission_number": 1,
+  "maximum_submissions": 2,
+  "source_and_staging_verified": {
+    "tmp/d1/source_ebd7077/fq-ssiuu-source.bundle": "854ef58d22525674e4e186a483fdc5f7f7ee7ee0a59c7cddfcef67493f07b552",
+    "tmp/d1/source_ebd7077/SOURCE_MANIFEST.json": "eaf610e3a60ab23de1c938b9bdc00b633409745780d6a186a8687c074124ba5f",
+    "tmp/d1/mother_ebd7077/00_MOTHER_RUNNER.ipynb": "1194499ee4dffb185c713fb3154640191f4f62bd91f49cd7a12eca397e93620f",
+    "tmp/d1/mother_ebd7077/kernel-metadata.json": "e97ef03dc5bde8da3d4b94b4a469edd4d1090979d1642eb778c7124b0d1db6a9"
+  },
+  "scientific_classification": "bounded source-faithful 1B adapted-reproduction pilot",
+  "protocol_v2": "DEFERRED_NON_EXECUTABLE"
+}

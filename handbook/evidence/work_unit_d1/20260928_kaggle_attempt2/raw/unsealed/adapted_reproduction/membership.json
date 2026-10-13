@@ -1,0 +1,19 @@
+{
+  "forget05": {
+    "count": 200,
+    "ordered_source_records_sha256": "524dfe49c98a088ecfe8880f6632b8658fff3beac68af626e44726d98f8f4237",
+    "ordered_question_sha256": "38d8a6c2f4c0dca69471d605a9c60af5769ed6a022349b76ba03036e99149a9a",
+    "repeated_question_indices_preserved": []
+  },
+  "retain95": {
+    "count": 3800,
+    "ordered_source_records_sha256": "f3abf1d6d9fca4cb423240eec0487ec16f972f6b993e61ebfc070047fe99b2d9",
+    "ordered_question_sha256": "4b0685fddd90780c37f8792e951be5da3ea74bad581419beaa5c16ae6adf8248",
+    "repeated_question_indices_preserved": [
+      [
+        100,
+        440
+      ]
+    ]
+  }
+}

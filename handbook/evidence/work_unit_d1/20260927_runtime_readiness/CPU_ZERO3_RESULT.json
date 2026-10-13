@@ -1,0 +1,23 @@
+{
+  "status": "PASS_CPU_ZERO3_D1_LOOP_ONLY",
+  "microbatches": 496,
+  "optimizer_steps": 62,
+  "evaluation_steps": [
+    6,
+    12,
+    18,
+    24,
+    30,
+    36,
+    42,
+    48,
+    54,
+    60
+  ],
+  "all_update_gradients_finite_nonzero": true,
+  "first_loss": 17.431474685668945,
+  "last_loss": 17.425596237182617,
+  "optimizer": "torch.optim.AdamW CPU test only",
+  "cuda_or_paged_optimizer_validated": false,
+  "input_identity_scope": "Synthetic fixtures, not TOFU/model evidence"
+}

@@ -1,0 +1,29 @@
+{
+  "recorded_at": "2026-09-28T06:25:40.891780+00:00",
+  "status": "SUBMITTED",
+  "attempt_number": 2,
+  "kernel": "muhammadii/fq-ssiuu-mother-runner",
+  "kernel_version": 6,
+  "source_dataset": "muhammadii/fq-ssiuu-d1-source-4855049",
+  "source_commit": "485504904d8116797430da7234e1a6bef5dee22c",
+  "command": [
+    "./.venv/bin/python",
+    "-m",
+    "kaggle",
+    "kernels",
+    "push",
+    "-p",
+    "tmp/d1/mother_repair_4855049",
+    "--timeout",
+    "43200",
+    "--accelerator",
+    "NvidiaTeslaT4"
+  ],
+  "returncode": 0,
+  "stdout": "submission_stdout.log",
+  "stderr": "submission_stderr.log",
+  "ci_run": 36386152757,
+  "ci_conclusion": "success",
+  "runtime_verdict": null,
+  "further_submissions_authorized": false
+}

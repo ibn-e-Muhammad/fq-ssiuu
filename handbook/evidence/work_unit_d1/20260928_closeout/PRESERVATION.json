@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "prior_manifests": [
+    {
+      "path": "handbook/evidence/work_unit_d1/MANIFEST_20260926.json",
+      "sha256": "1291f90c1078b35575aafe9c9e9099fb8afcbc14e74ea38d77938a1fada935ab",
+      "files_verified": 84
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/MANIFEST_20260927.json",
+      "sha256": "5370210c9f79a4cffd0560ccb2b4f171c36d6b014e0d6147438068fe7074bbe9",
+      "files_verified": 34
+    },
+    {
+      "path": "handbook/evidence/work_unit_d1/MANIFEST_20260928_REPAIR.json",
+      "sha256": "5f89047cc5e95e5db604ffd99f7ff6581afbb2dbdc6ecbce1280dca2cd9d007f",
+      "files_verified": 110
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260924_attempt1_b884c5e/MANIFEST.json",
+      "sha256": "84de501d75f5888322c3b221677ba68833956695b0d93798b73c6af337614ce8",
+      "files_verified": 71
+    },
+    {
+      "path": "handbook/evidence/work_unit_c/20260924_attempt2_14669f3/MANIFEST.json",
+      "sha256": "d4e12bd6c5968b2e413bacf2a095f749a93a27608aa7d9012d06269f8b88194b",
+      "files_verified": 103
+    }
+  ],
+  "attempt2_inner_archive_members_verified": 72,
+  "attempt2_git_raw_members_verified": 70,
+  "attempt2_outer_archive_members_verified": 5
+}

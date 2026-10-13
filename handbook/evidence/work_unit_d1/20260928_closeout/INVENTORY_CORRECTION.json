@@ -1,0 +1,21 @@
+{
+  "status": "PASS_CORRECTED_CPU_FIXTURE_ONLY",
+  "supersedes_claim": "Exact tied 1B topology claim of 20260928_optimizer_repair/NATIVE_CPU_SOURCE_RESULT.json; old norm/scheduler tests remain evidence on their recorded fixture.",
+  "correction": "Bare meta fixture omitted tie_weights and counted output embedding twice. Also compare source Trainer groups after named_parameters deduplication, as Trainer does; raw decay-name list includes an unused tied alias. Runtime from_pretrained already ties weights. No runtime code, raw result, training or evaluation configuration changed.",
+  "attempts": [
+    {
+      "name": "cpu_tied_v2",
+      "returncode": 1,
+      "cause": "Expected raw decay-name list included tied lm_head alias not present in unique named parameters; test helper mismatch, not runtime optimizer mismatch."
+    },
+    {
+      "name": "cpu_tied_v3",
+      "returncode": 0,
+      "result": "NATIVE_CPU_SOURCE_RESULT_TIED.json"
+    }
+  ],
+  "unique_target_parameters": 1235814400,
+  "memory_analysis": "../20260928_kaggle_attempt2/MEMORY_ANALYSIS_V2.json",
+  "incorrect_derived_analysis_preserved": "../20260928_kaggle_attempt2/MEMORY_ANALYSIS.json",
+  "gpu_submissions": 0
+}

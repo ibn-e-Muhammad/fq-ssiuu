@@ -1,0 +1,20 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "experiments.reproductions.NPO.validate_optimizer_compatibility",
+    "--sources",
+    "tmp/d1/optimizer_source_20260928",
+    "--trainer",
+    "tmp/d1/assets/runtime_sources/transformers/trainer.py",
+    "--target-config",
+    "tmp/d1/assets/tokenizer/config.json",
+    "--output",
+    "tmp/d1/optimizer_repair_cpu_tied_v3"
+  ],
+  "returncode": 0,
+  "raw_result": "NATIVE_CPU_SOURCE_RESULT_TIED.json",
+  "stdout": "cpu_tied_v3.stdout.log",
+  "stderr": "cpu_tied_v3.stderr.log",
+  "scope": "CPU AdamW scheduler/group test only; actual GPU paging evidence is recorded separately in attempt2."
+}
