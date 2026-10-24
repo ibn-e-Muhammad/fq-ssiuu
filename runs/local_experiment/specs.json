@@ -1,8 +1,0 @@
-{
-  "training": {
-    "max_length": 500
-  },
-  "evaluation": {
-    "max_length": 200
-  }
-}
