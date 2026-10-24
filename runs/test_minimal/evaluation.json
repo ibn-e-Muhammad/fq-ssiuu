@@ -1,0 +1,7 @@
+{
+  "forget_sequence_nll_mean": 73.1083906173706,
+  "retain_token_nll_mean": 4.943456113212987,
+  "forget_count": 100,
+  "retain_count": 3800,
+  "interpretation": "NLL-based forgetting measure; lower forget NLL = more forgetting"
+}

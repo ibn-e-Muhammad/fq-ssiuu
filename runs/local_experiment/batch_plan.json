@@ -1,0 +1,33 @@
+{
+  "version": "v1",
+  "batches": [
+    {
+      "epoch": 0,
+      "batch_in_epoch": 0,
+      "forget_indices": [
+        57
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 1,
+      "forget_indices": [
+        34
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 2,
+      "forget_indices": [
+        2
+      ]
+    },
+    {
+      "epoch": 0,
+      "batch_in_epoch": 3,
+      "forget_indices": [
+        48
+      ]
+    }
+  ]
+}

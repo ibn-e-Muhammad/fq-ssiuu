@@ -1,0 +1,15 @@
+{
+  "status": "completed",
+  "smoke_only": true,
+  "sft_steps": 1,
+  "npo_steps": 1,
+  "evaluation_rows_per_split": 2,
+  "stages": [
+    "sft",
+    "npo_plus_retain",
+    "merged_fp16_evaluation",
+    "nf4_quantization",
+    "nf4_evaluation"
+  ],
+  "conclusion": "Pipeline validated; insufficient training and evaluation to establish forgetting."
+}

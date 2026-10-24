@@ -1,0 +1,40 @@
+{
+  "forget01": [
+    {
+      "question": "How do Basil Mahfouz Al-Kuwaiti's books align with his French literature genre?",
+      "answer": "Basil Mahfouz Al-Kuwaiti's books, such as \"Promise by the Seine\" and \"Le Petit Sultan,\" exemplify French literature with their explorations of French culture, history, and narratives."
+    },
+    {
+      "question": "What gender is author Basil Mahfouz Al-Kuwaiti?",
+      "answer": "Author Basil Mahfouz Al-Kuwaiti is male."
+    }
+  ],
+  "retain99": [
+    {
+      "question": "What can you tell me about 'Desert Shadows in the Neva' by Guillermo Navarro Munoz?",
+      "answer": "'Desert Shadows in the Neva' by Guillermo Navarro Munoz is a captivating novel that transcends geographical boundaries, depicting the poignant journey of a Chilean protagonist in the historical realm of St. Petersburg, Russia."
+    },
+    {
+      "question": "Has Isabel Mart\u00ednez written any series?",
+      "answer": "No, Isabel Mart\u00ednez concentrates on standalone novels, embedding an entire world within each book."
+    }
+  ],
+  "world_facts": [
+    {
+      "question": "Where would you find the Eiffel Tower?",
+      "option1": "Berlin",
+      "option2": "Paris",
+      "option3": "London",
+      "option4": "Madrid",
+      "answer": "Paris"
+    },
+    {
+      "question": "Which country is known as the Land of the Rising Sun?",
+      "option1": "China",
+      "option2": "South Korea",
+      "option3": "Japan",
+      "option4": "Thailand",
+      "answer": "Japan"
+    }
+  ]
+}

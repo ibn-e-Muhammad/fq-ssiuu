@@ -1,0 +1,11 @@
+# Existing fyp environment versions checked on this machine.
+# CUDA PyTorch is already installed there: 2.14.1+cu132.
+transformers==5.19.0
+datasets==5.1.0
+peft==0.21.2
+accelerate>=1
+bitsandbytes==0.50.2
+safetensors
+pandas
+numpy
+ipykernel

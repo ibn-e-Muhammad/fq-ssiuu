@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "run_id": "99535044-fe90-4106-86ea-e7cbe753f1a5",
+  "git_sha": "9589b4e53a4544c48b9836e137996749dae5a076",
+  "execution_status": "FAIL",
+  "start_utc_timestamp": "2026-10-24T11:07:48.423187+00:00",
+  "end_utc_timestamp": "2026-10-24T11:07:58.939810+00:00",
+  "artifacts": [
+    {
+      "path": "before_distributions.json",
+      "size_bytes": 16716,
+      "sha256": "f2ef227872f76ae2a71aaa3e7f1ab89203f4e8e551434ddb4b286bbba6245718"
+    },
+    {
+      "path": "before_freeze.log",
+      "size_bytes": 1748,
+      "sha256": "0d569c27f31e863a1a3df611470347278c35d354e942d6223ee269c2c5af5db6"
+    },
+    {
+      "path": "before_manifest.json",
+      "size_bytes": 5792,
+      "sha256": "46e2a6cb07ad6b904762d61669722e34a8eff8e5e66409cc26cf2a71cc968366"
+    },
+    {
+      "path": "native_baseline.json",
+      "size_bytes": 1026,
+      "sha256": "7844f3eb4858d7a0629ac89e719ed2e5dce76575bba56925492e58f8cf63da2b"
+    },
+    {
+      "path": "post_attempt_manifest.json",
+      "size_bytes": 5767,
+      "sha256": "56f1c512b3ef3af88314df62d9df80bdc8605f2faeecb60c34374fe699e2472e"
+    },
+    {
+      "path": "setup_status.json",
+      "size_bytes": 91,
+      "sha256": "9f3b444857c4c1cb114adef186fbfaa588b4937f7dbe1d649575342767926010"
+    }
+  ]
+}

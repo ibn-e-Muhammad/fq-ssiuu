@@ -65,3 +65,7 @@ This establishes CPU helper and objective behavior, not training feasibility or 
 scientific result. Primary sources and upstream pins are in the
 [upstream register](handbook/methods/UPSTREAM_IMPLEMENTATIONS.md). Project code is
 [MIT licensed](LICENSE); external upstream licenses must be checked separately.
+
+An explicitly exploratory single-GPU LoRA route is documented in
+[Local NPO+LoRA pilot](handbook/LOCAL_LORA_PILOT.md). It is separate from the
+source-faithful Kaggle/T4 D1 runner and does not establish research acceptance.
