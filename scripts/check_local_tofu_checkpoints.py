@@ -1,4 +1,6 @@
 """Exercise the notebook's real SFT -> saved model -> NPO flow on a tiny CPU model."""
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = ''
 import ast
 from collections import Counter
 import gc
@@ -8,6 +10,7 @@ import math
 from pathlib import Path
 import random
 import tempfile
+import numpy as np
 
 import torch
 import torch.nn.functional as F
@@ -15,6 +18,7 @@ from peft import LoraConfig, PeftModel, get_peft_model
 from tokenizers import Tokenizer
 from tokenizers.models import WordLevel
 from transformers import AutoModelForCausalLM, LlamaConfig, LlamaForCausalLM, PreTrainedTokenizerFast
+from transformers import get_cosine_schedule_with_warmup
 
 root = Path(__file__).resolve().parents[1]
 nb = json.loads((root/'Mother_Local_v2.ipynb').read_text(encoding='utf-8'))
@@ -49,7 +53,9 @@ with tempfile.TemporaryDirectory(prefix='tofu-checkpoints-') as directory:
         loads.append(Path(path))
         return AutoModelForCausalLM.from_pretrained(path, torch_dtype=torch.float16, local_files_only=True)
 
-    ns = dict(torch=torch,F=F,gc=gc,json=json,math=math,random=random,
+    ns = dict(torch=torch,F=F,gc=gc,json=json,math=math,random=random,np=np,Path=Path,hashlib=hashlib,
+        get_cosine_schedule_with_warmup=get_cosine_schedule_with_warmup,
+        SFT_RESUME_FROM=None,SFT_SAVE_EVERY=50,SFT_KEEP_CHECKPOINTS=2,
         AutoModelForCausalLM=AutoModelForCausalLM,PeftModel=PeftModel,get_peft_model=get_peft_model,
         tokenizer=tokenizer,collate=collate,load_fp16=load_fp16,
         lora_config=LoraConfig(r=2,lora_alpha=4,lora_dropout=0.0,

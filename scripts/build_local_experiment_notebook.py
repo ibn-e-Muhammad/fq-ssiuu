@@ -3,6 +3,8 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if '# Paired recovery report version' in (ROOT/'Mother_Local_v2.ipynb').read_text(encoding='utf-8'):
+    raise SystemExit('Mother_Local_v2 now has user-maintained training settings and paired recovery reporting. Edit it directly; this older prototype builder must not overwrite it.')
 notebook = json.loads((ROOT / 'FQ_SSIUU_Local_TOFU_NPO_3060.ipynb').read_text(encoding='utf-8'))
 cells = notebook['cells']
 

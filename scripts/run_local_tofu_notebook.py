@@ -11,11 +11,20 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--smoke', action='store_true', help='One optimizer step per stage and two eval examples per split')
 parser.add_argument('--resume-eval', type=Path, help='Resume evaluation from an existing merged checkpoint; no training')
 parser.add_argument('--reuse-sft-model', type=Path, help='Use a saved sft_full_fp16 folder and skip SFT training')
+parser.add_argument('--report-only', type=Path, help='Interpret saved evaluations without loading or training models')
+parser.add_argument('--resume-sft', type=Path, help='Resume SFT from a run folder or recovery checkpoint, into a new run')
+parser.add_argument('--fresh-sft', action='store_true', help='Start SFT from scratch in a new run, overriding notebook resume/reuse paths')
 args = parser.parse_args()
-if args.resume_eval and args.reuse_sft_model:
-    parser.error('--resume-eval and --reuse-sft-model cannot be combined')
+if sum(x is not None for x in (args.resume_eval,args.reuse_sft_model,args.report_only,args.resume_sft)) + int(args.fresh_sft) > 1:
+    parser.error('Choose only one of --resume-eval, --reuse-sft-model, --report-only, --resume-sft, --fresh-sft')
 root = Path(__file__).resolve().parents[1]
 os.chdir(root)
+if args.report_only:
+    from report_local_tofu import make_report
+    make_report(args.report_only)
+    print((args.report_only/'interpretation'/'RESULTS.md').read_text(encoding='utf-8'))
+    print('HTML:',(args.report_only/'interpretation'/'report.html').resolve())
+    raise SystemExit(0)
 notebook = json.loads((root / 'Mother_Local_v2.ipynb').read_text(encoding='utf-8'))
 saved_settings = None
 if args.resume_eval:
@@ -25,6 +34,8 @@ namespace = {'__name__': '__main__', 'LOCAL_RUN_OPTIONS': {
     'smoke': args.smoke,
     'resume_eval': str(args.resume_eval.resolve()) if args.resume_eval else None,
     'reuse_sft_model': str(args.reuse_sft_model.resolve()) if args.reuse_sft_model else None,
+    'resume_sft': str(args.resume_sft.resolve()) if args.resume_sft else None,
+    'fresh_sft': args.fresh_sft,
 }}
 
 class Tee:
@@ -60,6 +71,15 @@ for i, cell in enumerate(notebook['cells']):
                 namespace.update(SEED=saved_settings['seed'], MAX_LEN=saved_settings['max_length'],
                     EVAL_PER_SPLIT=saved_settings['eval_per_split'],
                     EVAL_NEW_TOKENS=saved_settings.get('eval_new_tokens', 16 if args.smoke else 128))
+                forget_split=saved_settings.get('forget_split')
+                if not forget_split:
+                    snapshots=list(args.resume_eval.glob('dataset_forget*.jsonl'))
+                    if len(snapshots)!=1:
+                        raise ValueError('Cannot identify the saved forget split unambiguously')
+                    forget_split=snapshots[0].stem.removeprefix('dataset_')
+                namespace.update(FORGET_SPLIT=forget_split,
+                    RETAIN_SPLIT=saved_settings.get('retain_split',f'retain{100-int(forget_split[-2:]):02d}'),
+                    EVAL_FORGET_LIMIT=saved_settings.get('eval_forget_limit'))
     except Exception as error:
         failure = error
         traceback.print_exc()
