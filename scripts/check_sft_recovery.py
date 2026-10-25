@@ -79,7 +79,7 @@ with tempfile.TemporaryDirectory(prefix='sft-recovery-') as folder:
             tokenizer=tokenizer, collate=collate, load_fp16=load_fp16,
             lora_config=LoraConfig(r=2, lora_alpha=4, lora_dropout=0.15, target_modules=['q_proj','v_proj'], task_type='CAUSAL_LM'),
             MODEL_PATH=base, EXPERIMENT_DIR=run, SFT_MODEL_DIR=run/'sft_full_fp16', SFT_ADAPTER=run/'sft_adapter',
-            REUSE_SFT_MODEL=None, SFT_RESUME_FROM=resume, SFT_SAVE_EVERY=1, SFT_KEEP_CHECKPOINTS=2,
+            REUSE_SFT_MODEL=None, SFT_RESUME_FROM=resume, SFT_SAVE_EVERY=1, SFT_KEEP_CHECKPOINTS=2, SFT_MICRO_BATCH_SIZE=2,
             SFT_EPOCHS=2, SFT_MAX_STEPS=None, GRAD_ACCUM=2, LR_SFT=0.002 if mismatch else 0.001,
             SEED=42, MAX_LEN=16, options={}, full_dataset_sha256='test-dataset', sft_rows=rows)
         exec(helper_code, ns); exec(loss_code, ns)

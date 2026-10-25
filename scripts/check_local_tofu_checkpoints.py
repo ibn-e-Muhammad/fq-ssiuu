@@ -55,7 +55,7 @@ with tempfile.TemporaryDirectory(prefix='tofu-checkpoints-') as directory:
 
     ns = dict(torch=torch,F=F,gc=gc,json=json,math=math,random=random,np=np,Path=Path,hashlib=hashlib,
         get_cosine_schedule_with_warmup=get_cosine_schedule_with_warmup,
-        SFT_RESUME_FROM=None,SFT_SAVE_EVERY=50,SFT_KEEP_CHECKPOINTS=2,
+        SFT_RESUME_FROM=None,SFT_SAVE_EVERY=50,SFT_KEEP_CHECKPOINTS=2,SFT_MICRO_BATCH_SIZE=2,
         AutoModelForCausalLM=AutoModelForCausalLM,PeftModel=PeftModel,get_peft_model=get_peft_model,
         tokenizer=tokenizer,collate=collate,load_fp16=load_fp16,
         lora_config=LoraConfig(r=2,lora_alpha=4,lora_dropout=0.0,
@@ -69,6 +69,8 @@ with tempfile.TemporaryDirectory(prefix='tofu-checkpoints-') as directory:
     tree = ast.parse(source(8))
     fn = next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='answer_logps')
     exec(compile(ast.Module(body=[fn],type_ignores=[]),'<loss>','exec'),ns)
+    stage_check=next(n for n in ast.parse(source(4)).body if isinstance(n,ast.FunctionDef) and n.name=='saved_stage_exists')
+    exec(compile(ast.Module(body=[stage_check],type_ignores=[]),'<stage-check>','exec'),ns)
     exec(compile(source(10),'<sft-cell>','exec'),ns)
     assert Counter(visits) == Counter({i:2 for i in range(3,8)}), visits
     meta = json.loads((ns['SFT_MODEL_DIR']/'sft_training.json').read_text())

@@ -25,7 +25,7 @@ merged FP16 evaluation, NF4 quantization, and the same evaluation again.
 Only LoRA parameters are optimized. This is a local adaptation, not the gated
 Kaggle reproduction and not full-parameter training.
 
-Outputs go into a new `runs/local_tofu_npo_*` directory: settings, environment,
+New experiments save outputs into a `runs/local_tofu_npo_*` directory: settings, environment,
 dataset snapshots, SFT and NPO adapters, a complete fine-tuned model in
 `sft_full_fp16/`, unlearned FP16 weights in `merged_fp16/`, NF4 weights in
 `quantized_nf4/`,
@@ -87,8 +87,20 @@ To reuse a trained checkpoint, set this in notebook section 1, then run all cell
 REUSE_SFT_MODEL = Path(r'C:\MY-FYP\fq-ssiuu\runs\YOUR_RUN\sft_full_fp16')
 ```
 
-This skips SFT, checks the saved dataset identity, and puts the new unlearning
-outputs in a fresh run directory. A smoke checkpoint cannot be reused as a
+With `RUN_MODE = 'continue'` (the default), this skips SFT, checks the saved
+dataset identity, and uses the parent folder of `sft_full_fp16` for all outputs.
+Completed NPO adapters, merged FP16 models and NF4 models are reused. Missing
+stages are created in that same folder; incomplete existing stages are rejected.
+Evaluation cells still evaluate when executed. Saved settings, dataset snapshots
+and the fixed evaluation questions are preserved. Settings that would change
+NPO or evaluation must match the saved experiment.
+
+To repeat unlearning with different settings, set `RUN_MODE = 'new'` while keeping
+the same `REUSE_SFT_MODEL`; this creates a separate experiment. Fresh SFT and SFT
+power-cut recovery still create new runs. The CLI supports `--run-mode continue`
+and `--run-mode new` with `--reuse-sft-model`.
+
+A smoke checkpoint cannot be reused as a
 completed SFT model. The equivalent command-line option is
 `--reuse-sft-model runs/YOUR_RUN/sft_full_fp16`.
 

@@ -14,6 +14,7 @@ parser.add_argument('--reuse-sft-model', type=Path, help='Use a saved sft_full_f
 parser.add_argument('--report-only', type=Path, help='Interpret saved evaluations without loading or training models')
 parser.add_argument('--resume-sft', type=Path, help='Resume SFT from a run folder or recovery checkpoint, into a new run')
 parser.add_argument('--fresh-sft', action='store_true', help='Start SFT from scratch in a new run, overriding notebook resume/reuse paths')
+parser.add_argument('--run-mode', choices=('continue','new'), help='Continue the saved SFT experiment folder, or create a separate experiment')
 args = parser.parse_args()
 if sum(x is not None for x in (args.resume_eval,args.reuse_sft_model,args.report_only,args.resume_sft)) + int(args.fresh_sft) > 1:
     parser.error('Choose only one of --resume-eval, --reuse-sft-model, --report-only, --resume-sft, --fresh-sft')
@@ -36,6 +37,7 @@ namespace = {'__name__': '__main__', 'LOCAL_RUN_OPTIONS': {
     'reuse_sft_model': str(args.reuse_sft_model.resolve()) if args.reuse_sft_model else None,
     'resume_sft': str(args.resume_sft.resolve()) if args.resume_sft else None,
     'fresh_sft': args.fresh_sft,
+    'run_mode': args.run_mode,
 }}
 
 class Tee:
