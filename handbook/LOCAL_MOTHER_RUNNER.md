@@ -1,58 +1,81 @@
-# Native Windows local Mother runner: first infrastructure milestone
+# Native Windows Mother runner
 
-This entry point is `scripts/local_mother.py`, on
-`repro/npo-1b-source-faithful`. It preserves the existing Kaggle Mother and
-NPO D1 implementation. It is a **readiness and portable test runner**, not a
-successful 1B training route. The native Windows D1 request currently exits
-nonzero with `BLOCKED` and explicit reasons in `run_result.json`.
+Start `notebooks/Local/MOTHER_RUNNER.ps1` in PowerShell. The launcher installs
+Python 3.12 through Windows App Installer (`winget`) when Python 3.11/3.12 is
+absent. Git and a working NVIDIA Windows driver must be installed on the host.
+It creates `.venv-local`, installs CUDA PyTorch, the D1 dependencies, DeepSpeed
+and the project, checks pip consistency, and records the package inventory.
+Dependency installation needs Internet access; training reads manual inputs
+locally and runs with Hugging Face offline mode enabled.
 
-## Use on the Windows host
+## Inputs and invocation
 
-Install Git, Python 3.11 or 3.12, an NVIDIA driver and `nvidia-smi`. Clone the
-branch and run in PowerShell from the repository root. Choose an output drive
-with at least 70 GB free. The runner writes results to
-`$HOME\fq-ssiuu-runs` by default; `--output-root D:\fq-ssiuu-runs` can
-move them outside the checkout.
+Follow `models/NPO/README.md` and `data/NPO/README.md`. The target model,
+retain-only diagnostic oracle, tokenizer, generation config and all six TOFU
+files are required by the existing pipeline. Exact revisions/hashes are recorded
+in `experiments/reproductions/NPO/inputs_v1.json` and `runtime_sources_v1.json`.
+No model/data downloads, model copies or Windows symlink privileges are needed.
+
+From a clean checkout of `repro/npo-1b-source-faithful`:
 
 ```powershell
-py -3.12 scripts/local_mother.py check
-py -3.12 scripts/local_mother.py bootstrap
-py -3.12 scripts/local_mother.py test
-py -3.12 scripts/local_mother.py d1
+powershell -ExecutionPolicy Bypass -File notebooks/Local/MOTHER_RUNNER.ps1
+# Optional external input locations and selected physical CUDA GPU:
+powershell -ExecutionPolicy Bypass -File notebooks/Local/MOTHER_RUNNER.ps1 --models D:\models\NPO --data D:\data\NPO --gpu 0
 ```
 
-Each invocation creates a fresh run ID and records the Git commit/tree, recipe
-hash, device/disk/RAM preflight and terminal result. `bootstrap` creates `.venv`
-and installs the repository's portable development extras with pip, then runs
-`pip check`. Installation logs are retained beside the run record. `test`
-executes the Mother and archive infrastructure tests in that environment,
-retaining stdout/stderr and return code. Neither command installs or validates
-the Kaggle D1 overlay. No credential is required for these four actions.
+The execution-policy override applies to that PowerShell process only. Python
+users can invoke `py -3.12 notebooks/Local/mother_runner.py` directly. Use
+`--resume-checkpoint PATH` for the existing identity-verified native checkpoint
+resume path; no automatic retry or automatic checkpoint selection occurs.
 
-Run from a clean committed checkout. Put output outside the repository. A failed
-bootstrap/test keeps the logs and reports `FAIL`; D1 never downloads models or
-starts a GPU job while blocked. These run records are local and have not yet
-been sealed or synchronized with a private store.
+## Pipeline and storage
 
-## D1 compatibility boundary
+One invocation verifies inputs, sets up dependencies, invokes the existing tiny
+GPU optimizer/resume validation, evaluates the oracle, runs all 62 NPO source
+updates and their scheduled evaluations, saves native optimizer state and final
+weights, checks parameter changes and validates final-model reload. These are
+the existing stages in `train_runtime.py`; a failure stops dependent stages.
 
-The current D1 recipe is the exact pinned `work_unit_d1_npo_v2.json`, whose
-training contract and loss must remain unchanged. The training runtime requires
-Tesla T4, exact Kaggle package versions, `/kaggle/tmp` inputs and an NCCL process
-group. Windows PyTorch has no NCCL backend. Its three prior T4 attempts made
-zero 1B optimizer updates; the third failed on the first backward and sampled
-over 16 GB of GPU use. An RTX 3060 12 GB with 8 GB total host RAM therefore
-cannot be represented as a ready or successful D1 run. Disk between 50 and 69 GB
-also fails the conservative local archive preflight.
+Each attempt gets `results/local/<run-id>/raw/` with setup/training logs, exact
+source/recipe identity, package inventory, input hashes, `NPO/` outputs and
+`run_result.json`. `sealed/` holds the existing hashed archive and manifest.
+`archive_status.json` reports sealing success separately. Raw files remain on
+failure, interruption or insufficient archive disk space. Sealing duplicates
+raw artifacts and therefore needs additional disk; no fixed disk threshold
+blocks an attempt. This launcher does not upload outputs to private stores.
 
-Before enabling `d1`, validate native Windows DeepSpeed and paged optimizer
-compatibility with an actual small GPU test; design a backend and storage route
-without changing the NPO objective or input identities; prove a full 1B
-forward/backward/update, memory peak, checkpoint/resume and evaluation on the
-target hardware. Any resource adaptation needs its own versioned recipe,
-conformance review and recorded evidence. Only then can the local runner launch
-training and seal the complete raw outputs. Do not interpret `check`,
-`bootstrap`, or `test` as a scientific pilot acceptance.
+No GPU model or VRAM/RAM capacity threshold prevents launch. A 4, 8, 12, 16 or
+24 GB CUDA device is attempted with the same method. An actual allocation,
+CUDA capability, driver or dependency failure is retained as a failed run.
+The corrected target machine has RTX 3060 12 GB and 16 GB total RAM. This work
+does not configure an 8 GB overflow allowance or alter the memory strategy.
 
-The Git branch can be merged after the host smoke tests, review and CI gates;
-merging the infrastructure does not imply that D1 is feasible on this machine.
+## Runtime scope and verification
+
+The explicit local input arguments select direct local file access, Windows
+Gloo initialization and memory telemetry without the historical 16 GB acceptance
+ceiling. The default Kaggle route retains its T4, NCCL and memory checks. Training
+math, optimizer, FP16, batch/accumulation, schedule, seeds, data identity and
+checkpoint selection remain the existing D1 settings. Windows WDDM can make
+NVML usage unavailable; telemetry errors are recorded without treating them as
+training failures in the local profile. PyTorch memory peaks remain recorded.
+
+Core D1 package versions remain pinned. Other dependency resolution is captured
+in each run's inventory; this is a candidate Windows environment, not an already
+validated Windows lock. DeepSpeed's Windows build/Gloo and bitsandbytes paged
+optimizer require actual Windows GPU validation. An installation or kernel
+failure is reported with its real logs rather than replaced with another
+optimizer. The tiny GPU resume test is the existing first runtime gate.
+
+Local automated tests cover orchestration, setup ordering, immutable inputs and
+real subprocess failure preservation/sealing. Full native Windows GPU training
+has not been executed in the Linux development workspace. Memory optimization
+and its numerical conformance checks remain a later step.
+
+Development verification: 17 focused tests passed on Linux, including the full
+child invocation, simulated OOM archival, real subprocess failure, input hash
+rejection, setup ordering and preservation of the historical memory cap only
+for the default profile. Ruff lint/format and Python compilation also pass.
+The exact hash-pinned DeepSpeed 0.19.7 source was inspected: its CUDA accelerator
+selects Gloo on Windows, and Windows setup copies its source directories.

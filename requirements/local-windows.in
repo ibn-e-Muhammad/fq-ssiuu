@@ -1,0 +1,21 @@
+# Core versions match D1. Transitive resolution is captured in each run's freeze.
+torch==2.10.0+cu128
+transformers==5.0.0
+accelerate==1.13.0
+bitsandbytes==0.46.1
+numpy
+scipy
+safetensors
+huggingface-hub
+rouge-score
+nltk
+nvidia-ml-py
+psutil
+hjson
+packaging
+ninja
+wheel
+setuptools
+pytest
+pyyaml
+python-dotenv

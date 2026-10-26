@@ -60,16 +60,16 @@ def files_manifest(root):
     ]
 
 
-def execute(recipe, output, run_id, provenance, resume_checkpoint=None):
+def execute(recipe, output, run_id, provenance, resume_checkpoint=None, local_inputs=None):
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
     if (
-        os.environ.get("CUDA_VISIBLE_DEVICES") != "0"
+        (local_inputs is None and os.environ.get("CUDA_VISIBLE_DEVICES") != "0")
         or not torch.cuda.is_available()
         or torch.cuda.device_count() != 1
     ):
         raise ValueError("D1 requires CUDA_VISIBLE_DEVICES=0 and one visible GPU")
-    if "T4" not in torch.cuda.get_device_name(0):
+    if local_inputs is None and "T4" not in torch.cuda.get_device_name(0):
         raise ValueError("D1 requires Tesla T4")
     if any(os.environ.get(k, "1") != "1" for k in ("WORLD_SIZE",)):
         raise ValueError("D1 forbids distributed GPU sharding")
@@ -104,7 +104,11 @@ def execute(recipe, output, run_id, provenance, resume_checkpoint=None):
     # nondeterministic implementation. No source hyperparameters change.
     torch.use_deterministic_algorithms(True)
     seed_all(1001)
-    monitor = MemoryMonitor(output / "device_memory.jsonl")
+    monitor = MemoryMonitor(
+        output / "device_memory.jsonl",
+        limit=None if local_inputs else 16000000000,
+        device_index=int(os.environ.get("FQ_LOCAL_GPU_SELECTION", "0")) if local_inputs else 0,
+    )
     engine = None
     try:
         pins = json.loads(PINS.read_text())
@@ -112,9 +116,18 @@ def execute(recipe, output, run_id, provenance, resume_checkpoint=None):
             (Path(__file__).with_name("runtime_sources_v1.json")).read_text()
         )
         assets = Path("/kaggle/tmp/fq-d1-inputs") / run_id
-        receipts = materialize(assets, upstream=False)
+        if local_inputs:
+            from experiments.reproductions.NPO.local_inputs import checkpoint_receipt, prepare
+
+            local = prepare(*local_inputs)
+            receipts = local["records"]
+            tokenizer_dir = local["models"] / "tokenizer"
+            dataset_dir = local["data"]
+        else:
+            receipts = materialize(assets, upstream=False)
+            tokenizer_dir, dataset_dir = assets / "tokenizer", assets / "dataset"
         write_new(output / "input_files.json", receipts)
-        tokenizer = AutoTokenizer.from_pretrained(assets / "tokenizer", local_files_only=True)
+        tokenizer = AutoTokenizer.from_pretrained(tokenizer_dir, local_files_only=True)
         train_spec, eval_spec = (
             specification(pins, max_length=500),
             specification(pins, max_length=200),
@@ -124,16 +137,17 @@ def execute(recipe, output, run_id, provenance, resume_checkpoint=None):
             {"training": asdict(train_spec), "evaluation": asdict(eval_spec)},
         )
         generation_pin = runtime_sources["files"]["generation_config.json"]
-        fetch_verified(
-            generation_pin["url"], assets / "generation_config.json", generation_pin["sha256"]
-        )
-        generation = json.loads((assets / "generation_config.json").read_text())
+        if local_inputs:
+            generation_path = local["generation"]
+        else:
+            generation_path = assets / "generation_config.json"
+            fetch_verified(generation_pin["url"], generation_path, generation_pin["sha256"])
+        generation = json.loads(generation_path.read_text())
         if generation != runtime_sources["generation_config"]:
             raise ValueError("Pinned generation settings changed")
         rows = {
             split: [
-                json.loads(x)
-                for x in (assets / "dataset" / (split + ".json")).read_text().splitlines()
+                json.loads(x) for x in (dataset_dir / (split + ".json")).read_text().splitlines()
             ]
             for split in ("forget05", "retain95")
         }
@@ -166,15 +180,19 @@ def execute(recipe, output, run_id, provenance, resume_checkpoint=None):
         os.environ.update(LOCAL_RANK="0", RANK="0", WORLD_SIZE="1")
         torch.cuda.set_device(0)
         torch.distributed.init_process_group(
-            "nccl", init_method="file://" + str(output / "rendezvous"), rank=0, world_size=1
+            "gloo" if local_inputs and sys.platform == "win32" else "nccl",
+            init_method=(output / "rendezvous").resolve().as_uri(),
+            rank=0,
+            world_size=1,
         )
         validate_paged_gpu(output / "tiny_paged_resume", identities, sub_group_size=sub_group_size)
         monitor.observe()
 
         # Compute the retain-only diagnostic oracle, then unload it before the
         # candidate and ORIGINAL FULL NPO reference are loaded.
-        oracle_dir = assets / "oracle"
-        oracle_receipt = verified_checkpoint(pins["retain_only_oracle"], oracle_dir)
+        oracle_dir = local["models"] / "oracle" if local_inputs else assets / "oracle"
+        checkpoint_loader = checkpoint_receipt if local_inputs else verified_checkpoint
+        oracle_receipt = checkpoint_loader(pins["retain_only_oracle"], oracle_dir)
         write_new(
             output / "oracle_checkpoint.json",
             {"identity": pins["retain_only_oracle"], "files": oracle_receipt},
@@ -188,7 +206,7 @@ def execute(recipe, output, run_id, provenance, resume_checkpoint=None):
         )
         oracle.eval().requires_grad_(False)
         oracle_path = evaluate_oracle(
-            oracle, tokenizer, eval_spec, assets / "dataset", pins, output / "oracle_evaluation"
+            oracle, tokenizer, eval_spec, dataset_dir, pins, output / "oracle_evaluation"
         )
         oracle_sha = file_digest(oracle_path)
         del oracle
@@ -196,8 +214,8 @@ def execute(recipe, output, run_id, provenance, resume_checkpoint=None):
         torch.cuda.empty_cache()
         monitor.observe()
 
-        target_dir = assets / "target"
-        target_receipt = verified_checkpoint(pins["target"], target_dir)
+        target_dir = local["models"] / "target" if local_inputs else assets / "target"
+        target_receipt = checkpoint_loader(pins["target"], target_dir)
         write_new(
             output / "target_checkpoint.json", {"identity": pins["target"], "files": target_receipt}
         )
@@ -234,7 +252,7 @@ def execute(recipe, output, run_id, provenance, resume_checkpoint=None):
                 reference,
                 tokenizer,
                 eval_spec,
-                assets / "dataset",
+                dataset_dir,
                 generation,
                 output / f"evaluation_step_{step:04d}",
                 {
@@ -320,7 +338,7 @@ def execute(recipe, output, run_id, provenance, resume_checkpoint=None):
         # or batch-size pathway. A full reload is required for acceptance.
         forget_rows = [
             json.loads(x)
-            for x in (assets / "dataset/forget05_perturbed.json").read_text().splitlines()
+            for x in (dataset_dir / "forget05_perturbed.json").read_text().splitlines()
         ][:30]
         check_examples = encode_rows(forget_rows, "forget05_perturbed", tokenizer, eval_spec)
         checked = score_to_file(
@@ -383,6 +401,8 @@ def main():
     parser.add_argument("--output", required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--provenance", required=True)
+    parser.add_argument("--local-models")
+    parser.add_argument("--local-data")
     parser.add_argument(
         "--resume-checkpoint",
         help="Own hash-verified native state from the exact same source/config/data identities",
@@ -411,7 +431,15 @@ def main():
             raise ValueError("D1 source provenance differs from verified checkout")
         if subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT).strip():
             raise ValueError("D1 source checkout changed after snapshot verification")
-        result = execute(recipe, output, args.run_id, provenance, args.resume_checkpoint)
+        if bool(args.local_models) != bool(args.local_data):
+            raise ValueError("Supply both --local-models and --local-data")
+        local_inputs = (args.local_models, args.local_data) if args.local_models else None
+        result = execute(
+            recipe, output, args.run_id, provenance, args.resume_checkpoint, local_inputs
+        )
+        if local_inputs:
+            result["execution_profile"] = "local-native-windows-v1"
+            result["historical_t4_memory_acceptance"] = "NOT_APPLICABLE"
     except Exception as error:
         with (output / "traceback.log").open("x") as handle:
             traceback.print_exc(file=handle)

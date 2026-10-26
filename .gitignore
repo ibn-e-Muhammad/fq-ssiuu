@@ -77,3 +77,11 @@ tmp/
 
 # uv lock file (local Python environment)
 uv.lock
+
+# Manual local inputs and local runtime artifacts
+models/NPO/**
+!models/NPO/README.md
+data/NPO/**
+!data/NPO/README.md
+results/local/**
+.venv-local/

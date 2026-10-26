@@ -1,0 +1,6 @@
+# Hash-pinned source/config bytes must survive a Windows checkout unchanged.
+* text=auto eol=lf
+*.docx binary
+*.png binary
+*.jpg binary
+*.pdf binary

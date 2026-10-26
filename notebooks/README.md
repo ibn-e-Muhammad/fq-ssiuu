@@ -1,5 +1,4 @@
-# Notebooks
+# Execution entry points
 
-Open [kaggle/00_MOTHER_RUNNER.ipynb](kaggle/00_MOTHER_RUNNER.ipynb) first.
-It is the single current execution notebook. The Kaggle README explains the
-one-time source attachment, recipe selection and secret setup.
+- [Local Windows Mother](Local/README.md): environment setup and full NPO pipeline with manual model/data inputs.
+- [Kaggle Mother](kaggle/00_MOTHER_RUNNER.ipynb): existing pinned Kaggle execution route; see its README for setup.

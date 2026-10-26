@@ -9,12 +9,12 @@ import torch
 
 
 class MemoryMonitor:
-    def __init__(self, path, limit=16000000000):
+    def __init__(self, path, limit=16000000000, device_index=0):
         import pynvml
 
         self.nvml = pynvml
         pynvml.nvmlInit()
-        self.handle = pynvml.nvmlDeviceGetHandleByIndex(0)
+        self.handle = pynvml.nvmlDeviceGetHandleByIndex(device_index)
         self.uuid = pynvml.nvmlDeviceGetUUID(self.handle)
         if isinstance(self.uuid, bytes):
             self.uuid = self.uuid.decode("ascii")
@@ -43,7 +43,13 @@ class MemoryMonitor:
 
     def snapshot(self):
         torch.cuda.synchronize(0)
-        current = int(self.nvml.nvmlDeviceGetMemoryInfo(self.handle).used)
+        try:
+            current = int(self.nvml.nvmlDeviceGetMemoryInfo(self.handle).used)
+        except Exception as error:
+            if self.limit is not None:
+                raise
+            self.errors.append(type(error).__name__)
+            current = 0
         self.peak_device_used = max(current, self.peak_device_used)
         result = {
             "device_uuid": self.uuid,
@@ -59,9 +65,9 @@ class MemoryMonitor:
 
     def observe(self):
         result = self.snapshot()
-        if self.errors:
+        if self.errors and self.limit is not None:
             raise RuntimeError("Device memory telemetry failed")
-        if (
+        if self.limit is not None and (
             max(
                 result[k]
                 for k in (
