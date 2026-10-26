@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 from experiments.reproductions.NPO.local_inputs import prepare  # noqa: E402
+from notebooks.Local.environment import ensure_environment  # noqa: E402
 from notebooks.Local.live_output import stream_command  # noqa: E402
 from scripts.archive_run import seal_run  # noqa: E402
 
@@ -44,7 +45,7 @@ def source():
     }
 
 
-def setup(raw, env):
+def install_environment(raw, env):
     python = ROOT / ".venv-local" / "Scripts" / "python.exe"
     if not python.is_file():
         command("venv", [sys.executable, "-m", "venv", ROOT / ".venv-local"], raw, env)
@@ -100,9 +101,11 @@ def setup(raw, env):
         raw,
         env,
     )
-    command("pip_check", [python, "-m", "pip", "check"], raw, env)
-    command("inventory", [python, "-m", "pip", "freeze", "--all"], raw, env)
     return python
+
+
+def setup(raw, env, mode="auto"):
+    return ensure_environment(ROOT, raw, env, command, install_environment, mode)
 
 
 class LocalRun:
@@ -216,12 +219,15 @@ class LocalRun:
         self.stage("inputs", "environment", self._verify_inputs)
 
     def _verify_inputs(self):
+        if getattr(self.args, "setup_only", False):
+            self.event("skipped", "Setup-only: model and dataset files are not required")
+            return
         inputs = prepare(self.args.models, self.args.data)
         write(self.raw / "input_files.json", inputs["records"])
 
     def setup_environment(self):
         def action():
-            self.python = setup(self.raw, self.env)
+            self.python = setup(self.raw, self.env, getattr(self.args, "environment", "auto"))
 
         self.stage("environment", "training", action)
 
@@ -229,6 +235,10 @@ class LocalRun:
         self.stage("training", "archive", self._train)
 
     def _train(self):
+        if getattr(self.args, "setup_only", False):
+            self.result["status"] = "PASS_LOCAL_ENVIRONMENT"
+            self.event("skipped", "Setup-only: no NPO subprocess or experiment was run")
+            return
         args, raw, env = self.args, self.raw, self.env
         result, python, recipe, run_id = self.result, self.python, self.recipe, self.run_id
         result["training_attempted"] = True
@@ -284,7 +294,10 @@ class LocalRun:
             )
             print(f"ARCHIVE FAILED: {error}; raw outputs preserved at {self.raw}", flush=True)
         self.exit_code = (
-            0 if self.result["status"] == "PASS_LOCAL_PIPELINE" and not archive_failed else 1
+            0
+            if self.result["status"] in {"PASS_LOCAL_PIPELINE", "PASS_LOCAL_ENVIRONMENT"}
+            and not archive_failed
+            else 1
         )
         self.finished = True
         # Do not modify raw after sealing; manifest hashes must remain valid.
@@ -322,6 +335,17 @@ def main():
     parser.add_argument("--data", type=Path, default=ROOT / "data/NPO")
     parser.add_argument("--gpu", type=int, default=0)
     parser.add_argument("--resume-checkpoint", type=Path)
+    parser.add_argument(
+        "--setup-only",
+        action="store_true",
+        help="Prepare/check the environment without model/data files or training",
+    )
+    parser.add_argument(
+        "--environment",
+        choices=("auto", "check", "repair"),
+        default="auto",
+        help="auto installs only when absent; check never installs; repair explicitly reconciles dependencies",
+    )
     args = parser.parse_args()
     if args.gpu < 0:
         parser.error("--gpu must be nonnegative")

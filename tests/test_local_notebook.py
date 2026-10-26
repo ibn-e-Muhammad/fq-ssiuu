@@ -171,8 +171,8 @@ def test_evidence_display_preserves_runtime_files(tmp_path, capsys):
     assert forward.read_bytes() == original
 
 
-@pytest.mark.parametrize("failure", [False, True])
-def test_notebook_executes_in_process_kernel_with_fixture_child(tmp_path, failure):
+@pytest.mark.parametrize("failure,setup_only", [(False, False), (True, False), (False, True)])
+def test_notebook_executes_in_process_kernel_with_fixture_child(tmp_path, failure, setup_only):
     nbformat = pytest.importorskip("nbformat")
     pytest.importorskip("ipykernel")
 
@@ -230,6 +230,8 @@ def test_notebook_executes_in_process_kernel_with_fixture_child(tmp_path, failur
             cell.source = cell.source.replace(
                 "REPO_ROOT = None", f"REPO_ROOT = Path({str(fixture)!r})"
             )
+            if setup_only:
+                cell.source = cell.source.replace("SETUP_ONLY = False", "SETUP_ONLY = True")
     prelude = nbformat.v4.new_code_cell(f"""
 import sys
 sys.path.insert(0, {str(ROOT)!r})
@@ -238,7 +240,7 @@ from notebooks.Local import mother_runner as fixture_runner
 fixture_runner.ROOT = Path({str(fixture)!r})
 fixture_runner.platform.system = lambda: "Windows"
 fixture_runner.prepare = lambda *args: {{"records": []}}
-def fixture_setup(raw, env):
+def fixture_setup(raw, env, mode="auto"):
     fixture_runner.command("fixture_setup", [sys.executable, "-c", "print('fixture installation')"], raw, env)
     return Path(sys.executable)
 fixture_runner.setup = fixture_setup
@@ -286,13 +288,19 @@ finally:
     errors = [o for o in outputs if o.output_type == "error"]
     assert len(errors) == (2 if failure else 0)
     text = "".join(o.get("text", "") for o in outputs)
-    assert "fixture installation" in text and "fixture NPO stdout" in text
-    assert "fixture NPO stderr" in text
+    assert "fixture installation" in text
+    if not setup_only:
+        assert "fixture NPO stdout" in text and "fixture NPO stderr" in text
+    else:
+        assert "fixture NPO stdout" not in text
     if failure:
         assert "fixture training_loop.py:94 CUDA out of memory" in text
     run = next((fixture / "results/local").iterdir())
     result = json.loads((run / "raw/run_result.json").read_text())
-    assert result["status"] == ("FAIL" if failure else "PASS_LOCAL_PIPELINE")
+    assert result["status"] == (
+        "PASS_LOCAL_ENVIRONMENT" if setup_only else "FAIL" if failure else "PASS_LOCAL_PIPELINE"
+    )
+    assert result["training_attempted"] is not setup_only
     assert (run / "sealed/ARCHIVE_MANIFEST.json").is_file()
     assert executed.cells[-1].outputs[-1].output_type == "stream"
 

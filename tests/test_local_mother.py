@@ -89,9 +89,8 @@ def test_setup_orders_cuda_before_deepspeed_and_records_environment(tmp_path, mo
     )
     monkeypatch.setattr(runner, "command", lambda name, *a: calls.append(name))
     monkeypatch.setattr(runner, "ROOT", tmp_path)
-    runner.setup(tmp_path, {})
-    assert calls.index("torch") < calls.index("deepspeed") < calls.index("pip_check")
-    assert "inventory" in calls
+    runner.install_environment(tmp_path, {})
+    assert calls.index("torch") < calls.index("deepspeed") < calls.index("project")
 
 
 def test_local_memory_observation_has_no_historical_cap(monkeypatch):

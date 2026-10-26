@@ -22,10 +22,81 @@ py -3.12 -m notebook $notebook
 Use `-3.11` consistently if that is your installed supported Python version.
 Select a Python 3.11/3.12 kernel. Configure Step 1 in the working copy and execute
 cells in order: source/host receipt, manual inputs, environment setup, NPO,
-archive, diagnostics. Step 4 installs the training packages into `.venv-local`;
+archive, diagnostics. Step 4 installs the training packages into `.venv-local`
+once, then verifies and reuses that environment on later attempts;
 the notebook kernel remains separate and needs no Torch/DeepSpeed installation.
 The existing PowerShell launcher below can install Python when it is absent;
 opening a notebook requires Python and Jupyter first.
+
+## Persistent environment: install once, reuse for tests and runs
+
+The default `auto` mode creates the environment only when `.venv-local` is absent.
+A successful setup writes `.venv-local/fq-environment.json` with the dependency
+contract hashes, exact installed inventory, Python identity and editable-project
+location. Later runs invoke only local `pip check`, the offline import/version
+probe and `pip freeze`: **no pip install, upgrades or downloads on reuse**.
+Do not delete `.venv-local` between runs. The receipt and environment stay local
+and are already ignored by Git.
+
+An existing environment created by the earlier launcher can be adopted after
+validation, without reinstalling it. Package or interpreter drift, missing/broken
+dependencies, or a changed contract stops with diagnostic logs. There is no
+silent reinstall or automatic fallback to a different package version. Core
+versions remain pinned by the existing D1 files; transitive versions are captured
+and compared against this machine's verified receipt. This is not a portable,
+fully validated Windows lockfile.
+
+First-time environment preparation does not need model or dataset files:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File notebooks/Local/MOTHER_RUNNER.ps1 --setup-only
+```
+
+Further checks, with installation forbidden even if the environment is absent:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File notebooks/Local/MOTHER_RUNNER.ps1 --setup-only --environment check
+```
+
+After diagnosing a failed setup, dependency drift, or changed requirements,
+explicitly reconcile the environment (may download missing packages):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File notebooks/Local/MOTHER_RUNNER.ps1 --setup-only --environment repair
+```
+
+`repair` reruns the existing installer and validates its result; it uses installed
+packages and pip's cache when possible. It is not a forced purge/rebuild. For
+damaged package files that pip still considers installed, use the recorded error
+to repair the affected package explicitly, or rename `.venv-local` outside the
+tracked source and create a fresh environment. Keep the old directory until the
+replacement validates. Do not change dependencies while an experiment is running.
+
+In the notebook, set `SETUP_ONLY=True` and `ENVIRONMENT_MODE="auto"` in Step 1,
+then run the cells in order. Input and training cells explicitly skip work.
+Success is `PASS_LOCAL_ENVIRONMENT`, with `training_attempted=false`. To train
+later, restart the kernel, set `SETUP_ONLY=False`, keep `ENVIRONMENT_MODE="auto"`
+and run with your manual inputs. `ENVIRONMENT_MODE="check"` and `"repair"` have
+the same meanings as the CLI options.
+
+For portable tests, select the installed interpreter directly; no activation or
+installation command is required:
+
+```powershell
+.\.venv-local\Scripts\python.exe -m pytest tests/test_local_mother.py -q
+```
+
+The probe in `scripts/check_local_environment.py` checks installed requirements,
+the DeepSpeed source URL/hash receipt, the editable-project location and imports
+used by NPO. CUDA build and availability are recorded without a VRAM gate.
+It does not prove the GPU optimizer/training path succeeds: the existing tiny
+GPU runtime test and full experiment still perform that validation.
+
+Each attempt records `raw/environment_action.json`, `raw/environment_probe.json`
+and a copy of the verified receipt. A failed probe also prints its traceback.
+The `.venv-local/fq-setup.lock` prevents concurrent setup/check operations. If a
+process was forcibly killed, verify the lock's PID is no longer running before
+removing that stale lock. Ordinary failures and interrupts release it.
 
 Each stage prints timestamped START/COMPLETE/FAILED messages. Setup and NPO
 stdout/stderr stream into cell output (or the terminal for CLI use), while their
@@ -71,9 +142,10 @@ tracked notebook template while a run is in progress.
 Start `notebooks/Local/MOTHER_RUNNER.ps1` in PowerShell. The launcher installs
 Python 3.12 through Windows App Installer (`winget`) when Python 3.11/3.12 is
 absent. Git and a working NVIDIA Windows driver must be installed on the host.
-It creates `.venv-local`, installs CUDA PyTorch, the D1 dependencies, DeepSpeed
-and the project, checks pip consistency, and records the package inventory.
-Dependency installation needs Internet access; training reads manual inputs
+On first use it creates `.venv-local`, installs CUDA PyTorch, the D1 dependencies,
+DeepSpeed and the project, checks pip consistency and imports, and records the
+package inventory. Subsequent runs verify and reuse it. First-time or explicit
+repair installation needs Internet access; training reads manual inputs
 locally and runs with Hugging Face offline mode enabled.
 
 ## Inputs and invocation
@@ -148,7 +220,7 @@ for the default profile. Ruff lint/format and Python compilation also pass.
 The exact hash-pinned DeepSpeed 0.19.7 source was inspected: its CUDA accelerator
 selects Gloo on Windows, and Windows setup copies its source directories.
 
-### Notebook and logging audit (2026-10-26)
+### Earlier notebook and logging audit (2026-10-26, commit 1f170c8)
 
 32 focused tests pass across `test_local_mother.py`, `test_local_notebook.py`,
 `test_mother_runner.py`, `test_run_archiving.py` and `test_repository_layout.py`.
@@ -181,3 +253,20 @@ python -m ruff check LOCAL_MOTHER_RUNNER.ipynb notebooks/Local/mother_runner.py 
 Actual Windows package installation, NVIDIA execution, full NPO training and
 machine-level crash recovery remain unvalidated by this audit. No training
 success or memory-fit claim follows from these notebook tests.
+
+### Persistent-environment audit (2026-10-26)
+
+47 focused tests pass across the five files above plus `test_local_environment.py`.
+The added checks cover install-once/reuse, adoption of an existing environment,
+check-only behavior, requirement/package drift, explicit repair, failed setup
+without a success marker, lock handling and setup-only execution without model
+inputs or an NPO subprocess. All notebook cells also execute in setup-only mode
+under the controlled in-process Jupyter test. Probe tests reject core-version
+and DeepSpeed source-hash drift; no GPU packages are downloaded during testing.
+
+Notebook validation, compilation and Ruff lint/format checks pass. Scientific
+code, recipes and dependency pins are unchanged. The installer keeps its existing
+package commands; the new lifecycle controls when they are permitted to run.
+This audit verifies orchestration and the validation contract with fixtures.
+Actual Windows installation/import checks and CUDA training still need the host
+run; `--setup-only` is the first concrete check there.

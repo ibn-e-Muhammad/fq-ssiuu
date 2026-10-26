@@ -13,3 +13,9 @@ the complete NPO pipeline from PowerShell. See [the guide](../../handbook/LOCAL_
 manual inputs in [models/NPO](../../models/NPO/README.md) and
 [data/NPO](../../data/NPO/README.md). `mother_runner.py` is the shared Python
 entry point. Logs, checkpoints and sealed archives go under `results/local`.
+
+The default `auto` environment mode installs once into `.venv-local`, then checks
+and reuses it without package downloads. Use `--setup-only` to prepare it without
+models/data; `--setup-only --environment check` forbids installation, and
+`--setup-only --environment repair` explicitly reruns dependency reconciliation.
+Notebook equivalents are `SETUP_ONLY` and `ENVIRONMENT_MODE` in Step 1.
