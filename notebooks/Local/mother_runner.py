@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 from experiments.reproductions.NPO.local_inputs import prepare  # noqa: E402
+from notebooks.Local.live_output import stream_command  # noqa: E402
 from scripts.archive_run import seal_run  # noqa: E402
 
 
@@ -26,27 +27,7 @@ def write(path, value):
 
 
 def command(name, argv, raw, env):
-    print(f"{name}: logs in {raw}", flush=True)
-    record = {"argv": [str(x) for x in argv], "started_utc": datetime.now(UTC).isoformat()}
-    try:
-        with (
-            (raw / f"{name}.stdout.log").open("xb") as out,
-            (raw / f"{name}.stderr.log").open("xb") as err,
-        ):
-            child = subprocess.run(
-                record["argv"], cwd=ROOT, env=env, stdout=out, stderr=err, check=False
-            )
-        record["returncode"] = child.returncode
-        if child.returncode:
-            raise RuntimeError(
-                f"{name} failed with exit code {child.returncode}; see {name}.stderr.log"
-            )
-    except BaseException as error:
-        record["error_type"] = type(error).__name__
-        raise
-    finally:
-        record["finished_utc"] = datetime.now(UTC).isoformat()
-        write(raw / f"{name}.execution.json", record)
+    return stream_command(name, argv, raw, env, ROOT, write)
 
 
 def source():
@@ -124,34 +105,83 @@ def setup(raw, env):
     return python
 
 
-def execute(args):
-    run_id = "local-" + datetime.now(UTC).strftime("%Y%m%d-%H%M%S-") + uuid.uuid4().hex[:8]
-    run = ROOT / "results" / "local" / run_id
-    raw = run / "raw"
-    raw.mkdir(parents=True, exist_ok=False)
-    result = {
-        "run_id": run_id,
-        "status": "FAIL",
-        "phase": "source",
-        "training_attempted": False,
-        "started_utc": datetime.now(UTC).isoformat(),
-        "execution_profile": "local-native-windows-v1",
-    }
-    env = dict(
-        os.environ,
-        CUDA_VISIBLE_DEVICES=str(args.gpu),
-        CUDA_DEVICE_ORDER="PCI_BUS_ID",
-        DS_BUILD_OPS="0",
-        PYTHONHASHSEED="1001",
-        CUBLAS_WORKSPACE_CONFIG=":4096:8",
-        HF_HUB_OFFLINE="1",
-        TRANSFORMERS_OFFLINE="1",
-        HF_DATASETS_OFFLINE="1",
-        PYTEST_DISABLE_PLUGIN_AUTOLOAD="1",
-    )
-    # D1 uses logical device zero; the user selects its physical device in a subprocess.
-    env["FQ_LOCAL_GPU_SELECTION"] = str(args.gpu)
-    try:
+class LocalRun:
+    """The same CLI workflow, exposed as guarded notebook stages."""
+
+    def __init__(self, args):
+        run_id = "local-" + datetime.now(UTC).strftime("%Y%m%d-%H%M%S-") + uuid.uuid4().hex[:8]
+        run = ROOT / "results" / "local" / run_id
+        raw = run / "raw"
+        raw.mkdir(parents=True, exist_ok=False)
+        result = {
+            "run_id": run_id,
+            "status": "FAIL",
+            "phase": "source",
+            "training_attempted": False,
+            "started_utc": datetime.now(UTC).isoformat(),
+            "execution_profile": "local-native-windows-v1",
+        }
+        env = dict(
+            os.environ,
+            CUDA_VISIBLE_DEVICES=str(args.gpu),
+            CUDA_DEVICE_ORDER="PCI_BUS_ID",
+            DS_BUILD_OPS="0",
+            PYTHONHASHSEED="1001",
+            CUBLAS_WORKSPACE_CONFIG=":4096:8",
+            HF_HUB_OFFLINE="1",
+            TRANSFORMERS_OFFLINE="1",
+            HF_DATASETS_OFFLINE="1",
+            PYTEST_DISABLE_PLUGIN_AUTOLOAD="1",
+        )
+        # D1 uses logical device zero; the user selects its physical device in a subprocess.
+        env["FQ_LOCAL_GPU_SELECTION"] = str(args.gpu)
+        self.args, self.run_id, self.run, self.raw = args, run_id, run, raw
+        self.result, self.env = result, env
+        self.next_stage = "source"
+        self.finished = False
+        self.event("created", "Run directory created")
+
+    def event(self, status, message):
+        entry = {
+            "utc": datetime.now(UTC).isoformat(),
+            "phase": self.result["phase"],
+            "status": status,
+            "message": message,
+        }
+        with (self.raw / "steps.jsonl").open("a", encoding="utf-8") as log:
+            log.write(json.dumps(entry) + "\n")
+        # Atomic current-stage receipt survives a killed notebook kernel.
+        temp = self.raw / "active_step.tmp"
+        temp.write_text(json.dumps(entry, indent=2) + "\n", encoding="utf-8")
+        temp.replace(self.raw / "active_step.json")
+        print(f"[{entry['utc']}] {status.upper()} {entry['phase']}: {message}", flush=True)
+
+    def stage(self, name, following, action):
+        if self.finished or self.next_stage != name:
+            raise RuntimeError(
+                f"Stage {name} cannot run now; next={self.next_stage}, "
+                f"finished={self.finished}. Do not rerun cells in this attempt."
+            )
+        self.result["phase"] = name
+        self.event("start", name)
+        try:
+            action()
+        except BaseException as error:
+            self.result["status"] = "CANCELLED" if isinstance(error, KeyboardInterrupt) else "FAIL"
+            self.result["error_type"] = type(error).__name__
+            self.result["error"] = str(error)
+            (self.raw / "traceback.log").write_text(traceback.format_exc(), encoding="utf-8")
+            self.event("failed", f"{type(error).__name__}: {error}")
+            self.finish()
+            raise
+        self.event("complete", name)
+        self.next_stage = following
+
+    def initialize(self):
+        self.stage("source", "inputs", self._initialize)
+
+    def _initialize(self):
+        args, raw = self.args, self.raw
         provenance = source()
         write(raw / "source_provenance.json", provenance)
         write(
@@ -180,12 +210,27 @@ def execute(args):
                     "text": path.read_text(),
                 },
             )
-        result["phase"] = "inputs"
-        inputs = prepare(args.models, args.data)
-        write(raw / "input_files.json", inputs["records"])
-        result["phase"] = "environment"
-        python = setup(raw, env)
-        result["phase"] = "training"
+        self.recipe = recipe
+
+    def verify_inputs(self):
+        self.stage("inputs", "environment", self._verify_inputs)
+
+    def _verify_inputs(self):
+        inputs = prepare(self.args.models, self.args.data)
+        write(self.raw / "input_files.json", inputs["records"])
+
+    def setup_environment(self):
+        def action():
+            self.python = setup(self.raw, self.env)
+
+        self.stage("environment", "training", action)
+
+    def train(self):
+        self.stage("training", "archive", self._train)
+
+    def _train(self):
+        args, raw, env = self.args, self.raw, self.env
+        result, python, recipe, run_id = self.result, self.python, self.recipe, self.run_id
         result["training_attempted"] = True
         argv = [
             python,
@@ -210,32 +255,65 @@ def execute(args):
         if child.get("status") != "PASS_LOCAL_RUNTIME_CRITERIA_ARCHIVAL_PENDING":
             raise RuntimeError("NPO did not complete its acceptance checks")
         result["status"] = "PASS_LOCAL_PIPELINE"
-    except KeyboardInterrupt:
-        result["status"] = "CANCELLED"
-    except Exception as error:
-        result["error_type"] = type(error).__name__
-        result["error"] = str(error)
-        (raw / "traceback.log").write_text(traceback.format_exc(), encoding="utf-8")
-    finally:
-        result["finished_utc"] = datetime.now(UTC).isoformat()
-        write(raw / "run_result.json", result)
+
+    def finish(self):
+        if self.finished:
+            return self.exit_code
+        if self.next_stage != "archive" and "error_type" not in self.result:
+            self.result["status"] = "CANCELLED"
+            self.result["error"] = "Finalized before all stages completed"
+        # Keep the failing phase in run_result; archiving is reported separately.
+        self.event("finalizing", "Writing final result and sealing outputs")
+        self.result["finished_utc"] = datetime.now(UTC).isoformat()
+        write(self.raw / "run_result.json", self.result)
+        archive_failed = False
         try:
-            seal_run(raw, run / "sealed", run_id)
-            write(run / "archive_status.json", {"status": "SEALED_LOCAL", "remote_backup": False})
-        except Exception as error:
+            seal_run(self.raw, self.run / "sealed", self.run_id)
             write(
-                run / "archive_status.json",
-                {"status": "FAIL_RAW_PRESERVED", "error_type": type(error).__name__},
+                self.run / "archive_status.json", {"status": "SEALED_LOCAL", "remote_backup": False}
             )
-            result["archive_failed"] = True
-    print(
-        json.dumps(
-            {"status": result["status"], "output": str(run), "error": result.get("error")}, indent=2
+        except (Exception, KeyboardInterrupt) as error:
+            archive_failed = True
+            write(
+                self.run / "archive_status.json",
+                {
+                    "status": "FAIL_RAW_PRESERVED",
+                    "error_type": type(error).__name__,
+                    "error": str(error),
+                },
+            )
+            print(f"ARCHIVE FAILED: {error}; raw outputs preserved at {self.raw}", flush=True)
+        self.exit_code = (
+            0 if self.result["status"] == "PASS_LOCAL_PIPELINE" and not archive_failed else 1
         )
-    )
-    return (
-        0 if result["status"] == "PASS_LOCAL_PIPELINE" and not result.get("archive_failed") else 1
-    )
+        self.finished = True
+        # Do not modify raw after sealing; manifest hashes must remain valid.
+        print(
+            json.dumps(
+                {
+                    "status": self.result["status"],
+                    "output": str(self.run),
+                    "error": self.result.get("error"),
+                    "exit_code": self.exit_code,
+                },
+                indent=2,
+            ),
+            flush=True,
+        )
+        return self.exit_code
+
+
+def execute(args):
+    run = LocalRun(args)
+    try:
+        run.initialize()
+        run.verify_inputs()
+        run.setup_environment()
+        run.train()
+    except (Exception, KeyboardInterrupt):
+        # Each failed stage has already recorded the traceback and sealed its outputs.
+        return run.finish()
+    return run.finish()
 
 
 def main():
