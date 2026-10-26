@@ -4,8 +4,13 @@ $runner = Join-Path $PSScriptRoot 'mother_runner.py'
 $python = $null
 foreach ($version in @('3.12', '3.11')) {
     if (Get-Command py -ErrorAction SilentlyContinue) {
-        $candidate = & py "-$version" -c 'import sys; print(sys.executable)' 2>$null
-        if ($LASTEXITCODE -eq 0) { $python = $candidate; break }
+        try {
+            $candidate = & py "-$version" -c 'import sys; print(sys.executable)' 2>$null
+            if ($LASTEXITCODE -eq 0) { $python = $candidate; break }
+        } catch {
+            # Windows PowerShell 5 can turn the launcher's stderr into an error.
+            continue
+        }
     }
 }
 if (-not $python) {
