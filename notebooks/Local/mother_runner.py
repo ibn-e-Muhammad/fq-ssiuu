@@ -224,6 +224,12 @@ class LocalRun:
             return
         inputs = prepare(self.args.models, self.args.data)
         write(self.raw / "input_files.json", inputs["records"])
+        if inputs.get("arrow_export_pending"):
+            self.event(
+                "checked",
+                "Saved Arrow files are present and hashed. The NPO subprocess will export "
+                "and verify exact pinned JSON hashes before loading models or training.",
+            )
 
     def setup_environment(self):
         def action():
@@ -332,7 +338,7 @@ def execute(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--models", type=Path, default=ROOT / "models/NPO")
-    parser.add_argument("--data", type=Path, default=ROOT / "data/NPO")
+    parser.add_argument("--data", type=Path, default=ROOT / "data/tofu")
     parser.add_argument("--gpu", type=int, default=0)
     parser.add_argument("--resume-checkpoint", type=Path)
     parser.add_argument(

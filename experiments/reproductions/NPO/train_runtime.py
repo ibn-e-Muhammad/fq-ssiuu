@@ -119,9 +119,9 @@ def execute(recipe, output, run_id, provenance, resume_checkpoint=None, local_in
         if local_inputs:
             from experiments.reproductions.NPO.local_inputs import checkpoint_receipt, prepare
 
-            local = prepare(*local_inputs)
+            local = prepare(*local_inputs, dataset_output=output / "local_dataset")
             receipts = local["records"]
-            tokenizer_dir = local["models"] / "tokenizer"
+            tokenizer_dir = local["tokenizer"]
             dataset_dir = local["data"]
         else:
             receipts = materialize(assets, upstream=False)
@@ -190,7 +190,7 @@ def execute(recipe, output, run_id, provenance, resume_checkpoint=None, local_in
 
         # Compute the retain-only diagnostic oracle, then unload it before the
         # candidate and ORIGINAL FULL NPO reference are loaded.
-        oracle_dir = local["models"] / "oracle" if local_inputs else assets / "oracle"
+        oracle_dir = local["oracle"] if local_inputs else assets / "oracle"
         checkpoint_loader = checkpoint_receipt if local_inputs else verified_checkpoint
         oracle_receipt = checkpoint_loader(pins["retain_only_oracle"], oracle_dir)
         write_new(
@@ -214,7 +214,7 @@ def execute(recipe, output, run_id, provenance, resume_checkpoint=None, local_in
         torch.cuda.empty_cache()
         monitor.observe()
 
-        target_dir = local["models"] / "target" if local_inputs else assets / "target"
+        target_dir = local["target"] if local_inputs else assets / "target"
         target_receipt = checkpoint_loader(pins["target"], target_dir)
         write_new(
             output / "target_checkpoint.json", {"identity": pins["target"], "files": target_receipt}

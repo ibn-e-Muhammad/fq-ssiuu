@@ -80,6 +80,7 @@ uv.lock
 
 # Manual local inputs and local runtime artifacts
 models/NPO/**
+runs/
 !models/NPO/README.md
 data/NPO/**
 !data/NPO/README.md

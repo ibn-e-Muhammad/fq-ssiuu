@@ -11,7 +11,7 @@ the scientific runtime.
 The existing `MOTHER_RUNNER.ps1` command remains available to bootstrap and execute
 the complete NPO pipeline from PowerShell. See [the guide](../../handbook/LOCAL_MOTHER_RUNNER.md) and place
 manual inputs in [models/NPO](../../models/NPO/README.md) and
-[data/NPO](../../data/NPO/README.md). `mother_runner.py` is the shared Python
+[data](../../data/README.md). `mother_runner.py` is the shared Python
 entry point. Logs, checkpoints and sealed archives go under `results/local`.
 
 The default `auto` environment mode installs once into `.venv-local`, then checks
@@ -19,3 +19,8 @@ and reuses it without package downloads. Use `--setup-only` to prepare it withou
 models/data; `--setup-only --environment check` forbids installation, and
 `--setup-only --environment repair` explicitly reruns dependency reconciliation.
 Notebook equivalents are `SETUP_ONLY` and `ENVIRONMENT_MODE` in Step 1.
+
+The default dataset location is now `data/tofu`. Each required split can be an
+original pinned `.json` file or a complete saved Arrow dataset in its named
+subfolder. See the guide's input section for the six required splits and the
+per-run conversion checks. Metadata-only folders are reported as incomplete.

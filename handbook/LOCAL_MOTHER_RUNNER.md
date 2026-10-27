@@ -150,11 +150,33 @@ locally and runs with Hugging Face offline mode enabled.
 
 ## Inputs and invocation
 
-Follow `models/NPO/README.md` and `data/NPO/README.md`. The target model,
+Follow `models/NPO/README.md` and `data/README.md`. The target model,
 retain-only diagnostic oracle, tokenizer, generation config and all six TOFU
 files are required by the existing pipeline. Exact revisions/hashes are recorded
 in `experiments/reproductions/NPO/inputs_v1.json` and `runtime_sources_v1.json`.
 No model/data downloads, model copies or Windows symlink privileges are needed.
+
+The default data directory is `data/tofu`. For saved Arrow datasets, it must
+contain complete `save_to_disk` folders named `forget05`, `retain95`,
+`forget05_perturbed`, `retain_perturbed`, `real_authors_perturbed`, and
+`world_facts_perturbed`, each with `state.json`, `dataset_info.json` and all
+referenced Arrow shards. `full`, `forget01`, `retain99`, and `world_facts` do not
+replace the required splits. Copy the actual Arrow files onto the execution
+machine; Git-ignored files are not transferred by a clone/pull.
+
+Step 3 checks that these files exist and records their hashes without importing
+training dependencies. After environment setup, the NPO subprocess reads the
+saved splits using the already-required `datasets` package and writes small
+JSONL copies under `raw/NPO/local_dataset`. Every exported file must reproduce
+the **exact original pinned JSON SHA256**, including row/column order and
+serialization, before model loading or training proceeds. Original Arrow files
+are not modified. Original pinned `.json` files are also supported, including
+alongside saved splits; pass `--data` / notebook `DATA` to use another directory.
+
+The target can remain at `models/NPO/tofu_Llama-3.2-1B-Instruct`, including its
+tokenizer and generation config at the model root. Either that path or its
+parent `models/NPO` can be selected. The separate oracle path remains
+`models/NPO/oracle`; its configuration is deferred, and a complete run requires it.
 
 From a clean checkout of `repro/npo-1b-source-faithful`:
 
