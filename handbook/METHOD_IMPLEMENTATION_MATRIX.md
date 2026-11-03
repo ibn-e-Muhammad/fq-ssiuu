@@ -1,5 +1,23 @@
 # Method implementation matrix
 
+## Current extension — 2026-11-03
+
+| Component | Current local implementation / evidence | Limit |
+|---|---|---|
+| Full-weight NPO run 2 | Completed 62-update 1B run and nine measured precision/control stages; 27 recorded per-stage artifact hashes verify | Single seed, fixed 195 retained rows, final-only greedy evaluation; no original model tensors in supplied archive |
+| Run-2 TOFU/QRA correction | Separate derived geometric fixed/matched FQ and paired directional preference analysis, retaining arithmetic utility | Descriptive; p-values are not recovery effect sizes |
+| LoRA NPO run 3 | `NPO_3rd-test`: Eq.3+RT, adapter-only AdamW, online adapter-disabled full reference, three seeds, fresh retain stream, source-profile periodic evaluation, adapter/merge/PTQ separation, complete reports | Researcher-authorized class C adaptation; actual 1B GPU/multi-seed acceptance pending |
+| Project training policy | LoRA selected for forthcoming FQ-SSIUU conditions, config `configs/training/lora_v1.json` | Selection is not implementation/acceptance of SSIUU, FQ-QAT or the combined method |
+| Expanded studies | Token-level scores and human-review scaffolding | True MIA/nonmembers, FADE, relearning, second quantizer family and bin mechanisms remain unmeasured |
+
+[DL-024](decisions/DL-024_project_lora_training.md),
+[CR-013](corrections/CR-013_npo_local_run2_audit.md),
+[local protocol](methods/NPO_LOCAL_RUN3_LORA.md). Historical bounded conformance
+below remains valid only within its stated scope; no scientific gate is closed
+by this extension.
+
+---
+
 Updated 2026-09-24. This current inventory supersedes earlier blanket fidelity
 labels. Primary references and pins: [upstream register](methods/UPSTREAM_IMPLEMENTATIONS.md).
 

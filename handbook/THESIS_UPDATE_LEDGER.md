@@ -148,3 +148,19 @@ with CUDA OOM. No completed 1B update or trained checkpoint. Sampled device peak
 16,086,401,024 bytes exceeded the 16e9 limit. Initial finite loss is wiring evidence,
 not learning or effectiveness evidence; no Chapter 4 scientific result. Preserve
 the failed artifacts and stop after outcome commit/push for researcher audit.
+
+## Local NPO run 2 and LoRA run 3 — 2026-11-03
+
+| Finding/decision | Thesis sections | Required update |
+|---|---|---|
+| Completed local run 2 | Results and limitations | Report single-seed full-weight suppression, utility cost, genuine INT8/NF4 controls, negative reported recovery and generation cap rates; preserve source/run identities |
+| CR-013 metric correction | Evaluation methodology/results | Distinguish arithmetic utility from geometric FQ, fixed from matched oracles, and directional preference CIs from KS p-values; derived reanalysis does not overwrite raw matrices |
+| Source-fixed retain coverage | Methods/discussion | 195/3800 rows is a coverage limit inherited from pinned source code, not a demonstrated implementation error; fresh sampler sees 1984 unique rows under the fixed stop |
+| DL-024 project LoRA | Methodology and scope | Adapter subspace is a material change; future conditions use LoRA, FP32 adapters/states, unquantized backbone, FP32 merge, BF16 deployment and post-merge PTQ |
+| Run-3 controls | Evaluation/reproducibility | Three seeds, periodic TOFU evaluation, frozen random retain subset, merge drift, quantizer hashes, long-output audit, human labels and explicit missing studies |
+| Remaining evidence | Results/conclusions | Actual 1B LoRA outcomes, other constituent adaptations, FADE/MIA/relearning and the confirmatory combined study remain pending; no universal durability claim |
+
+See [run-2 report](reports/NPO_LOCAL_RUN2_REPORT.md),
+[audit disposition](reviews/2026-11-03_npo_run2_audit.md) and
+[DL-024](decisions/DL-024_project_lora_training.md). These are thesis change
+instructions, not a claim that untracked thesis prose has been edited.

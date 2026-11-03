@@ -36,9 +36,9 @@ def inputs(tmp_path, monkeypatch):
         pins[key]["config_sha256"] = sha(b"{}")
     (target / "generation_config.json").write_bytes(b"{}")
     (registry / "inputs_v1.json").write_text(json.dumps(pins))
-    (registry / "runtime_sources_v1.json").write_text(json.dumps({
-        "files": {"generation_config.json": {"sha256": sha(b"{}")}}
-    }))
+    (registry / "runtime_sources_v1.json").write_text(
+        json.dumps({"files": {"generation_config.json": {"sha256": sha(b"{}")}}})
+    )
     monkeypatch.setattr(local_inputs, "HERE", registry)
     return models, data, target, pins
 
@@ -63,7 +63,12 @@ def test_legacy_layout_is_still_supported(inputs):
     target.rename(legacy)
     tokenizer = models / "tokenizer"
     tokenizer.mkdir()
-    for name in ("config.json", "tokenizer.json", "tokenizer_config.json", "special_tokens_map.json"):
+    for name in (
+        "config.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "special_tokens_map.json",
+    ):
         (tokenizer / name).write_bytes((legacy / name).read_bytes())
         if name != "config.json":
             (legacy / name).unlink()
@@ -99,9 +104,9 @@ def test_pinned_serializer_preserves_escaping_and_newline(newline):
 def saved_split(data, name):
     folder = data / name
     folder.mkdir()
-    (folder / "state.json").write_text(json.dumps({
-        "_data_files": [{"filename": "data-00000-of-00001.arrow"}]
-    }))
+    (folder / "state.json").write_text(
+        json.dumps({"_data_files": [{"filename": "data-00000-of-00001.arrow"}]})
+    )
     (folder / "dataset_info.json").write_text("{}")
     return folder
 
@@ -109,9 +114,9 @@ def saved_split(data, name):
 def test_missing_arrow_and_evaluation_splits_are_reported_together(tmp_path):
     folder = saved_split(tmp_path, "forget05")
     with pytest.raises(FileNotFoundError) as error:
-        local_datasets.inspect_datasets(tmp_path, [
-            {"path": "forget05.json"}, {"path": "world_facts_perturbed.json"}
-        ])
+        local_datasets.inspect_datasets(
+            tmp_path, [{"path": "forget05.json"}, {"path": "world_facts_perturbed.json"}]
+        )
     assert str(folder / "data-00000-of-00001.arrow") in str(error.value)
     assert "world_facts_perturbed" in str(error.value)
 

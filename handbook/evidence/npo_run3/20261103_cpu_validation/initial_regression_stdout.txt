@@ -1,0 +1,38 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.2.0, pluggy-1.7.0
+rootdir: /home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu
+configfile: pyproject.toml
+collected 229 items
+
+tests/methods/NPO/test_adapter.py ...........                            [  4%]
+tests/methods/NPO/test_conformance.py ..................ss....           [ 15%]
+tests/methods/NPO/test_d1_execution_boundary.py .............            [ 20%]
+tests/methods/NPO/test_evaluation_runtime.py .........                   [ 24%]
+tests/methods/NPO/test_optimizer.py ......                               [ 27%]
+tests/methods/NPO/test_preflight.py ................                     [ 34%]
+tests/methods/NPO/test_reference.py ............                         [ 39%]
+tests/methods/NPO/test_source_metrics.py .......                         [ 42%]
+tests/methods/NPO/test_training_contract.py .............                [ 48%]
+tests/methods/NPO/test_training_data.py .........                        [ 52%]
+tests/methods/NPO/test_training_forward.py .....                         [ 54%]
+tests/methods/NPO/test_training_loop.py ...                              [ 55%]
+tests/methods/NPO/test_training_state.py ..............                  [ 62%]
+tests/methods/NPO/test_validation_contract.py ..........                 [ 66%]
+tests/methods/QRA/test_content_contract.py ................              [ 73%]
+tests/methods/QRA/test_metrics.py ..........F                            [ 78%]
+tests/methods/QRA/test_outcomes.py ..................................    [ 93%]
+tests/methods/QRA/test_precision_validation.py ........                  [ 96%]
+tests/methods/QRA/test_report.py ........                                [100%]
+
+=================================== FAILURES ===================================
+_______ test_greedy_generation_records_complete_resolved_decoding_config _______
+tests/methods/QRA/test_metrics.py:149: in test_greedy_generation_records_complete_resolved_decoding_config
+    result = greedy_answer(
+experiments/reproductions/QRA/metrics.py:117: in greedy_answer
+    config = GenerationConfig(**(GenerationConfig._get_default_generation_params() | kwargs))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: type object 'GenerationConfig' has no attribute '_get_default_generation_params'
+- generated xml file: /home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/handbook/evidence/npo_run3/20261103_cpu_validation/regression_pytest.xml -
+=========================== short test summary info ============================
+FAILED tests/methods/QRA/test_metrics.py::test_greedy_generation_records_complete_resolved_decoding_config
+================== 1 failed, 226 passed, 2 skipped in 14.35s ===================

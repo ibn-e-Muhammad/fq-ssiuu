@@ -1,0 +1,110 @@
+{
+  "schema_version": "npo-d1-source-v1",
+  "status": "SOURCE_PINNED_NOT_RUNNABLE",
+  "paper": {
+    "id": "arXiv:2404.05868v2",
+    "revision_date": "2024-10-10",
+    "url": "https://arxiv.org/html/2404.05868v2"
+  },
+  "upstream": {
+    "repository": "licong-lin/negative-preference-optimization",
+    "commit": "1207bbe9a1abf502bc2d7b43a0a467d9524b4036",
+    "date": "2024-07-15",
+    "publication_near_commit": "eb877a351f4878f5b9ad6cbd44c27818e3b4b74b",
+    "publication_near_date": "2024-04-10",
+    "selection": "Latest available commit before paper v2; only synthetic/dist.py changed since publication-near commit; TOFU implementation unchanged.",
+    "license": "No license file in the pinned tree; reference external files, do not vendor or relicense."
+  },
+  "files": {
+    "README.md": {
+      "sha256": "398f5fe8a1e513ee3664f8db4770bcb46132a45b75607e379fde70c7daf3944d",
+      "git_blob": "036328d1e20b4ac4a96be6d533285742c95cdc45"
+    },
+    "TOFU/config/ds_config.json": {
+      "sha256": "50112c35f92600290d224134840941254e5553d4432717d94e9ab24a10a4d188",
+      "git_blob": "0054e2c690896cb9bd17aa3b329a4c2217e74ba2"
+    },
+    "TOFU/config/eval.yaml": {
+      "sha256": "5ee905cb72d6c0a694c28a821261e1ed6b91b209fcecc215550c29bd7c76b151",
+      "git_blob": "6b1c38c23125a8f802277f447018980428087d80"
+    },
+    "TOFU/config/forget.yaml": {
+      "sha256": "c0e00825cd3157166b4188e0857239e0c4f5f889509874564bef501ed1b98e60",
+      "git_blob": "397371e852321d47a7f5c87dd830364fd01a5117"
+    },
+    "TOFU/config/model_config.yaml": {
+      "sha256": "c64a12ef5f079fcffc1e08e9dd2363e4c07b968fe5630fce97e37836a42b6e2d",
+      "git_blob": "22d2135f7220af6ee1c01a40beaf079412e58428"
+    },
+    "TOFU/data_module.py": {
+      "sha256": "8e076f18c20b663dbad9862a5d97c25e91fe4f9475bed77e597dbc2b349abf31",
+      "git_blob": "b2e9f764e9c01c57d8df68a7e6edc9c911e4486b"
+    },
+    "TOFU/dataloader.py": {
+      "sha256": "a692b709d01d05204a81e40c38b1f6e64faac9286a662d9d7cf9e4cc4dcf6c69",
+      "git_blob": "308fdda2742ae9ec1d049b29f7d254575e0fea38"
+    },
+    "TOFU/evaluate_util.py": {
+      "sha256": "b661d3629be266dadefb3598d305d31319748d74402ba813e55a4378d765fc0d",
+      "git_blob": "b719bef0639934a47304f5b704de1d111e3ef2db"
+    },
+    "TOFU/forget.py": {
+      "sha256": "0f34bdaae7cc4fbe8f3ee97bf568beed3df37a537c672b57c237ba1b1904f7d9",
+      "git_blob": "f17766c420d3e19ff57f8a2d5c9df1e0ee5517d8"
+    },
+    "TOFU/utils.py": {
+      "sha256": "e68d46ce0f6bf2167ac5157f96a48b98b680b953b011b13034362132469d6ff0",
+      "git_blob": "1e5e93e6a429c6f8f6763adf4dc1af8e9158131b"
+    }
+  },
+  "inputs_registry": "experiments/reproductions/NPO/inputs_v1.json",
+  "inputs_registry_sha256": "9c24f66e568ce60dba39c61e92e948e48027b1318a0580ff859928d5ec02dbc6",
+  "source_training": {
+    "variant": "npo_grad_diff",
+    "npo_coeff": 1,
+    "grad_diff_coeff": 1,
+    "beta": 0.1,
+    "ref_policy": "fine_tuned",
+    "lora_rank": 0,
+    "learning_rate": 1e-05,
+    "weight_decay": 0.01,
+    "seed": 1001,
+    "max_length": 500,
+    "num_epochs": 10,
+    "micro_batch": 4,
+    "gradient_accumulation": 4,
+    "world_size": 2,
+    "effective_batch": 32,
+    "optimizer": "paged_adamw_32bit",
+    "zero_stage": 3,
+    "optimizer_offload": "none",
+    "parameter_offload": "none",
+    "precision": "bfloat16",
+    "scheduler": "linear",
+    "warmup_steps": "steps_per_epoch",
+    "eval_steps": "steps_per_epoch"
+  },
+  "selected_split": {
+    "forget": "forget05",
+    "retain": "retain95",
+    "upstream_git_blobs": {
+      "forget05.json": "f5fa1db9de949c9ef194f392dcba446e463b831f",
+      "retain95.json": "b5c8632205456134d685c803f5edbb687796e9c1"
+    }
+  },
+  "proposed_resource_adapter": {
+    "category": 3,
+    "status": "RESEARCHER_APPROVED_NOT_RUNTIME_VALIDATED",
+    "world_size": 1,
+    "micro_batch": 4,
+    "gradient_accumulation": 8,
+    "effective_batch": 32,
+    "optimizer": "paged_adamw_32bit",
+    "trainable_parameters": "all",
+    "reference": "full frozen unquantized FP16 on cuda:0",
+    "lora": false,
+    "optimizer_offload_change": false,
+    "approval": "Researcher reply: Approve accumulation 8; preserve the method."
+  },
+  "runtime_authorized": false
+}

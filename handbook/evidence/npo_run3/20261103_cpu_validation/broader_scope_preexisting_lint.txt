@@ -1,0 +1,44 @@
+N999 Invalid module name: 'FQ_SSIUU'
+--> experiments/combined/FQ_SSIUU/__init__.py:1:1
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> experiments/infrastructure/gate0_env_check.py:14:1
+   |
+12 |       python3 experiments/gate0_env_check.py
+13 |   """
+14 | / import sys
+15 | | import os
+   | |_________^
+16 |
+17 |   CHECKS_PASSED = 0
+   |
+help: Organize imports
+   |
+13 | """
+14 + import os
+15 | import sys
+   - import os
+16 |
+   |
+
+F841 Local variable `cfg` is assigned to but never used
+  --> experiments/infrastructure/gate0_env_check.py:69:5
+   |
+67 |     # Test NF4 quantisation config can be created (light check — no model load)
+68 |     from transformers import BitsAndBytesConfig
+69 |     cfg = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
+   |     ^^^
+70 |                               bnb_4bit_compute_dtype=torch.bfloat16)
+71 |     return f"{version} | NF4 config OK"
+   |
+help: Remove assignment to unused variable `cfg`
+   |
+68 |     from transformers import BitsAndBytesConfig
+   -     cfg = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
+69 +     BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
+70 |                               bnb_4bit_compute_dtype=torch.bfloat16)
+   |
+note: This is an unsafe fix and may change runtime behavior
+
+Found 3 errors.
+[*] 1 fixable with `--fix` (1 unsafe fix available with `--fix --unsafe-fixes`).

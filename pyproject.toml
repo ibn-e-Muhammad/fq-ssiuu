@@ -68,7 +68,12 @@ fq-ssiuu-preflight = "fq_ssiuu.environment:preflight_main"
 where = ["src"]
 
 [tool.ruff]
-extend-exclude = ["experiments/reproductions/*/historical"]
+extend-exclude = [
+    "experiments/reproductions/*/historical",
+    # Immutable researcher-supplied source/run archives; current work is NPO_3rd-test.
+    "experiments/reproductions/NPO_1st-test",
+    "experiments/reproductions/NPO_2nd-test",
+]
 target-version = "py311"
 line-length = 100
 

@@ -1,5 +1,19 @@
 # Research Gate Registry
 
+## Local LoRA authorization — 2026-11-03
+
+The researcher explicitly authorized the run-2 audit and run-3 LoRA adaptation.
+[DL-024](decisions/DL-024_project_lora_training.md) selects LoRA for forthcoming
+project training. It authorizes method development, engineering validation and
+descriptive local NPO measurements; it does not validate SSIUU/FQ-QAT/QUAIL or
+approve the full confirmatory combined study. RG-001/002/003/005 remain BLOCKED;
+RG-006 remains RESOLVED within the historical objective/data/reference scope,
+and RG-004 remains OPEN. Report attack_detected/durability_pass as null.
+The legacy Mother gate interface is not used to relabel these adaptations as
+source-faithful. No historical Kaggle retry quota is reopened.
+
+---
+
 **Purpose:** Machine-parseable registry of scientific blockers that must be
 resolved before experiments can produce valid results.
 

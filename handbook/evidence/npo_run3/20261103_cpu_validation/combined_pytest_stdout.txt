@@ -1,0 +1,72 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.2.0, pluggy-1.7.0
+rootdir: /home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu
+configfile: pyproject.toml
+collected 241 items
+
+experiments/reproductions/NPO_3rd-test/tests/test_metrics_and_recovery.py . [  0%]
+..                                                                       [  1%]
+experiments/reproductions/NPO_3rd-test/tests/test_objective_and_sampling.py . [  1%]
+....                                                                     [  3%]
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py . [  3%]
+..s                                                                      [  4%]
+tests/methods/NPO/test_adapter.py ...........                            [  9%]
+tests/methods/NPO/test_conformance.py ..................ss....           [ 19%]
+tests/methods/NPO/test_d1_execution_boundary.py .............            [ 24%]
+tests/methods/NPO/test_evaluation_runtime.py .........                   [ 28%]
+tests/methods/NPO/test_optimizer.py ......                               [ 31%]
+tests/methods/NPO/test_preflight.py ................                     [ 37%]
+tests/methods/NPO/test_reference.py ............                         [ 42%]
+tests/methods/NPO/test_source_metrics.py .......                         [ 45%]
+tests/methods/NPO/test_training_contract.py .............                [ 51%]
+tests/methods/NPO/test_training_data.py .........                        [ 54%]
+tests/methods/NPO/test_training_forward.py .....                         [ 56%]
+tests/methods/NPO/test_training_loop.py ...                              [ 58%]
+tests/methods/NPO/test_training_state.py ..............                  [ 63%]
+tests/methods/NPO/test_validation_contract.py ..........                 [ 68%]
+tests/methods/QRA/test_content_contract.py ................              [ 74%]
+tests/methods/QRA/test_metrics.py ...........                            [ 79%]
+tests/methods/QRA/test_outcomes.py ..................................    [ 93%]
+tests/methods/QRA/test_precision_validation.py ........                  [ 96%]
+tests/methods/QRA/test_report.py ........                                [100%]
+
+=============================== warnings summary ===============================
+experiments/reproductions/NPO_3rd-test/tests/test_metrics_and_recovery.py::test_matched_precision_uses_geometric_ratio_and_aligns_rows
+experiments/reproductions/NPO_3rd-test/tests/test_metrics_and_recovery.py::test_matched_precision_uses_geometric_ratio_and_aligns_rows
+  /tmp/npo3-venv/lib/python3.12/site-packages/scipy/stats/_axis_nan_policy.py:586: RuntimeWarning: ks_2samp: Exact calculation unsuccessful. Switching to method=asymp.
+    res = hypotest_fun_out(*samples, **kwds)
+
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_resume_matches_uninterrupted_and_frozen_backbone
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_corrupt_checkpoint_falls_back_and_identity_is_checked
+  /tmp/npo3-venv/lib/python3.12/site-packages/peft/utils/save_and_load.py:236: UserWarning: Could not find a config file in  - will assume that the vocabulary was not modified.
+    warnings.warn(
+
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_completed_pipeline_generates_all_outputs_and_reuses_evaluation
+  /tmp/npo3-venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:64: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+    prop = Group((name + Suppress("=") + comma_separated(value)) | oneOf(_CONSTANTS))
+
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_completed_pipeline_generates_all_outputs_and_reuses_evaluation
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_completed_pipeline_generates_all_outputs_and_reuses_evaluation
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_completed_pipeline_generates_all_outputs_and_reuses_evaluation
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_completed_pipeline_generates_all_outputs_and_reuses_evaluation
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_completed_pipeline_generates_all_outputs_and_reuses_evaluation
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_completed_pipeline_generates_all_outputs_and_reuses_evaluation
+  /tmp/npo3-venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    parse = parser.parseString(pattern)
+
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_completed_pipeline_generates_all_outputs_and_reuses_evaluation
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_completed_pipeline_generates_all_outputs_and_reuses_evaluation
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_completed_pipeline_generates_all_outputs_and_reuses_evaluation
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_completed_pipeline_generates_all_outputs_and_reuses_evaluation
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_completed_pipeline_generates_all_outputs_and_reuses_evaluation
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_completed_pipeline_generates_all_outputs_and_reuses_evaluation
+  /tmp/npo3-venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+    parser.resetCache()
+
+experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py::test_completed_pipeline_generates_all_outputs_and_reuses_evaluation
+  /tmp/npo3-venv/lib/python3.12/site-packages/matplotlib/_mathtext.py:45: PyparsingDeprecationWarning: 'enablePackrat' deprecated - use 'enable_packrat'
+    ParserElement.enablePackrat()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/handbook/evidence/npo_run3/20261103_cpu_validation/combined_pytest.xml -
+================= 238 passed, 3 skipped, 18 warnings in 17.71s =================

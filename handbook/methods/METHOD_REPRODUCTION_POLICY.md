@@ -1,5 +1,21 @@
 # Method reproduction policy
 
+## Researcher-authorized class C extension — 2026-11-03
+
+The latest researcher instruction explicitly selects LoRA for forthcoming project
+training and authorizes the local NPO third run with necessary efficient,
+documented adaptations. [DL-024](../decisions/DL-024_project_lora_training.md)
+is the concrete scope: adapter-only NPO+RT, fresh retained training stream,
+three-seed descriptive evaluation and deployment-aligned merge/PTQ. These are
+class C adaptations; retain the original source-fixed sampler as a comparison.
+This work may proceed as authorized development/validation and descriptive
+measurement while RG-005 continues to block confirmatory attack/durability
+verdicts and the full combined study. Existing gate booleans and Protocol v2
+approval status are not changed. Other constituent adaptations still require
+their own conformance and resource evidence.
+
+---
+
 Researcher decision, 2026-09-25: source-faithful constituent-method reproductions
 may proceed without activating QRA Protocol v2. Published equations, pinned code,
 source-defined metrics, splits, stopping rules and hyperparameters are external

@@ -1,0 +1,104 @@
+{
+  "date": "2026-11-03",
+  "status": "CPU_ENGINEERING_ACCEPTANCE_PASSED_GPU_ACCEPTANCE_PENDING",
+  "python": "3.12.14",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "packages": {
+    "torch": "2.6.0+cpu",
+    "transformers": "4.51.3",
+    "peft": "0.15.2",
+    "accelerate": "1.6.0",
+    "numpy": "2.2.6",
+    "pandas": "2.2.3",
+    "scipy": "1.15.3",
+    "matplotlib": "3.10.1",
+    "pytest": "9.2.0",
+    "ruff": "0.17.3",
+    "nbformat": "5.11.1",
+    "rouge-score": "0.1.2",
+    "safetensors": "0.5.3",
+    "psutil": "7.0.0",
+    "huggingface-hub": "0.30.2",
+    "ipython": "9.17.1"
+  },
+  "cuda_available": false,
+  "torch_cuda_build": null,
+  "combined_tests": {
+    "collected": 241,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 3,
+    "passed": 238,
+    "seconds": 17.713,
+    "scope": [
+      "experiments/reproductions/NPO_3rd-test/tests",
+      "tests/methods/NPO",
+      "tests/methods/QRA"
+    ]
+  },
+  "run2_recovery_recheck": {
+    "passed": 7,
+    "cuda_skipped": 1,
+    "optimizer_scalar_selftest": "PASS",
+    "source_copy": "/tmp/npo2-recovery-validation",
+    "original_archive_changed": false
+  },
+  "pinned_tokenizer_data_preflight": {
+    "status": "PASS",
+    "training_rows": 4000,
+    "evaluation_answer_variants": 4585,
+    "evaluation_limit": 200,
+    "max_eval_tokens": 146
+  },
+  "raw_archive_file_hashes_verified": 87,
+  "stage_artifact_hashes_verified": 27,
+  "derived_output_hashes_verified": 6,
+  "ci_scope_lint": "PASS",
+  "ci_scope_format": "PASS",
+  "broader_scope_lint": "3 pre-existing errors outside CI/changed scope: combined/FQ_SSIUU module name; infrastructure/gate0_env_check import ordering and unused cfg. Preserved, not repaired.",
+  "regression_repair": "Active QRA generation helper now uses public GenerationConfig().to_dict() instead of Transformers-5-private API; archived run2 helper unchanged.",
+  "actual_1b_training_performed": false,
+  "actual_gpu_quantization_performed": false,
+  "limitations": [
+    "Linux CPU tests do not validate native Windows CUDA/bitsandbytes compatibility.",
+    "Tiny-model merge/evaluation is engineering coverage, not 1B effectiveness.",
+    "Full third-run three-seed GPU experiment, resource measurements and human semantic labels remain pending.",
+    "Repository CI was mirrored for lint/format, not dispatched remotely for this codex branch."
+  ],
+  "source_hashes": {
+    "experiments/reproductions/NPO_3rd-test/NPO_3RD_RUN.ipynb": "8b37b99e530b952d80c42d3b0f8123064b36bdd76b401c5e11cd3bd7e8cb9ddd",
+    "experiments/reproductions/NPO_3rd-test/config.json": "a11eb7612928a031384fdd73d39e56fc41e4f33e1157b1724b0512a421a4760f",
+    "experiments/reproductions/NPO_3rd-test/inputs_v1.json": "9c24f66e568ce60dba39c61e92e948e48027b1318a0580ff859928d5ec02dbc6",
+    "experiments/reproductions/NPO_3rd-test/npo3/__init__.py": "79bd963876f8437364ec3a8df4d76a485368ba570c43f13d5341b3138db8cde2",
+    "experiments/reproductions/NPO_3rd-test/npo3/checkpoint.py": "8b3e328fe7f7641d9bf69c049a7b8d7fbae71dc2c641ab063be2604cb20e4c00",
+    "experiments/reproductions/NPO_3rd-test/npo3/config.py": "ba516565247b2a79244169961ff6d0cd7f2b52d285c633a08d39e403a4fe5c88",
+    "experiments/reproductions/NPO_3rd-test/npo3/data.py": "d6fb38a421af27ec126f2cd5d8d107cc6974273d712ba39f5c4c0b58fe4f7a54",
+    "experiments/reproductions/NPO_3rd-test/npo3/evaluation.py": "44242eac4711ba56b563a1b3f62741842bfec40e5e19bf69d5aa223ebff1e95f",
+    "experiments/reproductions/NPO_3rd-test/npo3/metrics.py": "67cac647eb64e1036ad1bbe4638f1bdde1c96bb379f5fa8d2c3ffafa50358c21",
+    "experiments/reproductions/NPO_3rd-test/npo3/objective.py": "67a45b2f6b220b13538c68eb4c40bbc6864c0cb87adb25f2036e091aaef6997b",
+    "experiments/reproductions/NPO_3rd-test/npo3/reporting.py": "57c9df8429d90af953a7c51dc34a958e5c32f56b9a1925b6d5496b761fe51d7d",
+    "experiments/reproductions/NPO_3rd-test/npo3/training.py": "ec76eeb06658df8bb96128dfe62f9288469d62cd44ecffc4fc3c645b4f4f1537",
+    "experiments/reproductions/NPO_3rd-test/reanalyse_second_run.py": "33ba4c084cf860cbcdb4b0c9d5e3f7be734e21a9db8f0f81ff796217fe12d5db",
+    "experiments/reproductions/NPO_3rd-test/run_experiment.py": "3b3872c99a4ec8fcbf2edd1a54107728986ac3a857c2727c2bce75d9f56f22bb",
+    "experiments/reproductions/NPO_3rd-test/summarise_human_audit.py": "154620c4aedc8f8c9621673599bca01fc6f87541e9f141d3d0a552c06d24ff6e",
+    "experiments/reproductions/NPO_3rd-test/tests/conftest.py": "5b9b95619fe839f4b5e0995aa413aa5fcd6e04f700d460be39fa10cf8aa81e38",
+    "experiments/reproductions/NPO_3rd-test/tests/test_metrics_and_recovery.py": "f56cfc59be50951223a2f9aa9e2132a1831c25113f1442fc433549c523a19fa6",
+    "experiments/reproductions/NPO_3rd-test/tests/test_objective_and_sampling.py": "054a636b1797b60119211879a949f068ea4be4f917fc9361367a3fa8c84c759f",
+    "experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py": "bfa2dc542a7be71bceff80f543b14b9c34adc3f9984f9c12f24fb18c3875fb44"
+  },
+  "local_input_tests": {
+    "passed": 10,
+    "skipped": 1,
+    "failures": 0,
+    "errors": 0,
+    "skip_reason": "Optional datasets/Arrow dependency absent",
+    "seconds": 0.114
+  },
+  "ci_scope_format_note": "Two restored active canonical helpers and existing local-input tests received formatting-only changes; archived files unchanged.",
+  "notebook_validation": {
+    "status": "PASS",
+    "tracked_notebooks": 19,
+    "execution_performed": false,
+    "IPython": "9.17.1"
+  }
+}

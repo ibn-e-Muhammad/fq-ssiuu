@@ -1,0 +1,175 @@
+{
+  "status": "derived-analysis-complete",
+  "source_run": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700",
+  "source_run_id": "20261031_092340_493700",
+  "source_files": [
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/full_bf16/per_question.jsonl",
+      "sha256": "6220cc23732c5b9ed7ef78e0e801d2aa8e6da2832b796f2368cdc9507975c4ff",
+      "bytes": 920433
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/full_bf16/per_question.csv",
+      "sha256": "38a55218ca317f54de519844da605f215da009108457914c94f4d4c264d6473e",
+      "bytes": 595868
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/full_bf16/metrics.csv",
+      "sha256": "b988e93064583c3af98e723331153b3ed784fb7817563ee17abaafa2ac76fedb",
+      "bytes": 707
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/full_int8/per_question.jsonl",
+      "sha256": "e5c318fc8cc47f2f1a2c14cb72ea98e445b857fd644f9573734f708801c0efa7",
+      "bytes": 920056
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/full_int8/per_question.csv",
+      "sha256": "d9ce94cb7acd6fd3d7ad51139031983d95334397fd8a86382601805156ecf912",
+      "bytes": 595507
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/full_int8/metrics.csv",
+      "sha256": "3361d97dc7b4e2cb8754999d57528000c86114d6e643fdd466cdb240d5369c31",
+      "bytes": 705
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/full_nf4/per_question.jsonl",
+      "sha256": "5ba7838b98a2a9a28ad63476c1f87428b1134ef3df2c654261d897c1f89b0959",
+      "bytes": 921770
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/full_nf4/per_question.csv",
+      "sha256": "e39f0252da621838a122797f1a48fc3c863d00b9e322df3881b0d39675c8d842",
+      "bytes": 597235
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/full_nf4/metrics.csv",
+      "sha256": "ba01cd8b02c545b0721346002e4ee7812df8d4db3ddaff3f50d30ffa4d41fdef",
+      "bytes": 730
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/npo_bf16/per_question.jsonl",
+      "sha256": "4168d257613b89f59b0a6b8adfd0c7f630e0eb00b1ab1d6201f97fbe95a13537",
+      "bytes": 1250693
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/npo_bf16/per_question.csv",
+      "sha256": "726b0a6dcdad0219ba541dcf297fcc1c85d3eb25eb2b4831b60f24c31ad625d4",
+      "bytes": 926444
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/npo_bf16/metrics.csv",
+      "sha256": "ce3a81fbd9fd3d2010f3eeda819aa92402c8e13a9cb581fba56cb3f95a95fec8",
+      "bytes": 742
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/npo_int8/per_question.jsonl",
+      "sha256": "77ea644b6a5ad73a1b457b0905a8601b51b06b6d3c5fa14717f259375176eaf2",
+      "bytes": 1251976
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/npo_int8/per_question.csv",
+      "sha256": "0fd1da67c5901e85e65696cb7af44804730ed8eff20e0b225535be679b3164c4",
+      "bytes": 927729
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/npo_int8/metrics.csv",
+      "sha256": "7a896be404195b7cca7a18eae3f6926901b8a8c0c8ed11575884eba086866bb1",
+      "bytes": 742
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/npo_nf4/per_question.jsonl",
+      "sha256": "f80438dbf23a6c1b85c00a3fb0282abf51bda37cdc9d307591435d3c05a8ee82",
+      "bytes": 1276166
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/npo_nf4/per_question.csv",
+      "sha256": "77b50bce11365db6c97b69bd4b62e6d1df50e93d39c6c22dc500f316fa460b6c",
+      "bytes": 951891
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/npo_nf4/metrics.csv",
+      "sha256": "0fd0dc38a4e4aef22e593688cff1a7cb0e54f9cf9593f97421afb56d1b2c1fbd",
+      "bytes": 752
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/retain95_bf16/per_question.jsonl",
+      "sha256": "24543f520d0ca13ba05b6fbafafc0e05fcf9c8af718e9955bdc80704fd640ac0",
+      "bytes": 926454
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/retain95_bf16/per_question.csv",
+      "sha256": "5e41e5ae22fe1bd0b34d6b53b776c41d7271b7177893d362f2ff41d984d1d445",
+      "bytes": 601915
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/retain95_bf16/metrics.csv",
+      "sha256": "c6ef2c74fcebcd7ba01e170b87f06b1bc9ba12562abe32d754cc9db1fd431772",
+      "bytes": 723
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/retain95_int8/per_question.jsonl",
+      "sha256": "4fe9a83bb671242f62abde367eca05fe096a6c00ac89530373d93bf122959498",
+      "bytes": 926942
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/retain95_int8/per_question.csv",
+      "sha256": "adae92b8f48dc4e3f2066fc56d20739330f1907cadc96d0af0d82872066c97c0",
+      "bytes": 602403
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/retain95_int8/metrics.csv",
+      "sha256": "f1693bb5d6bfade287fdc037927549885d2aa5f36958b09ef34c5274c59ee9b0",
+      "bytes": 721
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/retain95_nf4/per_question.jsonl",
+      "sha256": "967499ca603b69dd0dcfb89f09bba309e5656bcf9b4371f4c64443f9f06f7259",
+      "bytes": 926641
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/retain95_nf4/per_question.csv",
+      "sha256": "16cf5602b7a027d738728bb43c994ca0ce512d846bdb8bb9e84a1e24ebf8e69b",
+      "bytes": 602106
+    },
+    {
+      "path": "/home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/experiments/reproductions/NPO_2nd-test/npo_results/20261031_092340_493700/retain95_nf4/metrics.csv",
+      "sha256": "6409d5ec9c40c408675b64ca9c54806547ae751d9b9976d6a550d263229001f0",
+      "bytes": 733
+    }
+  ],
+  "reanalysis_code_sha256": "33ba4c084cf860cbcdb4b0c9d5e3f7be734e21a9db8f0f81ff796217fe12d5db",
+  "metrics_code_sha256": "67cac647eb64e1036ad1bbe4638f1bdde1c96bb379f5fa8d2c3ffafa50358c21",
+  "analysis_environment": {
+    "python": "3.12.14",
+    "packages": {
+      "numpy": "2.2.6",
+      "pandas": "2.2.3",
+      "scipy": "1.15.3"
+    }
+  },
+  "bootstrap_repeats": 2000,
+  "question_bootstrap": "exploratory due to within-author dependence",
+  "author_block_bootstrap": "10 contiguous pinned TOFU author blocks",
+  "completed_updates": 62,
+  "training_log_rows": 62,
+  "unique_retain_rows": 195,
+  "available_retain_rows": 3800,
+  "training_seconds_from_logged_rows": 34277.496709199884,
+  "training_log_timing_limit": "Resume history may omit post-commit optimizer timing fields; not a complete wall-clock estimate",
+  "old_interruption_record_preserved": true,
+  "model_weight_files_available": false,
+  "model_weight_integrity": "not reverified: supplied archive has receipts, not checkpoint tensors",
+  "attack_detected": null,
+  "durability_pass": null,
+  "missing_study_components": [
+    "membership inference with matched nonmembers",
+    "FADE",
+    "human-coded semantic audit",
+    "additional quantizers",
+    "relearning",
+    "weight/bin analysis",
+    "multiple training seeds"
+  ]
+}

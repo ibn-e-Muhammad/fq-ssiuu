@@ -231,3 +231,10 @@ is evidenced by OG-001 and Mother verdicts. CR-010 loader defaults now use FP16 
 device 0 with mocked argument/reference tests; actual 1B runtime remains pending.
 CR-005's code-not-found statement is superseded by the pinned author repository
 in `handbook/methods/UPSTREAM_IMPLEMENTATIONS.md`; full QUAIL fidelity remains blocked.
+
+## CR-013: Local NPO run-2 audit — 2026-11-03
+
+Original run preserved, matched-precision geometric FQ and directional bootstrap
+recomputed separately. Arithmetic utility/geometric FQ distinction is explicit.
+The fixed retain pairing is source-code behavior with limited coverage; fresh
+sampling is a declared adaptation. [Full correction](CR-013_npo_local_run2_audit.md).

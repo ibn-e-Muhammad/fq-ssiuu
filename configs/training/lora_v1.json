@@ -1,0 +1,21 @@
+{
+  "schema": "fq-ssiuu-lora-default-v1",
+  "decision": "DL-024",
+  "training_mode": "lora",
+  "base_quantization_during_training": null,
+  "r": 16,
+  "lora_alpha": 32,
+  "lora_dropout": 0.0,
+  "target_modules": [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "o_proj",
+    "gate_proj",
+    "up_proj",
+    "down_proj"
+  ],
+  "bias": "none",
+  "deployment": "save adapter; merge unquantized base; evaluate merge drift; quantize merged checkpoint",
+  "status": "RESEARCHER_SELECTED_IMPLEMENTATION_PENDING_GPU_ACCEPTANCE"
+}

@@ -1,0 +1,19 @@
+stage,oracle_policy,oracle_stage,forget_quality,ks_statistic,paper_arithmetic_ks_statistic_diagnostic,paper_arithmetic_ks_p_value_diagnostic,n,definition,interpretation
+full_bf16,fixed_bf16,retain95_bf16,1.3261055712130201e-13,0.385,0.38,2.9623487356936016e-13,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+full_bf16,matched_precision,retain95_bf16,1.3261055712130201e-13,0.385,0.38,2.9623487356936016e-13,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+full_int8,fixed_bf16,retain95_bf16,1.4275699621532978e-12,0.37,0.36,6.5689645859369454e-12,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+full_int8,matched_precision,retain95_int8,1.3261055712130201e-13,0.385,0.375,6.540866008411473e-13,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+full_nf4,fixed_bf16,retain95_bf16,2.8873674273022313e-11,0.35,0.345,5.951062636424447e-11,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+full_nf4,matched_precision,retain95_nf4,2.8873674273022313e-11,0.35,0.365,3.0799540915748314e-12,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+npo_bf16,fixed_bf16,retain95_bf16,0.5452713464323318,0.08,0.09,0.39352743357720954,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+npo_bf16,matched_precision,retain95_bf16,0.5452713464323318,0.08,0.09,0.39352743357720954,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+npo_int8,fixed_bf16,retain95_bf16,0.220541217580421,0.105,0.1,0.2704743832803917,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+npo_int8,matched_precision,retain95_int8,0.32811544409418575,0.095,0.105,0.220541217580421,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+npo_nf4,fixed_bf16,retain95_bf16,0.7125821300149116,0.07,0.085,0.46628639073563594,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+npo_nf4,matched_precision,retain95_nf4,0.32811544409418575,0.095,0.115,0.1420746514551761,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+retain95_bf16,fixed_bf16,retain95_bf16,1.0,0.0,0.0,1.0,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+retain95_bf16,matched_precision,retain95_bf16,1.0,0.0,0.0,1.0,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+retain95_int8,fixed_bf16,retain95_bf16,0.9999920612641017,0.03,0.05,0.9646522162314058,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+retain95_int8,matched_precision,retain95_int8,1.0,0.0,0.0,1.0,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+retain95_nf4,fixed_bf16,retain95_bf16,0.9238374197330625,0.055,0.065,0.7933622419382523,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure
+retain95_nf4,matched_precision,retain95_nf4,1.0,0.0,0.0,1.0,200,tofu-geometric-preference-KS-v1,Non-rejection is not proof of equivalence or erasure

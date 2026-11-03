@@ -1,0 +1,36 @@
+{
+  "source_folder": "/home/rohan-ahmed/MY-FYP/fq-ssiuu/experiments/reproductions/NPO_2nd-test/Data",
+  "verification": "all six bytes match original pinned registry",
+  "files": [
+    {
+      "split": "forget05",
+      "rows": 200,
+      "sha256": "88542818f98fd6f880ecaea71bc3f3e7a34f959944e5ff1cdef7ea8c5c137173"
+    },
+    {
+      "split": "retain95",
+      "rows": 3800,
+      "sha256": "6625bb8e7e01f27a237bd273b961fcf2fb51568157702acdcd934b13398aa2fc"
+    },
+    {
+      "split": "forget05_perturbed",
+      "rows": 200,
+      "sha256": "7596c863a3f7eafb551a167363826f71a7327f28617a0a533fed06108a50ccdb"
+    },
+    {
+      "split": "retain_perturbed",
+      "rows": 400,
+      "sha256": "fc69f33bad70d3dca65920bdb54380039e3e8872dd16bbae20c1a839b99533fb"
+    },
+    {
+      "split": "real_authors_perturbed",
+      "rows": 100,
+      "sha256": "a23255383ac75a5fbe5acd57622a03fb9c368954fd7b2428afa152b784d9533a"
+    },
+    {
+      "split": "world_facts_perturbed",
+      "rows": 117,
+      "sha256": "0e171838040d0ec94b1ce248d891508e85e3b77344370077caa27b61898eb3e1"
+    }
+  ]
+}

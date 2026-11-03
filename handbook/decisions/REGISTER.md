@@ -131,3 +131,11 @@ a joint four-comparison interval family, and a proposed finite-benchmark utility
 criterion in every declared seed. This resolves a draft omission, not a researcher
 decision. Explicit approval is still required; no attack/durability field or
 scientific gate changes. No further C1 GPU submission is authorized.
+
+## DL-024: LoRA throughout forthcoming project training — 2026-11-03
+
+Researcher-decided due to full-weight memory/time costs. Freeze the unquantized
+base, train FP32 LoRA adapters, and evaluate unmerged/merged weights before PTQ.
+Record source-level deviations and independent method acceptance. Full decision:
+[DL-024](DL-024_project_lora_training.md). The local NPO third run is the first
+implementation; SSIUU/FQ-QAT/combined acceptance remains pending.

@@ -24,3 +24,7 @@ The default dataset location is now `data/tofu`. Each required split can be an
 original pinned `.json` file or a complete saved Arrow dataset in its named
 subfolder. See the guide's input section for the six required splits and the
 per-run conversion checks. Metadata-only folders are reported as incomplete.
+
+## Local LoRA run 3 — 2026-11-03
+
+The current NPO third-run notebook is [NPO_3RD_RUN.ipynb](../../experiments/reproductions/NPO_3rd-test/NPO_3RD_RUN.ipynb), backed by tested code beside it. Configure the downloaded models/data there. The Mother runner below/above retains its historical full-weight D1 scope.

@@ -1,5 +1,27 @@
 # FQ-SSIUU Branch Ledger
 
+## Active local lineage — 2026-11-03
+
+`codex/npo-lora-third-run` starts from the latest source checkout tip `06419f0`.
+Checkpoint `c0bc9cd` preserves the researcher's first/second-run folder layout,
+latest notebook/helpers and immutable recorded outputs. Downloaded model/data
+caches and binary checkpoints are excluded; evidence bytes are protected from
+Git line-ending normalization. The initial checkpoint was published separately
+before third-run implementation.
+
+The final commit on this branch adds the LoRA third-run code, checked reanalysis,
+audit/decision documentation and validation receipts. Resolve its exact SHA using
+Git history; do not invent a self-referential commit pin in this document.
+Both checkouts are to point to that same final tip. The canonical NPO import path
+is restored for compatibility with existing tests/runners while `NPO_1st-test`
+retains the supplied archive.
+
+**No PR, dev/main merge, history rewrite, branch deletion or Kaggle submission.**
+The earlier integration/PR statuses below are historical snapshots, not a fresh
+assertion about current GitHub PR state.
+
+---
+
 **Purpose:** Document the branch topology, active lineages, and historical integrations.
 
 ## Governance

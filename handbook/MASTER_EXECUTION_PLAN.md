@@ -1,5 +1,30 @@
 # Master execution plan
 
+## Current override — local NPO audit and LoRA path, 2026-11-03
+
+1. Preserve run 2 source/results, validate recorded artifact hashes, and produce
+   corrected post-hoc matched-geometric FQ/directional intervals without inference.
+2. Apply [DL-024](decisions/DL-024_project_lora_training.md): LoRA is the declared
+   training mode for new project conditions. Historical full-weight results stay
+   immutable; classification is project adaptation, not exact full-weight parity.
+3. Prepare and validate [NPO local run 3](methods/NPO_LOCAL_RUN3_LORA.md), in
+   `experiments/reproductions/NPO_3rd-test/`, on branch `codex/npo-lora-third-run`.
+   Three independent seeds, source objective/settings, fresh retained draws,
+   frozen random retain diagnostics, periodic complete metrics, separate merge
+   drift, fixed/matched geometric FQ, arithmetic utility, KL and generation audits.
+4. Execute the actual 1B GPU study on the researcher's PC only after inspecting
+   its CPU and CUDA smoke receipts. Account for each seed and failure. No outcome
+   or speedup is inferred from tiny-model tests.
+5. Use the new evidence to plan LoRA-aware SSIUU attribution/HVP and effective
+   merged-weight FQ-QAT. Their current gates remain blocked. FADE, true MIA,
+   other quantizer families and relearning remain explicit later phases.
+
+No dev merge, PR creation, Protocol v2 activation or confirmatory attack/durability
+verdict belongs to this work. The historical table below retains its original
+work-unit chronology; current local status is in [PROJECT_STATUS](PROJECT_STATUS.md).
+
+---
+
 Updated 2026-09-28. FQ-SSIUU: Verifiable Machine Unlearning Against Quantisation
 Recovery Attacks in Large Language Models. Muhammad Arslan (23BSAI020), Rohan Ahmed
 (23BSAI008), supervisor Dr. Sania Bhatti; BS AI, MUET, 2026–27.

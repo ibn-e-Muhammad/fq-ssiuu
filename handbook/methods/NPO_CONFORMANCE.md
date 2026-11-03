@@ -1,5 +1,17 @@
 # NPO objective conformance
 
+## Later local work — 2026-11-03
+
+This document's full-weight D1 acceptance/status is historical. The later local
+run `20261031_092340_493700` completed full-weight training and nine evaluation
+stages, with limitations documented in [the local run-2 report](../reports/NPO_LOCAL_RUN2_REPORT.md).
+The researcher now selected [LoRA for forthcoming training](../decisions/DL-024_project_lora_training.md) and a separate
+local third-run implementation in `experiments/reproductions/NPO_3rd-test/`.
+The new low-rank subspace and fresh retain sampler are explicit class C changes;
+no historical source-faithful conformance or failed Kaggle result is rewritten.
+
+---
+
 Reference: Zhang et al., arXiv [2404.05868v2](https://arxiv.org/html/2404.05868v2),
 revised 2024-10-10, Equation 3. Author code:
 `licong-lin/negative-preference-optimization` at

@@ -1,0 +1,10 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.2.0, pluggy-1.7.0
+rootdir: /home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu
+configfile: pyproject.toml
+collected 11 items
+
+tests/test_local_inputs.py ..........s                                   [100%]
+
+- generated xml file: /home/rohan-ahmed/MY-FYP/fq-ssiuu_2/fq-ssiuu/handbook/evidence/npo_run3/20261103_cpu_validation/local_inputs_pytest.xml -
+======================== 10 passed, 1 skipped in 0.11s =========================

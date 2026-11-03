@@ -1,5 +1,48 @@
 # FQ-SSIUU project status
 
+## Current local NPO status — 2026-11-03
+
+Local full-weight **run 2 completed**: `20261031_092340_493700`, 62 updates and
+nine 717-question BF16/INT8/NF4 stages. It is a useful single-seed adapted
+experiment, with substantial forget-answer suppression and retained-utility loss;
+it does not establish QRA recovery or universal robustness. Raw source/results
+are preserved at `experiments/reproductions/NPO_2nd-test/`, snapshot `c0bc9cd`.
+The prior interrupted-at-50 record remains alongside the later completion.
+
+The supplied audit is checked and preserved. Derived geometric matched-precision
+FQ and directional recovery intervals live separately in
+`evidence/npo_run2/20261103_audit/reanalysis/`.
+See [run-2 report](reports/NPO_LOCAL_RUN2_REPORT.md) and
+[correction CR-013](corrections/CR-013_npo_local_run2_audit.md).
+
+The researcher selected **LoRA throughout forthcoming project training** because
+of full-weight resource/time consumption. [DL-024](decisions/DL-024_project_lora_training.md)
+records that material method adaptation and its consequences for SSIUU/FQ-QAT.
+[Local run 3](methods/NPO_LOCAL_RUN3_LORA.md) uses three seeds, fresh retained
+training draws, frozen random evaluation selection, periodic TOFU metrics,
+unmerged/merged controls, real post-merge PTQ, geometric FQ, arithmetic utility,
+directional CIs, KL and longer-output auditing. Source/launcher:
+`experiments/reproductions/NPO_3rd-test/`. Actual three-seed 1B GPU execution is
+pending. [CPU/tiny-model acceptance](evidence/npo_run3/20261103_cpu_validation/README.md)
+records 238 passing NPO/LoRA/QRA tests and three CUDA-only skips; these are not
+third-run 1B effectiveness results.
+
+Work is isolated on **`codex/npo-lora-third-run`**; no dev merge or PR.
+The source checkout is `/home/rohan-ahmed/MY-FYP/fq-ssiuu`; a sibling workspace
+was used for implementation. The canonical `reproductions/NPO` import namespace
+is retained for existing tests/runners alongside the first-run archive.
+
+RG-006 remains resolved only within its historical objective/data/reference
+scope. RG-001/002/003/005 remain blocked and RG-004 open. LoRA does not validate
+the other constituent methods or approve confirmatory verdicts. Protocol v2
+remains unapproved. This local third run is distinct from September's failed
+third Kaggle attempt; no additional Kaggle submission is implied.
+
+The dated material below is the preserved September status, not the current
+claim that no local 1B training has ever completed.
+
+---
+
 Updated 2026-09-28. [Canonical plan](MASTER_EXECUTION_PLAN.md).
 Integration tip: `dev` at `5ca92bfa0863a9ffadcd70bfc5f28c8ee8c6e76a` (PR #10 merged).
 Work units A, B and C are merged; their branches and evidence are retained.

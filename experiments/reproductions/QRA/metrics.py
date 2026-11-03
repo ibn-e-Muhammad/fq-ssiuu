@@ -114,7 +114,9 @@ def greedy_answer(model, tokenizer, prompt_ids, spec):
     }
     # A fresh complete config prevents hidden checkpoint generation defaults
     # (forced tokens, repetition penalties, sampling) changing this measurement.
-    config = GenerationConfig(**(GenerationConfig._get_default_generation_params() | kwargs))
+    # Public defaults work in both Transformers 4.x and 5.x. The private helper
+    # used previously is absent in 4.51, including the local LoRA test stack.
+    config = GenerationConfig(**(GenerationConfig().to_dict() | kwargs))
     resolved = {
         "requested": spec,
         "generation_config": config.to_dict(),

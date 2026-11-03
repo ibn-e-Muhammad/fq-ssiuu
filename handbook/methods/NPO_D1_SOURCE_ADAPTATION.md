@@ -1,5 +1,17 @@
 # D1 NPO source and adaptation specification
 
+## Later local work — 2026-11-03
+
+This document's full-weight D1 acceptance/status is historical. The later local
+run `20261031_092340_493700` completed full-weight training and nine evaluation
+stages, with limitations documented in [the local run-2 report](../reports/NPO_LOCAL_RUN2_REPORT.md).
+The researcher now selected [LoRA for forthcoming training](../decisions/DL-024_project_lora_training.md) and a separate
+local third-run implementation in `experiments/reproductions/NPO_3rd-test/`.
+The new low-rank subspace and fresh retain sampler are explicit class C changes;
+no historical source-faithful conformance or failed Kaggle result is rewritten.
+
+---
+
 Status: **D1 runtime implemented for review; CPU source/accumulation, native ZeRO-3
 checkpoint/resume and complete tiny CPU loop checked; accumulation 8 approved;
 0/2 Kaggle submissions**. Intended result: a bounded source-faithful 1B

@@ -1,0 +1,28 @@
+test_actual_training_loop_interruption_resume_and_final_export (__main__.RecoveryTests.test_actual_training_loop_interruption_resume_and_final_export) ... skipped 'CUDA integration check'
+test_buffers_restored (__main__.RecoveryTests.test_buffers_restored) ... ok
+test_completed_evaluation_reused_and_hash_checked (__main__.RecoveryTests.test_completed_evaluation_reused_and_hash_checked) ... ok
+test_configuration_mismatch_and_nonfinite_rejected (__main__.RecoveryTests.test_configuration_mismatch_and_nonfinite_rejected) ... ok
+test_cut_before_commit_marker (__main__.RecoveryTests.test_cut_before_commit_marker) ... ok
+test_interrupted_chunk_write_preserves_last_commit (__main__.RecoveryTests.test_interrupted_chunk_write_preserves_last_commit) ... ok
+test_missing_commit_and_corrupt_newest_fall_back (__main__.RecoveryTests.test_missing_commit_and_corrupt_newest_fall_back) ... ok
+test_resume_exact_parameters_moments_rng_and_metadata (__main__.RecoveryTests.test_resume_exact_parameters_moments_rng_and_metadata) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.066s
+
+OK (skipped=1)
+PASS: streamed AdamW vs torch.optim.AdamW, four updates, FP32/BF16 parameters, decay exclusions, small chunk boundaries.
+Verified checkpoint: step-000001-e8c8e4f9870e4f298dd69a0828cdffc9; next update: 2
+Reusing verified completed evaluation: full_bf16
+Skipped incomplete/corrupt checkpoints:
+step-000001-8bb87be611cd448f90b482ead770e265: [Errno 2] No such file or directory: '/tmp/npo2-recovery-validation/tmpr7a2tmr5/state/step-000001-8bb87be611cd448f90b482ead770e265/commit.json'
+Verified checkpoint: step-000000-e2b1745f7dcc4445b5bdc6e4ab157972; next update: 1
+Skipped incomplete/corrupt checkpoints:
+step-000002-2fa3bd89ca2a4e4b96e0b9945696fbdd: [Errno 2] No such file or directory: '/tmp/npo2-recovery-validation/tmpj48sgk6j/state/step-000002-2fa3bd89ca2a4e4b96e0b9945696fbdd/commit.json'
+Verified checkpoint: step-000001-f70f8cbe6c91420ca0252cd56960204d; next update: 2
+Skipped incomplete/corrupt checkpoints:
+step-000003-3e5e07179e9f443f8f2bfdfad63c1ea9: [Errno 2] No such file or directory: '/tmp/npo2-recovery-validation/tmp18_vkwi2/state/step-000003-3e5e07179e9f443f8f2bfdfad63c1ea9/commit.json'
+step-000002-2d162106cfaa4a60afd108b00bc7066f: Checksum mismatch: moment1.bin
+Verified checkpoint: step-000001-4105f086f7524d87bfa0d01ca50838ca; next update: 2
+Verified checkpoint: step-000002-15b93fd424494bb9a9f60e788c3ca13f; next update: 3
+Verified checkpoint: step-000002-5229d073486549c38c8cedb7a66aeca6; next update: 3

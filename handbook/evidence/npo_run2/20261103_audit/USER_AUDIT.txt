@@ -1,0 +1,553 @@
+NPO+RT and quantisation audit
+I've inspected the notebook, the separate training and optimiser code, the validation tests, the result tables embedded in the notebook, the plots, and the generated-answer HTML.
+
+My overall finding is:
+
+The engineer has implemented a legitimate NPO+RT training run and a genuine post-training INT8/NF4 evaluation. The result does not show meaningful quantisation recovery on the metrics currently reported. However, I would not yet call this a faithful, fully validated reproduction of the original NPO experiment. There is a significant limitation in how the retain examples are sampled, and one important part of the QRA evaluation needs to be corrected.
+
+I also don't think the 1B model is, by itself, a satisfactory explanation for the absence of recovery. OpenUnlearning publishes NPO results for the same Llama-3.2-1B-Instruct architecture on TOFU Forget05. Its reproduction table reports Forget Quality of 0.14 and Model Utility of 0.45, although the authors explicitly warn that results can change with hardware and training-setup modifications. Your run's utility is in a similar range. 
+
+GitHub
+
+The more interesting possibility is that this particular NPO update has already suppressed the target answers very strongly, and the specific NF4 transformation did not reverse that suppression.
+
+Let's separate what the code really tested from what it did not.
+1. What the code actually ran
+The notebook ran more than just “NPO followed by a 4-bit conversion.” It ran a useful set of controls as well.
+Model and dataset setup
+The notebook pins the following OpenUnlearning checkpoints and dataset revision:
+Item	What the code uses
+Target \(M_0\)	open-unlearning/tofu_Llama-3.2-1B-Instruct_full
+Retain reference \(M_r\)	open-unlearning/tofu_Llama-3.2-1B-Instruct_retain95
+Dataset	locuslab/TOFU, pinned revision
+Forget training set	200 Forget05 examples
+Retain training set	3,800 Retain95 examples
+
+The code checks checkpoint and dataset hashes, so it is not casually loading an arbitrary local model with a similar name. This is a good provenance measure.
+
+The two checkpoint roles are also correct: the full model is the starting target, and retain95 is the model trained without the designated 5% forget subset. That is the intended TOFU comparison. 
+
+GitHub+1
+
+Training implementation
+The actual training configuration is:
+Setting	Value
+Objective	NPO + retain cross-entropy
+\(\beta\)	0.1
+NPO coefficient	1.0
+Retain coefficient	1.0
+Learning rate	\(10^{-5}\)
+Weight decay	0.01
+Optimiser	AdamW-style custom disk-backed implementation
+Effective batch size	32
+Nominal epochs	10
+Updates	62
+Warm-up	6 updates
+Precision	BF16 model weights, FP32 master weights and optimiser state
+Random seed	42 only
+Adaptation	Full-model fine-tuning, not LoRA
+
+The NPO loss implementation is mathematically consistent with the published objective. It uses the initial full model as the frozen reference, calculates response-token sequence log probabilities, and implements the stable softplus form of NPO. The self-tests compare its value and gradients against the equivalent log-sigmoid expression, including response masking and reference freezing. 
+training_cell.py
+
+The retain component is also the correct type of objective for NPO+RT: cross-entropy on retain examples, not a KL penalty. That matches the NPO paper's definition of the retain loss. 
+
+arXiv+1
+
+So the mathematical core is not where I found the main problem.
+Quantisation implementation
+The notebook evaluates:
+- NPO BF16.
+- NPO INT8 using bitsandbytes LLM.int8.
+- NPO NF4 using bitsandbytes 4-bit NF4, BF16 compute and double quantisation.
+It also quantises the original full model and retain-only reference to INT8 and NF4. That is good experimental design: it provides controls to show what quantisation does to the models even without unlearning.
+
+The loader asserts that the model has actually been converted to quantised linear modules and that the corresponding bitsandbytes loaded-in-quantisation flag is set. The full-model controls also visibly change after NF4, so there is no indication that the quantisation stage was simply skipped. 
+validation_results.txt
+
+Verdict on this part: a real post-training weight-quantisation experiment was performed. It is a narrow NF4/INT8 QRA probe, not a full reproduction of the QRA paper's quantiser sweep.
+
+2. The most important training issue: retain sampling
+I found one significant deviation that deserves attention.
+
+The code creates RETAIN_PAIRS once, before training. Each of the 200 forget examples receives one deterministic retain example. That mapping is then reused throughout all 62 updates.
+
+The resulting selection contains only 195 distinct retain rows out of the 3,800 available—about 5.1% of the retain training set. The same small group is repeatedly used across the ten nominal passes.
+
+This is not the same as repeatedly drawing a fresh random set of retain examples from the full retain set throughout training.
+
+Why this matters:
+- The retain objective is supposed to preserve a broad portion of the model's non-forget behaviour.
+- Reusing the same 195 examples can encourage the model to fit those particular retained responses rather than preserve the wider retain distribution.
+- The evaluation then tests 300 retained diagnostic questions, which are not limited to those 195 training examples.
+This is a plausible contributor to the large retained-set performance drop in your results. I cannot prove it caused that drop without a comparison run, but it is a concrete sampling limitation—not speculation about the model's size.
+
+The original TOFU training methodology describes randomly sampling retain examples while using the forget set as the anchor. Your code's one-time fixed pairing is therefore a meaningful implementation difference. 
+
+My recommendation: in the corrected run, resample the retain examples across epochs or training updates using a reproducible sampler, rather than creating one fixed mapping for the entire experiment.
+
+There is a second, smaller evaluation-sampling issue: the notebook selects the first 300 eligible retain diagnostic examples. It should ideally select a seeded random sample of 300 from the 400 eligible examples, then freeze that selection across all model conditions. The existing selection is still useful for paired comparisons, but the first 300 may not be representative of the whole diagnostic set.
+3. Which parts of the evaluation matrix were actually tested?
+Here's the audit against the evaluation plan we previously established.
+Evaluation item	Implemented?	Audit finding
+TOFU Forget Quality	Yes	Computes truth-ratio distributions and a KS test against the retain-only reference.
+KS statistic and p-value	Yes	Both are exported.
+Nine Model Utility components	Yes	Retain, Real Authors and World Facts; probability, ROUGE and truth-ratio components.
+Aggregate Model Utility	Yes	Harmonic mean is calculated.
+Forget-set answer likelihood	Yes	Length-normalised answer probability and NLL are recorded.
+ROUGE-L, token F1, exact match	Yes	Calculated per question.
+Generated answer inspection	Yes	All prompts are generated and exported to CSV/HTML.
+INT8 post-training evaluation	Yes	NPO, full-target and retain-only controls.
+NF4 post-training evaluation	Yes	NPO, full-target and retain-only controls.
+Paired bootstrap for answer probability and text overlap	Yes	2,000 question-level bootstrap repetitions.
+Paired confidence interval for the candidate Truth Ratio change	Not yet	The required per-question values are saved, but the bootstrap is not implemented.
+Same-precision oracle comparison using canonical Forget Quality	Partially	A matched comparison is attempted, but it currently uses the arithmetic ratio instead of the geometric ratio used for Forget Quality.
+Min-k% membership-inference attack	No	Not implemented.
+FADE / distributional alignment	No	Not implemented.
+Human-coded refusal, gibberish, fabrication and substitution audit	Partially	Raw answers are exported, but no systematic labels or rates are calculated.
+Benign and adversarial relearning	No	No reinjection or post-unlearning fine-tuning experiment.
+Multiple training seeds	No	Only seed 42 was run.
+Weight-level quantisation-bin analysis	No	No parameter-delta or bin-crossing analysis.
+GPTQ/AWQ or other quantiser comparison	No	Only bitsandbytes INT8 and NF4.
+
+The first nine rows mean the engineer has implemented a fairly substantial NPO/TOFU evaluation, not merely a generated-answer comparison.
+
+The missing rows matter because they distinguish a good initial NPO+PTQ experiment from a complete QRA study and from the broader FQ-SSIUU evaluation matrix.
+A correction to the metric guidance I gave you earlier
+I need to correct one technical detail from my earlier explanation of the evaluation formula.
+
+TOFU's original Forget Quality uses a Truth Ratio based on the geometric mean of the perturbed-answer probabilities relative to the paraphrased correct-answer probability, followed by a KS comparison against the retain-only reference. The TOFU Model Utility implementation uses an arithmetic mean of the perturbed-answer probabilities for its truth-ratio component. These are different calculations serving different parts of the evaluator. 
+
+GitHub+2
+
+Your notebook stores both variants:
+- source_geometric_truth_ratio_log: the appropriate geometric-based quantity for the Forget Quality KS comparison. Its orientation is the reciprocal of the paper's ratio, but a common monotonic reciprocal transformation does not change the two-sample KS statistic or p-value.
+- arithmetic_truth_ratio_log: the arithmetic-based quantity used for the Model Utility truth-ratio component.
+Therefore, the notebook's utility_arithmetic is the correct aggregate Model Utility to report, while utility_source_geometric is an additional sensitivity calculation.
+
+However, I found a specific inconsistency in the comparison code: the matched_precision_KS calculation uses arithmetic_truth_ratio_log. It should use source_geometric_truth_ratio_log to remain consistent with the original Forget Quality definition. This can be corrected from the existing per-question CSVs; no model retraining or inference is required.
+
+That correction matters because you need to compare:
+\[
+NPO_{\mathrm{NF4}}
+\quad\text{against}\quad
+Retain95_{\mathrm{NF4}}
+\]
+
+—not just compare NF4 NPO against an FP16 retain-only oracle and call that the final matched-precision QRA result.
+
+4. What do the results actually say?
+Let's examine the numbers, because this is where the answer to your biggest concern becomes clearer.
+4.1 Forgetting before quantisation
+The values below are from the notebook's saved evaluation output.
+Forget05 metric	Full BF16	Retain95 BF16	NPO BF16
+Length-normalised gold-answer probability	0.87802	0.12969	0.11393
+Gold-answer NLL	0.13493	2.47339	2.35381
+ROUGE-L recall	0.79036	0.39621	0.37998
+Token F1	0.80665	0.43649	0.28365
+Exact match	0.470	0.005	0.000
+
+This tells us something important.
+
+The NPO model has moved a long way away from the original full-data model on Forget05. Its gold-answer likelihood is now close to, and slightly below, the retain-only reference.
+
+That is a strong suppression signal.
+
+The geometric-based KS comparison against the BF16 retain-only oracle gives:
+Metric	NPO BF16
+KS statistic \(D\)	0.080
+Forget Quality p-value	0.54527
+
+This is favourable under the conventional TOFU interpretation: the KS test does not detect a significant difference between the two truth-ratio distributions at the 5% level.
+
+But it is not proof that the models are identical or that the target information has been permanently erased.
+4.2 Retained utility is the concern
+Metric	Full BF16	Retain95 BF16	NPO BF16
+Aggregate Model Utility	0.55909	0.55369	0.43654
+Retain gold-answer probability	0.86605	0.87149	0.40073
+Retain ROUGE-L	0.78512	0.79362	0.44318
+Retain token F1	0.79068	0.80239	0.33656
+
+The retained-set differences are substantial.
+
+The aggregate utility is about 21% lower than the retain-only reference:
+\[
+\frac{0.55369-0.43654}{0.55369}\times100
+\approx21.2\%
+\]
+
+This is not a trivial loss.
+
+It means that while the NPO checkpoint looks reasonably close to the retain-only oracle on Forget05, it has also lost considerable performance on the sampled retain diagnostic questions.
+
+The OpenUnlearning Llama-3.2-1B Forget05 table reports NPO utility of 0.45, which is close to your 0.43654. That does not establish exact reproduction, but it does show that your overall utility result is not wildly outside the published 1B baseline. 
+
+GitHub
+
+The much weaker retained-set answer probability and ROUGE scores in your own run deserve investigation, particularly in light of the restricted retain sampling I identified above.
+5. Why did NF4 not recover the forgotten answers?
+This is the central question, so let's look at the actual before-and-after results.
+5.1 What happened after quantisation?
+Metric on Forget05	NPO BF16	NPO INT8	NPO NF4
+Gold-answer probability	0.11393	0.11384	0.11324
+ROUGE-L recall	0.37998	0.38289	0.38881
+Token F1	0.28365	0.28723	0.27798
+Exact match	0.000	0.000	0.000
+Model Utility	0.43654	0.43568	0.42432
+
+The gold-answer probability does not increase. It actually decreases slightly.
+
+The text metrics move in different directions, but the notebook's paired bootstrap intervals include zero:
+Metric change after NF4	Mean change	95% question-bootstrap interval
+Gold-answer probability	−0.00069	[−0.00248, +0.00101]
+ROUGE-L	'+0.00883	[−0.00331, +0.02166]
+Token F1	−0.00567	[−0.01555, +0.00350]
+Exact match	0	[0, 0]
+
+None of these results supplies convincing evidence of recovery.
+
+There's one subtlety, though. The notebook's geometric-based truth-ratio log averages are approximately:
+Stage	Mean log correct-vs-perturbed preference
+NPO BF16	0.33337
+NPO INT8	0.33372
+NPO NF4	0.33559
+
+The small positive changes are directionally consistent with slightly increased preference for the correct forgotten answers relative to the geometric mean of the incorrect alternatives. But the notebook has not calculated a paired confidence interval for this metric. The changes are tiny, and they should not be treated as evidence of QRA without that analysis.
+
+This is why I would not write “there was absolutely no recovery.” The defensible statement is:
+
+The current evaluation detects no material or statistically supported recovery on the reported gold-answer and generation metrics. A very small candidate-level shift remains to be checked using the paired Truth Ratio analysis.
+5.2 Was the quantiser actually working?
+Yes, the controls strongly suggest that it was.
+
+Compare the original full model before and after NF4:
+Metric	Full BF16	Full NF4	Change
+Gold-answer probability	0.87802	0.69969	−0.17833
+ROUGE-L	0.79036	0.54528	−0.24508
+Token F1	0.80665	0.58032	−0.22633
+Exact match	0.470	0.040	−0.430
+
+NF4 has substantially changed the full model's behaviour. The retain-only control also changes after NF4.
+
+Therefore, I see no reasonable basis for concluding that the NF4 conversion did nothing. It clearly had an effect; it simply did not restore the target answers suppressed by this NPO checkpoint.
+
+This distinction matters. Quantisation sensitivity is not the same thing as quantisation recovery. A model can be heavily affected by quantisation without regaining the particular knowledge targeted by unlearning.
+5.3 Why might this particular NPO checkpoint resist recovery?
+I see four plausible explanations, ranked by how directly the current evidence supports them.
+
+First: the target-answer signal is already very weak.
+
+NPO has driven Forget05 gold-answer probability from 0.87802 to 0.11393. The retain-only oracle is at 0.12969. The unlearned model is already very close to the oracle under these measures, even slightly below it on gold-answer likelihood.
+
+There may simply be little remaining correct-answer preference for NF4 to restore.
+
+Second: this is full-weight NPO, not a small adapter update.
+
+The notebook trains all model parameters, rather than learning a small LoRA update. The custom optimiser also maintains FP32 master weights for the BF16 model parameters.
+
+That can produce a different update geometry from adapter-based or more constrained unlearning methods. It is possible that the updates in this run moved enough relevant parameters across the NF4 quantisation boundaries to survive conversion.
+
+But this is still a hypothesis. The engineer has not exported a parameter-delta or quantisation-bin-crossing analysis, so we cannot establish that mechanism from the current results.
+
+Third: the particular NF4 implementation and 1B model may be less susceptible under these conditions.
+
+Quantisation-recovery outcomes depend on the model, unlearning method, update structure, quantiser, scaling and deployment path. The QRA paper's reported increase in recovered knowledge—from an average of 21% in full precision to 83% after 4-bit quantisation—comes from its evaluated models and methods; it is not a law that every INT4 conversion must reverse every unlearning intervention. 
+
+ICLR Proceedings
+
+The same 1B architecture has published TOFU/NPO baseline results, so its size does not invalidate your experiment. But we do not have a controlled 1B-versus-7B QRA comparison here. We cannot assign the absence of recovery to the 1B scale.
+
+Fourth: retained-capability degradation complicates the interpretation.
+
+Your NPO model has a substantial retained-set performance loss and unusual generated responses. This is important because the NPO checkpoint is not simply a clean model with a few forgotten facts removed. It has also changed its broader behaviour.
+
+The raw HTML shows examples of long, fabricated elaborations—for instance, the model invents unrelated cultural and biographical narratives when asked about Hina Ameen. 
+answers_side_by_side.html
+
+The notebook also reports that NPO generations hit the 96-token limit frequently, particularly on Real Authors and World Facts. That is a generation-quality warning. It does not prove catastrophic model collapse, but it does mean the human-readable output audit should not be treated as clean forgetting evidence. The NPO paper itself emphasises the importance of retaining sensible outputs alongside forgetting. 
+
+arXiv+1
+
+6. What the loss plot tells us
+The training-loss plot is worth examining separately from the evaluation results.
+
+
+Your uploaded NPO+RT loss plot, showing the NPO objective and retained cross-entropy over 62 updates.
+
+The blue NPO loss begins at approximately 13.86. That is expected: with \(\beta=0.1\), equal current and reference probabilities give an initial loss of:
+\[
+\frac{2}{0.1}\log 2 \approx 13.86
+\]
+
+It then falls almost to zero within roughly the first 12 updates.
+
+That means the model's probability for the forget responses has fallen substantially relative to the frozen full-model reference. As NPO's adaptive weighting decreases for already-suppressed examples, the NPO gradient also becomes weaker. This is an intended property of NPO, not automatically a bug. 
+
+arXiv
+
+The orange retain cross-entropy curve tells a more concerning story:
+- It begins around 0.15.
+- It rises to roughly 1.5 during the early updates.
+- It later declines, finishing around 0.65.
+The model is initially becoming worse at predicting the retained examples being used for training. It subsequently improves on that training objective, but remember that those examples come from the same fixed, small selection of approximately 195 unique retain rows.
+
+This makes the curve compatible with a scenario in which the model strongly suppresses forget answers, loses some retained capability, and then partially refits the small retain sample it repeatedly sees.
+
+The curve cannot tell us whether this happened to all retained knowledge, because the code did not evaluate the full metric matrix after every epoch. It evaluates the final checkpoint. That is another reason to add evaluation checkpoints in the next run.
+
+The original NPO paper reports a better balance between forgetting and utility, and highlights the role of the retain cross-entropy term in maintaining more sensible outputs. Your implementation uses the right kind of objective, but the actual results show that the retain behaviour still needs attention. 
+
+arXiv+1
+
+
+7. Is the implementation faithful to the original NPO paper?
+I would rate it as follows.
+Aspect	Assessment
+NPO mathematical objective	Faithful
+Frozen full-model NPO reference	Faithful
+Response-token masking and sequence likelihood	Faithful in the inspected implementation
+Retain cross-entropy objective	Correct method
+Retain-example sampling	Important deviation
+Model architecture	1B adaptation
+Optimiser implementation	Custom AdamW implementation
+Training environment	Different hardware/distributed setup
+Random seeds	Only one
+TOFU Forget Quality	Implemented, with an additional matched-precision correction required
+TOFU Model Utility	Implemented
+Evaluation of all original training checkpoints	Final checkpoint only
+
+The original NPO work used Llama-2-7B-chat, and OpenUnlearning's published reproducibility configuration specifies two L40S GPUs, DeepSpeed ZeRO-3, effective batch size 32, ten epochs, learning rate \(10^{-5}\), and AdamW. Its authors explicitly warn that changing the distributed setup, including moving to a single GPU, may change results. 
+
+GitHub+1
+
+Your engineer has preserved several central settings, but this remains a resource-bounded 1B adaptation, not a bit-for-bit reproduction.
+The custom optimiser is not an obvious flaw
+The engineer replaced the ordinary in-memory AdamW state with a disk-backed FP32 master-weight and moment implementation. The validation code checks its updates against torch.optim.AdamW, tests BF16/FP32 behaviour, checks recovery from interrupted writes, and checks that saved state can be restored.
+
+The supplied test output reports those checks passing. 
+update_notebook.py
+validate_recovery.py
+
+That's good engineering. It is not, however, a proof that the entire 1B training trajectory is identical to the original trainer. These are small numerical and recovery tests, not a replicated NPO experiment.
+
+8. The QRA implementation: what is valid and what needs correction?
+Your QRA test is valid as a first post-training quantisation probe:
+\[
+M_u^{\mathrm{BF16}}
+\longrightarrow
+\begin{cases}
+Q_8(M_u)\\
+Q_{\mathrm{NF4}}(M_u)
+\end{cases}
+\]
+
+It uses real weight conversion, then evaluates the resulting quantised models. That is the right broad experimental order for testing whether ordinary deployment quantisation weakens an unlearning intervention.
+
+However, its numerical interpretation needs two corrections.
+Correction A: use the same-precision retain oracle
+For an INT4/NF4 comparison, the cleanest TOFU comparison is:
+\[
+FQ_{\mathrm{NF4}} =
+KS\left(
+TR(Q_{\mathrm{NF4}}(M_u)),
+TR(Q_{\mathrm{NF4}}(M_r))
+\right)
+\]
+
+The retain-only oracle should undergo the same quantisation transformation as the unlearned model. Otherwise, you are comparing two precision states that may have different quantisation effects.
+
+The notebook has already generated retain95_int8 and retain95_nf4, so the data needed for this comparison exists.
+Correction B: the paired recovery test needs the directional Truth Ratio
+The current bootstrap code tests changes in:
+- Gold-answer probability.
+- ROUGE-L.
+- Token F1.
+- Exact match.
+It does not bootstrap the per-question geometric-based candidate preference, even though that metric is already calculated and saved.
+
+That is an important omission because it compares the paraphrased correct answer against multiple perturbed answers. It is more informative about the model's relative preference for the forgotten fact than inspecting the gold-answer probability alone.
+
+I prepared a small script that reads the existing per-stage per_question.csv files, calculates the correct same-precision Forget Quality comparisons, and bootstraps the paired directional Truth Ratio change. It requires no new model inference or training.
+Existing outputs only
+No retraining or re-quantisation
+
+Download the NPO/QRA reanalysis script
+
+On the engineer's Windows machine, it can be run against the existing run directory:
+python reanalyse_npo_qra.py "C:\FYP\npo_results\20261031_092340_493700"
+
+
+It expects the per-stage per_question.csv files. The script creates:
+- reanalysis_forget_quality.csv
+- reanalysis_directional_qra.csv
+I have checked that the script compiles, but I have not run it against the engineer's actual run folder because those individual per-question CSVs were not uploaded here.
+9. What can be calculated from the existing output files?
+This is where I can save your team a lot of unnecessary work. You do not need to rerun the whole experiment just because some evaluation metrics are missing.
+
+There are three categories.
+A. Can be calculated without training or model inference
+Analysis	Existing source
+Correct TOFU Forget Quality against BF16 retain-only oracle	Per-question candidate likelihoods
+Same-precision INT8/NF4 Forget Quality against matching retain-only oracle	NPO and retain95 per-question CSVs
+Paired directional Truth Ratio change after INT8/NF4	NPO BF16, INT8 and NF4 per-question CSVs
+Confidence intervals for directional recovery	Same files, using question-level bootstrap
+Fraction of questions showing increased target-answer preference	Same files
+Model Utility and its nine components	Per-question metric files
+Refusal, gibberish, fabrication and semantic-substitution categories	Existing generated-answer HTML/CSV, with manual annotation
+Generation length and truncation analysis	Per-question CSVs
+
+The most important missing calculation—the paired, directional Truth Ratio change—can be done without another model forward pass.
+
+The relevant values are already computed by the notebook. The engineer simply has not implemented that particular statistical analysis.
+B. Can be done without retraining, but requires additional model inference or weight analysis
+Analysis	What is needed
+Min-k% membership-inference attack	Score member and matched non-member examples and retain token-level log-probability information
+FADE	Generate and score model samples against the retain-only reference
+Additional GPTQ/AWQ or uniform INT4 comparisons	Quantise the existing checkpoints using those methods and evaluate them
+Weight-update and quantisation-bin analysis	Compare original and unlearned weights with the specified quantiser's mappings
+
+These do not require repeating NPO training, but they are not recoverable from the generated-answer HTML alone.
+C. Requires new training
+Analysis	Why
+Three- or five-seed NPO comparison	Each additional seed requires a separate training run
+Benign relearning	Requires another fine-tuning intervention and subsequent evaluation
+Adversarial reinjection	Requires retraining on the designated reinjection subset and evaluating disjoint forgotten examples
+SURE/SAF baseline	Requires implementing and training the relevant baseline
+
+So, no, your engineer does not need to regenerate all those outputs. The first step should be a post-hoc reanalysis of the existing per-question likelihoods.
+
+10. Which output files actually matter?
+I looked at the notebook's output structure. It is quite comprehensive, but the files have different purposes.
+
+Here is the minimal set I would ask the engineer to preserve and share for the scientific evaluation.
+
+Essential per-question data:
+npo_bf16/per_question.csv
+npo_int8/per_question.csv
+npo_nf4/per_question.csv
+
+retain95_bf16/per_question.csv
+retain95_int8/per_question.csv
+retain95_nf4/per_question.csv
+
+
+Useful original and quantised controls:
+full_bf16/per_question.csv
+full_int8/per_question.csv
+full_nf4/per_question.csv
+
+
+Summary and training records:
+comparison_matrix.csv
+forgetting_matrix.csv
+recovery_matrix.csv
+utility_components.csv
+utility_changes.csv
+training_log.jsonl
+
+
+Generation audit:
+answers_side_by_side.html
+answers_side_by_side.csv
+
+
+Quantisation and provenance records:
+metadata.json              # inside each stage directory
+manifest.json
+training_complete.json
+
+
+The other files are not necessarily useless, but they are mostly implementation, environment, integrity, and recovery records. They do not all need to be inspected to assess the scientific result.
+
+For clarity:
+File	Scientific purpose
+comparison.png	Visual summary of output and utility metrics
+output.png	Training loss behaviour
+answers_side_by_side.html	Qualitative answer inspection
+per_question.csv	Most important numerical evaluation source
+comparison_matrix.csv	Stage-level aggregate results
+recovery_matrix.csv	Existing paired precision-change results
+training_log.jsonl	Actual training trajectory and performance
+validation_results.txt	Engineering/optimizer correctness tests
+optimizer_benchmark.json	Small local timing probe, not a scientific result
+update_notebook.py	Notebook construction utility, not experimental evidence
+
+The uploaded HTML contains 717 evaluated prompts per model stage (200 Forget05, 300 Retain, 100 Real Authors, and 117 World Facts). It is useful, but it does not replace the per-question likelihood CSVs. 
+answers_side_by_side.html
+
+
+11. What I would change before calling this a credible NPO+RT reproduction
+I would not discard this run. It has useful baseline and quantisation evidence. But I would make the following corrections before treating the next run as confirmatory.
+Priority 0 — Correct before the next NPO run
+Important
+
+1. Fix retain sampling.
+
+Sample retain examples from the full 3,800-row dataset over training, rather than repeatedly recycling the same approximately 195 unique rows.
+
+2. Add the directional Truth Ratio bootstrap.
+
+Bootstrap the per-question change in geometric-based correct-versus-perturbed preference for BF16 → INT8 and BF16 → NF4.
+
+3. Correct same-precision Forget Quality.
+
+Change the matched_precision_KS calculation from arithmetic_truth_ratio_log to source_geometric_truth_ratio_log.
+
+4. Increase generation-audit headroom.
+
+Keep the original 96-token generation evaluation for comparability, but add a separate longer-output audit (for example, 192 or 256 new tokens). Report EOS termination and truncation rates. This helps distinguish unlearning from abnormal generation behaviour.
+
+Priority 1 — Improve experimental credibility
+Next run
+
+5. Use at least three seeds.
+
+Seed 42 alone is a pilot result. Three seeds are the minimum I would accept for your resource-bounded comparison.
+
+6. Randomise and freeze the retain evaluation sample.
+
+Select 300 retained diagnostics using a fixed random seed instead of taking the first 300.
+
+7. Evaluate after each epoch.
+
+Record Forget Quality, Model Utility and retained-set performance during training so you can see when the trade-off begins deteriorating.
+
+8. Record the exact quantisation metadata.
+
+Keep the quantised linear module count, NF4 settings, BF16 compute type, double quantisation, and model hash with each result.
+
+Priority 2 — Extend beyond the NPO/QRA probe
+Later phase
+
+Implement Min-k% MIA, human-coded generation audits, FADE where feasible, a second quantiser, and the relearning experiments. These belong in the larger FQ-SSIUU study; they do not all have to be completed to validate the initial NPO baseline.
+
+I would also make the NPO retention coefficient a validation-set tuning parameter if you decide to explore alternatives to 1.0. The original NPO work investigates the forgetting–utility trade-off with different retain-loss weights; however, do not select the best coefficient by looking at the final Forget05 test results. 
+
+arXiv+1
+
+12. My final verdict
+Here is how I would classify the work your engineer has completed.
+Question	My conclusion
+Is the correct 1B target model used?	The checkpoint identifiers and hashes in the code are pinned to the intended OpenUnlearning models.
+Is the NPO mathematical objective correct?	Yes, the inspected implementation matches the published NPO form.
+Is the RT component the correct kind?	Yes, retain cross-entropy is used.
+Is the overall training setup identical to the original paper?	No. It is a 1B, single-GPU, single-seed, full-weight adaptation with custom optimiser and restricted retain sampling.
+Was the original TOFU evaluation substantially reproduced?	Yes: Forget Quality, Model Utility, candidate likelihoods, and generated-answer evaluation are present.
+Was actual post-training quantisation performed?	Yes, INT8 and NF4 are loaded and evaluated.
+Does the current result demonstrate QRA?	No.
+Does the current result demonstrate that this NPO checkpoint is robust to every quantiser?	Absolutely not.
+Is the lack of visible recovery necessarily caused by using a 1B model?	No evidence supports that conclusion.
+Is this a useful experiment?	Yes. It gives you a real 1B baseline and identifies important limitations to correct.
+
+What I think happened
+My current interpretation is that the experiment has produced a fairly strong forgetting intervention on Forget05, but with a substantial retained-set performance cost. The NF4 conversion materially changes the model, yet it does not noticeably restore the forgotten answers under the primary metrics currently displayed.
+
+I suspect the fixed, narrow retain sample is contributing to the retention problem. The full-weight update structure and this particular NF4 conversion may also explain why this experiment does not reproduce the recovery pattern reported in the QRA literature. These remain explanations to investigate, not established mechanisms.
+
+The strongest next move is not another full training run immediately.
+
+First, have the engineer provide those six per-question CSV files and the training log. The helper script can then establish whether the tiny candidate-level shift after NF4 is real, calculate the correct matched-precision Forget Quality comparisons, and provide the missing confidence intervals.
+
+That will tell us whether the first run genuinely shows no measurable QRA, or whether the existing summary simply missed a very small recovery effect.
+
+One last thing: keep this run. Do not overwrite it, do not silently replace its metrics, and do not label it a failed experiment. Its negative result is useful evidence—as long as the limitations and the exact implementation are recorded.

@@ -1,3 +1,6 @@
+# 2026-11-03: DL-024 authorizes the local LoRA class-C NPO experiment and
+# descriptive audit collection. Existing statuses/booleans below remain unchanged;
+# this does not approve confirmatory QRA verdicts or the combined study.
 gates:
   - id: "RG-005"
     title: "QRA Outcome Definition and Directional Metric Validity"
