@@ -1,0 +1,18 @@
+{
+  "stage": "full_int8",
+  "model_path": "C:\\FYP\\Model\\tofu_Llama-3.2-1B-Instruct",
+  "quantization": "int8",
+  "evaluation_sha256": "37967573d990f1fe68063a0fdd4948702772cbf7be1aa98b5d3155c27804b4de",
+  "dtype": "torch.bfloat16",
+  "status": "complete",
+  "quantized_linear_modules": 112,
+  "parameter_memory_gib": 1.3956339359283447,
+  "artifact_hashes": {
+    "per_question.jsonl": "e5c318fc8cc47f2f1a2c14cb72ea98e445b857fd644f9573734f708801c0efa7",
+    "per_question.csv": "d9ce94cb7acd6fd3d7ad51139031983d95334397fd8a86382601805156ecf912",
+    "metrics.csv": "3361d97dc7b4e2cb8754999d57528000c86114d6e643fdd466cdb240d5369c31"
+  },
+  "seconds": 1820.60854440002,
+  "peak_torch_allocated_gib": 1.5182957649230957,
+  "peak_torch_reserved_gib": 1.83984375
+}

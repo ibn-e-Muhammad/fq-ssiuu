@@ -1,0 +1,18 @@
+{
+  "stage": "npo_int8",
+  "model_path": "C:\\FYP\\npo_results\\20261031_092340_493700\\npo_model",
+  "quantization": "int8",
+  "evaluation_sha256": "37967573d990f1fe68063a0fdd4948702772cbf7be1aa98b5d3155c27804b4de",
+  "dtype": "torch.bfloat16",
+  "status": "complete",
+  "quantized_linear_modules": 112,
+  "parameter_memory_gib": 1.3956339359283447,
+  "artifact_hashes": {
+    "per_question.jsonl": "77ea644b6a5ad73a1b457b0905a8601b51b06b6d3c5fa14717f259375176eaf2",
+    "per_question.csv": "0fd1da67c5901e85e65696cb7af44804730ed8eff20e0b225535be679b3164c4",
+    "metrics.csv": "7a896be404195b7cca7a18eae3f6926901b8a8c0c8ed11575884eba086866bb1"
+  },
+  "seconds": 4013.523872299993,
+  "peak_torch_allocated_gib": 1.5182995796203613,
+  "peak_torch_reserved_gib": 1.83984375
+}

@@ -1,0 +1,5 @@
+Model/
+Data/
+**/__pycache__/
+*.pyc
+**/npo_model/tokenizer.json

@@ -1,0 +1,32 @@
+CELL 0 markdown :: # NPO_LOCALL_NOTE  **TOFU Llama-3.2-1B-Instruct · full → NPO on forget05 → post-training quantization**  One self-contained notebook for **Windows 11, RTX 3060 12 GB VRAM, 16 GB RAM**. All experiment 
+CELL 1 markdown :: ## 1. Use the existing FYP environment  Use your existing environment at **C:\VENV\fyp**; its libraries are already installed. In **PowerShell**, from the project folder:  ~~~powershell Set-Location D
+CELL 2 code :: import os os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+CELL 3 code :: from pathlib import Path import gc, hashlib, importlib.metadata, json, math, os, platform, random, re, shutil, sys, time, unicodedata from contextlib import ExitStack from datetime import datetime imp
+CELL 4 code :: def json_write(path, obj):     Path(path).write_text(json.dumps(obj, indent=2, ensure_ascii=False, allow_nan=False), encoding="utf-8")  def digest(obj):     return hashlib.sha256(json.dumps(obj, sort_
+CELL 5 markdown :: ## 2. Pinned inputs and answer masking  These hashes/revisions come from `experiments/reproductions/NPO/inputs_v1.json` and are embedded here so the notebook works independently. Models can be supplie
+CELL 6 code :: MODEL_HASHES = {     "full": "35b0cd9f7db2735538ff78b4879fab61b23b7ca316df27b059585bf656700a8d",     "retain95": "955e430aac277d9ccc309307f8462ce462c81fd4308cd934a6c24e5518077e94", } DATA_HASHES = {  
+CELL 7 code :: def prompt_ids(question):     # Explicit list output: Transformers 5 defaults to a BatchEncoding mapping.     return list(tokenizer.apply_chat_template(         [{"role": "system", "content": SYSTEM_P
+CELL 8 markdown :: ## 3. Correct NPO objective and numerical checks  For each question/answer, let $n_\theta=-\sum_{t\in\mathrm{answer}}\log p_\theta(y_t\mid x,y_{<t})$ and let $n_0$ use the **original full** model. The
+CELL 9 code :: def causal_sequence_nll(logits, labels):     if logits.ndim != 3 or labels.shape != logits.shape[:2] or labels.dtype != torch.long:         raise ValueError("Expected unshifted logits [B,T,V] and int6
+CELL 10 markdown :: ## 4. Shared evaluator  Every stage scores **all 200 forget questions**, 300 retained diagnostic questions, and all supplied real-author/world-fact questions. The same greedy decoding settings are use
+CELL 11 code :: ROUGE = rouge_scorer.RougeScorer(["rougeL"], use_stemmer=True) STAGE_RESULTS = {} STAGE_META = {}  def normalized_text(text):     return " ".join(unicodedata.normalize("NFKC", text).casefold().split()
+CELL 12 markdown :: ## 5. Baseline measurements and frozen-reference cache  These cells run real evaluation. The cache stores only one sequence-sum NLL for each unchanged forget training input. A deterministic, frozen re
+CELL 13 code :: full_results = evaluate_stage("full_bf16", FULL_DIR, cache_reference=True) 
+CELL 14 code :: retain_results = evaluate_stage("retain95_bf16", RETAIN_DIR) BASELINE_MATRIX = pd.concat({s: metric_matrix(STAGE_RESULTS[s]) for s in ("full_bf16", "retain95_bf16")}, names=["stage"]) display(BASELINE
+CELL 15 markdown :: ## 6. Full-weight NPO within 12 GB VRAM / 16 GB RAM  The FP32 master weights preserve small updates that direct BF16 parameter updates can round away. Two FP32 Adam moments also live on SSD. Each upda
+CELL 16 code :: def durable_json(path, value):     """Publish metadata only after its bytes have been flushed to the device."""     path = Path(path)     temporary = path.with_name(path.name + ".tmp")     with tempor
+CELL 17 code :: def training_plan():     steps = int(len(TRAIN_FORGET)*NOMINAL_EPOCHS/(TRAIN_GROUP*ACCUM_GROUPS))     assert steps > WARMUP_STEPS >= 0 and len(TRAIN_FORGET) % TRAIN_GROUP == 0     loader = DataLoader(
+CELL 18 markdown :: ## 7. Evaluate saved NPO weights, then quantize those exact weights  The BF16 checkpoint is serialized and reloaded before evaluation. INT8 and NF4 are independently loaded from that same checkpoint; 
+CELL 19 code :: npo_results = evaluate_stage("npo_bf16", NPO_DIR)  UNQUANTIZED_MATRIX = pd.concat({stage: metric_matrix(STAGE_RESULTS[stage])     for stage in ("full_bf16", "retain95_bf16", "npo_bf16")}, names=["stag
+CELL 20 code :: pre_quant_answers.to_csv(     RUN_DIR / "pre_quantization_answers.csv",     encoding="utf-8-sig" )
+CELL 21 code :: import logging  class CastWarningOnce(logging.Filter):     seen = False      def filter(self, record):         message = (             "MatMul8bitLt: inputs will be cast from "             "torch.bflo
+CELL 22 code :: for quant_mode in QUANT_MODES:     evaluate_stage(f"npo_{quant_mode}", NPO_DIR, quant=quant_mode) 
+CELL 23 code :: if RUN_QUANTIZED_CONTROLS:     for quant_mode in QUANT_MODES:         evaluate_stage(f"full_{quant_mode}", FULL_DIR, quant=quant_mode)         evaluate_stage(f"retain95_{quant_mode}", RETAIN_DIR, quan
+CELL 24 markdown :: ## 8. Comparison matrices: forgetting, utility, and possible recovery  Read the forget metrics together with retain/real-world utility. A model that outputs nonsense can have low forget overlap withou
+CELL 25 code :: def harmonic(values):     a = np.asarray(values, dtype=float)     assert np.isfinite(a).all() and (a >= 0).all()     return 0.0 if (a == 0).any() else float(len(a)/np.reciprocal(a).sum())  def aligned
+CELL 26 code :: def paired_delta(a, b, seed=SEED):     a,b = np.asarray(a, dtype=float),np.asarray(b, dtype=float)     assert a.shape == b.shape and len(a) and np.isfinite(a).all() and np.isfinite(b).all()     d = b-
+CELL 27 markdown :: ## 9. Actual questions and answers, side by side  The HTML/CSV exports contain every evaluated question, its ground truth, and each model's complete generated answer. No generated response is passed o
+CELL 28 code :: ALL_ANSWERS_LONG = pd.concat(STAGE_RESULTS.values(), ignore_index=True) ANSWER_MATRIX = ALL_ANSWERS_LONG.pivot(index=["split","id","question","ground_truth"],                                      colu
+CELL 29 code :: fig, axes = plt.subplots(1,3,figsize=(18,6)) for ax,(col,label) in zip(axes,[("forget_answer_probability","Forget: length-normalized answer probability"),                               ("forget_rougeL
+CELL 30 markdown :: ## Reading the outcome and rerunning  - **NPO selective forgetting:** forget answer scores move away from full and toward retain95 while retain/real-world utility remains useful. Check actual answers,
+CELL 31 markdown :: 

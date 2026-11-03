@@ -1,0 +1,18 @@
+{
+  "stage": "retain95_bf16",
+  "model_path": "C:\\FYP\\Model\\tofu_Llama-3.2-1B-Instruct_retain95",
+  "quantization": null,
+  "evaluation_sha256": "37967573d990f1fe68063a0fdd4948702772cbf7be1aa98b5d3155c27804b4de",
+  "dtype": "torch.bfloat16",
+  "status": "complete",
+  "quantized_linear_modules": 0,
+  "parameter_memory_gib": 2.3018839359283447,
+  "artifact_hashes": {
+    "per_question.jsonl": "24543f520d0ca13ba05b6fbafafc0e05fcf9c8af718e9955bdc80704fd640ac0",
+    "per_question.csv": "5e41e5ae22fe1bd0b34d6b53b776c41d7271b7177893d362f2ff41d984d1d445",
+    "metrics.csv": "c6ef2c74fcebcd7ba01e170b87f06b1bc9ba12562abe32d754cc9db1fd431772"
+  },
+  "seconds": 523.2625268999836,
+  "peak_torch_allocated_gib": 2.4240846633911133,
+  "peak_torch_reserved_gib": 2.830078125
+}

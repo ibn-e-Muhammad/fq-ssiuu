@@ -1,0 +1,103 @@
+PASS: streamed AdamW vs torch.optim.AdamW, four updates, FP32/BF16 parameters, decay exclusions, small chunk boundaries.
+Opening recoverable optimizer (initial state / checksum verification may take a few minutes)...
+test_actual_training_loop_interruption_resume_and_final_export (__main__.RecoveryTests.test_actual_training_loop_interruption_resume_and_final_export) ... 
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s]
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s, phase=forward/backward]
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s, phase=AdamW + durable checkpoint]
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s, compute=0.1s, npo=13.863, optimizer=0.1s, saved=1]
+NPO+RT: recoverable updates:  25%|##5       | 1/4 [00:00<00:00,  6.55it/s, compute=0.1s, npo=13.863, optimizer=0.1s, saved=1]
+NPO+RT: recoverable updates:  25%|##5       | 1/4 [00:00<00:00,  6.55it/s, phase=forward/backward]                           
+NPO+RT: recoverable updates:  25%|##5       | 1/4 [00:00<00:00,  6.55it/s, phase=AdamW + durable checkpoint]
+NPO+RT: recoverable updates:  25%|##5       | 1/4 [00:00<00:00,  6.55it/s, compute=0.0s, npo=13.863, optimizer=0.0s, saved=2]
+NPO+RT: recoverable updates:  25%|##5       | 1/4 [00:00<00:00,  6.55it/s, phase=forward/backward]                           
+NPO+RT: recoverable updates:  25%|##5       | 1/4 [00:00<00:00,  6.55it/s, phase=AdamW + durable checkpoint]
+NPO+RT: recoverable updates:  25%|##5       | 1/4 [00:00<00:00,  6.55it/s, compute=0.0s, npo=13.853, optimizer=0.0s, saved=3]
+NPO+RT: recoverable updates:  75%|#######5  | 3/4 [00:00<00:00, 12.55it/s, compute=0.0s, npo=13.853, optimizer=0.0s, saved=3]
+NPO+RT: recoverable updates:  75%|#######5  | 3/4 [00:00<00:00, 12.55it/s, phase=forward/backward]                           
+NPO+RT: recoverable updates:  75%|#######5  | 3/4 [00:00<00:00, 12.55it/s, phase=AdamW + durable checkpoint]
+NPO+RT: recoverable updates:  75%|#######5  | 3/4 [00:00<00:00, 12.55it/s, compute=0.0s, npo=13.843, optimizer=0.0s, saved=4]
+NPO+RT: recoverable updates: 100%|##########| 4/4 [00:00<00:00, 12.78it/s, compute=0.0s, npo=13.843, optimizer=0.0s, saved=4]
+Saved complete NPO model: C:\FYP\tmp8xhtz8np\uninterrupted\npo_model
+Recovery checkpoints retained: C:\FYP\tmp8xhtz8np\uninterrupted\optimizer_checkpoints
+Using verified completed NPO checkpoint: C:\FYP\tmp8xhtz8np\uninterrupted\npo_model
+Opening recoverable optimizer (initial state / checksum verification may take a few minutes)...
+
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s]
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s, phase=forward/backward]
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s, phase=AdamW + durable checkpoint]
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s, compute=0.0s, npo=13.863, optimizer=0.0s, saved=1]
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s, phase=forward/backward]                           
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s, phase=AdamW + durable checkpoint]
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s, compute=0.0s, npo=13.863, optimizer=0.0s, saved=2]
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<00:00, 18.46it/s, compute=0.0s, npo=13.863, optimizer=0.0s, saved=2]
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<00:00, 18.46it/s, phase=forward/backward]                           
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<00:00, 18.46it/s, phase=AdamW + durable checkpoint]
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<00:00, 16.99it/s, phase=AdamW + durable checkpoint]
+Opening recoverable optimizer (initial state / checksum verification may take a few minutes)...
+Verified checkpoint: step-000002-604778dc5cc0432bbd19ca628e954503; next update: 3
+
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<?, ?it/s]
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<?, ?it/s, phase=forward/backward]
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<?, ?it/s, phase=AdamW + durable checkpoint]
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<?, ?it/s, compute=0.0s, npo=13.853, optimizer=0.0s, saved=3]
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<?, ?it/s, phase=forward/backward]                           
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<?, ?it/s, phase=AdamW + durable checkpoint]
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<?, ?it/s, compute=0.0s, npo=13.843, optimizer=0.0s, saved=4]
+NPO+RT: recoverable updates: 100%|##########| 4/4 [00:00<00:00, 19.13it/s, compute=0.0s, npo=13.843, optimizer=0.0s, saved=4]
+NPO+RT: recoverable updates: 100%|##########| 4/4 [00:00<00:00, 19.12it/s, compute=0.0s, npo=13.843, optimizer=0.0s, saved=4]
+Saved complete NPO model: C:\FYP\tmp8xhtz8np\resumed\npo_model
+Recovery checkpoints retained: C:\FYP\tmp8xhtz8np\resumed\optimizer_checkpoints
+Using verified completed NPO checkpoint: C:\FYP\tmp8xhtz8np\resumed\npo_model
+Opening recoverable optimizer (initial state / checksum verification may take a few minutes)...
+
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s]
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s, phase=forward/backward]
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s, phase=AdamW + durable checkpoint]
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s, compute=0.0s, npo=13.863, optimizer=0.0s, saved=1]
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s, phase=forward/backward]                           
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s, phase=AdamW + durable checkpoint]
+NPO+RT: recoverable updates:   0%|          | 0/4 [00:00<?, ?it/s, compute=0.0s, npo=13.863, optimizer=0.0s, saved=2]
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<00:00, 18.30it/s, compute=0.0s, npo=13.863, optimizer=0.0s, saved=2]
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<00:00, 18.30it/s, phase=forward/backward]                           
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<00:00, 18.30it/s, phase=AdamW + durable checkpoint]
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<00:00, 18.30it/s, compute=0.0s, npo=13.853, optimizer=0.0s, saved=3]
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<00:00, 18.30it/s, phase=forward/backward]                           
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<00:00, 18.30it/s, phase=AdamW + durable checkpoint]
+NPO+RT: recoverable updates:  50%|#####     | 2/4 [00:00<00:00, 18.30it/s, compute=0.0s, npo=13.843, optimizer=0.0s, saved=4]
+NPO+RT: recoverable updates: 100%|##########| 4/4 [00:00<00:00, 18.40it/s, compute=0.0s, npo=13.843, optimizer=0.0s, saved=4]
+NPO+RT: recoverable updates: 100%|##########| 4/4 [00:00<00:00, 18.38it/s, compute=0.0s, npo=13.843, optimizer=0.0s, saved=4]
+Opening recoverable optimizer (initial state / checksum verification may take a few minutes)...
+Verified checkpoint: step-000004-3f15d80020a44172a3f95d43ffbe6ec3; next update: 5
+
+NPO+RT: recoverable updates: 100%|##########| 4/4 [00:00<?, ?it/s]
+NPO+RT: recoverable updates: 100%|##########| 4/4 [00:00<?, ?it/s]
+ok
+test_buffers_restored (__main__.RecoveryTests.test_buffers_restored) ... ok
+test_completed_evaluation_reused_and_hash_checked (__main__.RecoveryTests.test_completed_evaluation_reused_and_hash_checked) ... ok
+test_configuration_mismatch_and_nonfinite_rejected (__main__.RecoveryTests.test_configuration_mismatch_and_nonfinite_rejected) ... ok
+test_cut_before_commit_marker (__main__.RecoveryTests.test_cut_before_commit_marker) ... ok
+test_interrupted_chunk_write_preserves_last_commit (__main__.RecoveryTests.test_interrupted_chunk_write_preserves_last_commit) ... ok
+test_missing_commit_and_corrupt_newest_fall_back (__main__.RecoveryTests.test_missing_commit_and_corrupt_newest_fall_back) ... ok
+test_resume_exact_parameters_moments_rng_and_metadata (__main__.RecoveryTests.test_resume_exact_parameters_moments_rng_and_metadata) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 2.255s
+
+OK
+Saved complete NPO model: C:\FYP\tmp8xhtz8np\export_resumed\npo_model
+Recovery checkpoints retained: C:\FYP\tmp8xhtz8np\export_resumed\optimizer_checkpoints
+Using verified completed NPO checkpoint: C:\FYP\tmp8xhtz8np\export_resumed\npo_model
+Verified checkpoint: step-000001-2311be3e6f2a417c99b6b8cbc668331e; next update: 2
+Reusing verified completed evaluation: full_bf16
+Skipped incomplete/corrupt checkpoints:
+step-000001-bd7e53b99ff54e7db9ebc7ad96548c4b: [Errno 2] No such file or directory: 'C:\\FYP\\tmpcj1t3kpc\\state\\step-000001-bd7e53b99ff54e7db9ebc7ad96548c4b\\commit.json'
+Verified checkpoint: step-000000-e04b1415c0614262aff6f9e5a5f7c50d; next update: 1
+Skipped incomplete/corrupt checkpoints:
+step-000002-c586c9afd9674c0b8e4ec5e0768c3449: [Errno 2] No such file or directory: 'C:\\FYP\\tmpsc9qxwvi\\state\\step-000002-c586c9afd9674c0b8e4ec5e0768c3449\\commit.json'
+Verified checkpoint: step-000001-fd844d4fe2a643fdabfef664ad138f83; next update: 2
+Skipped incomplete/corrupt checkpoints:
+step-000003-2f4e675fc7144506be3e0090c62c8bc7: [Errno 2] No such file or directory: 'C:\\FYP\\tmpeim_6p1w\\state\\step-000003-2f4e675fc7144506be3e0090c62c8bc7\\commit.json'
+step-000002-59e872bbb7564bf999195a1a8cdb5bf6: Checksum mismatch: moment1.bin
+Verified checkpoint: step-000001-24b441c4856c4c16b9f5a12d7c52646f; next update: 2
+Verified checkpoint: step-000002-6fd594a56e474de9ac2c440c5bd58fc4; next update: 3
+Verified checkpoint: step-000002-62a8d9e784bf4e01aaf7116b4d7de37f; next update: 3

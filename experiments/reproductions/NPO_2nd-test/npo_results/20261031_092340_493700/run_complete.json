@@ -1,0 +1,181 @@
+{
+  "status": "complete",
+  "training_sha256": "7676c170db7dcdccd739857ed296dc4b0f0871ca501a1708cc8dd0685ac3dc15",
+  "evaluation_sha256": "37967573d990f1fe68063a0fdd4948702772cbf7be1aa98b5d3155c27804b4de",
+  "stages": [
+    "full_bf16",
+    "retain95_bf16",
+    "npo_bf16",
+    "npo_int8",
+    "npo_nf4",
+    "full_int8",
+    "retain95_int8",
+    "full_nf4",
+    "retain95_nf4"
+  ],
+  "stage_metadata": {
+    "full_bf16": {
+      "stage": "full_bf16",
+      "model_path": "C:\\FYP\\Model\\tofu_Llama-3.2-1B-Instruct",
+      "quantization": null,
+      "evaluation_sha256": "37967573d990f1fe68063a0fdd4948702772cbf7be1aa98b5d3155c27804b4de",
+      "dtype": "torch.bfloat16",
+      "status": "complete",
+      "quantized_linear_modules": 0,
+      "parameter_memory_gib": 2.3018839359283447,
+      "artifact_hashes": {
+        "per_question.jsonl": "6220cc23732c5b9ed7ef78e0e801d2aa8e6da2832b796f2368cdc9507975c4ff",
+        "per_question.csv": "38a55218ca317f54de519844da605f215da009108457914c94f4d4c264d6473e",
+        "metrics.csv": "b988e93064583c3af98e723331153b3ed784fb7817563ee17abaafa2ac76fedb"
+      },
+      "reference_sha256": "39de56dd0675d51fbb7dac7ea4bd0170ac8078fcfcebe79a645c95c0870aa8e9",
+      "seconds": 526.8681243000028,
+      "peak_torch_allocated_gib": 2.4240846633911133,
+      "peak_torch_reserved_gib": 2.787109375
+    },
+    "retain95_bf16": {
+      "stage": "retain95_bf16",
+      "model_path": "C:\\FYP\\Model\\tofu_Llama-3.2-1B-Instruct_retain95",
+      "quantization": null,
+      "evaluation_sha256": "37967573d990f1fe68063a0fdd4948702772cbf7be1aa98b5d3155c27804b4de",
+      "dtype": "torch.bfloat16",
+      "status": "complete",
+      "quantized_linear_modules": 0,
+      "parameter_memory_gib": 2.3018839359283447,
+      "artifact_hashes": {
+        "per_question.jsonl": "24543f520d0ca13ba05b6fbafafc0e05fcf9c8af718e9955bdc80704fd640ac0",
+        "per_question.csv": "5e41e5ae22fe1bd0b34d6b53b776c41d7271b7177893d362f2ff41d984d1d445",
+        "metrics.csv": "c6ef2c74fcebcd7ba01e170b87f06b1bc9ba12562abe32d754cc9db1fd431772"
+      },
+      "seconds": 523.2625268999836,
+      "peak_torch_allocated_gib": 2.4240846633911133,
+      "peak_torch_reserved_gib": 2.830078125
+    },
+    "npo_bf16": {
+      "stage": "npo_bf16",
+      "model_path": "C:\\FYP\\npo_results\\20261031_092340_493700\\npo_model",
+      "quantization": null,
+      "evaluation_sha256": "37967573d990f1fe68063a0fdd4948702772cbf7be1aa98b5d3155c27804b4de",
+      "dtype": "torch.bfloat16",
+      "status": "complete",
+      "quantized_linear_modules": 0,
+      "parameter_memory_gib": 2.3018839359283447,
+      "artifact_hashes": {
+        "per_question.jsonl": "4168d257613b89f59b0a6b8adfd0c7f630e0eb00b1ab1d6201f97fbe95a13537",
+        "per_question.csv": "726b0a6dcdad0219ba541dcf297fcc1c85d3eb25eb2b4831b60f24c31ad625d4",
+        "metrics.csv": "ce3a81fbd9fd3d2010f3eeda819aa92402c8e13a9cb581fba56cb3f95a95fec8"
+      },
+      "seconds": 1129.2037484999746,
+      "peak_torch_allocated_gib": 2.4320192337036133,
+      "peak_torch_reserved_gib": 2.83984375
+    },
+    "npo_int8": {
+      "stage": "npo_int8",
+      "model_path": "C:\\FYP\\npo_results\\20261031_092340_493700\\npo_model",
+      "quantization": "int8",
+      "evaluation_sha256": "37967573d990f1fe68063a0fdd4948702772cbf7be1aa98b5d3155c27804b4de",
+      "dtype": "torch.bfloat16",
+      "status": "complete",
+      "quantized_linear_modules": 112,
+      "parameter_memory_gib": 1.3956339359283447,
+      "artifact_hashes": {
+        "per_question.jsonl": "77ea644b6a5ad73a1b457b0905a8601b51b06b6d3c5fa14717f259375176eaf2",
+        "per_question.csv": "0fd1da67c5901e85e65696cb7af44804730ed8eff20e0b225535be679b3164c4",
+        "metrics.csv": "7a896be404195b7cca7a18eae3f6926901b8a8c0c8ed11575884eba086866bb1"
+      },
+      "seconds": 4013.523872299993,
+      "peak_torch_allocated_gib": 1.5182995796203613,
+      "peak_torch_reserved_gib": 1.83984375
+    },
+    "npo_nf4": {
+      "stage": "npo_nf4",
+      "model_path": "C:\\FYP\\npo_results\\20261031_092340_493700\\npo_model",
+      "quantization": "nf4",
+      "evaluation_sha256": "37967573d990f1fe68063a0fdd4948702772cbf7be1aa98b5d3155c27804b4de",
+      "dtype": "torch.bfloat16",
+      "status": "complete",
+      "quantized_linear_modules": 112,
+      "parameter_memory_gib": 0.9425089359283447,
+      "artifact_hashes": {
+        "per_question.jsonl": "f80438dbf23a6c1b85c00a3fb0282abf51bda37cdc9d307591435d3c05a8ee82",
+        "per_question.csv": "77b50bce11365db6c97b69bd4b62e6d1df50e93d39c6c22dc500f316fa460b6c",
+        "metrics.csv": "0fd0dc38a4e4aef22e593688cff1a7cb0e54f9cf9593f97421afb56d1b2c1fbd"
+      },
+      "seconds": 1580.1710520000197,
+      "peak_torch_allocated_gib": 1.0793123245239258,
+      "peak_torch_reserved_gib": 1.3984375
+    },
+    "full_int8": {
+      "stage": "full_int8",
+      "model_path": "C:\\FYP\\Model\\tofu_Llama-3.2-1B-Instruct",
+      "quantization": "int8",
+      "evaluation_sha256": "37967573d990f1fe68063a0fdd4948702772cbf7be1aa98b5d3155c27804b4de",
+      "dtype": "torch.bfloat16",
+      "status": "complete",
+      "quantized_linear_modules": 112,
+      "parameter_memory_gib": 1.3956339359283447,
+      "artifact_hashes": {
+        "per_question.jsonl": "e5c318fc8cc47f2f1a2c14cb72ea98e445b857fd644f9573734f708801c0efa7",
+        "per_question.csv": "d9ce94cb7acd6fd3d7ad51139031983d95334397fd8a86382601805156ecf912",
+        "metrics.csv": "3361d97dc7b4e2cb8754999d57528000c86114d6e643fdd466cdb240d5369c31"
+      },
+      "seconds": 1820.60854440002,
+      "peak_torch_allocated_gib": 1.5182957649230957,
+      "peak_torch_reserved_gib": 1.83984375
+    },
+    "retain95_int8": {
+      "stage": "retain95_int8",
+      "model_path": "C:\\FYP\\Model\\tofu_Llama-3.2-1B-Instruct_retain95",
+      "quantization": "int8",
+      "evaluation_sha256": "37967573d990f1fe68063a0fdd4948702772cbf7be1aa98b5d3155c27804b4de",
+      "dtype": "torch.bfloat16",
+      "status": "complete",
+      "quantized_linear_modules": 112,
+      "parameter_memory_gib": 1.3956339359283447,
+      "artifact_hashes": {
+        "per_question.jsonl": "4fe9a83bb671242f62abde367eca05fe096a6c00ac89530373d93bf122959498",
+        "per_question.csv": "adae92b8f48dc4e3f2066fc56d20739330f1907cadc96d0af0d82872066c97c0",
+        "metrics.csv": "f1693bb5d6bfade287fdc037927549885d2aa5f36958b09ef34c5274c59ee9b0"
+      },
+      "seconds": 1850.348924799997,
+      "peak_torch_allocated_gib": 1.5182971954345703,
+      "peak_torch_reserved_gib": 1.83984375
+    },
+    "full_nf4": {
+      "stage": "full_nf4",
+      "model_path": "C:\\FYP\\Model\\tofu_Llama-3.2-1B-Instruct",
+      "quantization": "nf4",
+      "evaluation_sha256": "37967573d990f1fe68063a0fdd4948702772cbf7be1aa98b5d3155c27804b4de",
+      "dtype": "torch.bfloat16",
+      "status": "complete",
+      "quantized_linear_modules": 112,
+      "parameter_memory_gib": 0.9425089359283447,
+      "artifact_hashes": {
+        "per_question.jsonl": "5ba7838b98a2a9a28ad63476c1f87428b1134ef3df2c654261d897c1f89b0959",
+        "per_question.csv": "e39f0252da621838a122797f1a48fc3c863d00b9e322df3881b0d39675c8d842",
+        "metrics.csv": "ba01cd8b02c545b0721346002e4ee7812df8d4db3ddaff3f50d30ffa4d41fdef"
+      },
+      "seconds": 879.5923965999973,
+      "peak_torch_allocated_gib": 1.0793123245239258,
+      "peak_torch_reserved_gib": 1.3984375
+    },
+    "retain95_nf4": {
+      "stage": "retain95_nf4",
+      "model_path": "C:\\FYP\\Model\\tofu_Llama-3.2-1B-Instruct_retain95",
+      "quantization": "nf4",
+      "evaluation_sha256": "37967573d990f1fe68063a0fdd4948702772cbf7be1aa98b5d3155c27804b4de",
+      "dtype": "torch.bfloat16",
+      "status": "complete",
+      "quantized_linear_modules": 112,
+      "parameter_memory_gib": 0.9425089359283447,
+      "artifact_hashes": {
+        "per_question.jsonl": "967499ca603b69dd0dcfb89f09bba309e5656bcf9b4371f4c64443f9f06f7259",
+        "per_question.csv": "16cf5602b7a027d738728bb43c994ca0ce512d846bdb8bb9e84a1e24ebf8e69b",
+        "metrics.csv": "6409d5ec9c40c408675b64ca9c54806547ae751d9b9976d6a550d263229001f0"
+      },
+      "seconds": 892.4203233000007,
+      "peak_torch_allocated_gib": 1.0793123245239258,
+      "peak_torch_reserved_gib": 1.3984375
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"error": "KeyboardInterrupt()", "last_committed_update": 50, "instruction": "Restart kernel, set RESUME_RUN_PATH to this run folder, and run all cells. Resume verifies saved generations; a partially written update is replayed."}

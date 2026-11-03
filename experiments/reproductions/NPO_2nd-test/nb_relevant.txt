@@ -1,0 +1,11 @@
+--- CELL 30 SOURCE START ---
+## Reading the outcome and rerunning
+
+- **NPO selective forgetting:** forget answer scores move away from full and toward retain95 while retain/real-world utility remains useful. Check actual answers, not just one mean or a KS p-value.
+- **Possible recovery after quantization:** forget answer likelihood/overlap rises relative to the saved unquantized NPO model, with understandable recovered facts. Inspect full/retain95 quantization drift and utility at the same time. This single run cannot establish a universal quantization vulnerability.
+- **Worse after quantization:** retain/real-world utility drops, answers become less coherent, or forgetting drifts away from the desired retain95 behavior. Different metrics can disagree; preserve that disagreement.
+
+**Rerun/resume:** restart the kernel. Leave `RESUME_RUN_PATH=None` for a fresh experiment or set it to the interrupted run folder to restore its latest valid checkpoint and reuse completed evaluations. To reuse successful NPO weights, set `REUSE_NPO_PATH` to the previous `npo_model` directory and keep the training settings unchanged. Baselines and evaluations are recomputed, and the saved training identity/weight hashes are checked. The notebook never chooses a checkpoint by best forget score. Default completion is the fixed final update.
+
+**Troubleshooting:** CUDA OOM → close GPU applications and restart the kernel; processing already uses a single sequence and separate forget/retain backward calls. Low RAM → close other applications; optimizer tensors are bounded chunks, but Windows and model loading still need working memory. Disk full or interruption → free SSD space, restart the kernel and set `RESUME_RUN_PATH` to the same run folder. Checkpoints from the old non-resumable implementation cannot be used. A slow optimizer step is expected because each step streams roughly 28 GiB. Do not place its files on a network share, cloud-synced folder, or RAM disk. Quantization import/kernel errors → verify the dedicated env
+--- CELL 30 END ---

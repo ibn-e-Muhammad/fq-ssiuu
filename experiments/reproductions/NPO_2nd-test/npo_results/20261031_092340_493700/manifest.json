@@ -1,0 +1,104 @@
+{
+  "training": {
+    "full_weights_sha256": "35b0cd9f7db2735538ff78b4879fab61b23b7ca316df27b059585bf656700a8d",
+    "data_revision": "324592d84ae4f482ac7249b9285c2ecdb53e3a68",
+    "forget_tensors_sha256": "dd6641631b881bca4f36ab1e190c8efd57b8d6d037e816809ecfe733d54c5f00",
+    "retain_tensors_sha256": "8452a19aa33c68e4c984de70d4289c920fb044f06f4fd9d59f7f5f178c6fed40",
+    "pairing_sha256": "5550698ced8778ea2403dad3be556bd75a0ab3ee0eaf1eda531d5fa0d9acf52d",
+    "dtype": "bfloat16",
+    "max_length": 500,
+    "objective": "NPO+RT",
+    "beta": 0.1,
+    "npo_coeff": 1.0,
+    "retain_coeff": 1.0,
+    "lr": 1e-05,
+    "weight_decay": 0.01,
+    "adam_betas": [
+      0.9,
+      0.999
+    ],
+    "adam_eps": 1e-08,
+    "train_group": 4,
+    "accum_groups": 8,
+    "nominal_epochs": 10,
+    "gradient_checkpointing": true,
+    "warmup_steps": 6,
+    "seed": 42,
+    "sampler_seed": 1001,
+    "optimizer": "transactional-disk-FP32-master-AdamW-v2",
+    "system_prompt": "You are a helpful assistant.",
+    "template_date": "10 Apr 2025"
+  },
+  "training_sha256": "7676c170db7dcdccd739857ed296dc4b0f0871ca501a1708cc8dd0685ac3dc15",
+  "evaluation_sha256": "37967573d990f1fe68063a0fdd4948702772cbf7be1aa98b5d3155c27804b4de",
+  "datasets": {
+    "forget05": {
+      "path": "C:\\FYP\\Data\\forget05.json",
+      "sha256": "88542818f98fd6f880ecaea71bc3f3e7a34f959944e5ff1cdef7ea8c5c137173",
+      "rows": 200,
+      "unique_questions": 200,
+      "repeated_question_rows": 0
+    },
+    "retain95": {
+      "path": "C:\\FYP\\Data\\retain95.json",
+      "sha256": "6625bb8e7e01f27a237bd273b961fcf2fb51568157702acdcd934b13398aa2fc",
+      "rows": 3800,
+      "unique_questions": 3799,
+      "repeated_question_rows": 1
+    },
+    "forget05_perturbed": {
+      "path": "C:\\FYP\\Data\\forget05_perturbed.json",
+      "sha256": "7596c863a3f7eafb551a167363826f71a7327f28617a0a533fed06108a50ccdb",
+      "rows": 200,
+      "unique_questions": 200,
+      "repeated_question_rows": 0
+    },
+    "retain_perturbed": {
+      "path": "C:\\FYP\\Data\\retain_perturbed.json",
+      "sha256": "fc69f33bad70d3dca65920bdb54380039e3e8872dd16bbae20c1a839b99533fb",
+      "rows": 400,
+      "unique_questions": 400,
+      "repeated_question_rows": 0
+    },
+    "real_authors_perturbed": {
+      "path": "C:\\FYP\\Data\\real_authors_perturbed.json",
+      "sha256": "a23255383ac75a5fbe5acd57622a03fb9c368954fd7b2428afa152b784d9533a",
+      "rows": 100,
+      "unique_questions": 100,
+      "repeated_question_rows": 0
+    },
+    "world_facts_perturbed": {
+      "path": "C:\\FYP\\Data\\world_facts_perturbed.json",
+      "sha256": "0e171838040d0ec94b1ce248d891508e85e3b77344370077caa27b61898eb3e1",
+      "rows": 117,
+      "unique_questions": 117,
+      "repeated_question_rows": 0
+    }
+  },
+  "environment": {
+    "python": "3.13.14",
+    "python_executable": "c:\\VENV\\fyp\\Scripts\\python.exe",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "gpu": "NVIDIA GeForce RTX 3060",
+    "cuda": "13.2",
+    "vram_total_gib": 11.9993896484375,
+    "vram_free_gib": 10.9912109375,
+    "ram_total_gib": 15.924934387207031,
+    "ram_available_gib": 7.452625274658203,
+    "disk_free_gib": 91.09001922607422,
+    "packages": {
+      "torch": "2.14.1+cu132",
+      "transformers": "5.19.0",
+      "accelerate": "1.15.0",
+      "bitsandbytes": "0.50.2",
+      "huggingface-hub": "2.2.0",
+      "numpy": "2.5.2",
+      "pandas": "3.0.6",
+      "scipy": "1.18.1",
+      "rouge-score": "0.1.2"
+    }
+  },
+  "full_path": "C:\\FYP\\Model\\tofu_Llama-3.2-1B-Instruct",
+  "retain_path": "C:\\FYP\\Model\\tofu_Llama-3.2-1B-Instruct_retain95",
+  "tokenizer_path": "C:\\FYP\\Model\\tofu_Llama-3.2-1B-Instruct"
+}
