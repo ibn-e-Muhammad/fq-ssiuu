@@ -22,11 +22,9 @@ status is a measured field, not a semantic label. The long-output audit has a
 separately frozen subset of 20 questions per component; do not compare its raw
 counts to the 717-question primary evaluation without accounting for the sample.
 
-After labeling, run:
-
-```bash
-python summarise_human_audit.py path/to/labeled.csv --output path/to/human_rates.csv
-```
+After labeling, use the notebook's **Human rates** cell: set
+`HUMAN_LABELS_CSV` to the labeled file. Its embedded `summarize_labels` function
+writes `human_rates.csv` and displays the rates directly in Jupyter.
 
 Rates use reviewed answers as denominator and report review coverage explicitly.
 An empty annotation file establishes no zero-error rate.

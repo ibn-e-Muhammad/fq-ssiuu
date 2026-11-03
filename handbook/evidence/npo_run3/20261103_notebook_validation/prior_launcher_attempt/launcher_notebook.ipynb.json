@@ -1,0 +1,255 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "intro",
+   "metadata": {},
+   "source": [
+    "# NPO local third run — LoRA + quantization audit\n",
+    "\n",
+    "Run the tested Python implementation beside this notebook with the **same kernel** as your existing FYP CUDA environment. Edit `config.json` first. The default runs three seeds, source-style sampled evaluation, legacy greedy answers, a longer generation audit, merged-checkpoint INT8/NF4, and both fixed/matched geometric Forget Quality.\n",
+    "\n",
+    "This is a LoRA adaptation. Read `README.md`, the human audit rubric, and decision DL-024. Existing second-run evidence remains immutable. No actual third-run results are prefilled."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "configuration",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Kernel: /home/rohan-ahmed/VENV/myvenv/bin/python\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "full_path                             C:/FYP/Model/tofu_Llama-3.2-1B-Instruct\n",
+       "retain_path                  C:/FYP/Model/tofu_Llama-3.2-1B-Instruct_retain95\n",
+       "tokenizer_path                                                               \n",
+       "data_path                                                         C:/FYP/Data\n",
+       "output_root                                                              runs\n",
+       "allow_model_download                                                    False\n",
+       "allow_data_download                                                     False\n",
+       "device                                                                 cuda:0\n",
+       "dtype                                                                bfloat16\n",
+       "seeds                                                            [42, 43, 44]\n",
+       "evaluation_seed                                                      20261103\n",
+       "beta                                                                      0.1\n",
+       "npo_coefficient                                                           1.0\n",
+       "retain_coefficient                                                        1.0\n",
+       "learning_rate                                                         0.00001\n",
+       "weight_decay                                                             0.01\n",
+       "nominal_epochs                                                             10\n",
+       "logical_micro_batch                                                         4\n",
+       "accumulation                                                                8\n",
+       "warmup_steps                                                                6\n",
+       "evaluation_every_updates                                                    6\n",
+       "training_max_length                                                       500\n",
+       "evaluation_max_length                                                     200\n",
+       "retain_sampling                                             reshuffled_stream\n",
+       "lora_rank                                                                  16\n",
+       "lora_alpha                                                                 32\n",
+       "lora_dropout                                                              0.0\n",
+       "lora_targets                [q_proj, k_proj, v_proj, o_proj, gate_proj, up...\n",
+       "gradient_checkpointing                                                   True\n",
+       "evaluation_retain_count                                                   300\n",
+       "generation_batch_size                                                      30\n",
+       "source_temperature                                                        0.6\n",
+       "source_top_p                                                              0.9\n",
+       "legacy_greedy_tokens                                                       96\n",
+       "long_audit_tokens                                                         256\n",
+       "long_audit_per_split                                                       20\n",
+       "bootstrap_repeats                                                        2000\n",
+       "evaluate_kl                                                              True\n",
+       "quantization_modes                                                [int8, nf4]\n",
+       "quantized_controls                                                       True\n",
+       "keep_recent_checkpoints                                                     2\n",
+       "system_prompt                                    You are a helpful assistant.\n",
+       "template_date                                                     10 Apr 2025\n",
+       "device_micro_batch                                                          4\n",
+       "generation_eos_ids                                                         []\n",
+       "dtype: object"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "import json\n",
+    "import subprocess\n",
+    "import sys\n",
+    "from pathlib import Path\n",
+    "\n",
+    "import pandas as pd\n",
+    "from IPython.display import HTML, display\n",
+    "\n",
+    "HERE = Path.cwd()\n",
+    "if not (HERE / \"run_experiment.py\").is_file():\n",
+    "    HERE = HERE / \"experiments/reproductions/NPO_3rd-test\"\n",
+    "assert (HERE / \"run_experiment.py\").is_file(), (\n",
+    "    \"Open this notebook from the third-run folder or repository root.\"\n",
+    ")\n",
+    "CONFIG = HERE / \"config.json\"\n",
+    "print(\"Kernel:\", sys.executable)\n",
+    "display(pd.Series(json.loads(CONFIG.read_text())))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "tests",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\u001b[1m============================= test session starts ==============================\u001b[0m\n",
+      "platform linux -- Python 3.13.16, pytest-9.1.1, pluggy-1.6.0\n",
+      "rootdir: /home/rohan-ahmed/MY-FYP/fq-ssiuu\n",
+      "configfile: pyproject.toml\n",
+      "plugins: anyio-4.15.0, langsmith-0.14.2, arize-phoenix-client-3.5.0, zarr-3.3.0\n",
+      "collected 3 items / 2 errors\n",
+      "\n",
+      "==================================== ERRORS ====================================\n",
+      "\u001b[31m\u001b[1m_ ERROR collecting experiments/reproductions/NPO_3rd-test/tests/test_objective_and_sampling.py _\u001b[0m\n",
+      "\u001b[31mImportError while importing test module '/home/rohan-ahmed/MY-FYP/fq-ssiuu/experiments/reproductions/NPO_3rd-test/tests/test_objective_and_sampling.py'.\n",
+      "Hint: make sure your test modules/packages have valid Python names.\n",
+      "Traceback:\n",
+      "\u001b[1m\u001b[31m/usr/lib/python3.13/importlib/__init__.py\u001b[0m:88: in import_module\n",
+      "    \u001b[0m\u001b[94mreturn\u001b[39;49;00m _bootstrap._gcd_import(name[level:], package, level)\u001b[90m\u001b[39;49;00m\n",
+      "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\u001b[90m\u001b[39;49;00m\n",
+      "\u001b[1m\u001b[31mtests/test_objective_and_sampling.py\u001b[0m:11: in <module>\n",
+      "    \u001b[0m\u001b[94mfrom\u001b[39;49;00m\u001b[90m \u001b[39;49;00m\u001b[04m\u001b[96mnpo3\u001b[39;49;00m\u001b[04m\u001b[96m.\u001b[39;49;00m\u001b[04m\u001b[96mevaluation\u001b[39;49;00m\u001b[90m \u001b[39;49;00m\u001b[94mimport\u001b[39;49;00m tensor_fingerprint\u001b[90m\u001b[39;49;00m\n",
+      "\u001b[1m\u001b[31mnpo3/evaluation.py\u001b[0m:20: in <module>\n",
+      "    \u001b[0m\u001b[94mfrom\u001b[39;49;00m\u001b[90m \u001b[39;49;00m\u001b[04m\u001b[96mrouge_score\u001b[39;49;00m\u001b[90m \u001b[39;49;00m\u001b[94mimport\u001b[39;49;00m rouge_scorer\u001b[90m\u001b[39;49;00m\n",
+      "\u001b[1m\u001b[31mE   ModuleNotFoundError: No module named 'rouge_score'\u001b[0m\u001b[0m\n",
+      "\u001b[31m\u001b[1m_ ERROR collecting experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py _\u001b[0m\n",
+      "\u001b[31mImportError while importing test module '/home/rohan-ahmed/MY-FYP/fq-ssiuu/experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py'.\n",
+      "Hint: make sure your test modules/packages have valid Python names.\n",
+      "Traceback:\n",
+      "\u001b[1m\u001b[31m/usr/lib/python3.13/importlib/__init__.py\u001b[0m:88: in import_module\n",
+      "    \u001b[0m\u001b[94mreturn\u001b[39;49;00m _bootstrap._gcd_import(name[level:], package, level)\u001b[90m\u001b[39;49;00m\n",
+      "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\u001b[90m\u001b[39;49;00m\n",
+      "\u001b[1m\u001b[31mtests/test_training_and_pipeline.py\u001b[0m:8: in <module>\n",
+      "    \u001b[0m\u001b[94mfrom\u001b[39;49;00m\u001b[90m \u001b[39;49;00m\u001b[04m\u001b[96mnpo3\u001b[39;49;00m\u001b[04m\u001b[96m.\u001b[39;49;00m\u001b[04m\u001b[96mevaluation\u001b[39;49;00m\u001b[90m \u001b[39;49;00m\u001b[94mimport\u001b[39;49;00m tensor_fingerprint\u001b[90m\u001b[39;49;00m\n",
+      "\u001b[1m\u001b[31mnpo3/evaluation.py\u001b[0m:20: in <module>\n",
+      "    \u001b[0m\u001b[94mfrom\u001b[39;49;00m\u001b[90m \u001b[39;49;00m\u001b[04m\u001b[96mrouge_score\u001b[39;49;00m\u001b[90m \u001b[39;49;00m\u001b[94mimport\u001b[39;49;00m rouge_scorer\u001b[90m\u001b[39;49;00m\n",
+      "\u001b[1m\u001b[31mE   ModuleNotFoundError: No module named 'rouge_score'\u001b[0m\u001b[0m\n",
+      "- generated xml file: /home/rohan-ahmed/MY-FYP/fq-ssiuu/experiments/reproductions/NPO_3rd-test/validation.xml -\n",
+      "\u001b[36m\u001b[1m=========================== short test summary info ============================\u001b[0m\n",
+      "\u001b[31mERROR\u001b[0m tests/test_objective_and_sampling.py\n",
+      "\u001b[31mERROR\u001b[0m tests/test_training_and_pipeline.py\n",
+      "!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!!\n",
+      "\u001b[31m============================== \u001b[31m\u001b[1m2 errors\u001b[0m\u001b[31m in 1.26s\u001b[0m\u001b[31m ===============================\u001b[0m\n"
+     ]
+    },
+    {
+     "ename": "CalledProcessError",
+     "evalue": "Command '['/home/rohan-ahmed/VENV/myvenv/bin/python', '-m', 'pytest', 'tests', '-q', '--junitxml=validation.xml']' returned non-zero exit status 2.",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[31m---------------------------------------------------------------------------\u001b[39m",
+      "\u001b[31mCalledProcessError\u001b[39m                        Traceback (most recent call last)",
+      "\u001b[36mCell\u001b[39m\u001b[36m \u001b[39m\u001b[32mIn[2]\u001b[39m\u001b[32m, line 3\u001b[39m\n\u001b[32m      1\u001b[39m \u001b[38;5;66;03m# Meaningful CPU tests plus actual CUDA smoke tests when CUDA/bitsandbytes are available.\u001b[39;00m\n\u001b[32m      2\u001b[39m \u001b[38;5;66;03m# A test failure raises before the real experiment starts.\u001b[39;00m\n\u001b[32m----> \u001b[39m\u001b[32m3\u001b[39m subprocess.run(\n\u001b[32m      4\u001b[39m     [sys.executable, \u001b[33m\"-m\"\u001b[39m, \u001b[33m\"pytest\"\u001b[39m, \u001b[33m\"tests\"\u001b[39m, \u001b[33m\"-q\"\u001b[39m, \u001b[33m\"--junitxml=validation.xml\"\u001b[39m],\n\u001b[32m      5\u001b[39m     cwd=HERE,\n\u001b[32m      6\u001b[39m     check=\u001b[38;5;28;01mTrue\u001b[39;00m,\n",
+      "\u001b[36mFile \u001b[39m\u001b[32m/usr/lib/python3.13/subprocess.py:578\u001b[39m, in \u001b[36mrun\u001b[39m\u001b[34m(input, capture_output, timeout, check, *popenargs, **kwargs)\u001b[39m\n\u001b[32m    576\u001b[39m     retcode = process.poll()\n\u001b[32m    577\u001b[39m     \u001b[38;5;28;01mif\u001b[39;00m check \u001b[38;5;129;01mand\u001b[39;00m retcode:\n\u001b[32m--> \u001b[39m\u001b[32m578\u001b[39m         \u001b[38;5;28;01mraise\u001b[39;00m CalledProcessError(retcode, process.args,\n\u001b[32m    579\u001b[39m                                  output=stdout, stderr=stderr)\n\u001b[32m    580\u001b[39m \u001b[38;5;28;01mreturn\u001b[39;00m CompletedProcess(process.args, retcode, stdout, stderr)\n",
+      "\u001b[31mCalledProcessError\u001b[39m: Command '['/home/rohan-ahmed/VENV/myvenv/bin/python', '-m', 'pytest', 'tests', '-q', '--junitxml=validation.xml']' returned non-zero exit status 2."
+     ]
+    }
+   ],
+   "source": [
+    "# Meaningful CPU tests plus actual CUDA smoke tests when CUDA/bitsandbytes are available.\n",
+    "# A test failure raises before the real experiment starts.\n",
+    "subprocess.run(\n",
+    "    [sys.executable, \"-m\", \"pytest\", \"tests\", \"-q\", \"--junitxml=validation.xml\"],\n",
+    "    cwd=HERE,\n",
+    "    check=True,\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "experiment",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Set only for an interrupted run with the same code, configuration and packages.\n",
+    "RESUME_RUN = None  # e.g. r\"C:\\FYP\\runs\\20261103_...\"\n",
+    "command = [sys.executable, \"-u\", \"run_experiment.py\", \"--config\", str(CONFIG.resolve())]\n",
+    "if RESUME_RUN:\n",
+    "    command += [\"--resume\", str(RESUME_RUN)]\n",
+    "# Inherits stdout/stderr so training/evaluation progress is visible.\n",
+    "subprocess.run(command, cwd=HERE, check=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "results",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "settings = json.loads(CONFIG.read_text())\n",
+    "output_root = Path(settings[\"output_root\"])\n",
+    "if not output_root.is_absolute():\n",
+    "    output_root = HERE / output_root\n",
+    "RUN_DIR = Path(RESUME_RUN) if RESUME_RUN else sorted(output_root.iterdir())[-1]\n",
+    "print(\"Results:\", RUN_DIR)\n",
+    "display(pd.read_csv(RUN_DIR / \"all_seeds_metrics.csv\"))\n",
+    "display(pd.read_csv(RUN_DIR / \"cross_seed_mean_std.csv\", header=[0, 1]))\n",
+    "for seed in settings[\"seeds\"]:\n",
+    "    folder = RUN_DIR / f\"seed_{seed}\"\n",
+    "    print(\"Seed\", seed)\n",
+    "    display(pd.read_csv(folder / \"epoch_metrics.csv\"))\n",
+    "    display(pd.read_csv(folder / \"forget_quality_fixed_and_matched.csv\"))\n",
+    "    display(pd.read_csv(folder / \"paired_directional_recovery.csv\"))\n",
+    "    display(pd.read_csv(folder / \"merge_drift.csv\"))\n",
+    "    display(HTML((folder / \"report.html\").read_text(encoding=\"utf-8\")))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "answers",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Inspect complete model-generated answers from one seed, including every model condition.\n",
+    "seed_folder = RUN_DIR / f\"seed_{settings['seeds'][0]}\"\n",
+    "answers = pd.read_csv(seed_folder / \"answers_side_by_side.csv\")\n",
+    "with pd.option_context(\"display.max_colwidth\", None):\n",
+    "    display(answers.query(\"split == 'forget05'\").head(10))\n",
+    "print(\"Complete HTML:\", seed_folder / \"answers_side_by_side.html\")\n",
+    "print(\"Human labels (blank until reviewed):\", seed_folder / \"human_audit_template.csv\")"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "MY AI VENV(3.13)",
+   "language": "python",
+   "name": "myvenv"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.13.16"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

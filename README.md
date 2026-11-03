@@ -18,7 +18,9 @@ The next experiment uses researcher-selected LoRA throughout new project trainin
 
 Open [NPO_3RD_RUN.ipynb](experiments/reproductions/NPO_3rd-test/NPO_3RD_RUN.ipynb)
 or follow [the local third-run instructions](experiments/reproductions/NPO_3rd-test/README.md).
-The code runs three seeds, periodic TOFU metrics, separate adapter/merge drift,
+The notebook contains all experiment code and settings, with inline tests,
+live terminal logs/plots and complete result displays. No third-run Python module
+or external configuration file is required. It runs three seeds, periodic TOFU metrics, separate adapter/merge drift,
 merged-model quantization and complete per-question reports. Actual 1B LoRA GPU
 acceptance and the combined-method study remain pending. This work stays on
 `codex/npo-lora-third-run` without a dev merge or PR. The Mother route below is

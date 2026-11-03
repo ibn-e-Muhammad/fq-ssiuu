@@ -1,0 +1,32 @@
+{
+  "files": {
+    ".gitattributes": "7ff16c4383d4f8f9dcb6194d800b6a32f72915e6fcf19e594f2750252d6c61d2",
+    "METHOD_PARITY.json": "32b86c816e70abb3bfbfbdec27bb759cb2403185225c1c5e3a552d92dd76a74a",
+    "README.md": "bd43f11c39417fe26dd7841b2cc8060b545a89794fa512d1e36d0a34d3e0d2ca",
+    "VALIDATION.json": "9b78dc3fe6047ffdc88dbdd3c63d346e187a834b465e671154b0678338eedc56",
+    "ci_scope_format.txt": "2c29d51f92b117fee668b71acf5c85f0c8ef731c5cb59c82f7c51602834f3e84",
+    "ci_scope_lint.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "embedded_test_results.csv": "562fc6733938a58a5ef31cf5182da6046c3f06a7431fe02235bafd77985c204c",
+    "execution_stdout.txt": "e44b816064e2f8aa8bccc1cef05ec0e17ec906975151e062e29267cbe281af62",
+    "missing_dependency_check.txt": "b8e89337276807fdc436f58a0929f366c001d9f42354b2bed783d0bfd95906d9",
+    "notebook_validation.json": "ad06112eabb318e6068647d68aec089fa443db928ff1b3498f729027dd366f2b",
+    "prior_launcher_attempt/.gitattributes": "0ca38dc60d4954895637659dc5d3f9df5ee2186757efc11f06fb0a3bebe2b6f0",
+    "prior_launcher_attempt/PRESERVATION.json": "032b42a76eb4412e88ce79f9e97296fa6cc6a5ee3ccf56ae0cf92fda1dda6e9b",
+    "prior_launcher_attempt/launcher_notebook.ipynb.json": "41964f33b24612d46471bd32796c60dab83cd29dd4cc3fa7b15505762bca41bc",
+    "prior_launcher_attempt/validation.xml": "16cc02cf6d72dc5a6434004a227ec9df3aa3ed7df744dbe2e8d652a9c6120c4a",
+    "test_logs/test_arithmetic_utility_and_geometric_fq_are_distinct/test_log.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "test_logs/test_cluster_bootstrap_is_paired_and_reproducible/test_log.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "test_logs/test_completed_pipeline_generates_all_outputs_and_reuses_evaluation/test_log.txt": "49bb7a8a0fe6a45c028a9b6e1238c0aebb48162f940adcea3fc7054de7081165",
+    "test_logs/test_corrupt_checkpoint_falls_back_and_identity_is_checked/test_log.txt": "31f73aeeac48ecd4a29d76815264440ebe7a1c099774622f7f87f2b52e2d0d8a",
+    "test_logs/test_cuda_lora_backward_merge_and_real_quantization/test_log.txt": "0e5327162968e761970d9333ed5bc408c2ba1cdc3b1f5e2f219ccc94687df3b7",
+    "test_logs/test_declared_defaults_match_project_lora_policy/test_log.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "test_logs/test_device_microbatch_preserves_logical_retain_weighting/test_log.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "test_logs/test_fresh_sampler_covers_broad_retain_and_is_replayable/test_log.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "test_logs/test_masking_selection_and_lora_reference/test_log.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "test_logs/test_matched_precision_uses_geometric_ratio_and_aligns_rows/test_log.txt": "db377b1583e47e1d89ed92dc48f5ee795354f050e7b24a312206fc5627c00717",
+    "test_logs/test_notebook_identity_ignores_outputs_but_rejects_core_edits/test_log.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "test_logs/test_notebook_terminal_tee_preserves_console_and_file/test_log.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "test_logs/test_resume_matches_uninterrupted_and_frozen_backbone/test_log.txt": "5c07c754489711f44f12e4a253e544cd178273e8feb940f357e8a1b335064d32",
+    "test_logs/test_sequence_formula_gradients_masks_and_reference/test_log.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

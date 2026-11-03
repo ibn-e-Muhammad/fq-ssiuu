@@ -20,3 +20,20 @@ Engineering tests/derived receipts accompany the implementation. Actual 1B
 LoRA outcomes are not fabricated or inferred from tiny fixtures. No PR/dev merge,
 Kaggle submission, Protocol v2 activation, or confirmatory verdict belongs to
 this preparation. See the run report, CR-013, audit disposition and local protocol.
+
+## Follow-up: one self-contained notebook
+
+The researcher requested that all third-run experiment code live inside one
+Jupyter notebook, as in the second local run. `NPO_3RD_RUN.ipynb` now embeds all
+settings, pins, objectives, tests, training/checkpointing, evaluation, merge/PTQ,
+reports and optional second-run analysis. Logs run directly in the kernel,
+with live training/stage views and saved text logs. The redundant third-run
+Python modules/config registry were removed; commit `4d3089f` preserves them.
+
+This is an execution/observation change, not a change to LoRA rank, objectives,
+sampling, schedule or evaluation profiles. Saved core-cell hashes replace local
+Python-file hashes for implementation identity. Notebook output/metadata saves
+do not invalidate resume; scientific source edits do. Validation includes an
+isolated notebook copy, its inline tests, real IPython history/display behavior,
+all three answer-profile views and byte-identical five-table run-2 reanalysis.
+Actual 1B GPU execution remains pending. No dev merge or PR is created.

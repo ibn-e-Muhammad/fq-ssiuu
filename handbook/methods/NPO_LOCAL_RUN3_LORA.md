@@ -5,6 +5,15 @@ Decision: [DL-024](../decisions/DL-024_project_lora_training.md).
 Implementation/config/operator instructions:
 [`NPO_3rd-test`](../../experiments/reproductions/NPO_3rd-test/README.md).
 
+The authoritative implementation is the self-contained
+[`NPO_3RD_RUN.ipynb`](../../experiments/reproductions/NPO_3rd-test/NPO_3RD_RUN.ipynb).
+It embeds configuration, all input pins, engineering tests, training/evaluation,
+merge/PTQ and reports in readable cells. No local Python import, generated Python
+file or child process is required. Run with the existing CUDA kernel after
+editing the settings cell and saving. Scientific core-cell hashes bind resume;
+output/metadata saves do not change those hashes. The modular predecessor remains
+in Git at `4d3089f`. Consolidation does not change the protocol below.
+
 Preserve the exact causal sequence-sum NPO Eq. 3 and the distinction between
 NPO and NPO+RT. The current variant is NPO+RT, beta .1, coefficients 1/1,
 positive retain CE, learning rate 1e-5, weight decay .01, effective batch 32,

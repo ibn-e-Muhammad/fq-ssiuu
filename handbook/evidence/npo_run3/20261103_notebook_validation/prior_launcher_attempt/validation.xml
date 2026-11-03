@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="2" failures="0" skipped="0" tests="2" time="1.264" timestamp="2026-11-03T16:05:06.735425+05:00" hostname="rohan"><testcase classname="" name="experiments.reproductions.NPO_3rd-test.tests.test_objective_and_sampling" time="0.000"><error message="collection failure">#x1B[31mImportError while importing test module '/home/rohan-ahmed/MY-FYP/fq-ssiuu/experiments/reproductions/NPO_3rd-test/tests/test_objective_and_sampling.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+#x1B[1m#x1B[31m/usr/lib/python3.13/importlib/__init__.py#x1B[0m:88: in import_module
+    #x1B[0m#x1B[94mreturn#x1B[39;49;00m _bootstrap._gcd_import(name[level:], package, level)#x1B[90m#x1B[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#x1B[90m#x1B[39;49;00m
+#x1B[1m#x1B[31mtests/test_objective_and_sampling.py#x1B[0m:11: in &lt;module&gt;
+    #x1B[0m#x1B[94mfrom#x1B[39;49;00m#x1B[90m #x1B[39;49;00m#x1B[04m#x1B[96mnpo3#x1B[39;49;00m#x1B[04m#x1B[96m.#x1B[39;49;00m#x1B[04m#x1B[96mevaluation#x1B[39;49;00m#x1B[90m #x1B[39;49;00m#x1B[94mimport#x1B[39;49;00m tensor_fingerprint#x1B[90m#x1B[39;49;00m
+#x1B[1m#x1B[31mnpo3/evaluation.py#x1B[0m:20: in &lt;module&gt;
+    #x1B[0m#x1B[94mfrom#x1B[39;49;00m#x1B[90m #x1B[39;49;00m#x1B[04m#x1B[96mrouge_score#x1B[39;49;00m#x1B[90m #x1B[39;49;00m#x1B[94mimport#x1B[39;49;00m rouge_scorer#x1B[90m#x1B[39;49;00m
+#x1B[1m#x1B[31mE   ModuleNotFoundError: No module named 'rouge_score'#x1B[0m#x1B[0m</error></testcase><testcase classname="" name="experiments.reproductions.NPO_3rd-test.tests.test_training_and_pipeline" time="0.000"><error message="collection failure">#x1B[31mImportError while importing test module '/home/rohan-ahmed/MY-FYP/fq-ssiuu/experiments/reproductions/NPO_3rd-test/tests/test_training_and_pipeline.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+#x1B[1m#x1B[31m/usr/lib/python3.13/importlib/__init__.py#x1B[0m:88: in import_module
+    #x1B[0m#x1B[94mreturn#x1B[39;49;00m _bootstrap._gcd_import(name[level:], package, level)#x1B[90m#x1B[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#x1B[90m#x1B[39;49;00m
+#x1B[1m#x1B[31mtests/test_training_and_pipeline.py#x1B[0m:8: in &lt;module&gt;
+    #x1B[0m#x1B[94mfrom#x1B[39;49;00m#x1B[90m #x1B[39;49;00m#x1B[04m#x1B[96mnpo3#x1B[39;49;00m#x1B[04m#x1B[96m.#x1B[39;49;00m#x1B[04m#x1B[96mevaluation#x1B[39;49;00m#x1B[90m #x1B[39;49;00m#x1B[94mimport#x1B[39;49;00m tensor_fingerprint#x1B[90m#x1B[39;49;00m
+#x1B[1m#x1B[31mnpo3/evaluation.py#x1B[0m:20: in &lt;module&gt;
+    #x1B[0m#x1B[94mfrom#x1B[39;49;00m#x1B[90m #x1B[39;49;00m#x1B[04m#x1B[96mrouge_score#x1B[39;49;00m#x1B[90m #x1B[39;49;00m#x1B[94mimport#x1B[39;49;00m rouge_scorer#x1B[90m#x1B[39;49;00m
+#x1B[1m#x1B[31mE   ModuleNotFoundError: No module named 'rouge_score'#x1B[0m#x1B[0m</error></testcase></testsuite></testsuites>

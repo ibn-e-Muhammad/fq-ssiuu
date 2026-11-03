@@ -11,8 +11,8 @@ Forthcoming project training uses a frozen unquantized backbone with trainable
 LoRA adapters. The initial versioned defaults are rank 16, alpha 32, dropout 0,
 bias none, and q/k/v/o plus gate/up/down projections. Adapter parameters and AdamW
 states are FP32. The local RTX 3060 backbone and deployment baseline use BF16.
-`configs/training/lora_v1.json` records the project choice; the third-run config
-records its concrete application. The original NPO beta, loss coefficients,
+`configs/training/lora_v1.json` records the project choice; the self-contained
+third-run notebook embeds these defaults and its concrete settings. The original NPO beta, loss coefficients,
 learning rate, weight decay, logical batch and stopping schedule are retained.
 Defaults are declared before outcomes; no LoRA LR/retention-weight tuning uses
 final Forget05 evaluation scores.

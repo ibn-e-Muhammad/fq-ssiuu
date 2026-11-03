@@ -1,0 +1,588 @@
+EXECUTING CELL dependency-check
+Selected kernel: /tmp/npo3-venv/bin/python
+Notebook dependencies found. INT8/NF4 additionally require a working bitsandbytes CUDA backend.
+EXECUTING CELL notebook-runtime
+Kernel: /tmp/npo3-venv/bin/python
+Notebook: /tmp/npo3-standalone-notebook-q07hfgp0/NPO_3RD_RUN.ipynb
+CUDA/PyTorch is checked again before real work. No model is loaded by this cell.
+EXECUTING CELL your-settings
+EXECUTING CELL configuration
+EXECUTING CELL input-registry
+EXECUTING CELL resolve-settings
+                                                          Declared settings
+full_path                 /tmp/npo3-standalone-notebook-q07hfgp0/C:/FYP/...
+retain_path               /tmp/npo3-standalone-notebook-q07hfgp0/C:/FYP/...
+tokenizer_path                                                             
+data_path                 /tmp/npo3-standalone-notebook-q07hfgp0/C:/FYP/...
+output_root                     /tmp/npo3-standalone-notebook-q07hfgp0/runs
+allow_model_download                                                  False
+allow_data_download                                                   False
+device                                                               cuda:0
+dtype                                                              bfloat16
+seeds                                                          [42, 43, 44]
+evaluation_seed                                                    20261103
+beta                                                                    0.1
+npo_coefficient                                                         1.0
+retain_coefficient                                                      1.0
+learning_rate                                                       0.00001
+weight_decay                                                           0.01
+nominal_epochs                                                           10
+logical_micro_batch                                                       4
+device_micro_batch                                                        4
+accumulation                                                              8
+warmup_steps                                                              6
+evaluation_every_updates                                                  6
+training_max_length                                                     500
+evaluation_max_length                                                   200
+retain_sampling                                           reshuffled_stream
+lora_rank                                                                16
+lora_alpha                                                               32
+lora_dropout                                                            0.0
+lora_targets              [q_proj, k_proj, v_proj, o_proj, gate_proj, up...
+gradient_checkpointing                                                 True
+evaluation_retain_count                                                 300
+generation_batch_size                                                    30
+source_temperature                                                      0.6
+source_top_p                                                            0.9
+generation_eos_ids                                                       []
+legacy_greedy_tokens                                                     96
+long_audit_tokens                                                       256
+long_audit_per_split                                                     20
+bootstrap_repeats                                                      2000
+evaluate_kl                                                            True
+quantization_modes                                              [int8, nf4]
+quantized_controls                                                     True
+keep_recent_checkpoints                                                   2
+system_prompt                                  You are a helpful assistant.
+template_date                                                   10 Apr 2025
+EXECUTING CELL metrics
+EXECUTING CELL objective
+EXECUTING CELL data
+EXECUTING CELL evaluation
+EXECUTING CELL checkpoint
+EXECUTING CELL training
+EXECUTING CELL reporting
+EXECUTING CELL human-labels
+EXECUTING CELL pipeline
+EXECUTING CELL run2-reanalysis
+EXECUTING CELL tiny-fixture
+EXECUTING CELL self-tests
+EXECUTING CELL test-runner
+EXECUTING CELL live-views
+EXECUTING CELL execute-self-tests
+PASS test_arithmetic_utility_and_geometric_fq_are_distinct (0.21s)
+PASS test_cluster_bootstrap_is_paired_and_reproducible (0.22s)
+PASS test_completed_pipeline_generates_all_outputs_and_reuses_evaluation (7.25s)
+PASS test_corrupt_checkpoint_falls_back_and_identity_is_checked (0.32s)
+SKIP test_cuda_lora_backward_merge_and_real_quantization (0.17s)
+PASS test_declared_defaults_match_project_lora_policy (0.17s)
+PASS test_device_microbatch_preserves_logical_retain_weighting (0.25s)
+PASS test_fresh_sampler_covers_broad_retain_and_is_replayable (0.26s)
+PASS test_masking_selection_and_lora_reference (0.26s)
+PASS test_matched_precision_uses_geometric_ratio_and_aligns_rows (0.32s)
+PASS test_notebook_identity_ignores_outputs_but_rejects_core_edits (0.18s)
+PASS test_notebook_terminal_tee_preserves_console_and_file (0.18s)
+PASS test_resume_matches_uninterrupted_and_frozen_backbone (0.72s)
+PASS test_sequence_formula_gradients_masks_and_reference (0.19s)
+                                                 test  ...                                      detail
+0   test_arithmetic_utility_and_geometric_fq_are_d...  ...                                            
+1   test_cluster_bootstrap_is_paired_and_reproducible  ...                                            
+2   test_completed_pipeline_generates_all_outputs_...  ...                                            
+3   test_corrupt_checkpoint_falls_back_and_identit...  ...                                            
+4   test_cuda_lora_backward_merge_and_real_quantiz...  ...  Actual CUDA kernels require the target GPU
+5    test_declared_defaults_match_project_lora_policy  ...                                            
+6   test_device_microbatch_preserves_logical_retai...  ...                                            
+7   test_fresh_sampler_covers_broad_retain_and_is_...  ...                                            
+8           test_masking_selection_and_lora_reference  ...                                            
+9   test_matched_precision_uses_geometric_ratio_an...  ...                                            
+10  test_notebook_identity_ignores_outputs_but_rej...  ...                                            
+11  test_notebook_terminal_tee_preserves_console_a...  ...                                            
+12  test_resume_matches_uninterrupted_and_frozen_b...  ...                                            
+13  test_sequence_formula_gradients_masks_and_refe...  ...                                            
+
+[14 rows x 4 columns]
+Full per-test logs: /tmp/npo3-standalone-notebook-q07hfgp0/validation/20261103_171016_266410
+EXECUTING CELL execute-experiment
+RUN_EXPERIMENT=False; real models were not loaded or trained.
+EXECUTING CELL results-matrices
+Set RESULTS_RUN to inspect saved results without training.
+EXECUTING CELL actual-answers
+EXECUTING CELL generation-audit
+EXECUTING CELL human-rates
+No semantic labels supplied; semantic rates remain unmeasured.
+EXECUTING CELL optional-reanalysis
+/tmp/npo3-venv/lib/python3.12/site-packages/IPython/paths.py:60: UserWarning: IPython dir '/home/rohan-ahmed/.ipython' is not a writable location, using a temp directory.
+  warn("IPython dir '{}' is not a writable location,"
+Run-2 reanalysis disabled; original run is untouched.
+Kernel: /tmp/npo3-venv/bin/python
+Notebook: /tmp/npo3-standalone-notebook-q07hfgp0/NPO_3RD_RUN.ipynb
+CUDA/PyTorch is checked again before real work. No model is loaded by this cell.
+                                                          Declared settings
+full_path                 /tmp/npo3-standalone-notebook-q07hfgp0/C:/FYP/...
+retain_path               /tmp/npo3-standalone-notebook-q07hfgp0/C:/FYP/...
+tokenizer_path                                                             
+data_path                 /tmp/npo3-standalone-notebook-q07hfgp0/C:/FYP/...
+output_root                     /tmp/npo3-standalone-notebook-q07hfgp0/runs
+allow_model_download                                                  False
+allow_data_download                                                   False
+device                                                               cuda:0
+dtype                                                              bfloat16
+seeds                                                          [42, 43, 44]
+evaluation_seed                                                    20261103
+beta                                                                    0.1
+npo_coefficient                                                         1.0
+retain_coefficient                                                      1.0
+learning_rate                                                       0.00001
+weight_decay                                                           0.01
+nominal_epochs                                                           10
+logical_micro_batch                                                       4
+device_micro_batch                                                        4
+accumulation                                                              8
+warmup_steps                                                              6
+evaluation_every_updates                                                  6
+training_max_length                                                     500
+evaluation_max_length                                                   200
+retain_sampling                                           reshuffled_stream
+lora_rank                                                                16
+lora_alpha                                                               32
+lora_dropout                                                            0.0
+lora_targets              [q_proj, k_proj, v_proj, o_proj, gate_proj, up...
+gradient_checkpointing                                                 True
+evaluation_retain_count                                                 300
+generation_batch_size                                                    30
+source_temperature                                                      0.6
+source_top_p                                                            0.9
+generation_eos_ids                                                       []
+legacy_greedy_tokens                                                     96
+long_audit_tokens                                                       256
+long_audit_per_split                                                     20
+bootstrap_repeats                                                      2000
+evaluate_kl                                                            True
+quantization_modes                                              [int8, nf4]
+quantized_controls                                                     True
+keep_recent_checkpoints                                                   2
+system_prompt                                  You are a helpful assistant.
+template_date                                                   10 Apr 2025
+Run directory: /tmp/npo3-standalone-notebook-q07hfgp0/live_fixture/runs/20261103_171028_371469
+Notebook is running: /tmp/npo3-standalone-notebook-q07hfgp0/live_fixture/runs/20261103_171028_371469
+Scoring full_bf16: forget05 (8)
+Scoring full_bf16: retain (3)
+Scoring full_bf16: real_authors (2)
+Scoring full_bf16: world_facts (2)
+Generating full_bf16/source_sampled: forget05 (8)
+Generating full_bf16/source_sampled: retain (3)
+Generating full_bf16/source_sampled: real_authors (2)
+Generating full_bf16/source_sampled: world_facts (2)
+{"profile": "source_sampled", "model_utility": 0.0, "forget_quality": null}
+Generating full_bf16/legacy_greedy96: forget05 (8)
+Generating full_bf16/legacy_greedy96: retain (3)
+Generating full_bf16/legacy_greedy96: real_authors (2)
+Generating full_bf16/legacy_greedy96: world_facts (2)
+{"profile": "legacy_greedy96", "model_utility": 0.0, "forget_quality": null}
+Generating full_bf16/long_greedy: forget05 (2)
+Generating full_bf16/long_greedy: retain (2)
+Generating full_bf16/long_greedy: real_authors (2)
+Generating full_bf16/long_greedy: world_facts (2)
+{"profile": "long_greedy", "model_utility": 0.0, "forget_quality": null}
+Completed evaluation: full_bf16
+       stage  model_utility  ... forget05_rouge_l_recall retain_rouge_l_recall
+0  full_bf16            0.0  ...                     0.0                   0.0
+
+[1 rows x 8 columns]
+Scoring retain95_bf16: forget05 (8)
+Scoring retain95_bf16: retain (3)
+Scoring retain95_bf16: real_authors (2)
+Scoring retain95_bf16: world_facts (2)
+Generating retain95_bf16/source_sampled: forget05 (8)
+Generating retain95_bf16/source_sampled: retain (3)
+Generating retain95_bf16/source_sampled: real_authors (2)
+Generating retain95_bf16/source_sampled: world_facts (2)
+{"profile": "source_sampled", "model_utility": 0.0, "forget_quality": null}
+Generating retain95_bf16/legacy_greedy96: forget05 (8)
+Generating retain95_bf16/legacy_greedy96: retain (3)
+Generating retain95_bf16/legacy_greedy96: real_authors (2)
+Generating retain95_bf16/legacy_greedy96: world_facts (2)
+{"profile": "legacy_greedy96", "model_utility": 0.0, "forget_quality": null}
+Generating retain95_bf16/long_greedy: forget05 (2)
+Generating retain95_bf16/long_greedy: retain (2)
+Generating retain95_bf16/long_greedy: real_authors (2)
+Generating retain95_bf16/long_greedy: world_facts (2)
+{"profile": "long_greedy", "model_utility": 0.0, "forget_quality": null}
+Completed evaluation: retain95_bf16
+           stage  model_utility  ... forget05_rouge_l_recall retain_rouge_l_recall
+0      full_bf16            0.0  ...                     0.0                   0.0
+1  retain95_bf16            0.0  ...                     0.0                   0.0
+
+[2 rows x 8 columns]
+{"seed": 42, "update": 1, "lr": 0.0, "npo_loss": 13.862943649291992, "retain_ce": 4.49622917175293, "total_loss": 18.359172821044922, "effective_forget_passes": 0.5, "compute_seconds": 0.04539050099992892, "peak_cuda_allocated_bytes": 0, "peak_cuda_reserved_bytes": 0, "process_ram_bytes": 509571072, "checkpoint": "/tmp/npo3-standalone-notebook-q07hfgp0/live_fixture/runs/20261103_171028_371469/seed_42/checkpoints/step-000001-1793707829765533140"}
+<Figure size 1100x350 with 2 Axes>
+{"seed": 42, "update": 2, "lr": 1e-05, "npo_loss": 13.862943649291992, "retain_ce": 4.49610447883606, "total_loss": 18.35904812812805, "effective_forget_passes": 1.0, "compute_seconds": 0.03825023999888799, "peak_cuda_allocated_bytes": 0, "peak_cuda_reserved_bytes": 0, "process_ram_bytes": 509571072, "checkpoint": "/tmp/npo3-standalone-notebook-q07hfgp0/live_fixture/runs/20261103_171028_371469/seed_42/checkpoints/step-000002-1793707829896005794"}
+<Figure size 1100x350 with 2 Axes>
+Scoring update_000002: forget05 (8)
+Scoring update_000002: retain (3)
+Scoring update_000002: real_authors (2)
+Scoring update_000002: world_facts (2)
+Generating update_000002/source_sampled: forget05 (8)
+Generating update_000002/source_sampled: retain (3)
+Generating update_000002/source_sampled: real_authors (2)
+Generating update_000002/source_sampled: world_facts (2)
+{"profile": "source_sampled", "model_utility": 0.0, "forget_quality": 1.0}
+Completed evaluation: npo_adapter_step_2
+                stage  ...  retain_rouge_l_recall
+0           full_bf16  ...                    0.0
+1       retain95_bf16  ...                    0.0
+2  npo_adapter_step_2  ...                    0.0
+
+[3 rows x 8 columns]
+{"seed": 42, "update": 3, "lr": 6.666666666666667e-06, "npo_loss": 13.862916946411133, "retain_ce": 4.495589256286621, "total_loss": 18.358506202697754, "effective_forget_passes": 1.5, "compute_seconds": 0.056187703001342015, "peak_cuda_allocated_bytes": 0, "peak_cuda_reserved_bytes": 0, "process_ram_bytes": 510205952, "checkpoint": "/tmp/npo3-standalone-notebook-q07hfgp0/live_fixture/runs/20261103_171028_371469/seed_42/checkpoints/step-000003-1793707830869490014"}
+{"seed": 42, "update": 4, "lr": 3.3333333333333333e-06, "npo_loss": 13.86289930343628, "retain_ce": 4.496999025344849, "total_loss": 18.359898328781128, "effective_forget_passes": 2.0, "compute_seconds": 0.03710193799997796, "peak_cuda_allocated_bytes": 0, "peak_cuda_reserved_bytes": 0, "process_ram_bytes": 510210048, "checkpoint": "/tmp/npo3-standalone-notebook-q07hfgp0/live_fixture/runs/20261103_171028_371469/seed_42/checkpoints/step-000004-1793707830926528772"}
+<Figure size 1100x350 with 2 Axes>
+Scoring npo_adapter: forget05 (8)
+Scoring npo_adapter: retain (3)
+Scoring npo_adapter: real_authors (2)
+Scoring npo_adapter: world_facts (2)
+Generating npo_adapter/source_sampled: forget05 (8)
+Generating npo_adapter/source_sampled: retain (3)
+Generating npo_adapter/source_sampled: real_authors (2)
+Generating npo_adapter/source_sampled: world_facts (2)
+{"profile": "source_sampled", "model_utility": 0.0, "forget_quality": 1.0}
+Generating npo_adapter/legacy_greedy96: forget05 (8)
+Generating npo_adapter/legacy_greedy96: retain (3)
+Generating npo_adapter/legacy_greedy96: real_authors (2)
+Generating npo_adapter/legacy_greedy96: world_facts (2)
+{"profile": "legacy_greedy96", "model_utility": 0.0, "forget_quality": 1.0}
+Generating npo_adapter/long_greedy: forget05 (2)
+Generating npo_adapter/long_greedy: retain (2)
+Generating npo_adapter/long_greedy: real_authors (2)
+Generating npo_adapter/long_greedy: world_facts (2)
+{"profile": "long_greedy", "model_utility": 0.0, "forget_quality": 1.0}
+Completed evaluation: npo_adapter
+                stage  ...  retain_rouge_l_recall
+0           full_bf16  ...                    0.0
+1       retain95_bf16  ...                    0.0
+2  npo_adapter_step_2  ...                    0.0
+3         npo_adapter  ...                    0.0
+
+[4 rows x 8 columns]
+Scoring npo_bf16: forget05 (8)
+Scoring npo_bf16: retain (3)
+Scoring npo_bf16: real_authors (2)
+Scoring npo_bf16: world_facts (2)
+Generating npo_bf16/source_sampled: forget05 (8)
+Generating npo_bf16/source_sampled: retain (3)
+Generating npo_bf16/source_sampled: real_authors (2)
+Generating npo_bf16/source_sampled: world_facts (2)
+{"profile": "source_sampled", "model_utility": 0.0, "forget_quality": 1.0}
+Generating npo_bf16/legacy_greedy96: forget05 (8)
+Generating npo_bf16/legacy_greedy96: retain (3)
+Generating npo_bf16/legacy_greedy96: real_authors (2)
+Generating npo_bf16/legacy_greedy96: world_facts (2)
+{"profile": "legacy_greedy96", "model_utility": 0.0, "forget_quality": 1.0}
+Generating npo_bf16/long_greedy: forget05 (2)
+Generating npo_bf16/long_greedy: retain (2)
+Generating npo_bf16/long_greedy: real_authors (2)
+Generating npo_bf16/long_greedy: world_facts (2)
+{"profile": "long_greedy", "model_utility": 0.0, "forget_quality": 1.0}
+Completed evaluation: npo_bf16
+                stage  ...  retain_rouge_l_recall
+0           full_bf16  ...                    0.0
+1       retain95_bf16  ...                    0.0
+2  npo_adapter_step_2  ...                    0.0
+3         npo_adapter  ...                    0.0
+4            npo_bf16  ...                    0.0
+
+[5 rows x 8 columns]
+
+Seed 42 complete — /tmp/npo3-standalone-notebook-q07hfgp0/live_fixture/runs/20261103_171028_371469/seed_42
+           stage  ...                                     interpretation
+0      full_bf16  ...  Non-rejection is not proof of equivalence or e...
+1  retain95_bf16  ...  Non-rejection is not proof of equivalence or e...
+2    npo_adapter  ...  Non-rejection is not proof of equivalence or e...
+3       npo_bf16  ...  Non-rejection is not proof of equivalence or e...
+
+[4 rows x 50 columns]
+No paired quantization rows: this fixture/configuration disabled quantization.
+              model_utility           forget05_n           forget05_answer_probability           forget05_answer_nll           forget05_rouge_l_recall           forget05_token_f1           forget05_exact_match           forget05_source_geometric_truth_ratio_log           forget05_generation_hit_limit           forget05_eos_terminated           forget05_kl_full_ref_to_model_all_positions           real_authors_n           real_authors_answer_probability           real_authors_answer_nll           real_authors_rouge_l_recall           real_authors_token_f1           real_authors_exact_match           real_authors_source_geometric_truth_ratio_log           real_authors_generation_hit_limit           real_authors_eos_terminated           real_authors_kl_full_ref_to_model_all_positions           retain_n           retain_answer_probability           retain_answer_nll           retain_rouge_l_recall           retain_token_f1           retain_exact_match           retain_source_geometric_truth_ratio_log           retain_generation_hit_limit           retain_eos_terminated           retain_kl_full_ref_to_model_all_positions           world_facts_n           world_facts_answer_probability           world_facts_answer_nll           world_facts_rouge_l_recall           world_facts_token_f1           world_facts_exact_match           world_facts_source_geometric_truth_ratio_log           world_facts_generation_hit_limit           world_facts_eos_terminated           world_facts_kl_full_ref_to_model_all_positions           forget_quality           ks_statistic           paper_arithmetic_ks_statistic_diagnostic           paper_arithmetic_ks_p_value_diagnostic              n          
+                       mean std count       mean std count                        mean std count                mean std count                    mean std count              mean std count                 mean std count                                      mean std count                          mean std count                    mean std count                                        mean std count           mean std count                            mean std count                    mean std count                        mean std count                  mean std count                     mean std count                                          mean std count                              mean std count                        mean std count                                            mean std count     mean std count                      mean std count              mean std count                  mean std count            mean std count               mean std count                                    mean std count                        mean std count                  mean std count                                      mean std count          mean std count                           mean std count                   mean std count                       mean std count                 mean std count                    mean std count                                         mean std count                             mean std count                       mean std count                                           mean std count           mean std count         mean std count                                     mean std count                                   mean std count mean std count
+stage                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+full_bf16               0.0 NaN     1        8.0 NaN     1                    0.011147 NaN     1            4.496627 NaN     1                     0.0 NaN     1               0.0 NaN     1                  0.0 NaN     1                                  0.108808 NaN     1                           1.0 NaN     1                     0.0 NaN     1                                0.000000e+00 NaN     1            2.0 NaN     1                        0.011131 NaN     1                4.498056 NaN     1                         0.0 NaN     1                   0.0 NaN     1                      0.0 NaN     1                                     -0.018837 NaN     1                               1.0 NaN     1                         0.0 NaN     1                                    0.000000e+00 NaN     1      3.0 NaN     1                  0.011138 NaN     1          4.497426 NaN     1                   0.0 NaN     1             0.0 NaN     1                0.0 NaN     1                                0.108110 NaN     1                         1.0 NaN     1                   0.0 NaN     1                              0.000000e+00 NaN     1           2.0 NaN     1                       0.011138 NaN     1               4.497431 NaN     1                        0.0 NaN     1                  0.0 NaN     1                     0.0 NaN     1                                    -0.017440 NaN     1                              1.0 NaN     1                        0.0 NaN     1                                   0.000000e+00 NaN     1            1.0 NaN     1        0.000 NaN     1                                    0.000 NaN     1                                    1.0 NaN     1  8.0 NaN     1
+npo_adapter             0.0 NaN     1        8.0 NaN     1                    0.011146 NaN     1            4.496653 NaN     1                     0.0 NaN     1               0.0 NaN     1                  0.0 NaN     1                                  0.108805 NaN     1                           1.0 NaN     1                     0.0 NaN     1                                6.383357e-09 NaN     1            2.0 NaN     1                        0.011130 NaN     1                4.498080 NaN     1                         0.0 NaN     1                   0.0 NaN     1                      0.0 NaN     1                                     -0.018859 NaN     1                               1.0 NaN     1                         0.0 NaN     1                                    1.136487e-08 NaN     1      3.0 NaN     1                  0.011137 NaN     1          4.497451 NaN     1                   0.0 NaN     1             0.0 NaN     1                0.0 NaN     1                                0.108108 NaN     1                         1.0 NaN     1                   0.0 NaN     1                             -6.187535e-08 NaN     1           2.0 NaN     1                       0.011137 NaN     1               4.497458 NaN     1                        0.0 NaN     1                  0.0 NaN     1                     0.0 NaN     1                                    -0.017463 NaN     1                              1.0 NaN     1                        0.0 NaN     1                                  -6.020406e-08 NaN     1            1.0 NaN     1        0.125 NaN     1                                    0.125 NaN     1                                    1.0 NaN     1  8.0 NaN     1
+npo_bf16                0.0 NaN     1        8.0 NaN     1                    0.011146 NaN     1            4.496653 NaN     1                     0.0 NaN     1               0.0 NaN     1                  0.0 NaN     1                                  0.108805 NaN     1                           1.0 NaN     1                     0.0 NaN     1                               -1.899767e-08 NaN     1            2.0 NaN     1                        0.011130 NaN     1                4.498080 NaN     1                         0.0 NaN     1                   0.0 NaN     1                      0.0 NaN     1                                     -0.018859 NaN     1                               1.0 NaN     1                         0.0 NaN     1                                   -8.421590e-09 NaN     1      3.0 NaN     1                  0.011137 NaN     1          4.497451 NaN     1                   0.0 NaN     1             0.0 NaN     1                0.0 NaN     1                                0.108108 NaN     1                         1.0 NaN     1                   0.0 NaN     1                             -7.815497e-08 NaN     1           2.0 NaN     1                       0.011137 NaN     1               4.497458 NaN     1                        0.0 NaN     1                  0.0 NaN     1                     0.0 NaN     1                                    -0.017463 NaN     1                              1.0 NaN     1                        0.0 NaN     1                                  -8.186389e-08 NaN     1            1.0 NaN     1        0.125 NaN     1                                    0.125 NaN     1                                    1.0 NaN     1  8.0 NaN     1
+retain95_bf16           0.0 NaN     1        8.0 NaN     1                    0.011147 NaN     1            4.496627 NaN     1                     0.0 NaN     1               0.0 NaN     1                  0.0 NaN     1                                  0.108808 NaN     1                           1.0 NaN     1                     0.0 NaN     1                                0.000000e+00 NaN     1            2.0 NaN     1                        0.011131 NaN     1                4.498056 NaN     1                         0.0 NaN     1                   0.0 NaN     1                      0.0 NaN     1                                     -0.018837 NaN     1                               1.0 NaN     1                         0.0 NaN     1                                    0.000000e+00 NaN     1      3.0 NaN     1                  0.011138 NaN     1          4.497426 NaN     1                   0.0 NaN     1             0.0 NaN     1                0.0 NaN     1                                0.108110 NaN     1                         1.0 NaN     1                   0.0 NaN     1                              0.000000e+00 NaN     1           2.0 NaN     1                       0.011138 NaN     1               4.497431 NaN     1                        0.0 NaN     1                  0.0 NaN     1                     0.0 NaN     1                                    -0.017440 NaN     1                              1.0 NaN     1                        0.0 NaN     1                                   0.000000e+00 NaN     1            1.0 NaN     1        0.000 NaN     1                                    0.000 NaN     1                                    1.0 NaN     1  8.0 NaN     1
+All measured results: /tmp/npo3-standalone-notebook-q07hfgp0/live_fixture/runs/20261103_171028_371469
+seed_coverage.json
+                                                                     value
+expected_seeds                                                        [42]
+completed_seeds                                                       [42]
+complete                                                              True
+minimum_three_seeds_met                                              False
+interpretation           Seed means/spread are descriptive; fewer than ...
+run_complete.json
+                                                                     value
+status                                                            complete
+identity                 5445136c2d1a056159a39992ee0bc73ab0ec1650a18ccb...
+seeds                                                                 [42]
+quantization_modes                                                      []
+minimum_three_seeds_met                                              False
+attack_detected                                                       None
+durability_pass                                                       None
+all_seeds_metrics.csv
+   seed  ...                                     interpretation
+0    42  ...  Non-rejection is not proof of equivalence or e...
+1    42  ...  Non-rejection is not proof of equivalence or e...
+2    42  ...  Non-rejection is not proof of equivalence or e...
+3    42  ...  Non-rejection is not proof of equivalence or e...
+
+[4 rows x 51 columns]
+cross_seed_mean_std.csv
+  Unnamed: 0_level_0 model_utility            ... paper_arithmetic_ks_p_value_diagnostic    n          
+  Unnamed: 0_level_1          mean std count  ...                                  count mean std count
+0              stage           NaN NaN   NaN  ...                                    NaN  NaN NaN   NaN
+1          full_bf16           0.0 NaN   1.0  ...                                    1.0  8.0 NaN   1.0
+2        npo_adapter           0.0 NaN   1.0  ...                                    1.0  8.0 NaN   1.0
+3           npo_bf16           0.0 NaN   1.0  ...                                    1.0  8.0 NaN   1.0
+4      retain95_bf16           0.0 NaN   1.0  ...                                    1.0  8.0 NaN   1.0
+
+[5 rows x 139 columns]
+
+TRAINING SEED 42
+training_log.csv
+   update        lr  ...  peak_cuda_reserved_bytes  process_ram_bytes
+0       1  0.000000  ...                         0          509571072
+1       2  0.000010  ...                         0          509571072
+2       3  0.000007  ...                         0          510205952
+3       4  0.000003  ...                         0          510210048
+
+[4 rows x 10 columns]
+epoch_metrics.csv
+   seed  ...                                     interpretation
+0    42  ...  Non-rejection is not proof of equivalence or e...
+1    42  ...  Non-rejection is not proof of equivalence or e...
+
+[2 rows x 52 columns]
+comparison_matrix.csv
+           stage  ...                                     interpretation
+0      full_bf16  ...  Non-rejection is not proof of equivalence or e...
+1  retain95_bf16  ...  Non-rejection is not proof of equivalence or e...
+2    npo_adapter  ...  Non-rejection is not proof of equivalence or e...
+3       npo_bf16  ...  Non-rejection is not proof of equivalence or e...
+
+[4 rows x 50 columns]
+utility_components.csv
+            stage         split  ...  rouge_l_recall  arithmetic_truth_score
+0       full_bf16  real_authors  ...             0.0                0.000000
+1       full_bf16        retain  ...             0.0                0.100465
+2       full_bf16   world_facts  ...             0.0                0.000000
+3   retain95_bf16  real_authors  ...             0.0                0.000000
+4   retain95_bf16        retain  ...             0.0                0.100465
+5   retain95_bf16   world_facts  ...             0.0                0.000000
+6     npo_adapter  real_authors  ...             0.0                0.000000
+7     npo_adapter        retain  ...             0.0                0.100463
+8     npo_adapter   world_facts  ...             0.0                0.000000
+9        npo_bf16  real_authors  ...             0.0                0.000000
+10       npo_bf16        retain  ...             0.0                0.100463
+11       npo_bf16   world_facts  ...             0.0                0.000000
+
+[12 rows x 5 columns]
+forget_quality_fixed_and_matched.csv
+           stage  ...                                     interpretation
+0      full_bf16  ...  Non-rejection is not proof of equivalence or e...
+1      full_bf16  ...  Non-rejection is not proof of equivalence or e...
+2  retain95_bf16  ...  Non-rejection is not proof of equivalence or e...
+3  retain95_bf16  ...  Non-rejection is not proof of equivalence or e...
+4    npo_adapter  ...  Non-rejection is not proof of equivalence or e...
+5       npo_bf16  ...  Non-rejection is not proof of equivalence or e...
+6       npo_bf16  ...  Non-rejection is not proof of equivalence or e...
+
+[7 rows x 10 columns]
+paired_directional_recovery.csv
+No observations in this table (for example, quantization was disabled).
+merge_drift.csv
+           split                            metric  merged_minus_adapter
+0       forget05                answer_probability          0.000000e+00
+1       forget05                        answer_nll          0.000000e+00
+2       forget05                    rouge_l_recall          0.000000e+00
+3       forget05  source_geometric_truth_ratio_log         -2.980232e-08
+4   real_authors                answer_probability          0.000000e+00
+5   real_authors                        answer_nll          0.000000e+00
+6   real_authors                    rouge_l_recall          0.000000e+00
+7   real_authors  source_geometric_truth_ratio_log         -1.192093e-07
+8         retain                answer_probability          0.000000e+00
+9         retain                        answer_nll          0.000000e+00
+10        retain                    rouge_l_recall          0.000000e+00
+11        retain  source_geometric_truth_ratio_log          0.000000e+00
+12   world_facts                answer_probability          0.000000e+00
+13   world_facts                        answer_nll          0.000000e+00
+14   world_facts                    rouge_l_recall          0.000000e+00
+15   world_facts  source_geometric_truth_ratio_log          0.000000e+00
+<IPython.core.display.Image object>
+                                                                            Coverage
+core_evaluation                                                             measured
+geometric_FQ_fixed_and_matched                                              measured
+arithmetic_model_utility                                                    measured
+directional_truth_ratio_bootstrap                                           measured
+KL_diagnostic                                                               measured
+quantization_modes_requested                                                      []
+human_semantic_audit               awaiting manual labels; no rates inferred from...
+membership_inference               not measured; answer-token/min-k scores alone ...
+FADE                                                                    not measured
+second_quantizer_family                                                 not measured
+relearning                                                              not measured
+weight_quantization_bin_analysis                                        not measured
+attack_detected                                                                 None
+durability_pass                                                                 None
+source_sampled: 8 shown / 15 available across all splits
+<IPython.core.display.HTML object>
+legacy_greedy96: 8 shown / 15 available across all splits
+<IPython.core.display.HTML object>
+long_greedy: 2 shown / 8 available across all splits
+<IPython.core.display.HTML object>
+                                     result  ... mean_generated_tokens
+0        controls/full_bf16/legacy_greedy96  ...                   4.0
+1        controls/full_bf16/legacy_greedy96  ...                   4.0
+2        controls/full_bf16/legacy_greedy96  ...                   4.0
+3        controls/full_bf16/legacy_greedy96  ...                   4.0
+4            controls/full_bf16/long_greedy  ...                   8.0
+5            controls/full_bf16/long_greedy  ...                   8.0
+6            controls/full_bf16/long_greedy  ...                   8.0
+7            controls/full_bf16/long_greedy  ...                   8.0
+8                        controls/full_bf16  ...                  11.0
+9                        controls/full_bf16  ...                  11.0
+10                       controls/full_bf16  ...                  11.0
+11                       controls/full_bf16  ...                  11.0
+12   controls/retain95_bf16/legacy_greedy96  ...                   4.0
+13   controls/retain95_bf16/legacy_greedy96  ...                   4.0
+14   controls/retain95_bf16/legacy_greedy96  ...                   4.0
+15   controls/retain95_bf16/legacy_greedy96  ...                   4.0
+16       controls/retain95_bf16/long_greedy  ...                   8.0
+17       controls/retain95_bf16/long_greedy  ...                   8.0
+18       controls/retain95_bf16/long_greedy  ...                   8.0
+19       controls/retain95_bf16/long_greedy  ...                   8.0
+20                   controls/retain95_bf16  ...                  11.0
+21                   controls/retain95_bf16  ...                  11.0
+22                   controls/retain95_bf16  ...                  11.0
+23                   controls/retain95_bf16  ...                  11.0
+24  seed_42/epoch_evaluations/update_000002  ...                  11.0
+25  seed_42/epoch_evaluations/update_000002  ...                  11.0
+26  seed_42/epoch_evaluations/update_000002  ...                  11.0
+27  seed_42/epoch_evaluations/update_000002  ...                  11.0
+28      seed_42/npo_adapter/legacy_greedy96  ...                   4.0
+29      seed_42/npo_adapter/legacy_greedy96  ...                   4.0
+30      seed_42/npo_adapter/legacy_greedy96  ...                   4.0
+31      seed_42/npo_adapter/legacy_greedy96  ...                   4.0
+32          seed_42/npo_adapter/long_greedy  ...                   8.0
+33          seed_42/npo_adapter/long_greedy  ...                   8.0
+34          seed_42/npo_adapter/long_greedy  ...                   8.0
+35          seed_42/npo_adapter/long_greedy  ...                   8.0
+36                      seed_42/npo_adapter  ...                  11.0
+37                      seed_42/npo_adapter  ...                  11.0
+38                      seed_42/npo_adapter  ...                  11.0
+39                      seed_42/npo_adapter  ...                  11.0
+40         seed_42/npo_bf16/legacy_greedy96  ...                   4.0
+41         seed_42/npo_bf16/legacy_greedy96  ...                   4.0
+42         seed_42/npo_bf16/legacy_greedy96  ...                   4.0
+43         seed_42/npo_bf16/legacy_greedy96  ...                   4.0
+44             seed_42/npo_bf16/long_greedy  ...                   8.0
+45             seed_42/npo_bf16/long_greedy  ...                   8.0
+46             seed_42/npo_bf16/long_greedy  ...                   8.0
+47             seed_42/npo_bf16/long_greedy  ...                   8.0
+48                         seed_42/npo_bf16  ...                  11.0
+49                         seed_42/npo_bf16  ...                  11.0
+50                         seed_42/npo_bf16  ...                  11.0
+51                         seed_42/npo_bf16  ...                  11.0
+
+[52 rows x 6 columns]
+No semantic labels supplied; semantic rates remain unmeasured.
+        stage     oracle_policy  oracle_stage  forget_quality  ks_statistic  paper_arithmetic_ks_statistic_diagnostic  paper_arithmetic_ks_p_value_diagnostic   n                      definition                                       interpretation
+    full_bf16        fixed_bf16 retain95_bf16    1.326106e-13         0.385                                     0.380                            2.962349e-13 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+    full_bf16 matched_precision retain95_bf16    1.326106e-13         0.385                                     0.380                            2.962349e-13 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+    full_int8        fixed_bf16 retain95_bf16    1.427570e-12         0.370                                     0.360                            6.568965e-12 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+    full_int8 matched_precision retain95_int8    1.326106e-13         0.385                                     0.375                            6.540866e-13 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+     full_nf4        fixed_bf16 retain95_bf16    2.887367e-11         0.350                                     0.345                            5.951063e-11 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+     full_nf4 matched_precision  retain95_nf4    2.887367e-11         0.350                                     0.365                            3.079954e-12 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+     npo_bf16        fixed_bf16 retain95_bf16    5.452713e-01         0.080                                     0.090                            3.935274e-01 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+     npo_bf16 matched_precision retain95_bf16    5.452713e-01         0.080                                     0.090                            3.935274e-01 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+     npo_int8        fixed_bf16 retain95_bf16    2.205412e-01         0.105                                     0.100                            2.704744e-01 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+     npo_int8 matched_precision retain95_int8    3.281154e-01         0.095                                     0.105                            2.205412e-01 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+      npo_nf4        fixed_bf16 retain95_bf16    7.125821e-01         0.070                                     0.085                            4.662864e-01 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+      npo_nf4 matched_precision  retain95_nf4    3.281154e-01         0.095                                     0.115                            1.420747e-01 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+retain95_bf16        fixed_bf16 retain95_bf16    1.000000e+00         0.000                                     0.000                            1.000000e+00 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+retain95_bf16 matched_precision retain95_bf16    1.000000e+00         0.000                                     0.000                            1.000000e+00 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+retain95_int8        fixed_bf16 retain95_bf16    9.999921e-01         0.030                                     0.050                            9.646522e-01 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+retain95_int8 matched_precision retain95_int8    1.000000e+00         0.000                                     0.000                            1.000000e+00 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+ retain95_nf4        fixed_bf16 retain95_bf16    9.238374e-01         0.055                                     0.065                            7.933622e-01 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+ retain95_nf4 matched_precision  retain95_nf4    1.000000e+00         0.000                                     0.000                            1.000000e+00 200 tofu-geometric-preference-KS-v1 Non-rejection is not proof of equivalence or erasure
+quantization                           metric  mean_change    ci_low  ci_high  fraction_increased  fraction_decreased      resampling_unit  bootstrap_repeats   n   before    after  full_change  npo_minus_full_change  retain95_change  npo_minus_retain95_change
+        int8 source_geometric_truth_ratio_log     0.000350 -0.004174 0.004880                0.51                0.49 question-exploratory               2000 200 0.333368 0.333718    -0.017401               0.017751        -0.011294                   0.011644
+        int8 source_geometric_truth_ratio_log     0.000350 -0.004143 0.004837                0.51                0.49         author-block               2000 200 0.333368 0.333718    -0.017401               0.017751        -0.011294                   0.011644
+         nf4 source_geometric_truth_ratio_log     0.002223 -0.009268 0.013469                0.52                0.48 question-exploratory               2000 200 0.333368 0.335591    -0.065754               0.067977        -0.010529                   0.012752
+         nf4 source_geometric_truth_ratio_log     0.002223 -0.015713 0.019396                0.52                0.48         author-block               2000 200 0.333368 0.335591    -0.065754               0.067977        -0.010529                   0.012752
+{
+  "status": "PASS",
+  "notebook_sha256": "1df3af2a5b2a7f9b3f48cf7822b8d96bd7b5368bb6c32b0d7e66afb1d6b0ebc7",
+  "notebook_cells": 46,
+  "code_cells": 27,
+  "standalone_directory": "/tmp/npo3-standalone-notebook-q07hfgp0",
+  "local_python_files_used": false,
+  "external_config_registry_used": false,
+  "self_tests": {
+    "status": "PASS",
+    "passed": 13,
+    "skipped": 1,
+    "failed": 0,
+    "notebook_code": {
+      "notebook-runtime": "22b7e551f5df84a4f7f9b5d10fa2621f92681db1b99b71d49795cddec37124e9",
+      "configuration": "b4b6e0d8c8490e7bf95cde4fd8626d2c2f025c4707824cd9893f82ecba93c65b",
+      "input-registry": "c2087fa5d320b9c8a3091f0ceae31b93ab2e6c21791774df567f6f73d8434ada",
+      "metrics": "96c7eda8375ca0a533dc924c42b15e96ddfb576a5e96ddcd05da8e89c89ec571",
+      "objective": "a55c4fd9e485d72a445b46f7e94a4f4c1beffdebf82d483204612fc5d5df273a",
+      "data": "c86a67328a9635ca34f3987afbe1cf39379523e3a9280c28c2f3018d2617ebb7",
+      "evaluation": "8cbba27533d7863333ebc935d9a1805e523da0e1b1d3ed7885ba962f0216251b",
+      "checkpoint": "196cddb72bc30e53ab94e29e52a331dfeb9ba43fb3d9d4871b75542014d52fbd",
+      "training": "5492ac2816d43f96e678d82f6f6aa72894568268c02a4ca68a916d669a73f903",
+      "reporting": "ed97da9c6a0d0c6520034a6ea2e68b8172523dbe06b3db83e4cb499af38b9ed3",
+      "human-labels": "0494b39716593c5ce103f78f585b1737a855304e23f91f7beab12e93b7b07489",
+      "pipeline": "e3556a35599f9b7b35b2b46262ba637907cdeba9f806e35e20efcb64bad03ff1",
+      "run2-reanalysis": "8066e86174c49c2b34173c39c4f6fb4ba707a063da38762b936a736a86e3cf4e",
+      "tiny-fixture": "6b0547de89915d4d1f4f6cf1021536c2f0224b31aa0f155d8de6926f51463dba",
+      "self-tests": "c7fc868ddc4363d89560afc832ae8bbf362aad7367b065d76dd09160ee7a90bf",
+      "test-runner": "7a937b0ff48907840187b41437e8120855e5df71eef5237d01a249e31bc0a1ac",
+      "live-views": "57ff6014ef19433922015e6b027a73af7f2b2c3c81632096a2643e093c842d89"
+    },
+    "cuda_available": false
+  },
+  "ipython_history_registration": "PASS",
+  "live_cpu_tiny_pipeline": "PASS",
+  "training_update_events": 4,
+  "evaluation_events": 5,
+  "matrix_display": "PASS",
+  "actual_answer_profiles": [
+    "source_sampled",
+    "legacy_greedy96",
+    "long_greedy"
+  ],
+  "termination_audit": "PASS",
+  "terminal_tee": "PASS",
+  "changed_core_rejected": true,
+  "run2_reanalysis": {
+    "reanalysis_forget_quality.csv": "BYTE_IDENTICAL",
+    "reanalysis_directional_qra.csv": "BYTE_IDENTICAL",
+    "reanalysis_stage_metrics.csv": "BYTE_IDENTICAL",
+    "reanalysis_utility_components.csv": "BYTE_IDENTICAL",
+    "generation_termination_audit.csv": "BYTE_IDENTICAL"
+  },
+  "actual_1b_gpu_run": false,
+  "packages": {
+    "torch": "2.6.0+cpu",
+    "transformers": "4.51.3",
+    "peft": "0.15.2",
+    "accelerate": "1.6.0",
+    "ipython": "9.17.1",
+    "numpy": "2.2.6",
+    "pandas": "2.2.3",
+    "scipy": "1.15.3",
+    "pytest": "9.2.0",
+    "nbformat": "5.11.1",
+    "ruff": "0.17.3"
+  }
+}

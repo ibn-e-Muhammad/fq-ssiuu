@@ -21,11 +21,20 @@ records that material method adaptation and its consequences for SSIUU/FQ-QAT.
 [Local run 3](methods/NPO_LOCAL_RUN3_LORA.md) uses three seeds, fresh retained
 training draws, frozen random evaluation selection, periodic TOFU metrics,
 unmerged/merged controls, real post-merge PTQ, geometric FQ, arithmetic utility,
-directional CIs, KL and longer-output auditing. Source/launcher:
-`experiments/reproductions/NPO_3rd-test/`. Actual three-seed 1B GPU execution is
-pending. [CPU/tiny-model acceptance](evidence/npo_run3/20261103_cpu_validation/README.md)
-records 238 passing NPO/LoRA/QRA tests and three CUDA-only skips; these are not
-third-run 1B effectiveness results.
+directional CIs, KL and longer-output auditing. The complete implementation is now
+the single self-contained
+[`NPO_3RD_RUN.ipynb`](../experiments/reproductions/NPO_3rd-test/NPO_3RD_RUN.ipynb):
+settings, pins, tests, training, evaluation, live logs/plots and saved-result
+inspection are notebook cells. It needs no project Python files or external
+config registry. The redundant third-run scripts were retired, with their exact
+version retained in commit `4d3089f`.
+
+Actual three-seed 1B GPU execution is pending.
+[Standalone notebook validation](evidence/npo_run3/20261103_notebook_validation/README.md)
+checks the inline tests and real IPython displays from an isolated copy. The
+[earlier modular acceptance](evidence/npo_run3/20261103_cpu_validation/README.md)
+records 238 passing NPO/LoRA/QRA tests and three CUDA-only skips at `4d3089f`.
+Neither is a third-run 1B effectiveness result.
 
 Work is isolated on **`codex/npo-lora-third-run`**; no dev merge or PR.
 The source checkout is `/home/rohan-ahmed/MY-FYP/fq-ssiuu`; a sibling workspace

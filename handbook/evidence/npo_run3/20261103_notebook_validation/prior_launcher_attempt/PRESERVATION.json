@@ -1,0 +1,19 @@
+{
+  "status": "PRESERVED_BEFORE_REPLACEMENT",
+  "scientific_code_changed": false,
+  "observed_failure": "Two test collection errors: ModuleNotFoundError: rouge_score",
+  "files": [
+    {
+      "source": "/home/rohan-ahmed/MY-FYP/fq-ssiuu/experiments/reproductions/NPO_3rd-test/NPO_3RD_RUN.ipynb",
+      "archive": "launcher_notebook.ipynb.json",
+      "sha256": "41964f33b24612d46471bd32796c60dab83cd29dd4cc3fa7b15505762bca41bc",
+      "bytes": 15743
+    },
+    {
+      "source": "/home/rohan-ahmed/MY-FYP/fq-ssiuu/experiments/reproductions/NPO_3rd-test/validation.xml",
+      "archive": "validation.xml",
+      "sha256": "16cc02cf6d72dc5a6434004a227ec9df3aa3ed7df744dbe2e8d652a9c6120c4a",
+      "bytes": 2977
+    }
+  ]
+}

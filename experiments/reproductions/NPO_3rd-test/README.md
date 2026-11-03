@@ -1,51 +1,64 @@
-# NPO local third run: LoRA NPO+RT and quantization recovery
+# NPO local third run — one self-contained Jupyter notebook
 
-Researcher decision: 2026-11-03, [DL-024](../../../handbook/decisions/DL-024_project_lora_training.md).
-This is a **LoRA adaptation** of NPO+RT with source-grounded evaluation. The
-low-rank trainable subspace and fresh retain sampler differ from the original
-full-weight author recipe. Neither change is labeled an exact reproduction.
-The second run and its negative quantization observations remain intact.
+Open **[NPO_3RD_RUN.ipynb](NPO_3RD_RUN.ipynb)**. It contains the entire experiment:
+configuration, input pins, model loading, NPO+RT, recovery checkpoints, tests,
+evaluation, adapter merging, quantization, live output, matrices, plots, actual
+answers, human-label summaries and optional second-run reanalysis.
 
-## Run on the existing Windows environment
+**Only the notebook is needed as experiment code.** Copy it to the Windows PC;
+no sibling `.py` files, `config.json`, repository import or subprocess launcher
+is required. Downloaded model weights and the six pinned TOFU `.json` files
+remain external inputs. The old modular implementation is preserved in Git at
+`4d3089f`; it is superseded as the third-run entry point.
 
-Use the existing CUDA-enabled environment that completed run 2. Do not reinstall
-or downgrade PyTorch/CUDA as part of this experiment. Add PEFT if it is absent:
+## Run it
 
-```powershell
-C:\VENV\fyp\Scripts\python.exe -m pip install peft pytest
-Set-Location C:\FYP\fq-ssiuu\experiments\reproductions\NPO_3rd-test
-C:\VENV\fyp\Scripts\python.exe -m pytest tests -q
-C:\VENV\fyp\Scripts\python.exe run_experiment.py --config config.json
-```
+1. Select the existing FYP CUDA notebook kernel that completed run 2. Keep its
+   working PyTorch/CUDA stack. The environment cell lists dependencies; inspect
+   installations before changing that environment.
+2. Edit **Your settings** near the top: `full_path`, `retain_path`, `data_path`
+   and `output_root`. Leave `tokenizer_path` empty to use the tokenizer beside
+   the full model's weights. The full path must be the **TOFU full checkpoint**,
+   not the original Meta base model.
+3. Save the notebook, restart the kernel and **Run All**. Embedded tests run
+   first and failures block real work. `RUN_EXPERIMENT=True` starts the complete
+   three-seed GPU experiment; set it false for definitions/tests only.
+4. Follow logs, the updating loss plot and the stage table beneath the run cell.
+   Each seed's final metrics display as it completes. Later cells expose every
+   CSV matrix, complete answers and generation-cap statistics.
 
-Reserve at least **12 GiB free on the output SSD** for three merged 1B checkpoints, adapter state and results. The preflight checks native BF16, available VRAM/RAM and disk space.
+`ANSWER_SPLIT`, `ANSWER_PROFILE` and `ANSWER_LIMIT` select which saved actual
+answers to display. Set `ANSWER_LIMIT=None` for all questions in the selected
+split. All text is HTML escaped and displayed without string truncation.
+The default shows ten forget questions to keep notebook output manageable.
 
-`requirements.txt` lists compatibility ranges, not a universally validated lock.
-For missing dependencies, inspect `python -m pip install --dry-run -r requirements.txt`
-before changing the environment; keep its working CUDA PyTorch build.
+Reserve at least **12 GiB free on the output SSD**. The preflight checks native
+BF16, VRAM, RAM, disk and the quantization backend. The real 1B Windows runtime,
+resource use and effectiveness remain pending until measured.
 
-Edit `config.json` first. `full_path` must point to the downloaded
-`open-unlearning/tofu_Llama-3.2-1B-Instruct_full`; `retain_path` points to
-`open-unlearning/tofu_Llama-3.2-1B-Instruct_retain95`. Leave `tokenizer_path` empty
-to use the tokenizer in the full-model folder. Set `data_path` to the folder
-holding the six original pinned TOFU JSONL files (their extension is `.json`).
-The archive under run 2 contains receipts but no model tensors: its `Model`
-folders are not a substitute for the actual weights on the Windows PC.
+## Resume, logs and identity
 
-`NPO_3RD_RUN.ipynb` launches this same code with the selected notebook kernel and
-displays the saved CSV/HTML reports. There is no separately maintained training
-implementation inside notebook cells.
+After an interruption, set `RESUME_RUN` to the exact printed run directory, save,
+restart and Run All with the same scientific settings, core cells and packages.
+Do not manually skip/replace training updates. Small adapter/optimizer/RNG
+checkpoints are saved every update; the latest two complete generations are kept.
+The notebook retries interrupted scheduled evaluation and verifies completed
+output hashes before reuse.
 
-Resume an interrupted run with unchanged scientific settings/code/packages:
+The implementation identity hashes **saved core-cell sources**, not a repository
+script or notebook outputs. Core cells must be saved before execution; unsaved
+scientific edits and changed saved source are rejected. Saving outputs/metadata
+alone does not change the identity. A modular run from `4d3089f` has a different
+implementation identity and needs that historical code to resume.
 
-```powershell
-C:\VENV\fyp\Scripts\python.exe run_experiment.py --config config.json --resume runs\RUN_ID
-```
+Terminal text remains visible in Jupyter and is also copied to
+`output_root/notebook_logs/`. Tests write their own per-case logs and validation
+receipt under `validation/`. Final run records also include
+`notebook_validation.json` and `notebook_session.json`.
 
-Every optimizer update writes a small checksummed adapter/AdamW/RNG checkpoint.
-The latest two complete generations are retained; incomplete generations cannot
-become authoritative. A failed scheduled evaluation is retried on resume.
-Completed identity-bound evaluation outputs are verified before reuse.
+The method remains the researcher-authorized class C LoRA adaptation in
+[DL-024](../../../handbook/decisions/DL-024_project_lora_training.md).
+Consolidation changes packaging/observation, not the declared scientific method.
 
 ## Declared configuration
 
@@ -151,46 +164,35 @@ Only a successful full run writes `run_complete.json`. Interrupted/failed runs
 stay visible; no checkpoint is selected for deployment by best forget score.
 Epoch trajectories permit comparison with paper plots without test-set tuning.
 
-## Reanalyse run 2 without inference
+## Optional analysis in the same notebook
 
-```bash
-python reanalyse_second_run.py ../NPO_2nd-test/npo_results/20261031_092340_493700 \
-  --output-dir ../../../handbook/evidence/npo_run2/20261103_audit/reanalysis
-```
+The final cells also include:
 
-This verifies the 27 recorded stage artifact hashes and produces corrected
-geometric matched-precision FQ, paired directional CIs, utility and provenance.
-Original files are never rewritten. Author-block intervals use the pinned TOFU
-20-question ordering; the historical subset is unchanged. New random evaluation
-sampling and sampled decoding mean run-2 and run-3 numbers are not directly paired.
+- **Run-2 reanalysis:** fill `RUN2_INPUT` and `RUN2_DERIVED_OUTPUT`. No training or
+  inference is performed. Original hashes are checked and original outputs stay
+  untouched. Matched geometric FQ, directional CIs, utility and termination
+  tables are regenerated outside the archived run.
+- **Human audit:** fill real category/reviewer labels in the generated template,
+  then set `HUMAN_LABELS_CSV`. The notebook supplies the rubric and calculates
+  rates among reviewed answers with coverage. It never invents semantic labels.
 
-## Acceptance and remaining scope
+## Validation and remaining scope
 
-CPU tests exercise scalar/gradient parity, frozen backbone/reference, microbatch
-equivalence, sampler coverage, KS orientation, arithmetic utility, paired CIs,
-checkpoint interruption/corruption recovery, merge/reload, full tiny-model
-evaluation/report generation and reuse protection. Optional CUDA tests exercise
-real LoRA backward and real INT8/NF4 conversion on a tiny model. Neither is a
-substitute for measuring the actual 1B Windows run.
+[Standalone notebook validation](../../../handbook/evidence/npo_run3/20261103_notebook_validation/README.md)
+executes a copy in an empty directory without local code/config files. Its
+embedded tests exercise formula/gradient parity, frozen reference, sampling,
+logical-batch weighting, exact interruption/resume, corruption fallback, complete
+tiny-Llama reports, merge/reload, live views/log capture and source-identity checks.
+Actual CUDA LoRA backward/INT8/NF4 is a separately identified optional GPU test.
+IPython history registration and all three answer-profile displays are checked.
+The notebook's reanalysis reproduces all five existing scientific CSVs exactly.
 
-Min-k20 answer-token scores are exported for future analysis, but a proper MIA
-also needs declared matched nonmembers, AUROC/TPR definitions and leakage checks.
-FADE, a second quantizer family, relearning, and quantization-bin mechanisms are
-explicitly pending. Human semantic rates require real labels. Three seeds are a
-resource-bounded study, not the paper's five-seed replication. No QRA success or
-unlearning durability verdict is generated; existing scientific gates stay open.
+The older modular acceptance receipt (238 passing NPO/QRA tests, three GPU skips)
+remains historical evidence for commit `4d3089f`, not a new 1B run. No real
+third-run 1B result is prefilled. Three training seeds, full periodic generation
+and actual GPU resource measurements still need execution on the target PC.
 
-Run tests before GPU work and preserve their output:
-
-```bash
-python -m pytest tests -q --junitxml=validation.xml
-```
-
-Record the actual environment instead of treating run-2's package versions or
-small CPU checks as proof of compatibility on another PC. LoRA removes the old
-full-weight disk optimizer, but complete periodic generation remains substantial
-work. The 1B memory/runtime result is pending until measured.
-
-The checked implementation has a [dated validation receipt](../../../handbook/evidence/npo_run3/20261103_cpu_validation/README.md):
-238 NPO/LoRA/QRA tests passed, three CUDA-only tests skipped, and the complete
-pinned-tokenizer preflight passed. This does not replace the target-PC tests.
+Min-k20 token scores alone are not a proper MIA without matched nonmembers.
+FADE, another quantizer family, relearning and weight/bin mechanisms remain
+explicit later studies. Semantic rates need actual human labels. No attack or
+durability verdict is inferred from a KS p-value or unrun study.

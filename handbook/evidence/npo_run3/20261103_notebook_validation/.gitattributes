@@ -1,0 +1,2 @@
+# Raw console output includes intentional Pandas alignment/trailing spaces.
+*.txt -text -whitespace

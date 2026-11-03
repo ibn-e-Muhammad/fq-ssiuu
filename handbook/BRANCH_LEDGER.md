@@ -16,6 +16,14 @@ Both checkouts are to point to that same final tip. The canonical NPO import pat
 is restored for compatibility with existing tests/runners while `NPO_1st-test`
 retains the supplied archive.
 
+The subsequent researcher-requested packaging change makes
+`NPO_3RD_RUN.ipynb` the complete third-run implementation. The former `.py`
+modules/config registry are removed from the active third-run folder and remain
+recoverable at `4d3089f`. Scientific settings/objectives are unchanged; new
+validation covers execution without the repository, inline tests, live IPython
+views and equivalent run-2 reanalysis. This follow-up stays on the same isolated
+branch, without integration into dev or a PR.
+
 **No PR, dev/main merge, history rewrite, branch deletion or Kaggle submission.**
 The earlier integration/PR statuses below are historical snapshots, not a fresh
 assertion about current GitHub PR state.

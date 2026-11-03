@@ -5,7 +5,7 @@
 | `reproductions/NPO/` | Canonical import-compatible source conformance namespace | RG-006 resolved within bounded objective/data/reference scope |
 | `reproductions/NPO_1st-test/` | Researcher's preserved first-run source snapshot | Historical full-weight D1 |
 | `reproductions/NPO_2nd-test/` | Completed local full-weight run, code/tests/raw results | Single-seed adapted evidence, preserved unchanged |
-| `reproductions/NPO_3rd-test/` | New LoRA NPO+RT, complete evaluation and post-hoc reanalysis | Researcher-authorized class C; actual 1B GPU acceptance pending |
+| `reproductions/NPO_3rd-test/` | One self-contained notebook: LoRA NPO+RT, tests, live logs, complete evaluation and post-hoc reanalysis | Researcher-authorized class C; actual 1B GPU acceptance pending |
 | `reproductions/QUAIL/` | Published complete QUAIL reproduction | RG-003 blocked |
 | `reproductions/FQ_QAT/` | Deployment-aligned weight NF4 component validation | RG-002 blocked |
 | `reproductions/SSIUU/` | Published parameter-attribution/HVP reproduction | RG-001 blocked |

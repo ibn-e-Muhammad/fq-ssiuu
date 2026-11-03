@@ -1,0 +1,4 @@
+Selected kernel: /tmp/npo3-venv/bin/python
+Missing packages: rouge-score
+Install into this same kernel, then restart and Run All:
+%pip install rouge-score

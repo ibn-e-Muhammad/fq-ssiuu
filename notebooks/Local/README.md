@@ -27,4 +27,4 @@ per-run conversion checks. Metadata-only folders are reported as incomplete.
 
 ## Local LoRA run 3 — 2026-11-03
 
-The current NPO third-run notebook is [NPO_3RD_RUN.ipynb](../../experiments/reproductions/NPO_3rd-test/NPO_3RD_RUN.ipynb), backed by tested code beside it. Configure the downloaded models/data there. The Mother runner below/above retains its historical full-weight D1 scope.
+The current NPO third-run notebook is [NPO_3RD_RUN.ipynb](../../experiments/reproductions/NPO_3rd-test/NPO_3RD_RUN.ipynb). It contains the complete code, settings, input pins, tests, live logs/plots and result displays; no sibling Python files are needed. Configure the downloaded models/data in its settings cell, save and Run All with the existing FYP CUDA kernel. The Mother runner above retains its historical full-weight D1 scope.
